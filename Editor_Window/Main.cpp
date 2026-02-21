@@ -5,7 +5,7 @@
 #include "Editor_Window.h"
 #include "../NuNuEngine_SOURCE/NApplication.h"
 
-Application app;
+NuNu::Application application;
 
 #define MAX_LOADSTRING 100
 
@@ -29,7 +29,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    app.test();
     // TODO: 여기에 코드를 입력합니다.
     //
 
@@ -72,6 +71,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸
         else
         {
             // 메세지가 없을 경우 여기서 게임로직 처리
+            application.Run(); // 매 프레임마다 호출
         }
     }
 
@@ -133,6 +133,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
+   application.Initialize(hWnd);
 
    if (!hWnd)
    {
@@ -202,29 +203,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
 
-            HBRUSH brush = CreateSolidBrush(RGB(255, 0, 255));
-            HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush); // 반환값 HGDIOBJ 이전 브러쉬 밀어냄
-
-            Rectangle(hdc, 100, 100, 200, 200);
-
-            SelectObject(hdc, oldBrush);
-            DeleteObject(brush); // 메모리 누수 방지
-
-            HPEN redPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-            HPEN oldPen = (HPEN)SelectObject(hdc, redPen);
-
-            Ellipse(hdc, 200, 200, 300, 300);
-
-            SelectObject(hdc, oldPen);
-            DeleteObject(redPen); // 메모리 누수 방지
-
-            // 기본으로 자주 사용 되는 GDI오브젝트를 미리 DC안에 만들어둔 오브젝트 = 스톡 오브젝트.
             
-            HBRUSH grayBrush = (HBRUSH)GetStockObject(GRAY_BRUSH);
-             oldBrush = (HBRUSH)SelectObject(hdc, grayBrush);
-            
-            Rectangle(hdc, 400, 400, 600, 600);
-            SelectObject(hdc, oldBrush);
 
             EndPaint(hWnd, &ps);
         }
