@@ -4,4 +4,6 @@
     <Platform Name="x86" />
   </Configurations>
   <Project Path="Editor_Window/Editor_Window.vcxproj" />
+  <Project Path="NuNuEngine_SOURCE/NuNuEngine_SOURCE.vcxitems" />
+  <Project Path="NuNuEngine_Window/NuNuEngine_Window.vcxproj" />
 </Solution>

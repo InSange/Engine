@@ -3,6 +3,9 @@
 
 #include "framework.h"
 #include "Editor_Window.h"
+#include "../NuNuEngine_SOURCE/NApplication.h"
+
+Application app;
 
 #define MAX_LOADSTRING 100
 
@@ -26,7 +29,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
+    app.test();
     // TODO: 여기에 코드를 입력합니다.
+    //
 
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -43,15 +48,42 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸
 
     MSG msg;
 
+    // GetMessage(&msg, nullptr, 0, 0)
+    // 프로세스에서 발생한 메세지를 메시지 큐에서 가져오는 함수
+    // 메세지큐에 아무것도 없다면? 아무 메세지도 가져오지 않음. 일반적인 프레임웤
+
+    // PeekMessage : 메세지큐에 메세지 유무에 상관없이 함수가 리턴
+    // 리턴 값이 true면 메시지 존재, false면 메시지가 없음 알려줌
+
+
+    while (true)
+    {
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) // 메세지가 있으면
+        {
+            if (msg.message == WM_QUIT)
+                break;
+
+            if(!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
+        }
+        else
+        {
+            // 메세지가 없을 경우 여기서 게임로직 처리
+        }
+    }
+
     // 기본 메시지 루프입니다:
-    while (GetMessage(&msg, nullptr, 0, 0))
+/*    while (GetMessage(&msg, nullptr, 0, 0))
     {
         if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
         {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
-    }
+    }*/
 
     return (int) msg.wParam;
 }
@@ -155,6 +187,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+    case WM_KEYDOWN:
+    {
+
+    }
     case WM_PAINT:
         {
             // 여기는 계속 반복적으로 그려냄
