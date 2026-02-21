@@ -17,10 +17,11 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
-int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPWSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸들 - 메모리 접근
+                     _In_opt_ HINSTANCE hPrevInstance, // 바로 앞에 실행한 현재 프로그램의 인스턴스 핸들, 없을경우 NULL
+                                                        // 호환성 관련으로 지금은 신경쓰지 않아도 됨
+                     _In_ LPWSTR    lpCmdLine, // 명령행으로 입력된 프로그램 인수
+                     _In_ int       nCmdShow)   // 프로그램 실행될 형태, 모양정보등이 전달.
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
@@ -100,6 +101,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
+
    if (!hWnd)
    {
       return FALSE;
@@ -107,6 +109,17 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
+
+/*   HWND hWnd2 = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+       0, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+
+   if (!hWnd2)
+   {
+       return FALSE;
+   }
+
+   ShowWindow(hWnd2, nCmdShow);
+   UpdateWindow(hWnd2);*/
 
    return TRUE;
 }
@@ -144,9 +157,39 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     case WM_PAINT:
         {
+            // 여기는 계속 반복적으로 그려냄
+            // DC 화면 출력에 필요한 모든 정보를 가지는 데이터 구조체
+            // GDI모듈에 의해서 관리
+            // 폰트, 선 굵기, 색상 등
+            // 화면 출력에 필요한 모든 경우는 WINAPI에서는 DC를 통해서 작업을 진행
+
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+
+            HBRUSH brush = CreateSolidBrush(RGB(255, 0, 255));
+            HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush); // 반환값 HGDIOBJ 이전 브러쉬 밀어냄
+
+            Rectangle(hdc, 100, 100, 200, 200);
+
+            SelectObject(hdc, oldBrush);
+            DeleteObject(brush); // 메모리 누수 방지
+
+            HPEN redPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+            HPEN oldPen = (HPEN)SelectObject(hdc, redPen);
+
+            Ellipse(hdc, 200, 200, 300, 300);
+
+            SelectObject(hdc, oldPen);
+            DeleteObject(redPen); // 메모리 누수 방지
+
+            // 기본으로 자주 사용 되는 GDI오브젝트를 미리 DC안에 만들어둔 오브젝트 = 스톡 오브젝트.
+            
+            HBRUSH grayBrush = (HBRUSH)GetStockObject(GRAY_BRUSH);
+             oldBrush = (HBRUSH)SelectObject(hdc, grayBrush);
+            
+            Rectangle(hdc, 400, 400, 600, 600);
+            SelectObject(hdc, oldBrush);
+
             EndPaint(hWnd, &ps);
         }
         break;
