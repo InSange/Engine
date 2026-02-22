@@ -14,8 +14,16 @@ namespace NuNu
 
 	void Input::Initailize()
 	{
-		//mKeys.resize((UINT)eKeyCode::End);
+		CreateKeys();
+	}
 
+	void Input::Update()
+	{
+		UpdateKeys();
+	}
+
+	void Input::CreateKeys()
+	{
 		for (size_t i = 0; i < (UINT)eKeyCode::End; i++)
 		{
 			Key key = {};
@@ -27,36 +35,49 @@ namespace NuNu
 		}
 	}
 
-	void Input::Update()
+	void Input::UpdateKeys()
 	{
-		for (size_t i = 0; i < mKeys.size(); i++)
+		std::for_each(mKeys.begin(), mKeys.end(),
+			[](Key& key) -> void
+			{
+				UpdateKey(key);
+			});
+	}
+
+	void Input::UpdateKey(Input::Key& key)
+	{
+		if (IsKeyDown(key.keyCode))
 		{
-			if (GetAsyncKeyState(ASCII[i]) & 0x8000)
-			{	// 키 누름
-				if (mKeys[i].bPressed == true) // 꾹 누른 상태
-				{
-					mKeys[i].state = eKeyState::Pressed;
-				}
-				else // 이전에 안누르고 지금 누름
-				{
-					mKeys[i].state = eKeyState::Down;
-				}
-
-				mKeys[i].bPressed = true;
-			}
-			else
-			{	// 키 안누름
-				if (mKeys[i].bPressed == true) // 누르고 있는 상태에서 키 뗌
-				{
-					mKeys[i].state = eKeyState::Up;
-				}
-				else // 이전에 안누르고 지금도 안누름
-				{
-					mKeys[i].state = eKeyState::None;
-				}
-
-				mKeys[i].bPressed = false;
-			}
+			UpdateKeyDown(key);
 		}
+		else
+		{
+			UpdateKeyUp(key);
+		}
+	}
+
+	bool Input::IsKeyDown(eKeyCode code)
+	{
+		return GetAsyncKeyState(ASCII[(UINT)code]) & 0x8000;
+	}
+
+	void Input::UpdateKeyDown(Input::Key& key)
+	{
+		if (key.bPressed == true)
+			key.state = eKeyState::Pressed;
+		else
+			key.state = eKeyState::Down;
+
+		key.bPressed = true;
+	}
+
+	void Input::UpdateKeyUp(Input::Key& key)
+	{
+		if (key.bPressed == true)
+			key.state = eKeyState::Up;
+		else
+			key.state = eKeyState::None;
+
+		key.bPressed = false;
 	}
 }

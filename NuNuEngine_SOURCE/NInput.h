@@ -34,12 +34,18 @@ namespace NuNu
 		static void Initailize();
 		static void Update();
 
+		static void CreateKeys();
+		static void UpdateKeys();
+		static void UpdateKey(Input::Key& key);
+		static bool IsKeyDown(eKeyCode code);
+		static void UpdateKeyDown(Input::Key& key);
+		static void UpdateKeyUp(Input::Key& key);
+
 		static bool GetKeyDown(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Down; }
 		static bool GetKeyUp(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Up; }
 		static bool GetKey(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Pressed; }
 
 	private:
-		eKeyState mState = eKeyState::Down;
 		static std::vector<Key> mKeys;
 	};
 }
