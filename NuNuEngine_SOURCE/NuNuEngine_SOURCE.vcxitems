@@ -18,10 +18,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NInput.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NTime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)NGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NInput.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NTime.cpp" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #include "NApplication.h"
 #include "NInput.h"
+#include "NTime.h"
 
 namespace NuNu
 {
@@ -23,6 +24,7 @@ namespace NuNu
 		mPlayer.SetPosition(0, 0);
 
 		Input::Initailize();
+		Time::Initailize();
 	}
 
 	void Application::Run()
@@ -35,6 +37,7 @@ namespace NuNu
 	void Application::Update() // 로직 갱신
 	{
 		Input::Update();
+		Time::Tick();
 
 		mPlayer.Update();
 	}
@@ -45,12 +48,7 @@ namespace NuNu
 
 	void Application::Render() // 화면 그리기
 	{
-		//RECT rect = { 0, 0, 1920, 1080 };
-		//HBRUSH bgBrush = CreateSolidBrush(RGB(255, 255, 255));
-
-		//FillRect(mHdc, &rect, bgBrush);
-		//DeleteObject(bgBrush);
-
+		Time::Render(mHdc);
 		mPlayer.Render(mHdc);
 	}
 }
