@@ -1,5 +1,5 @@
 #pragma once
-#include "CommonInclude.h"
+#include "NGameObject.h"
 
 namespace NuNu
 {
@@ -21,9 +21,7 @@ namespace NuNu
 		HWND mHwnd;
 		HDC mHdc;
 
-		float mSpeed;
-		float mX;
-		float mY;
+		GameObject mPlayer;
 	};
 
 }
