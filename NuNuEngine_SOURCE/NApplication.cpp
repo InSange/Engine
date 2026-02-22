@@ -1,4 +1,5 @@
 #include "NApplication.h"
+#include "NInput.h"
 
 namespace NuNu
 {
@@ -20,6 +21,8 @@ namespace NuNu
 		mHdc = GetDC(mHwnd);
 
 		mPlayer.SetPosition(0, 0);
+
+		Input::Initailize();
 	}
 
 	void Application::Run()
@@ -31,6 +34,8 @@ namespace NuNu
 
 	void Application::Update() // 로직 갱신
 	{
+		Input::Update();
+
 		mPlayer.Update();
 	}
 
