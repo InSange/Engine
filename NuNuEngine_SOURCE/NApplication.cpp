@@ -13,12 +13,13 @@ namespace NuNu
 		, mHeight(0)
 		, mBackHdc(nullptr)
 		, mBackBitMap(nullptr)
+		, mGameObjects{}
 	{
 
 	}
 
 	Application::~Application()
-	{	
+	{
 		DeleteDC(mBackHdc); // 이중 hdc 삭제
 		DeleteObject(mBackBitMap); // 이중 비트맵 삭제
 		ReleaseDC(mHwnd, mHdc);	// 본체 반환
@@ -30,7 +31,12 @@ namespace NuNu
 		createBuffer(width, height);
 		initializeEtc();
 
-		mPlayer.SetPosition(0, 0);
+		for (int i = 0; i < 100; i++)
+		{
+			GameObject* gameObj = new GameObject();
+			gameObj->SetPosition(rand() % 1600, rand() % 900);
+			mGameObjects.push_back(gameObj);
+		}
 	}
 
 	void Application::Run()
@@ -44,8 +50,6 @@ namespace NuNu
 	{
 		Input::Update();
 		Time::Tick();
-
-		mPlayer.Update();
 
 		for (auto it = mBullets.begin(); it != mBullets.end();)
 		{
@@ -62,6 +66,11 @@ namespace NuNu
 				++it;
 			}
 		}
+
+		for (size_t i = 0; i < mGameObjects.size(); i++)
+		{
+			mGameObjects[i]->Update();
+		}
 	}
 
 	void Application::LateUpdate()
@@ -70,20 +79,34 @@ namespace NuNu
 
 	void Application::Render() // 화면 그리기
 	{
-		//Rectangle(mBackHdc, 0, 0, 1600, 900);
-		RECT bgRect = { 0, 0, 1600, 900 };
-		HBRUSH bgBrush = (HBRUSH)GetStockObject(WHITE_BRUSH); // 윈도우 기본 하얀색 브러쉬 (DeleteObject 필요 없음)
-		FillRect(mBackHdc, &bgRect, bgBrush);
+		clearRenderTarget();
 
 		Time::Render(mBackHdc);
-		mPlayer.Render(mBackHdc);
 
 		for (auto& bullet : mBullets)
 		{
 			bullet->Render(mBackHdc);
 		}
 
-		BitBlt(mHdc, 0, 0, mWidth, mHeight, mBackHdc, 0, 0, SRCCOPY);
+		for (size_t i = 0; i < mGameObjects.size(); i++)
+		{
+			mGameObjects[i]->Render(mBackHdc);
+		}
+
+		copyRenderTarget(mBackHdc, mHdc);
+	}
+
+	void Application::clearRenderTarget()
+	{
+		//Rectangle(mBackHdc, 0, 0, 1600, 900);
+		RECT bgRect = { 0, 0, 1600, 900 };
+		HBRUSH bgBrush = (HBRUSH)GetStockObject(WHITE_BRUSH); // 윈도우 기본 하얀색 브러쉬 (DeleteObject 필요 없음)
+		FillRect(mBackHdc, &bgRect, bgBrush);
+	}
+
+	void Application::copyRenderTarget(HDC source, HDC dest)
+	{
+		BitBlt(dest, 0, 0, mWidth, mHeight, source, 0, 0, SRCCOPY);
 	}
 
 	void Application::adjustWindowRect(HWND hwnd, UINT width, UINT height)

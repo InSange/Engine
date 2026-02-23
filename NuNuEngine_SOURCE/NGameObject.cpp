@@ -7,6 +7,8 @@ namespace NuNu
 {
 #pragma region GameObject - Player
 	GameObject::GameObject()
+		: mX(0)
+		, mY(0)
 	{
 	}
 

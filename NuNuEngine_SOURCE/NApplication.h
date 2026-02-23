@@ -23,6 +23,8 @@ namespace NuNu
 		}
 
 	private:
+		void clearRenderTarget();
+		void copyRenderTarget(HDC source, HDC dest);
 		void adjustWindowRect(HWND hwnd, UINT width, UINT height);
 		void createBuffer(UINT width, UINT height);
 		void initializeEtc();
@@ -37,7 +39,7 @@ namespace NuNu
 		UINT mWidth;
 		UINT mHeight;
 
-		GameObject mPlayer;
+		std::vector<GameObject*> mGameObjects;
 
 		static std::vector<BulletObject*> mBullets;
 	};
