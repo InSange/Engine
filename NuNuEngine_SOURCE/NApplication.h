@@ -15,14 +15,17 @@ namespace NuNu
 
 		void Update();
 		void LateUpdate();
-
-		void Render();//그리기
-
+		void Render();
 	public:
 		static void AddBullet(BulletObject* bullet)
 		{
 			mBullets.push_back(bullet);
 		}
+
+	private:
+		void adjustWindowRect(HWND hwnd, UINT width, UINT height);
+		void createBuffer(UINT width, UINT height);
+		void initializeEtc();
 
 	private:
 		HWND mHwnd;
