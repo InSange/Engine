@@ -20,6 +20,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NInput.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NResource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NSpriteRenderer.h" />
@@ -32,6 +35,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NInput.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NResource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NResources.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NSpriteRenderer.cpp" />

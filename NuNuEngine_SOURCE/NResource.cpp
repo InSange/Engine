@@ -1,0 +1,1 @@
+#include "NResource.h"

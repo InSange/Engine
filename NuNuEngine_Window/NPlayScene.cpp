@@ -15,46 +15,33 @@ namespace NuNu
 	void PlayScene::Initialize()
 	{
 		{
-			Player* pl = new Player();
+			Player* bg = new Player();
 			Transform* tr
-				= pl->AddComponent<Transform>();
-			tr->SetPosition(800, 450);
+				= bg->AddComponent<Transform>();
+			tr->SetPosition(Vector2(0, 0));
 
 			tr->SetName(L"TR");
 
 			SpriteRenderer* sr
-				= pl->AddComponent<SpriteRenderer>();
+				= bg->AddComponent<SpriteRenderer>();
 			sr->SetName(L"SR");
+			sr->ImageLoad(L"../Resources/BlackHole.jpg");
 
-			AddGameObject(pl);
+			AddGameObject(bg);
 		}
 
 		{
 			Player* pl = new Player();
 			Transform* tr
 				= pl->AddComponent<Transform>();
-			tr->SetPosition(300, 450);
+			tr->SetPosition(Vector2(800, 450));
 
 			tr->SetName(L"TR");
 
 			SpriteRenderer* sr
 				= pl->AddComponent<SpriteRenderer>();
 			sr->SetName(L"SR");
-
-			AddGameObject(pl);
-		}
-
-		{
-			Player* pl = new Player();
-			Transform* tr
-				= pl->AddComponent<Transform>();
-			tr->SetPosition(100, 650);
-
-			tr->SetName(L"TR");
-
-			SpriteRenderer* sr
-				= pl->AddComponent<SpriteRenderer>();
-			sr->SetName(L"SR");
+			sr->ImageLoad(L"../Resources/Logi.png");
 
 			AddGameObject(pl);
 		}

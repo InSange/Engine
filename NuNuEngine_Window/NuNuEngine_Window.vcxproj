@@ -132,11 +132,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="NHellScene.h" />
     <ClInclude Include="NLoadScenes.h" />
     <ClInclude Include="NPlayer.h" />
     <ClInclude Include="NPlayScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NHellScene.cpp" />
     <ClCompile Include="NPlayer.cpp" />
     <ClCompile Include="NPlayScene.cpp" />
   </ItemGroup>

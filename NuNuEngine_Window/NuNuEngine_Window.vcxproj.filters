@@ -11,9 +11,11 @@
     </ClInclude>
     <ClInclude Include="NPlayScene.h" />
     <ClInclude Include="NPlayer.h" />
+    <ClInclude Include="NHellScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NPlayScene.cpp" />
     <ClCompile Include="NPlayer.cpp" />
+    <ClCompile Include="NHellScene.cpp" />
   </ItemGroup>
 </Project>
