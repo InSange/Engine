@@ -9,11 +9,6 @@ namespace NuNu
 		Entity();
 		virtual ~Entity();
 
-		void Initialize();
-		void Update();
-		void LateUpdate();
-		void Render(HDC hdc);
-
 		void SetName(const std::wstring& name) { mName = name; }
 		std::wstring& GetName() { return mName; }
 

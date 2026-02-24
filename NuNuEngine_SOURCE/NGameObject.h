@@ -1,5 +1,6 @@
 #pragma once
 #include "CommonInclude.h"
+#include "NComponent.h"
 
 namespace NuNu
 {
@@ -9,59 +10,35 @@ namespace NuNu
 		GameObject();
 		~GameObject();
 
-		void Update();
-		void LateUpdate();
-		void Render(HDC hdc);
+		virtual void Initialize();
+		virtual void Update();
+		virtual void LateUpdate();
+		virtual void Render(HDC hdc);
 
-		void SetPosition(float x, float y)
+		template<typename T>
+		T* AddComponent()
 		{
-			mX = x;
-			mY = y;
+			T* comp = new T();
+			comp->SetOwner(this);
+			mComponents.push_back(comp);
+
+			return comp;
 		}
 
-		float GetPositionX()
+		template<typename T>
+		T* GetComponent()
 		{
-			return mX;
-		}
+			T* component = nullptr;
+			for (Component* comp : mComponents)
+			{
+				component = dynamic_cast<T*>(comp);
+				if (component) break;
+			}
 
-		float GetPositionY()
-		{
-			return mY;
-		}
-
-	private:
-		float mX;
-		float mY;
-	};
-
-	class BulletObject
-	{
-	public:
-		BulletObject();
-		~BulletObject();
-
-		void Update();
-		void LateUpdate();
-		void Render(HDC hdc);
-
-		void SetPosition(float x, float y)
-		{
-			mX = x;
-			mY = y;
-		}
-
-		float GetPositionX()
-		{
-			return mX;
-		}
-
-		float GetPositionY()
-		{
-			return mY;
+			return component;
 		}
 
 	private:
-		float mX;
-		float mY;
+		std::vector<Component*> mComponents;
 	};
 }

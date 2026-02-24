@@ -15,21 +15,27 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NInput.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NSceneManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NSpriteRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NTime.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NTransform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NInput.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NSceneManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NSpriteRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NTime.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NTransform.cpp" />
   </ItemGroup>
 </Project>

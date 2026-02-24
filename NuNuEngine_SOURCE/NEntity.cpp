@@ -9,17 +9,4 @@ namespace NuNu
 	Entity::~Entity()
 	{
 	}
-	void Entity::Initialize()
-	{
-	}
-	void Entity::Update()
-	{
-
-	}
-	void Entity::LateUpdate()
-	{
-	}
-	void Entity::Render(HDC hdc)
-	{
-	}
 }

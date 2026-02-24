@@ -1,5 +1,8 @@
 #include "NPlayScene.h"
 #include "NGameObject.h"
+#include "NPlayer.h"
+#include "NTransform.h"
+#include "NSpriteRenderer.h"
 
 namespace NuNu
 {
@@ -11,8 +14,50 @@ namespace NuNu
 	}
 	void PlayScene::Initialize()
 	{
-		GameObject* obj = new GameObject();
-		AddGameObject(obj);
+		{
+			Player* pl = new Player();
+			Transform* tr
+				= pl->AddComponent<Transform>();
+			tr->SetPosition(800, 450);
+
+			tr->SetName(L"TR");
+
+			SpriteRenderer* sr
+				= pl->AddComponent<SpriteRenderer>();
+			sr->SetName(L"SR");
+
+			AddGameObject(pl);
+		}
+
+		{
+			Player* pl = new Player();
+			Transform* tr
+				= pl->AddComponent<Transform>();
+			tr->SetPosition(300, 450);
+
+			tr->SetName(L"TR");
+
+			SpriteRenderer* sr
+				= pl->AddComponent<SpriteRenderer>();
+			sr->SetName(L"SR");
+
+			AddGameObject(pl);
+		}
+
+		{
+			Player* pl = new Player();
+			Transform* tr
+				= pl->AddComponent<Transform>();
+			tr->SetPosition(100, 650);
+
+			tr->SetName(L"TR");
+
+			SpriteRenderer* sr
+				= pl->AddComponent<SpriteRenderer>();
+			sr->SetName(L"SR");
+
+			AddGameObject(pl);
+		}
 	}
 	void PlayScene::Update()
 	{

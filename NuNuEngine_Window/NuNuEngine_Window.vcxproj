@@ -133,9 +133,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="NLoadScenes.h" />
+    <ClInclude Include="NPlayer.h" />
     <ClInclude Include="NPlayScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NPlayer.cpp" />
     <ClCompile Include="NPlayScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
