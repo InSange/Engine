@@ -16,11 +16,6 @@ namespace NuNu
 		void Update();
 		void LateUpdate();
 		void Render();
-	public:
-		static void AddBullet(BulletObject* bullet)
-		{
-			mBullets.push_back(bullet);
-		}
 
 	private:
 		void clearRenderTarget();
@@ -39,9 +34,7 @@ namespace NuNu
 		UINT mWidth;
 		UINT mHeight;
 
-		std::vector<GameObject*> mGameObjects;
-
-		static std::vector<BulletObject*> mBullets;
+		// std::vector<Scene*> mScenes;
 	};
 
 }

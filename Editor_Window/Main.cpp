@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "Editor_Window.h"
 #include "../NuNuEngine_SOURCE/NApplication.h"
+#include "../NuNuEngine_Window/NLoadScenes.h"
 
 NuNu::Application application;
 
@@ -155,6 +156,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    ShowWindow(hWnd2, nCmdShow);
    UpdateWindow(hWnd2);*/
+   // load Scene
+   NuNu::LoadScenes();
 
    return TRUE;
 }

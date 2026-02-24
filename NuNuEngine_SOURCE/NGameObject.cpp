@@ -43,8 +43,6 @@ namespace NuNu
 		{
 			BulletObject* bullet = new BulletObject();
 			bullet->SetPosition(this->mX, this->mY);
-
-			Application::AddBullet(bullet);
 		}
 	}
 

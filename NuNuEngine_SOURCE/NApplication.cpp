@@ -1,11 +1,10 @@
 #include "NApplication.h"
 #include "NInput.h"
 #include "NTime.h"
+#include "NSceneManager.h"
 
 namespace NuNu
 {
-	std::vector<BulletObject*> Application::mBullets = {};
-
 	Application::Application()
 		: mHwnd(nullptr)
 		, mHdc(nullptr)
@@ -13,7 +12,6 @@ namespace NuNu
 		, mHeight(0)
 		, mBackHdc(nullptr)
 		, mBackBitMap(nullptr)
-		, mGameObjects{}
 	{
 
 	}
@@ -31,12 +29,7 @@ namespace NuNu
 		createBuffer(width, height);
 		initializeEtc();
 
-		for (int i = 0; i < 100; i++)
-		{
-			GameObject* gameObj = new GameObject();
-			gameObj->SetPosition(rand() % 1600, rand() % 900);
-			mGameObjects.push_back(gameObj);
-		}
+		SceneManager::Initialize();
 	}
 
 	void Application::Run()
@@ -51,26 +44,7 @@ namespace NuNu
 		Input::Update();
 		Time::Tick();
 
-		for (auto it = mBullets.begin(); it != mBullets.end();)
-		{
-			(*it)->Update();
-
-			if ((*it)->GetPositionY() <= -50.0f)
-			{
-				delete (*it);
-
-				it = mBullets.erase(it);
-			}
-			else
-			{
-				++it;
-			}
-		}
-
-		for (size_t i = 0; i < mGameObjects.size(); i++)
-		{
-			mGameObjects[i]->Update();
-		}
+		SceneManager::Update();
 	}
 
 	void Application::LateUpdate()
@@ -82,16 +56,7 @@ namespace NuNu
 		clearRenderTarget();
 
 		Time::Render(mBackHdc);
-
-		for (auto& bullet : mBullets)
-		{
-			bullet->Render(mBackHdc);
-		}
-
-		for (size_t i = 0; i < mGameObjects.size(); i++)
-		{
-			mGameObjects[i]->Render(mBackHdc);
-		}
+		SceneManager::Render(mBackHdc);
 
 		copyRenderTarget(mBackHdc, mHdc);
 	}
