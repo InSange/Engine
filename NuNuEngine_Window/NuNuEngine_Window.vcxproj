@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="NHellScene.h" />
+    <ClInclude Include="NLoadResources.h" />
     <ClInclude Include="NLoadScenes.h" />
     <ClInclude Include="NPlayer.h" />
     <ClInclude Include="NPlayScene.h" />

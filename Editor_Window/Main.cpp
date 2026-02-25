@@ -5,6 +5,7 @@
 #include "Editor_Window.h"
 #include "../NuNuEngine_SOURCE/NApplication.h"
 #include "../NuNuEngine_Window/NLoadScenes.h"
+#include "../NuNuEngine_Window/NLoadResources.h"
 
 NuNu::Application application;
 
@@ -155,6 +156,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    Gdiplus::GdiplusStartup(&gpToken, &gpsi, NULL);
 
    // load Scene
+   NuNu::LoadResources();
    NuNu::LoadScenes();
 
    return TRUE;

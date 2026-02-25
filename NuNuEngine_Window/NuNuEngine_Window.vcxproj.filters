@@ -24,6 +24,7 @@
     <ClInclude Include="NSpaceScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="NLoadResources.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NPlayer.cpp">

@@ -7,6 +7,8 @@
 #include "NSpaceScene.h"
 #include "NSceneManager.h"
 #include "NObject.h"
+#include "NTexture.h"
+#include "NResources.h"
 
 namespace NuNu
 {
@@ -18,76 +20,22 @@ namespace NuNu
 	}
 	void PlayScene::Initialize()
 	{
-		{
-			/*bg = new Player();
-			Transform* tr
-				= bg->AddComponent<Transform>();
-			tr->SetPosition(Vector2(0, 0));
 
-			tr->SetName(L"TR");
-
-			SpriteRenderer* sr
-				= bg->AddComponent<SpriteRenderer>();
-			sr->SetName(L"SR");
-			sr->ImageLoad(L"../Resources/BlackHole.jpg");
-
-			AddGameObject(bg, enums::eLayerType::BackGround);*/
-			GameObject* bgObj = object::Instantiate<GameObject>(enums::eLayerType::BackGround, Vector2(100.0f, 100.0f));
-			SpriteRenderer* sr = bgObj->AddComponent<SpriteRenderer>();
-			sr->SetName(L"SR");
-			sr->ImageLoad(L"../Resources/BlackHole.jpg");
-
-		}
+		GameObject* bgObj = object::Instantiate<GameObject>(enums::eLayerType::BackGround, Vector2(100.0f, 100.0f));
+		SpriteRenderer* sr = bgObj->AddComponent<SpriteRenderer>();
+		sr->SetTexture(Resources::Find<graphics::Texture>(L"BG"));
 
 		for (size_t i = 0; i < 5; i++)
 		{
-			GameObject* obj = new GameObject();
-			Transform* tr
-				= obj->AddComponent<Transform>();
-			tr->SetPosition(Vector2(rand()%500 + 200, rand()%500 + 100));
+			GameObject* obj = object::Instantiate<GameObject>(enums::eLayerType::UI, Vector2(rand() % 1600, rand() % 900));
 
-			tr->SetName(L"TR");
-
-			SpriteRenderer* sr
-				= obj->AddComponent<SpriteRenderer>();
-			sr->SetName(L"SR");
-			sr->ImageLoad(L"../Resources/testIcon.png");
-
-			AddGameObject(obj, enums::eLayerType::UI);
+			sr = obj->AddComponent<SpriteRenderer>();
+			sr->SetTexture(Resources::Find<graphics::Texture>(L"TestIcon"));
 		}
 
-		{
-			bg = new Player();
-			Transform* tr
-				= bg->GetComponent<Transform>();
-			tr->SetPosition(Vector2(800, 450));
-
-			tr->SetName(L"TR");
-
-			SpriteRenderer* sr
-				= bg->AddComponent<SpriteRenderer>();
-			sr->SetName(L"SR");
-			sr->ImageLoad(L"../Resources/Logi.png");
-
-			AddGameObject(bg, enums::eLayerType::Player);
-		}
-
-		for (size_t i = 0; i < 5; i++)
-		{
-			GameObject* obj = new GameObject();
-			Transform* tr
-				= obj->AddComponent<Transform>();
-			tr->SetPosition(Vector2(rand() % 1600, rand() % 900));
-
-			tr->SetName(L"TR");
-
-			SpriteRenderer* sr
-				= obj->AddComponent<SpriteRenderer>();
-			sr->SetName(L"SR");
-			sr->ImageLoad(L"../Resources/tree.png");
-
-			AddGameObject(obj, enums::eLayerType::UI);
-		}
+		bg = object::Instantiate<Player>(enums::eLayerType::Player, Vector2(800, 450));
+		sr = bg->AddComponent<SpriteRenderer>();
+		sr->SetTexture(Resources::Find<graphics::Texture>(L"Logi"));
 	}
 	void PlayScene::Update()
 	{
@@ -113,7 +61,7 @@ namespace NuNu
 	}
 	void PlayScene::OnExit()
 	{
-/*		Transform* tr = bg->GetComponent<Transform>();
-		tr->SetPosition(Vector2(0, 0));*/
+		/*		Transform* tr = bg->GetComponent<Transform>();
+				tr->SetPosition(Vector2(0, 0));*/
 	}
 }

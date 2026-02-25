@@ -1,5 +1,6 @@
 #pragma once
 #include "NComponent.h"
+#include "NTexture.h"
 
 namespace NuNu
 {
@@ -14,11 +15,12 @@ namespace NuNu
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
 
-		void ImageLoad(const std::wstring& path);
+		void SetTexture(graphics::Texture* tex) { mTexture = tex; }
+		void SetSize(math::Vector2 size) { mSize = size; }
+
 	private:
-		Gdiplus::Image* mImage;
-		UINT mWidth;
-		UINT mHeight;
+		graphics::Texture* mTexture;
+		math::Vector2 mSize;
 	};
 }
 

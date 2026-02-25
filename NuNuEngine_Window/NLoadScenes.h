@@ -6,6 +6,8 @@
 
 namespace NuNu
 {
+
+
 	void LoadScenes()
 	{
 		SceneManager::CreateScene<SpaceScene>(L"SpaceScene");

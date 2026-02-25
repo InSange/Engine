@@ -27,7 +27,7 @@ namespace NuNu
 			SpriteRenderer* sr
 				= bg->AddComponent<SpriteRenderer>();
 			sr->SetName(L"SR");
-			sr->ImageLoad(L"../Resources/Space.jpg");
+			//sr->ImageLoad(L"../Resources/Space.jpg");
 
 			AddGameObject(bg, enums::eLayerType::BackGround);
 		}
