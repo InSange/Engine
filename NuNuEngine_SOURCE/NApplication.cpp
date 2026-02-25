@@ -49,6 +49,7 @@ namespace NuNu
 
 	void Application::LateUpdate()
 	{
+		SceneManager::LateUpdate();
 	}
 
 	void Application::Render() // 화면 그리기

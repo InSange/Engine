@@ -17,9 +17,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NEnum.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NInput.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NLayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NResources.h" />
@@ -35,6 +37,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NInput.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NLayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NResources.cpp" />

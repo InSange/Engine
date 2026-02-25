@@ -136,11 +136,13 @@
     <ClInclude Include="NLoadScenes.h" />
     <ClInclude Include="NPlayer.h" />
     <ClInclude Include="NPlayScene.h" />
+    <ClInclude Include="NSpaceScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NHellScene.cpp" />
     <ClCompile Include="NPlayer.cpp" />
     <ClCompile Include="NPlayScene.cpp" />
+    <ClCompile Include="NSpaceScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,6 +3,9 @@
 #include "NPlayer.h"
 #include "NTransform.h"
 #include "NSpriteRenderer.h"
+#include "NInput.h"
+#include "NSpaceScene.h"
+#include "NSceneManager.h"
 
 namespace NuNu
 {
@@ -15,7 +18,7 @@ namespace NuNu
 	void PlayScene::Initialize()
 	{
 		{
-			Player* bg = new Player();
+			bg = new Player();
 			Transform* tr
 				= bg->AddComponent<Transform>();
 			tr->SetPosition(Vector2(0, 0));
@@ -27,7 +30,24 @@ namespace NuNu
 			sr->SetName(L"SR");
 			sr->ImageLoad(L"../Resources/BlackHole.jpg");
 
-			AddGameObject(bg);
+			AddGameObject(bg, eLayerType::BackGround);
+		}
+
+		for (size_t i = 0; i < 5; i++)
+		{
+			GameObject* obj = new GameObject();
+			Transform* tr
+				= obj->AddComponent<Transform>();
+			tr->SetPosition(Vector2(rand()%500 + 200, rand()%500 + 100));
+
+			tr->SetName(L"TR");
+
+			SpriteRenderer* sr
+				= obj->AddComponent<SpriteRenderer>();
+			sr->SetName(L"SR");
+			sr->ImageLoad(L"../Resources/testIcon.png");
+
+			AddGameObject(obj, eLayerType::UI);
 		}
 
 		{
@@ -43,7 +63,24 @@ namespace NuNu
 			sr->SetName(L"SR");
 			sr->ImageLoad(L"../Resources/Logi.png");
 
-			AddGameObject(pl);
+			AddGameObject(pl, eLayerType::Player);
+		}
+
+		for (size_t i = 0; i < 5; i++)
+		{
+			GameObject* obj = new GameObject();
+			Transform* tr
+				= obj->AddComponent<Transform>();
+			tr->SetPosition(Vector2(rand() % 1600, rand() % 900));
+
+			tr->SetName(L"TR");
+
+			SpriteRenderer* sr
+				= obj->AddComponent<SpriteRenderer>();
+			sr->SetName(L"SR");
+			sr->ImageLoad(L"../Resources/tree.png");
+
+			AddGameObject(obj, eLayerType::UI);
 		}
 	}
 	void PlayScene::Update()
@@ -53,9 +90,24 @@ namespace NuNu
 	void PlayScene::LateUpdate()
 	{
 		Scene::LateUpdate();
+
+		if (Input::GetKeyDown(eKeyCode::N))
+		{
+			SceneManager::LoadScene(L"SpaceScene");
+		}
 	}
 	void PlayScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
+		wchar_t str[50] = L"Play Scene";
+		TextOut(hdc, 0, 0, str, 10);
+	}
+	void PlayScene::OnEnter()
+	{
+	}
+	void PlayScene::OnExit()
+	{
+		Transform* tr = bg->GetComponent<Transform>();
+		tr->SetPosition(Vector2(0, 0));
 	}
 }

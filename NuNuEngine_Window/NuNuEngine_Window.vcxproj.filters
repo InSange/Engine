@@ -4,18 +4,39 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{71bdbb09-fc26-4add-a5d0-d361acfe3d27}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{1bb40048-7ce2-474f-88b4-f0263b0ee9c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NLoadScenes.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="NPlayScene.h" />
-    <ClInclude Include="NPlayer.h" />
-    <ClInclude Include="NHellScene.h" />
+    <ClInclude Include="NPlayer.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="NHellScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="NPlayScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="NSpaceScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NPlayScene.cpp" />
-    <ClCompile Include="NPlayer.cpp" />
-    <ClCompile Include="NHellScene.cpp" />
+    <ClCompile Include="NPlayer.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="NHellScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="NPlayScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="NSpaceScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #pragma once
 #include "NEntity.h"
 #include "NGameObject.h"
+#include "NLayer.h"
 
 namespace NuNu
 {
@@ -15,11 +16,13 @@ namespace NuNu
 		virtual void LateUpdate();
 		virtual void Render(HDC hdc);
 
-		void AddGameObject(GameObject* gameObject);
+		virtual void OnEnter();
+		virtual void OnExit();
+
+		void AddGameObject(GameObject* gameObj, eLayerType type);
 
 	private:
-
-		std::vector<GameObject*> mGameObjects;
+		std::vector<Layer*> mLayers;
 	};
 }
 

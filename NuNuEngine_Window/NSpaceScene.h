@@ -3,21 +3,18 @@
 
 namespace NuNu
 {
-	class PlayScene : public Scene
+	class SpaceScene : public Scene
 	{
 	public:
-		PlayScene();
-		~PlayScene();
+		SpaceScene();
+		~SpaceScene();
 
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
-
-		void OnEnter() override;
-		void OnExit() override;
 	private:
-		class Player* bg;
+
 	};
 }
 

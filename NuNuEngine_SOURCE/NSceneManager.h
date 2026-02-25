@@ -19,10 +19,16 @@ namespace NuNu
 
 		static Scene* LoadScene(const std::wstring& name)
 		{
+			if(mActiveScene) mActiveScene->OnExit();
+
 			std::map<std::wstring, Scene*>::iterator it = mScene.find(name);
 
 			if (it == mScene.end()) return nullptr;
+
 			mActiveScene = it->second;
+
+			if (mActiveScene) 
+				mActiveScene->OnEnter();
 
 			return it->second;
 		}

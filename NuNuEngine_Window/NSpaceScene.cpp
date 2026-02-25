@@ -1,20 +1,20 @@
-#include "NHellScene.h"
-#include "NGameObject.h"
+#include "NSpaceScene.h"
 #include "NPlayer.h"
 #include "NTransform.h"
 #include "NSpriteRenderer.h"
+#include "NInput.h"
+#include "NPlayScene.h"
+#include "NSceneManager.h"
 
 namespace NuNu
 {
-	HellScene::HellScene()
+	SpaceScene::SpaceScene()
 	{
 	}
-
-	HellScene::~HellScene()
+	SpaceScene::~SpaceScene()
 	{
 	}
-
-	void HellScene::Initialize()
+	void SpaceScene::Initialize()
 	{
 		{
 			Player* bg = new Player();
@@ -27,24 +27,28 @@ namespace NuNu
 			SpriteRenderer* sr
 				= bg->AddComponent<SpriteRenderer>();
 			sr->SetName(L"SR");
-			sr->ImageLoad(L"../Resources/Hell.png");
+			sr->ImageLoad(L"../Resources/Space.jpg");
 
 			AddGameObject(bg, eLayerType::BackGround);
 		}
 	}
-
-	void HellScene::Update()
+	void SpaceScene::Update()
 	{
 		Scene::Update();
 	}
-
-	void HellScene::LateUpdate()
+	void SpaceScene::LateUpdate()
 	{
 		Scene::LateUpdate();
-	}
 
-	void HellScene::Render(HDC hdc)
+		if (Input::GetKeyDown(eKeyCode::N))
+		{
+			SceneManager::LoadScene(L"PlayScene");
+		}
+	}
+	void SpaceScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
+		wchar_t str[50] = L"Hell Scene";
+		TextOut(hdc, 0, 0, str, 10);
 	}
 }
