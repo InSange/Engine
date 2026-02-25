@@ -2,6 +2,7 @@
 #include "NInput.h"
 #include "NTime.h"
 #include "NApplication.h"
+#include "NTransform.h"
 
 
 namespace NuNu
@@ -9,6 +10,7 @@ namespace NuNu
 #pragma region GameObject - Player
 	GameObject::GameObject()
 	{
+		initializeTransform();
 	}
 
 	GameObject::~GameObject()
@@ -50,6 +52,12 @@ namespace NuNu
 		{
 			comp->Render(hdc);
 		}
+	}
+
+
+	void GameObject::initializeTransform()
+	{
+		AddComponent<Transform>();
 	}
 #pragma endregion
 }

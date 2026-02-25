@@ -29,7 +29,7 @@ namespace NuNu
 			sr->SetName(L"SR");
 			sr->ImageLoad(L"../Resources/Hell.png");
 
-			AddGameObject(bg, eLayerType::BackGround);
+			AddGameObject(bg, enums::eLayerType::BackGround);
 		}
 	}
 

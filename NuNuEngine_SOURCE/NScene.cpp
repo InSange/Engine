@@ -5,12 +5,7 @@ namespace NuNu
 	Scene::Scene()
 		: mLayers{}
 	{
-		mLayers.resize((UINT)eLayerType::Max);
-		for (size_t i = 0; i < (UINT)eLayerType::Max; i++)
-		{
-			mLayers[i] = new Layer();
-			mLayers[i]->SetType(eLayerType(i));
-		}
+		createLayers();
 	}
 	Scene::~Scene()
 	{
@@ -57,9 +52,18 @@ namespace NuNu
 	void Scene::OnExit()
 	{
 	}
-	void Scene::AddGameObject(GameObject* gameObj, eLayerType type)
+	void Scene::AddGameObject(GameObject* gameObj, enums::eLayerType type)
 	{
 		if (gameObj == nullptr) return;
 		mLayers[(UINT)type]->AddGameObject(gameObj);
+	}
+	void Scene::createLayers()
+	{
+		mLayers.resize((UINT)enums::eLayerType::Max);
+		for (size_t i = 0; i < (UINT)enums::eLayerType::Max; i++)
+		{
+			mLayers[i] = new Layer();
+			mLayers[i]->SetType(enums::eLayerType(i));
+		}
 	}
 }

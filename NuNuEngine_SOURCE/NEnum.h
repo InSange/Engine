@@ -1,6 +1,6 @@
 #pragma once
 
-namespace NuNu
+namespace NuNu::enums
 {
 	enum class eLayerType
 	{

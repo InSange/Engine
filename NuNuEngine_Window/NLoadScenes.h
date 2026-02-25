@@ -9,8 +9,8 @@ namespace NuNu
 	void LoadScenes()
 	{
 		SceneManager::CreateScene<SpaceScene>(L"SpaceScene");
-		SceneManager::CreateScene<PlayScene>(L"PlayScene");
 		SceneManager::CreateScene<HellScene>(L"HellScene");
+		SceneManager::CreateScene<PlayScene>(L"PlayScene");
 
 		SceneManager::LoadScene(L"PlayScene");
 	}

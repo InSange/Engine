@@ -29,7 +29,7 @@ namespace NuNu
 			sr->SetName(L"SR");
 			sr->ImageLoad(L"../Resources/Space.jpg");
 
-			AddGameObject(bg, eLayerType::BackGround);
+			AddGameObject(bg, enums::eLayerType::BackGround);
 		}
 	}
 	void SpaceScene::Update()

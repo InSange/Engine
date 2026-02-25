@@ -17,9 +17,9 @@ namespace NuNu
 		virtual void Render(HDC hdc);
 
 		void AddGameObject(GameObject* gameObject);
-		void SetType(eLayerType type) { mType = type; }
+		void SetType(enums::eLayerType type) { mType = type; }
 	private:
-		eLayerType mType;
+		enums::eLayerType mType;
 		std::vector<GameObject*> mGameObjects;
 	};
 }
