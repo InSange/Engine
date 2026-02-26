@@ -9,6 +9,7 @@
 #include "NObject.h"
 #include "NTexture.h"
 #include "NResources.h"
+#include "NPlayerScript.h"
 
 namespace NuNu
 {
@@ -34,6 +35,7 @@ namespace NuNu
 		}
 
 		bg = object::Instantiate<Player>(enums::eLayerType::Player, Vector2(800, 450));
+		bg->AddComponent<PlayerScript>();
 		sr = bg->AddComponent<SpriteRenderer>();
 		sr->SetTexture(Resources::Find<graphics::Texture>(L"Logi"));
 	}

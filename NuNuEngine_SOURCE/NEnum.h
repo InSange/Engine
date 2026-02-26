@@ -2,6 +2,13 @@
 
 namespace NuNu::enums
 {
+	enum class eComponentType
+	{
+		Trnasform,
+		SpriteRenderer,
+		Script,
+		End,
+	};
 	enum class eLayerType
 	{
 		None,

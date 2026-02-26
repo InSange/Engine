@@ -5,7 +5,8 @@
 namespace NuNu
 {
 	SpriteRenderer::SpriteRenderer()
-		: mTexture(nullptr)
+		: Component(enums::eComponentType::SpriteRenderer)
+		, mTexture(nullptr)
 		, mSize(Vector2::One)
 	{
 	}

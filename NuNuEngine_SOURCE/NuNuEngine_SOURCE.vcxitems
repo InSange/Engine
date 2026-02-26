@@ -28,6 +28,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NSceneManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NSpriteRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NTime.h" />
@@ -45,6 +46,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NResources.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NSceneManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NSpriteRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NTime.cpp" />

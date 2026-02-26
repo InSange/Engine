@@ -10,6 +10,7 @@ namespace NuNu
 #pragma region GameObject - Player
 	GameObject::GameObject()
 	{
+		mComponents.resize((UINT)enums::eComponentType::End);
 		initializeTransform();
 	}
 
@@ -26,6 +27,7 @@ namespace NuNu
 	{
 		for (Component* comp : mComponents)
 		{
+			if (comp == nullptr) continue;
 			comp->Initialize();
 		}
 	}
@@ -34,6 +36,7 @@ namespace NuNu
 	{
 		for (Component* comp : mComponents)
 		{
+			if (comp == nullptr) continue;
 			comp->Update();
 		}
 	}
@@ -42,6 +45,7 @@ namespace NuNu
 	{
 		for (Component* comp : mComponents)
 		{
+			if (comp == nullptr) continue;
 			comp->LateUpdate();
 		}
 	}
@@ -50,6 +54,7 @@ namespace NuNu
 	{
 		for (Component* comp : mComponents)
 		{
+			if (comp == nullptr) continue;
 			comp->Render(hdc);
 		}
 	}

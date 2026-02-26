@@ -3,7 +3,9 @@
 namespace NuNu
 {
 	Transform::Transform()
+		: Component(enums::eComponentType::Trnasform)
 	{
+
 	}
 
 	Transform::~Transform()

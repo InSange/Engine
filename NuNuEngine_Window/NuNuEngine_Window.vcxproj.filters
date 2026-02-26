@@ -7,6 +7,9 @@
     <Filter Include="Contents">
       <UniqueIdentifier>{1bb40048-7ce2-474f-88b4-f0263b0ee9c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{b1190ee9-ef7b-4cb8-8edf-13e268298f6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NLoadScenes.h">
@@ -25,6 +28,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="NLoadResources.h" />
+    <ClInclude Include="NPlayerScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NPlayer.cpp">
@@ -38,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="NSpaceScene.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="NPlayerScript.cpp">
+      <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
