@@ -10,6 +10,8 @@
 #include "NTexture.h"
 #include "NResources.h"
 #include "NPlayerScript.h"
+#include "NCamera.h"
+#include "NRenderer.h"
 
 namespace NuNu
 {
@@ -21,8 +23,14 @@ namespace NuNu
 	}
 	void PlayScene::Initialize()
 	{
+		//Scene::Initialize();
+		GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::None, Vector2(812.0f, 470.0f));
+		Camera* cameraComp = camera->AddComponent<Camera>();
+		renderer::mainCamera = cameraComp;
 
-		GameObject* bgObj = object::Instantiate<GameObject>(enums::eLayerType::BackGround, Vector2(100.0f, 100.0f));
+		//camera->AddComponent<PlayerScript>();
+
+		GameObject* bgObj = object::Instantiate<GameObject>(enums::eLayerType::BackGround, Vector2::Zero);
 		SpriteRenderer* sr = bgObj->AddComponent<SpriteRenderer>();
 		sr->SetTexture(Resources::Find<graphics::Texture>(L"BG"));
 
@@ -34,10 +42,13 @@ namespace NuNu
 			sr->SetTexture(Resources::Find<graphics::Texture>(L"TestIcon"));
 		}
 
-		bg = object::Instantiate<Player>(enums::eLayerType::Player, Vector2(800, 450));
-		bg->AddComponent<PlayerScript>();
-		sr = bg->AddComponent<SpriteRenderer>();
-		sr->SetTexture(Resources::Find<graphics::Texture>(L"Logi"));
+		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player, Vector2(0, 0));
+		mPlayer->AddComponent<PlayerScript>();
+		sr = mPlayer->AddComponent<SpriteRenderer>();
+		sr->SetSize(Vector2(2.0f, 2.0f));
+		sr->SetTexture(Resources::Find<graphics::Texture>(L"PinkCharacter0"));
+
+		Scene::Initialize();
 	}
 	void PlayScene::Update()
 	{
@@ -55,8 +66,8 @@ namespace NuNu
 	void PlayScene::Render(HDC hdc)
 	{
 		Scene::Render(hdc);
-		wchar_t str[50] = L"Play Scene";
-		TextOut(hdc, 0, 0, str, 10);
+		/*wchar_t str[50] = L"Play Scene";
+		TextOut(hdc, 0, 0, str, 10);*/
 	}
 	void PlayScene::OnEnter()
 	{

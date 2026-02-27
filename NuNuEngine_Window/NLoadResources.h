@@ -12,6 +12,7 @@ namespace NuNu
 		Resources::Load<graphics::Texture>(L"Logi", L"../Resources/Logi.png");
 		Resources::Load<graphics::Texture>(L"TestIcon", L"../Resources/testIcon.png");
 		Resources::Load<graphics::Texture>(L"tree", L"../Resources/tree.png");
+		Resources::Load<graphics::Texture>(L"PinkCharacter0", L"../Resources/Character/PinkCharacter/00_PinkCharacter.png");
 
 	}
 }

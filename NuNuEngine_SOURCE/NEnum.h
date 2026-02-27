@@ -7,6 +7,7 @@ namespace NuNu::enums
 		Trnasform,
 		SpriteRenderer,
 		Script,
+		Camera,
 		End,
 	};
 	enum class eLayerType

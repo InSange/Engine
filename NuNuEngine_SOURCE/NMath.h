@@ -23,6 +23,18 @@ namespace NuNu::math
 		{
 
 		}
+		Vector2 operator+ (Vector2 other)
+		{
+			return Vector2(x + other.x, y + other.y);
+		}
+		Vector2 operator- (Vector2 other)
+		{
+			return Vector2(x - other.x, y - other.y);
+		}
+		Vector2 operator/ (float v)
+		{
+			return Vector2(x / v, y / v);
+		}
 	};
 }
 

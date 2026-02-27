@@ -1,7 +1,7 @@
 #include "NSpriteRenderer.h"
 #include "NTransform.h"
 #include "NGameObject.h"
-
+#include "NRenderer.h"
 namespace NuNu
 {
 	SpriteRenderer::SpriteRenderer()
@@ -35,6 +35,7 @@ namespace NuNu
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
+		pos = renderer::mainCamera->CalculatePosition(pos);
 
 		if (mTexture->GetTextureType() == graphics::Texture::eTextureType::Bmp)
 		{
