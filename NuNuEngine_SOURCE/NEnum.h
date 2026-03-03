@@ -6,6 +6,7 @@ namespace NuNu::enums
 	{
 		Trnasform,
 		SpriteRenderer,
+		Animator,
 		Script,
 		Camera,
 		End,
@@ -16,6 +17,7 @@ namespace NuNu::enums
 		BackGround,
 		UI,
 		Player,
+		Particle,
 		Max = 16,
 	};
 
@@ -23,6 +25,7 @@ namespace NuNu::enums
 	{
 		Texture,
 		AudioClip,
+		Animation,
 		Prefab,
 		End,
 	};

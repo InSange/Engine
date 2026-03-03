@@ -4,6 +4,8 @@ namespace NuNu
 {
 	Transform::Transform()
 		: Component(enums::eComponentType::Trnasform)
+		, mScale(Vector2::One)
+		, mRotation(0.0f)
 	{
 
 	}

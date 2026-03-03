@@ -7,9 +7,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NMath.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)NGameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
@@ -55,6 +52,15 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NComponent.cpp">
+      <Filter>Component\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NAnimator.cpp">
+      <Filter>Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NAnimation.cpp">
+      <Filter>Component\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -65,9 +71,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)NMath.h">
       <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NComponent.h">
-      <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)NGameObject.h">
       <Filter>GameObject</Filter>
@@ -120,6 +123,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NComponent.h">
+      <Filter>Component\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NAnimator.h">
+      <Filter>Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NAnimation.h">
+      <Filter>Component\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -163,6 +175,12 @@
     </Filter>
     <Filter Include="Renderer">
       <UniqueIdentifier>{c435a8e0-8d43-4854-b5fc-163f1a1771a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Component">
+      <UniqueIdentifier>{92a83ad8-17ba-48a3-b149-8e238657135f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animation">
+      <UniqueIdentifier>{eb7799d3-2870-4d08-914e-3404bedaa700}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

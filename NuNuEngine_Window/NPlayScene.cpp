@@ -12,6 +12,7 @@
 #include "NPlayerScript.h"
 #include "NCamera.h"
 #include "NRenderer.h"
+#include "NAnimator.h"
 
 namespace NuNu
 {
@@ -44,9 +45,23 @@ namespace NuNu
 
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player, Vector2(0, 0));
 		mPlayer->AddComponent<PlayerScript>();
-		sr = mPlayer->AddComponent<SpriteRenderer>();
-		sr->SetSize(Vector2(2.0f, 2.0f));
-		sr->SetTexture(Resources::Find<graphics::Texture>(L"PinkCharacter0"));
+		
+		graphics::Texture* playerTexture = Resources::Find<graphics::Texture>(L"Player");
+		Animator* animator = mPlayer->AddComponent<Animator>();
+		animator->CreateAnimation(L"PlayerFrontMove", playerTexture
+			, Vector2(0.0f, 0.0f), Vector2(48.0f, 48.0f), Vector2::Zero, 6, 0.2f);
+		animator->PlayAnimation(L"PlayerFrontMove", true);
+
+		mPlayer->GetComponent<Transform>()->SetPosition(Vector2(100.0f, 100.0f));
+		mPlayer->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
+		mPlayer->GetComponent<Transform>()->SetRotation(30.0f);
+
+		graphics::Texture* mTexture = Resources::Find<graphics::Texture>(L"MapleEffect");
+		GameObject* maple = object::Instantiate<GameObject>(enums::eLayerType::Particle, Vector2::Zero);
+		Animator* manimator = maple->AddComponent<Animator>();
+		manimator->CreateAnimation(L"MapleEffect", mTexture
+			, Vector2(0.0f, 0.0f), Vector2(386.0f, 246.0f), Vector2::Zero, 8, 0.05f);
+		manimator->PlayAnimation(L"MapleEffect", true);
 
 		Scene::Initialize();
 	}

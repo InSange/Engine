@@ -1,6 +1,8 @@
 #pragma once
 #include "CommonInclude.h"
 
+using namespace NuNu::math;
+
 namespace NuNu
 {
 	class Entity
