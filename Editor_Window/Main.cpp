@@ -6,6 +6,7 @@
 #include "../NuNuEngine_SOURCE/NApplication.h"
 #include "../NuNuEngine_Window/NLoadScenes.h"
 #include "../NuNuEngine_Window/NLoadResources.h"
+#include <ctime>
 
 NuNu::Application application;
 
@@ -158,6 +159,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    // load Scene
    NuNu::LoadResources();
    NuNu::LoadScenes();
+   
+   int a = 0;
+   srand((unsigned int)(& a));
 
    return TRUE;
 }

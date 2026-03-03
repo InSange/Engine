@@ -16,6 +16,7 @@ namespace NuNu::enums
 		None,
 		BackGround,
 		UI,
+		Enemy,
 		Player,
 		Particle,
 		Max = 16,

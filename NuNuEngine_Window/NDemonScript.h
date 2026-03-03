@@ -1,9 +1,10 @@
 #pragma once
 #include "NScript.h"
+#include "NTransform.h"
 
 namespace NuNu
 {
-	class PlayerScript : public Script
+	class DemonScript : public Script
 	{
 	public:
 		enum class eState
@@ -13,8 +14,17 @@ namespace NuNu
 			Attack,
 		};
 
-		PlayerScript();
-		~PlayerScript();
+		enum class eDirection
+		{
+			Left,
+			Right,
+			Up,
+			Down,
+			End
+		};
+
+		DemonScript();
+		~DemonScript();
 
 		void Initialize() override;
 		void Update() override;
@@ -25,10 +35,14 @@ namespace NuNu
 		void idle();
 		void move();
 		void attack();
+		void playWalkAnimationByDirection(eDirection dir);
+		void translate(Transform* tr);
+
 	private:
-		float animTime;
 		eState mState;
 		class Animator* mAnimator;
+		eDirection mDir;
+		float mTime;
 	};
 }
 

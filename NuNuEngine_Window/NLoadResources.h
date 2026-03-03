@@ -15,6 +15,7 @@ namespace NuNu
 		Resources::Load<graphics::Texture>(L"PinkCharacter0", L"../Resources/Character/PinkCharacter/00_PinkCharacter.png");
 
 		Resources::Load<graphics::Texture>(L"Player", L"../Resources/Player/player.png");
+		Resources::Load<graphics::Texture>(L"Demon", L"../Resources/Monster/Demon.png");
 		Resources::Load<graphics::Texture>(L"MapleEffect", L"../Resources/Player/MapleEffect.png");
 	}
 }

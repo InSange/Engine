@@ -1,6 +1,7 @@
 #include "NPlayScene.h"
 #include "NGameObject.h"
 #include "NPlayer.h"
+#include "NDemon.h"
 #include "NTransform.h"
 #include "NSpriteRenderer.h"
 #include "NInput.h"
@@ -10,6 +11,7 @@
 #include "NTexture.h"
 #include "NResources.h"
 #include "NPlayerScript.h"
+#include "NDemonScript.h"
 #include "NCamera.h"
 #include "NRenderer.h"
 #include "NAnimator.h"
@@ -48,20 +50,53 @@ namespace NuNu
 		
 		graphics::Texture* playerTexture = Resources::Find<graphics::Texture>(L"Player");
 		Animator* animator = mPlayer->AddComponent<Animator>();
-		animator->CreateAnimation(L"PlayerFrontMove", playerTexture
+		animator->CreateAnimation(L"PlayerIdle", playerTexture
 			, Vector2(0.0f, 0.0f), Vector2(48.0f, 48.0f), Vector2::Zero, 6, 0.2f);
-		animator->PlayAnimation(L"PlayerFrontMove", true);
+		animator->CreateAnimation(L"PlayerDownMove", playerTexture
+			, Vector2(0.0f, 144.0f), Vector2(48.0f, 48.0f), Vector2::Zero, 6, 0.2f);
+		animator->CreateAnimation(L"PlayerLeftMove", playerTexture
+			, Vector2(0.0f, 192.0f), Vector2(48.0f, 48.0f), Vector2::Zero, 6, 0.2f);
+		animator->CreateAnimation(L"PlayerRightMove", playerTexture
+			, Vector2(0.0f, 192.0f), Vector2(48.0f, 48.0f), Vector2::Zero, 6, 0.2f);
+		animator->CreateAnimation(L"PlayerUpMove", playerTexture
+			, Vector2(0.0f, 240.0f), Vector2(48.0f, 48.0f), Vector2::Zero, 6, 0.2f);
+		animator->CreateAnimation(L"PlayerAttack", playerTexture
+			, Vector2(0.0f, 288.0f), Vector2(48.0f, 48.0f), Vector2::Zero, 4, 0.2f);
+
+		animator->PlayAnimation(L"PlayerIdle", true);
 
 		mPlayer->GetComponent<Transform>()->SetPosition(Vector2(100.0f, 100.0f));
 		mPlayer->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
-		mPlayer->GetComponent<Transform>()->SetRotation(30.0f);
+		//mPlayer->GetComponent<Transform>()->SetRotation(30.0f);
 
-		graphics::Texture* mTexture = Resources::Find<graphics::Texture>(L"MapleEffect");
+		/*graphics::Texture* mTexture = Resources::Find<graphics::Texture>(L"MapleEffect");
 		GameObject* maple = object::Instantiate<GameObject>(enums::eLayerType::Particle, Vector2::Zero);
 		Animator* manimator = maple->AddComponent<Animator>();
 		manimator->CreateAnimation(L"MapleEffect", mTexture
 			, Vector2(0.0f, 0.0f), Vector2(386.0f, 246.0f), Vector2::Zero, 8, 0.05f);
-		manimator->PlayAnimation(L"MapleEffect", true);
+		manimator->PlayAnimation(L"MapleEffect", true);*/
+
+		Demon* mDemon = object::Instantiate<Demon>(enums::eLayerType::Enemy, Vector2(0, 0));
+		mDemon->AddComponent<DemonScript>();
+
+		graphics::Texture* DemonTexture = Resources::Find<graphics::Texture>(L"Demon");
+		Animator* DemonAnimator = mDemon->AddComponent<Animator>();
+		DemonAnimator->CreateAnimation(L"DemonIdle", DemonTexture
+			, Vector2(0.0f, 0.0f), Vector2(24.0f, 24.0f), Vector2::Zero, 4, 0.2f);
+		DemonAnimator->CreateAnimation(L"DemonLeftMove", DemonTexture
+			, Vector2(0.0f, 24.0f), Vector2(24.0f, 24.0f), Vector2::Zero, 4, 0.2f);
+		DemonAnimator->CreateAnimation(L"DemonRightMove", DemonTexture
+			, Vector2(96.0f, 24.0f), Vector2(24.0f, 24.0f), Vector2::Zero, 4, 0.2f);
+		DemonAnimator->CreateAnimation(L"DemonUpMove", DemonTexture
+			, Vector2(96.0f, 96.0f), Vector2(24.0f, 24.0f), Vector2::Zero, 4, 0.2f);
+		DemonAnimator->CreateAnimation(L"DemonDownMove", DemonTexture
+			, Vector2(96.0f, 120.0f), Vector2(24.0f, 24.0f), Vector2::Zero, 4, 0.2f);
+
+		DemonAnimator->PlayAnimation(L"DemonIdle", true);
+
+		mDemon->GetComponent<Transform>()->SetPosition(Vector2(100.0f, 100.0f));
+		mDemon->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
+		//mDemon->GetComponent<Transform>()->SetRotation(30.0f);
 
 		Scene::Initialize();
 	}

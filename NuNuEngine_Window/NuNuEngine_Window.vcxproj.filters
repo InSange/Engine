@@ -31,6 +31,12 @@
     <ClInclude Include="NPlayerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="NDemon.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="NDemonScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NPlayer.cpp">
@@ -46,6 +52,12 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="NPlayerScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="NDemon.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="NDemonScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>

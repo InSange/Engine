@@ -134,6 +134,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="NDemon.h" />
+    <ClInclude Include="NDemonScript.h" />
     <ClInclude Include="NHellScene.h" />
     <ClInclude Include="NLoadResources.h" />
     <ClInclude Include="NLoadScenes.h" />
@@ -143,6 +145,8 @@
     <ClInclude Include="NSpaceScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="NDemon.cpp" />
+    <ClCompile Include="NDemonScript.cpp" />
     <ClCompile Include="NHellScene.cpp" />
     <ClCompile Include="NPlayer.cpp" />
     <ClCompile Include="NPlayerScript.cpp" />
