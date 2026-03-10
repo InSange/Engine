@@ -46,7 +46,7 @@ namespace NuNu
 		}
 
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player, Vector2(0, 0));
-		mPlayer->AddComponent<PlayerScript>();
+		PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
 		
 		graphics::Texture* playerTexture = Resources::Find<graphics::Texture>(L"Player");
 		Animator* animator = mPlayer->AddComponent<Animator>();
@@ -63,6 +63,7 @@ namespace NuNu
 		animator->CreateAnimation(L"PlayerAttack", playerTexture
 			, Vector2(0.0f, 288.0f), Vector2(48.0f, 48.0f), Vector2::Zero, 4, 0.2f);
 
+		animator->GetCompleteEvent(L"PlayerAttack") = std::bind(&PlayerScript::AttackEnd, playerScript);
 		animator->PlayAnimation(L"PlayerIdle", true);
 
 		mPlayer->GetComponent<Transform>()->SetPosition(Vector2(100.0f, 100.0f));

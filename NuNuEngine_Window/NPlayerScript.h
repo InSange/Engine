@@ -20,6 +20,8 @@ namespace NuNu
 		void Update() override;
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
+		
+		void AttackEnd();
 
 	private:
 		void idle();
@@ -29,6 +31,11 @@ namespace NuNu
 		float animTime;
 		eState mState;
 		class Animator* mAnimator;
+
+		
+		/*void(*StartEvent)();
+		void(*CompeleteEvent)();
+		void(*EndEvent)();*/
 	};
 }
 

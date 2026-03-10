@@ -2,6 +2,7 @@
 #include "NInput.h"
 #include "NTime.h"
 #include "NSceneManager.h"
+#include "NResources.h"
 
 namespace NuNu
 {
@@ -60,6 +61,12 @@ namespace NuNu
 		SceneManager::Render(mBackHdc);
 
 		copyRenderTarget(mBackHdc, mHdc);
+	}
+
+	void Application::Release()
+	{
+		SceneManager::Release();
+		Resources::Release();
 	}
 
 	void Application::clearRenderTarget()

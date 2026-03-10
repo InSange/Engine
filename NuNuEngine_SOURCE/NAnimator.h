@@ -7,6 +7,28 @@ namespace NuNu
 	class Animator :public Component
 	{
 	public :
+		struct Event
+		{
+			void operator=(std::function<void()> func)
+			{
+				mEvent = std::move(func);
+			}
+
+			void operator()()
+			{
+				if (mEvent) mEvent();
+			}
+
+			std::function<void()> mEvent;
+		};
+
+		struct Events
+		{
+			Event StartEvent;
+			Event CompleteEvent;
+			Event EndEvent;
+		};
+
 		Animator();
 		~Animator();
 
@@ -26,10 +48,20 @@ namespace NuNu
 		Animation* FindAnimation(const std::wstring& name);
 		void PlayAnimation(const std::wstring& name, bool loop = false);
 
+		Events* FindEvents(const std::wstring& name);
+
+		std::function<void()>& GetStartEvent(const std::wstring& name);
+		std::function<void()>& GetCompleteEvent(const std::wstring& name);
+		std::function<void()>& GetEndEvent(const std::wstring& name);
+
+		bool IsCompleteAnimation() { return mActiveAnimation->IsComplete(); }
+
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
 		Animation* mActiveAnimation;
 		bool mbLoop;
+
+		std::map<std::wstring, Events*> mEvents;
 	};
 }
 

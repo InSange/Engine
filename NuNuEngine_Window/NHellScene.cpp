@@ -19,7 +19,7 @@ namespace NuNu
 		{
 			Player* bg = new Player();
 			Transform* tr
-				= bg->AddComponent<Transform>();
+				= bg->GetComponent<Transform>();
 			tr->SetPosition(Vector2(0, 0));
 
 			tr->SetName(L"TR");
@@ -29,7 +29,7 @@ namespace NuNu
 			sr->SetName(L"SR");
 			//sr->ImageLoad(L"../Resources/Hell.png");
 
-			//AddGameObject(bg, enums::eLayerType::BackGround);
+			AddGameObject(bg, enums::eLayerType::BackGround);
 		}
 	}
 

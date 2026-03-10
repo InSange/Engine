@@ -21,7 +21,7 @@ namespace NuNu
 	}
 	void PlayerScript::Update()
 	{
-		if(mAnimator == nullptr) mAnimator = GetOwner()->GetComponent<Animator>();
+		if (mAnimator == nullptr) mAnimator = GetOwner()->GetComponent<Animator>();
 		switch (mState)
 		{
 		case NuNu::PlayerScript::eState::Idle:
@@ -45,6 +45,14 @@ namespace NuNu
 	}
 	void PlayerScript::idle()
 	{
+		if (Input::GetKey(eKeyCode::LButton))
+		{
+			mState = PlayerScript::eState::Attack;
+			mAnimator->PlayAnimation(L"PlayerAttack", false);
+
+			Vector2 mousePos = Input::GetMousePosition();
+		}
+
 		if (Input::GetKey(eKeyCode::Right))
 		{
 			mState = PlayerScript::eState::Walk;
@@ -65,12 +73,12 @@ namespace NuNu
 			mState = PlayerScript::eState::Walk;
 			mAnimator->PlayAnimation(L"PlayerUpMove", true);
 		}
-		if (Input::GetKey(eKeyCode::SpaceBar))
+		/*if (Input::GetKey(eKeyCode::SpaceBar))
 		{
 			animTime = 0.0f;
 			mState = PlayerScript::eState::Attack;
 			mAnimator->PlayAnimation(L"PlayerAttack", false);
-		}
+		}*/
 	}
 	void PlayerScript::move()
 	{
@@ -107,8 +115,16 @@ namespace NuNu
 
 	void PlayerScript::attack()
 	{
-		animTime += Time::DeltaTime();
-		if (animTime >= 1.0f)
+		/*if (mAnimator->IsCompleteAnimation())
+		{
+			mState = PlayerScript::eState::Idle;
+			mAnimator->PlayAnimation(L"PlayerIdle", true);
+		}*/
+	}
+
+	void PlayerScript::AttackEnd()
+	{
+		if (mAnimator->IsCompleteAnimation())
 		{
 			mState = PlayerScript::eState::Idle;
 			mAnimator->PlayAnimation(L"PlayerIdle", true);

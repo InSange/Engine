@@ -9,6 +9,12 @@ namespace NuNu
 	}
 	Scene::~Scene()
 	{
+		for (Layer* layer : mLayers)
+		{
+			if (layer == nullptr) continue;
+			delete layer;
+			layer = nullptr;
+		}
 	}
 	void Scene::Initialize()
 	{

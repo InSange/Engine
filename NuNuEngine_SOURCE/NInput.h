@@ -39,6 +39,7 @@ namespace NuNu
 		static bool GetKeyDown(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Down; }
 		static bool GetKeyUp(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Up; }
 		static bool GetKey(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Pressed; }
+		static math::Vector2 GetMousePosition() { return mMousePosition; }
 
 	private:
 		static void createKeys();
@@ -47,9 +48,12 @@ namespace NuNu
 		static bool isKeyDown(eKeyCode code);
 		static void updateKeyDown(Input::Key& key);
 		static void updateKeyUp(Input::Key& key);
+		static void getMousePositionByWindow();
+		static void clearKeys();
 
 	private:
 		static std::vector<Key> mKeys;
+		static math::Vector2 mMousePosition;
 	};
 }
 

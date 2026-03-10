@@ -33,6 +33,16 @@ namespace NuNu
 			return resource;
 		}
 
+		static void Release()
+		{
+			for (auto& iter : mResources)
+			{
+				delete iter.second;
+				iter.second = nullptr;
+			}
+
+			mResources.clear();
+		}
 	private:
 		static std::map<std::wstring, Resource*> mResources;
 	};

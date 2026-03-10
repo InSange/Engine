@@ -7,11 +7,34 @@ namespace NuNu::graphics
 {
 	Texture::Texture()
 		: Resource(enums::eResourceType::Texture)
+		, mType(eTextureType::None)
+		, mImage(nullptr)
+		, mBitmap(NULL)
+		, mHdc(NULL)
+		, mWidth(0)
+		, mHeight(0)
 	{
 	}
 
 	Texture::~Texture()
 	{
+		if (mImage != nullptr)
+		{
+			delete mImage;
+			mImage = nullptr;
+		}
+
+		if (mBitmap != NULL)
+		{
+			DeleteObject(mBitmap);
+			mBitmap = NULL;
+		}
+
+		if (mHdc != NULL)
+		{
+			DeleteDC(mHdc);
+			mHdc = NULL;
+		}
 	}
 	HRESULT Texture::Load(const std::wstring& path)
 	{
