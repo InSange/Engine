@@ -3,6 +3,11 @@
 #include "NTransform.h"
 #include "NTime.h"
 #include "NGameObject.h"
+#include "NDemon.h"
+#include "NDemonScript.h"
+#include "NObject.h"
+#include "NResources.h"
+#include "NRenderer.h"
 #include "../NuNuEngine_SOURCE/NAnimator.h"
 
 namespace NuNu
@@ -47,10 +52,45 @@ namespace NuNu
 	{
 		if (Input::GetKey(eKeyCode::LButton))
 		{
+			Demon* mDemon = object::Instantiate<Demon>(enums::eLayerType::Enemy, Vector2(0, 0));
+			mDemon->SetActive(true);
+			DemonScript* mDemonScript = mDemon->AddComponent<DemonScript>();
+
+			mDemonScript->SetPlayer(GetOwner());
+
+			graphics::Texture* DemonTexture = Resources::Find<graphics::Texture>(L"Demon");
+			Animator* DemonAnimator = mDemon->AddComponent<Animator>();
+			DemonAnimator->CreateAnimation(L"DemonIdle", DemonTexture
+				, Vector2(0.0f, 0.0f), Vector2(24.0f, 24.0f), Vector2::Zero, 4, 0.2f);
+			DemonAnimator->CreateAnimation(L"DemonLeftMove", DemonTexture
+				, Vector2(0.0f, 24.0f), Vector2(24.0f, 24.0f), Vector2::Zero, 4, 0.2f);
+			DemonAnimator->CreateAnimation(L"DemonRightMove", DemonTexture
+				, Vector2(96.0f, 24.0f), Vector2(24.0f, 24.0f), Vector2::Zero, 4, 0.2f);
+			DemonAnimator->CreateAnimation(L"DemonUpMove", DemonTexture
+				, Vector2(96.0f, 96.0f), Vector2(24.0f, 24.0f), Vector2::Zero, 4, 0.2f);
+			DemonAnimator->CreateAnimation(L"DemonDownMove", DemonTexture
+				, Vector2(96.0f, 120.0f), Vector2(24.0f, 24.0f), Vector2::Zero, 4, 0.2f);
+
+			DemonAnimator->PlayAnimation(L"DemonIdle", true);
+
+			Transform* tr = GetOwner()->GetComponent<Transform>();
+
+			mDemon->GetComponent<Transform>()->SetPosition(tr->GetPosition());
+			mDemon->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
+
+			Vector2 mousePos = Input::GetMousePosition();
+			Vector2 playerScreenPos = renderer::mainCamera->CalculatePosition(tr->GetPosition());
+
+			Vector2 direction = mousePos - playerScreenPos;
+			direction.normalize();
+
+			mDemonScript->mDest = direction;
+
+/*
 			mState = PlayerScript::eState::Attack;
 			mAnimator->PlayAnimation(L"PlayerAttack", false);
 
-			Vector2 mousePos = Input::GetMousePosition();
+			Vector2 mousePos = Input::GetMousePosition();*/
 		}
 
 		if (Input::GetKey(eKeyCode::Right))
@@ -120,6 +160,7 @@ namespace NuNu
 			mState = PlayerScript::eState::Idle;
 			mAnimator->PlayAnimation(L"PlayerIdle", true);
 		}*/
+
 	}
 
 	void PlayerScript::AttackEnd()

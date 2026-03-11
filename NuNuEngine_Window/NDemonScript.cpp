@@ -13,6 +13,8 @@ namespace NuNu
 		, mAnimator(nullptr)
 		, mTime(0.0f)
 		, mDeathTime(0.0f)
+		, mDest(Vector2::Zero)
+		, mRadian(0.0f)
 	{
 	}
 	DemonScript::~DemonScript()
@@ -24,7 +26,7 @@ namespace NuNu
 	void DemonScript::Update()
 	{
 		mDeathTime += Time::DeltaTime();
-		if (mDeathTime > 6.0f)
+		if (mDeathTime > 3.0f)
 		{
 			object::Destroy(GetOwner());
 		}
@@ -54,13 +56,33 @@ namespace NuNu
 	}
 	void DemonScript::idle()
 	{
-		if (mTime > 3.0f)
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector2 pos = tr->GetPosition();
+
+
+		float rotDegree = Vector2::Dot(mDest, Vector2::Right);
+		rotDegree = acosf(rotDegree); 
+		rotDegree = ConvertDegree(rotDegree); 
+
+		if (mDest.y < 0.0f)
+		{
+			rotDegree = 360.0f - rotDegree;
+		}
+
+		tr->SetRotation(rotDegree);
+
+		pos.x += mDest.x * 100.0f * Time::DeltaTime();
+		pos.y += mDest.y * 100.0f * Time::DeltaTime();
+		tr->SetPosition(pos);
+
+
+		/*if (mTime > 3.0f)
 		{
 			mState = DemonScript::eState::Walk;
 			mDir = (eDirection)(rand() % 4);
 			playWalkAnimationByDirection(mDir);
 			mTime = 0.0f;
-		}
+		}*/
 	}
 	void DemonScript::move()
 	{

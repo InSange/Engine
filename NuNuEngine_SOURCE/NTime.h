@@ -10,7 +10,7 @@ namespace NuNu
 		static void Tick();
 		static void Render(HDC hdc);
 
-		static float DeltaTime() { return deltaTime; }
+		inline static float DeltaTime() { return deltaTime; }
 
 	private:
 		static LARGE_INTEGER mCpuFrequency; // CPU 고유 진동수

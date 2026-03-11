@@ -36,10 +36,10 @@ namespace NuNu
 		static void Update();
 
 
-		static bool GetKeyDown(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Down; }
-		static bool GetKeyUp(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Up; }
-		static bool GetKey(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Pressed; }
-		static math::Vector2 GetMousePosition() { return mMousePosition; }
+		__forceinline static bool GetKeyDown(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Down; }
+		__forceinline static bool GetKeyUp(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Up; }
+		__forceinline static bool GetKey(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Pressed; }
+		__forceinline static math::Vector2 GetMousePosition() { return mMousePosition; }
 
 	private:
 		static void createKeys();

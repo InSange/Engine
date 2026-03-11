@@ -68,7 +68,7 @@ namespace NuNu
 		animator->GetCompleteEvent(L"PlayerAttack") = std::bind(&PlayerScript::AttackEnd, playerScript);
 		animator->PlayAnimation(L"PlayerIdle", true);
 
-		mPlayer->GetComponent<Transform>()->SetPosition(Vector2(100.0f, 100.0f));
+		mPlayer->GetComponent<Transform>()->SetPosition(Vector2(500.0f, 500.0f));
 		mPlayer->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
 		//mPlayer->GetComponent<Transform>()->SetRotation(30.0f);
 
@@ -79,8 +79,8 @@ namespace NuNu
 			, Vector2(0.0f, 0.0f), Vector2(386.0f, 246.0f), Vector2::Zero, 8, 0.05f);
 		manimator->PlayAnimation(L"MapleEffect", true);*/
 
-		Demon* mDemon = object::Instantiate<Demon>(enums::eLayerType::Enemy, Vector2(0, 0));
-		mDemon->SetActive(false);
+/*		Demon* mDemon = object::Instantiate<Demon>(enums::eLayerType::Enemy, Vector2(0, 0));
+		mDemon->SetActive(true);
 		mDemon->AddComponent<DemonScript>();
 
 		graphics::Texture* DemonTexture = Resources::Find<graphics::Texture>(L"Demon");
@@ -98,9 +98,9 @@ namespace NuNu
 
 		DemonAnimator->PlayAnimation(L"DemonIdle", true);
 
-		mDemon->GetComponent<Transform>()->SetPosition(Vector2(100.0f, 100.0f));
+		mDemon->GetComponent<Transform>()->SetPosition(Vector2(500.0f, 500.0f));
 		mDemon->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
-		//mDemon->GetComponent<Transform>()->SetRotation(30.0f);
+		//mDemon->GetComponent<Transform>()->SetRotation(30.0f);*/
 
 		GameObject* obj = object::Instantiate<GameObject>(enums::eLayerType::UI, Vector2(rand() % 1600, rand() % 900));
 		obj->GetComponent<Transform>()->SetPosition(Vector2(100.0f, 100.0f));

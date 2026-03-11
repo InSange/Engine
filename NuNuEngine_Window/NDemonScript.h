@@ -31,6 +31,10 @@ namespace NuNu
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
 
+		void SetPlayer(class GameObject* player) { mPlayer = player; }
+
+		Vector2 mDest;
+
 	private:
 		void idle();
 		void move();
@@ -44,6 +48,10 @@ namespace NuNu
 		eDirection mDir;
 		float mTime;
 		float mDeathTime;
+
+		GameObject* mPlayer;
+		float mRadian;
+		
 	};
 }
 
