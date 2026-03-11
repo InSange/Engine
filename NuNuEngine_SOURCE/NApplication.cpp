@@ -38,6 +38,8 @@ namespace NuNu
 		Update();
 		LateUpdate();
 		Render();
+
+		Destroy();
 	}
 
 	void Application::Update() // 로직 갱신
@@ -61,6 +63,11 @@ namespace NuNu
 		SceneManager::Render(mBackHdc);
 
 		copyRenderTarget(mBackHdc, mHdc);
+	}
+
+	void Application::Destroy()
+	{
+		SceneManager::Destroy();
 	}
 
 	void Application::Release()

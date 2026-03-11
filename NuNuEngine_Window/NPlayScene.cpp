@@ -37,16 +37,18 @@ namespace NuNu
 		SpriteRenderer* sr = bgObj->AddComponent<SpriteRenderer>();
 		sr->SetTexture(Resources::Find<graphics::Texture>(L"BG"));
 
-		for (size_t i = 0; i < 5; i++)
+/*		for (size_t i = 0; i < 5; i++)
 		{
 			GameObject* obj = object::Instantiate<GameObject>(enums::eLayerType::UI, Vector2(rand() % 1600, rand() % 900));
 
 			sr = obj->AddComponent<SpriteRenderer>();
 			sr->SetTexture(Resources::Find<graphics::Texture>(L"TestIcon"));
-		}
+		}*/
 
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player, Vector2(0, 0));
 		PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
+
+		cameraComp->SetTraget(mPlayer);
 		
 		graphics::Texture* playerTexture = Resources::Find<graphics::Texture>(L"Player");
 		Animator* animator = mPlayer->AddComponent<Animator>();
@@ -78,6 +80,7 @@ namespace NuNu
 		manimator->PlayAnimation(L"MapleEffect", true);*/
 
 		Demon* mDemon = object::Instantiate<Demon>(enums::eLayerType::Enemy, Vector2(0, 0));
+		mDemon->SetActive(false);
 		mDemon->AddComponent<DemonScript>();
 
 		graphics::Texture* DemonTexture = Resources::Find<graphics::Texture>(L"Demon");
@@ -98,6 +101,16 @@ namespace NuNu
 		mDemon->GetComponent<Transform>()->SetPosition(Vector2(100.0f, 100.0f));
 		mDemon->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
 		//mDemon->GetComponent<Transform>()->SetRotation(30.0f);
+
+		GameObject* obj = object::Instantiate<GameObject>(enums::eLayerType::UI, Vector2(rand() % 1600, rand() % 900));
+		obj->GetComponent<Transform>()->SetPosition(Vector2(100.0f, 100.0f));
+
+		Animator* objAnim = obj->AddComponent<Animator>();
+		objAnim->CreateAnimationByFoler(L"Attack", L"../Resources/PlayerAttack", Vector2::Zero, 0.1f);
+		objAnim->PlayAnimation(L"Attack", true);
+
+/*		SpriteRenderer* asr = obj->AddComponent<SpriteRenderer>();
+		asr->SetTexture(Resources::Find<graphics::Texture>(L"Attack"));*/
 
 		Scene::Initialize();
 	}

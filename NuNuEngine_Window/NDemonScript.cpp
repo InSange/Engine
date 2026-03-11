@@ -4,6 +4,7 @@
 #include "NTime.h"
 #include "NGameObject.h"
 #include "../NuNuEngine_SOURCE/NAnimator.h"
+#include "NObject.h"
 
 namespace NuNu
 {
@@ -11,6 +12,7 @@ namespace NuNu
 		: mState(DemonScript::eState::Idle)
 		, mAnimator(nullptr)
 		, mTime(0.0f)
+		, mDeathTime(0.0f)
 	{
 	}
 	DemonScript::~DemonScript()
@@ -21,6 +23,12 @@ namespace NuNu
 	}
 	void DemonScript::Update()
 	{
+		mDeathTime += Time::DeltaTime();
+		if (mDeathTime > 6.0f)
+		{
+			object::Destroy(GetOwner());
+		}
+
 		mTime += Time::DeltaTime();
 		if (mAnimator == nullptr) mAnimator = GetOwner()->GetComponent<Animator>();
 		switch (mState)
@@ -59,7 +67,7 @@ namespace NuNu
 		if (mTime > 2.0f)
 		{
 			mState = DemonScript::eState::Idle;
-			mAnimator->PlayAnimation(L"PlayerIdle", true);
+			mAnimator->PlayAnimation(L"DemonIdle", true);
 			mTime = 0.0f;
 		}
 
@@ -73,7 +81,7 @@ namespace NuNu
 		if (mTime >= 1.0f)
 		{
 			mState = DemonScript::eState::Idle;
-			mAnimator->PlayAnimation(L"PlayerIdle", true);
+			mAnimator->PlayAnimation(L"DemonIdle", true);
 		}
 	}
 	void DemonScript::playWalkAnimationByDirection(eDirection dir)

@@ -7,6 +7,7 @@ namespace NuNu
 	{
 		createLayers();
 	}
+
 	Scene::~Scene()
 	{
 		for (Layer* layer : mLayers)
@@ -16,6 +17,7 @@ namespace NuNu
 			layer = nullptr;
 		}
 	}
+
 	void Scene::Initialize()
 	{
 		/*GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::None);
@@ -29,6 +31,7 @@ namespace NuNu
 			layer->Initialize();
 		}
 	}
+
 	void Scene::Update()
 	{
 		for (Layer* layer : mLayers)
@@ -38,6 +41,7 @@ namespace NuNu
 			layer->Update();
 		}
 	}
+
 	void Scene::LateUpdate()
 	{
 		for (Layer* layer : mLayers)
@@ -47,6 +51,7 @@ namespace NuNu
 			layer->LateUpdate();
 		}
 	}
+
 	void Scene::Render(HDC hdc)
 	{
 		for (Layer* layer : mLayers)
@@ -56,17 +61,31 @@ namespace NuNu
 			layer->Render(hdc);
 		}
 	}
+
+	void Scene::Destroy()
+	{
+		for (Layer* layer : mLayers)
+		{
+			if (layer == nullptr) continue;
+
+			layer->Destroy();
+		}
+	}
+
 	void Scene::OnEnter()
 	{
 	}
+
 	void Scene::OnExit()
 	{
 	}
+
 	void Scene::AddGameObject(GameObject* gameObj, enums::eLayerType type)
 	{
 		if (gameObj == nullptr) return;
 		mLayers[(UINT)type]->AddGameObject(gameObj);
 	}
+
 	void Scene::createLayers()
 	{
 		mLayers.resize((UINT)enums::eLayerType::Max);

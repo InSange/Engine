@@ -16,7 +16,7 @@ namespace NuNu
 		void LateUpdate() override;
 		void Render(HDC hdc) override;
 
-
+		void SetTraget(GameObject* target) { mTarget = target; }
 
 	private:
 		//std::vector<GameObject*> mGameObjects;

@@ -43,6 +43,7 @@ namespace NuNu
 		class Animator* mAnimator;
 		eDirection mDir;
 		float mTime;
+		float mDeathTime;
 	};
 }
 

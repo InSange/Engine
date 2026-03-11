@@ -1,4 +1,6 @@
 #include "NAnimator.h"
+#include "NResources.h"
+#include "NTexture.h"
 
 namespace NuNu
 {
@@ -73,6 +75,72 @@ namespace NuNu
 		mEvents.insert(std::make_pair(name, events));
 
 		mAnimations.insert(std::make_pair(name, anim));
+	}
+
+	void Animator::CreateAnimationByFoler(const std::wstring& name, const std::wstring& path, Vector2 offset, float duration)
+	{
+		Animation* anim = nullptr;
+
+		anim = FindAnimation(name);
+		if (anim != nullptr) return;
+
+		int fileCount = 0;
+		std::filesystem::path fs(path);
+		std::vector<graphics::Texture*> images = {};
+
+		for (auto& p : std::filesystem::recursive_directory_iterator(fs))
+		{
+			std::wstring fileName = p.path().filename();
+			std::wstring fullName = p.path();
+
+			graphics::Texture* texture = Resources::Load<graphics::Texture>(fileName, fullName);
+			images.push_back(texture);
+			fileCount++;
+		}
+
+		if (images.empty()) return;
+		std::wstring ext = L"";
+		if (images[0]->GetTextureType() == graphics::Texture::eTextureType::Bmp)
+			ext = L".bmp";
+		else if (images[0]->GetTextureType() == graphics::Texture::eTextureType::Png)
+			ext = L".png";
+		else if (images[0]->GetTextureType() == graphics::Texture::eTextureType::jpg)
+			ext = L".jpg";
+
+		std::wstring sheetName = name + ext;
+
+		UINT sheetWidth = images[0]->GetWidth() * fileCount;
+		UINT sheetHeight = images[0]->GetHeight();
+		graphics::Texture* spriteSheet = graphics::Texture::Create(sheetName, sheetWidth, sheetHeight);
+
+		UINT imageWidth = images[0]->GetWidth();
+		UINT imageHeight = images[0]->GetHeight();
+		if (spriteSheet->GetTextureType() == graphics::Texture::eTextureType::Bmp)
+		{
+			for (size_t i = 0; i < images.size(); i++)
+			{
+				BitBlt(spriteSheet->GetHdc(), i * imageWidth, 0, imageWidth, imageHeight,
+					images[i]->GetHdc(), 0, 0, SRCCOPY);
+			}
+		}
+		else if (spriteSheet->GetTextureType() == graphics::Texture::eTextureType::Png ||
+			spriteSheet->GetTextureType() == graphics::Texture::eTextureType::jpg)
+		{
+			Gdiplus::Graphics graphics(spriteSheet->GetImage());
+
+			for (size_t i = 0; i < images.size(); i++)
+			{
+				Gdiplus::Image* frameImage = images[i]->GetImage();
+				if (frameImage != nullptr)
+				{
+					graphics.DrawImage(frameImage,
+						static_cast<INT>(i * imageWidth), 0,
+						static_cast<INT>(imageWidth), static_cast<INT>(imageHeight));
+				}
+			}
+		}
+
+		CreateAnimation(name, spriteSheet, Vector2::Zero, Vector2(imageWidth, imageHeight), offset, fileCount, duration);
 	}
 
 	Animation* Animator::FindAnimation(const std::wstring& name)

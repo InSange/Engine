@@ -7,6 +7,16 @@ namespace NuNu
 	class GameObject
 	{
 	public:
+		//friend void object::Destroy(GameObject* obj);
+
+		enum class eState
+		{
+			Active,
+			Paused,
+			Dead,
+			End
+		};
+
 		GameObject();
 		~GameObject();
 
@@ -40,10 +50,20 @@ namespace NuNu
 			return component;
 		}
 
+		eState GetActive() { return mState; }
+		void SetActive(bool power)
+		{
+			if (power == true) mState = eState::Active;
+			else mState = eState::Paused;
+		}
+		
+		void Death() { mState = eState::Dead; }
+
 	private:
 		void initializeTransform();
 
 	private:
+		eState mState;
 		std::vector<Component*> mComponents;
 	};
 }

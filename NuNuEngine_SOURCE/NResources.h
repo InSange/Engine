@@ -33,6 +33,16 @@ namespace NuNu
 			return resource;
 		}
 
+		static void Insert(const std::wstring& key, Resource* resource)
+		{
+			if (key == L"")
+				return;
+			if (resource == nullptr)
+				return;
+
+			mResources.insert(std::make_pair(key, resource));
+		}
+
 		static void Release()
 		{
 			for (auto& iter : mResources)
