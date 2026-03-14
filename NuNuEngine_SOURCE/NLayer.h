@@ -26,7 +26,7 @@ namespace NuNu
 	private:
 		void findDeadGameObjects(OUT std::vector<GameObject*>& gameObjects);
 		void deleteGameObjects(std::vector<GameObject*> deleteObjs);
-		void eraseGameObject();
+		void eraseDeadGameObject();
 
 	private:
 		//enums::eLayerType mType;

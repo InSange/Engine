@@ -16,7 +16,7 @@ namespace NuNu
 	}
 	void SpaceScene::Initialize()
 	{
-		{
+/*		{
 			Player* bg = new Player();
 			Transform* tr
 				= bg->GetComponent<Transform>();
@@ -30,7 +30,7 @@ namespace NuNu
 			//sr->ImageLoad(L"../Resources/Space.jpg");
 
 			AddGameObject(bg, enums::eLayerType::BackGround);
-		}
+		}*/
 	}
 	void SpaceScene::Update()
 	{

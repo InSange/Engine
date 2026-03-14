@@ -67,11 +67,15 @@ namespace NuNu
 		void Death() { mState = eState::Destroyed; }
 		bool IsDead() { return mState == eState::Destroyed; }
 
+		void SetLayerType(eLayerType layerType) { mLayerType = layerType; }
+		eLayerType GetLayerType() { return mLayerType; }
+
 	private:
 		void initializeTransform();
 
 	private:
 		eState mState;
 		std::vector<Component*> mComponents;
+		eLayerType mLayerType;
 	};
 }

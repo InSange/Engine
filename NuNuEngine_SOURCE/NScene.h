@@ -21,6 +21,7 @@ namespace NuNu
 		virtual void OnExit();
 
 		void AddGameObject(GameObject* gameObj, enums::eLayerType type);
+		void EraseGameObject(GameObject* gameObj);
 		Layer* GetLayer(enums::eLayerType type) { return mLayers[(UINT)type]; }
 	private: 
 		void createLayers();

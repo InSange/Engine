@@ -12,6 +12,7 @@ namespace NuNu::object
 	static T* Instantiate(enums::eLayerType type)
 	{
 		T* gameObject = new T();
+		gameObject->SetLayerType(type);
 		Scene* activeScene = SceneManager::GetActiveScene();
 		Layer* layer = activeScene->GetLayer(type);
 
@@ -24,6 +25,7 @@ namespace NuNu::object
 	static T* Instantiate(enums::eLayerType type, math::Vector2 position)
 	{
 		T* gameObject = new T();
+		gameObject->SetLayerType(type);
 		Scene* activeScene = SceneManager::GetActiveScene();
 		Layer* layer = activeScene->GetLayer(type);
 
@@ -35,10 +37,13 @@ namespace NuNu::object
 		return gameObject;
 	}
 
-/*	static void Destroy(GameObject* gameObject)
+	static void DontDestroyOnLoad(GameObject* gameObject)
 	{
-		if (gameObject == nullptr) return;
+		Scene* activeScene = SceneManager::GetActiveScene();
 
-		gameObject->Death();
-	}*/
+		activeScene->EraseGameObject(gameObject);
+
+		Scene* dontDestroyOnLoad = SceneManager::GetDontDestroyOnLoad();
+		dontDestroyOnLoad->AddGameObject(gameObject, gameObject->GetLayerType());
+	}
 }

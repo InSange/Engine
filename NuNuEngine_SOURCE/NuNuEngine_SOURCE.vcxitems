@@ -23,6 +23,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NCollider.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NCollisionManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NDontDestroyOnLoad.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NEnum.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NGameObject.h" />
@@ -51,6 +52,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NCollider.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NCollisionManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NDontDestroyOnLoad.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NApplication.cpp" />

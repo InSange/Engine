@@ -74,6 +74,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NObject.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NDontDestroyOnLoad.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -154,6 +157,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NCollisionManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NCircleCollider2D.h">
       <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NDontDestroyOnLoad.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

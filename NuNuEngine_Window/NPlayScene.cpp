@@ -31,7 +31,7 @@ namespace NuNu
 	{
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Enemy, true);
 
-		//Scene::Initialize();
+		Scene::Initialize();
 		GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::None, Vector2(812.0f, 470.0f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
 		renderer::mainCamera = cameraComp;
@@ -53,6 +53,8 @@ namespace NuNu
 		}*/
 
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player, Vector2(0, 0));
+		object::DontDestroyOnLoad(mPlayer);
+
 		PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
 		BoxCollider2D* collider = mPlayer->AddComponent<BoxCollider2D>();
 		//CircleCollider2D* collider = mPlayer->AddComponent<CircleCollider2D>();
