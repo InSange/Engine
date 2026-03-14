@@ -2,18 +2,24 @@
 #include "CommonInclude.h"
 #include "NComponent.h"
 
+namespace NuNu::object
+{
+	void Destroy(GameObject* gameObject);
+}
+
 namespace NuNu
 {
-	class GameObject
+	class GameObject// : public Labelled
 	{
 	public:
-		//friend void object::Destroy(GameObject* obj);
+		friend void object::Destroy(GameObject* obj);
 
 		enum class eState
 		{
+			Created,
 			Active,
 			Paused,
-			Dead,
+			Destroyed,
 			End
 		};
 
@@ -50,14 +56,16 @@ namespace NuNu
 			return component;
 		}
 
-		eState GetActive() { return mState; }
+		eState GetState() { return mState; }
 		void SetActive(bool power)
 		{
 			if (power == true) mState = eState::Active;
 			else mState = eState::Paused;
 		}
+		bool IsActive() { return mState == eState::Active; }
 		
-		void Death() { mState = eState::Dead; }
+		void Death() { mState = eState::Destroyed; }
+		bool IsDead() { return mState == eState::Destroyed; }
 
 	private:
 		void initializeTransform();

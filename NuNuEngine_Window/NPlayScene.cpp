@@ -15,6 +15,9 @@
 #include "NCamera.h"
 #include "NRenderer.h"
 #include "NAnimator.h"
+#include "NBoxCollider2D.h"
+#include "NCircleCollider2D.h"
+#include "NCollisionManager.h"
 
 namespace NuNu
 {
@@ -26,6 +29,8 @@ namespace NuNu
 	}
 	void PlayScene::Initialize()
 	{
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Enemy, true);
+
 		//Scene::Initialize();
 		GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::None, Vector2(812.0f, 470.0f));
 		Camera* cameraComp = camera->AddComponent<Camera>();
@@ -37,6 +42,8 @@ namespace NuNu
 		SpriteRenderer* sr = bgObj->AddComponent<SpriteRenderer>();
 		sr->SetTexture(Resources::Find<graphics::Texture>(L"BG"));
 
+		bgObj->SetActive(false);
+
 /*		for (size_t i = 0; i < 5; i++)
 		{
 			GameObject* obj = object::Instantiate<GameObject>(enums::eLayerType::UI, Vector2(rand() % 1600, rand() % 900));
@@ -47,8 +54,11 @@ namespace NuNu
 
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player, Vector2(0, 0));
 		PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
+		BoxCollider2D* collider = mPlayer->AddComponent<BoxCollider2D>();
+		//CircleCollider2D* collider = mPlayer->AddComponent<CircleCollider2D>();
+		collider->SetOffset(Vector2(-50.0f, -50.0f));
 
-		cameraComp->SetTraget(mPlayer);
+		//cameraComp->SetTraget(mPlayer);
 		
 		graphics::Texture* playerTexture = Resources::Find<graphics::Texture>(L"Player");
 		Animator* animator = mPlayer->AddComponent<Animator>();
@@ -79,12 +89,17 @@ namespace NuNu
 			, Vector2(0.0f, 0.0f), Vector2(386.0f, 246.0f), Vector2::Zero, 8, 0.05f);
 		manimator->PlayAnimation(L"MapleEffect", true);*/
 
-/*		Demon* mDemon = object::Instantiate<Demon>(enums::eLayerType::Enemy, Vector2(0, 0));
+		Demon* mDemon = object::Instantiate<Demon>(enums::eLayerType::Enemy, Vector2(0, 0));
 		mDemon->SetActive(true);
 		mDemon->AddComponent<DemonScript>();
 
 		graphics::Texture* DemonTexture = Resources::Find<graphics::Texture>(L"Demon");
 		Animator* DemonAnimator = mDemon->AddComponent<Animator>();
+
+		//BoxCollider2D* boxDemonCollider = mDemon->AddComponent<BoxCollider2D>();
+		CircleCollider2D* boxDemonCollider = mDemon->AddComponent<CircleCollider2D>();
+		boxDemonCollider->SetOffset(Vector2(-50.0f, -50.0f));
+
 		DemonAnimator->CreateAnimation(L"DemonIdle", DemonTexture
 			, Vector2(0.0f, 0.0f), Vector2(24.0f, 24.0f), Vector2::Zero, 4, 0.2f);
 		DemonAnimator->CreateAnimation(L"DemonLeftMove", DemonTexture
@@ -100,7 +115,7 @@ namespace NuNu
 
 		mDemon->GetComponent<Transform>()->SetPosition(Vector2(500.0f, 500.0f));
 		mDemon->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
-		//mDemon->GetComponent<Transform>()->SetRotation(30.0f);*/
+		mDemon->GetComponent<Transform>()->SetRotation(30.0f);
 
 		GameObject* obj = object::Instantiate<GameObject>(enums::eLayerType::UI, Vector2(rand() % 1600, rand() % 900));
 		obj->GetComponent<Transform>()->SetPosition(Vector2(100.0f, 100.0f));
@@ -135,10 +150,12 @@ namespace NuNu
 	}
 	void PlayScene::OnEnter()
 	{
+		Scene::OnEnter();
 	}
 	void PlayScene::OnExit()
 	{
 		/*		Transform* tr = bg->GetComponent<Transform>();
 				tr->SetPosition(Vector2(0, 0));*/
+		Scene::OnExit();
 	}
 }

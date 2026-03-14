@@ -5,9 +5,10 @@ namespace NuNu::enums
 	enum class eComponentType
 	{
 		Trnasform,
+		Collider,
+		Script,
 		SpriteRenderer,
 		Animator,
-		Script,
 		Camera,
 		End,
 	};
@@ -22,12 +23,21 @@ namespace NuNu::enums
 		Max = 16,
 	};
 
+	constexpr UINT eLayerTypeMax = static_cast<UINT>(eLayerType::Max);
+
 	enum class eResourceType
 	{
 		Texture,
 		AudioClip,
 		Animation,
 		Prefab,
+		End,
+	};
+
+	enum class eColliderType
+	{
+		Circle2D,
+		Rect2D,
 		End,
 	};
 }

@@ -4,6 +4,14 @@
 #include "NApplication.h"
 #include "NTransform.h"
 
+namespace NuNu::object
+{
+	void Destroy(GameObject* gameObject)
+	{
+		if (gameObject != nullptr)
+			gameObject->Death();
+	}
+}
 
 namespace NuNu
 {

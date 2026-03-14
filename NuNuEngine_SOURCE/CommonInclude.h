@@ -1,4 +1,6 @@
 #pragma once
+
+#define NOMINMAX
 #include <Windows.h>
 #include <assert.h>
 
@@ -6,6 +8,7 @@
 #include <algorithm>
 #include <string>
 #include <map>
+#include <bitset>
 #include <functional>
 #include <filesystem>
 #include <math.h>

@@ -51,4 +51,12 @@ namespace NuNu
 		wchar_t str[50] = L"Hell Scene";
 		TextOut(hdc, 0, 0, str, 10);
 	}
+	void SpaceScene::OnEnter()
+	{
+		Scene::OnEnter();
+	}
+	void SpaceScene::OnExit()
+	{
+		Scene::OnExit();
+	}
 }

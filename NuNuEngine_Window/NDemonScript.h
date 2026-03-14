@@ -33,6 +33,10 @@ namespace NuNu
 
 		void SetPlayer(class GameObject* player) { mPlayer = player; }
 
+		void OnCollisionEnter(Collider* other) override;
+		void OnCollisionStay(Collider* other) override;
+		void OnCollisionExit(Collider* other) override;
+
 		Vector2 mDest;
 
 	private:

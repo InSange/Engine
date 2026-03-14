@@ -3,6 +3,7 @@
 #include "NTime.h"
 #include "NSceneManager.h"
 #include "NResources.h"
+#include "NCollisionManager.h"
 
 namespace NuNu
 {
@@ -30,6 +31,7 @@ namespace NuNu
 		createBuffer(width, height);
 		initializeEtc();
 
+		CollisionManager::Initialize();
 		SceneManager::Initialize();
 	}
 
@@ -47,11 +49,13 @@ namespace NuNu
 		Input::Update();
 		Time::Tick();
 
+		CollisionManager::Update();
 		SceneManager::Update();
 	}
 
 	void Application::LateUpdate()
 	{
+		CollisionManager::LateUpdate();
 		SceneManager::LateUpdate();
 	}
 
@@ -60,6 +64,7 @@ namespace NuNu
 		clearRenderTarget();
 
 		Time::Render(mBackHdc);
+		CollisionManager::Render(mBackHdc);
 		SceneManager::Render(mBackHdc);
 
 		copyRenderTarget(mBackHdc, mHdc);
@@ -79,9 +84,17 @@ namespace NuNu
 	void Application::clearRenderTarget()
 	{
 		//Rectangle(mBackHdc, 0, 0, 1600, 900);
-		RECT bgRect = { 0, 0, 1600, 900 };
+/*		RECT bgRect = { 0, 0, 1600, 900 };
 		HBRUSH bgBrush = (HBRUSH)GetStockObject(WHITE_BRUSH); // 윈도우 기본 하얀색 브러쉬 (DeleteObject 필요 없음)
-		FillRect(mBackHdc, &bgRect, bgBrush);
+		FillRect(mBackHdc, &bgRect, bgBrush);*/
+
+		HBRUSH grayBrush = (HBRUSH)CreateSolidBrush(RGB(128, 128, 128));
+		HBRUSH oldBrush = (HBRUSH)SelectObject(mBackHdc, grayBrush);
+
+		Rectangle(mBackHdc, 0, 0, 1600, 900);
+
+		(HBRUSH)SelectObject(mBackHdc, oldBrush);
+		DeleteObject(grayBrush);
 	}
 
 	void Application::copyRenderTarget(HDC source, HDC dest)

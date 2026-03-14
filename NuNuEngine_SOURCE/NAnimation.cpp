@@ -57,6 +57,12 @@ namespace NuNu
 
 		Sprite sprite = mAnimationSheet[mIndex];
 
+		float finalWidth = sprite.size.x * scale.x;
+		float finalHeight = sprite.size.y * scale.y;
+
+		float drawX = pos.x - (finalWidth / 2.0f) + sprite.offset.x;
+		float drawY = pos.y - (finalHeight / 2.0f) + sprite.offset.y;
+
 		// BMP
 		if (mTexture->GetTextureType() == graphics::Texture::eTextureType::Bmp)
 		{
@@ -71,25 +77,24 @@ namespace NuNu
 				func.SourceConstantAlpha = 255;
 
 				AlphaBlend(hdc
-					, pos.x - (sprite.size.x / 2.0f) + sprite.offset.x, pos.y - (sprite.size.y / 2.0f) + sprite.offset.y
-					, sprite.size.x * scale.x, sprite.size.y * scale.y
-					, imgHdc, sprite.leftTop.x, sprite.leftTop.y, sprite.size.x, sprite.size.y, func);
+					, static_cast<int>(drawX), static_cast<int>(drawY)
+					, static_cast<int>(finalWidth), static_cast<int>(finalHeight)
+					, imgHdc, static_cast<int>(sprite.leftTop.x), static_cast<int>(sprite.leftTop.y)
+					, static_cast<int>(sprite.size.x), static_cast<int>(sprite.size.y), func);
 			}
 			else
 			{
-				TransparentBlt(hdc 
-					, pos.x - (sprite.size.x / 2.0f) + sprite.offset.x, pos.y - (sprite.size.y / 2.0f) + sprite.offset.y
-					, sprite.size.x, sprite.size.y, imgHdc
-					, sprite.leftTop.x, sprite.leftTop.y, sprite.size.x, sprite.size.y, RGB(255, 0, 255));
+				TransparentBlt(hdc
+					, static_cast<int>(drawX), static_cast<int>(drawY)
+					, static_cast<int>(finalWidth), static_cast<int>(finalHeight)
+					, imgHdc, static_cast<int>(sprite.leftTop.x), static_cast<int>(sprite.leftTop.y)
+					, static_cast<int>(sprite.size.x), static_cast<int>(sprite.size.y), RGB(255, 0, 255));
 			}
 		}
+		// PNG
 		else if (mTexture->GetTextureType() == graphics::Texture::eTextureType::Png ||
 			mTexture->GetTextureType() == graphics::Texture::eTextureType::jpg)
 		{
-
-			Gdiplus::ImageAttributes imgAtt = {}; // 투명화 추가
-			imgAtt.SetColorKey(Gdiplus::Color(230, 230, 230), Gdiplus::Color(255, 255, 255));
-
 			Gdiplus::Graphics graphics(hdc);
 
 			graphics.TranslateTransform(pos.x, pos.y);
@@ -97,10 +102,10 @@ namespace NuNu
 			graphics.TranslateTransform(-pos.x, -pos.y);
 
 			Gdiplus::Rect destRect(
-				static_cast<INT>(pos.x - (sprite.size.x / 2.0f)),
-				static_cast<INT>(pos.y - (sprite.size.y / 2.0f)),
-				static_cast<INT>(sprite.size.x * scale.x),
-				static_cast<INT>(sprite.size.y * scale.y)
+				static_cast<INT>(drawX),
+				static_cast<INT>(drawY),
+				static_cast<INT>(finalWidth),
+				static_cast<INT>(finalHeight)
 			);
 
 			graphics.DrawImage(mTexture->GetImage(),
@@ -109,8 +114,31 @@ namespace NuNu
 				static_cast<INT>(sprite.leftTop.y),
 				static_cast<INT>(sprite.size.x),
 				static_cast<INT>(sprite.size.y),
-				Gdiplus::UnitPixel, nullptr/*&imgAtt*/);
+				Gdiplus::UnitPixel, nullptr);
 		}
+
+		/*float finalX = pos.x - (sprite.size.x / 2.0f) + sprite.offset.x;
+		float finalY = pos.y - (sprite.size.y / 2.0f) + sprite.offset.y;
+
+		float finalWidth = sprite.size.x * scale.x;
+		float finalHeight = sprite.size.y * scale.y;
+
+		Rectangle(hdc,
+			static_cast<int>(finalX),
+			static_cast<int>(finalY),
+			static_cast<int>(finalX + finalWidth),
+			static_cast<int>(finalY + finalHeight)
+		);*/
+		float centerX = drawX + (finalWidth / 2.0f);
+		float centerY = drawY + (finalHeight / 2.0f);
+
+		int halfSize = 3;
+		Rectangle(hdc,
+			static_cast<int>(centerX - halfSize),
+			static_cast<int>(centerY - halfSize),
+			static_cast<int>(centerX + halfSize),
+			static_cast<int>(centerY + halfSize)
+		);
 	}
 	void Animation::CreateAnimation(const std::wstring& name, graphics::Texture* spriteSheet, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteLength, float duration)
 	{

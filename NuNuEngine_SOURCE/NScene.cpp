@@ -92,7 +92,7 @@ namespace NuNu
 		for (size_t i = 0; i < (UINT)enums::eLayerType::Max; i++)
 		{
 			mLayers[i] = new Layer();
-			mLayers[i]->SetType(enums::eLayerType(i));
+			//mLayers[i]->SetType(enums::eLayerType(i));
 		}
 	}
 }

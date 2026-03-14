@@ -18,13 +18,23 @@ namespace NuNu
 		virtual void Destroy();
 
 		void AddGameObject(GameObject* gameObject);
-		void SetType(enums::eLayerType type) { mType = type; }
+		void EraseGameObject(GameObject* eraseGameObj);
+		//void SetType(enums::eLayerType type) { mType = type; }
+
+		const std::vector<GameObject*> GetGameObjects() { return mGameObjects; }
+
 	private:
-		enums::eLayerType mType;
+		void findDeadGameObjects(OUT std::vector<GameObject*>& gameObjects);
+		void deleteGameObjects(std::vector<GameObject*> deleteObjs);
+		void eraseGameObject();
+
+	private:
+		//enums::eLayerType mType;
 		std::vector<GameObject*> mGameObjects;
 	};
 
 
-	typedef std::vector<GameObject*>::iterator GameObjectIter;
+	using GameObjectIter = std::vector<GameObject*>::iterator;
+//	typedef std::vector<GameObject*>::iterator GameObjectIter;
 }
 

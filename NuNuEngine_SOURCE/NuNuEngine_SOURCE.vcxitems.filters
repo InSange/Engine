@@ -61,6 +61,19 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NAnimation.cpp">
       <Filter>Component\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NCollider.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NBoxCollider2D.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NCollisionManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NCircleCollider2D.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NObject.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -132,6 +145,16 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NAnimation.h">
       <Filter>Component\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NCollider.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NBoxCollider2D.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NCollisionManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NCircleCollider2D.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -181,6 +204,9 @@
     </Filter>
     <Filter Include="Component\Animation">
       <UniqueIdentifier>{eb7799d3-2870-4d08-914e-3404bedaa700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider">
+      <UniqueIdentifier>{feb06017-8041-488f-aef3-298b7cb92e4f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

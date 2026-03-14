@@ -8,6 +8,7 @@
 #include "NObject.h"
 #include "NResources.h"
 #include "NRenderer.h"
+#include "NCollider.h"
 #include "../NuNuEngine_SOURCE/NAnimator.h"
 
 namespace NuNu
@@ -170,5 +171,17 @@ namespace NuNu
 			mState = PlayerScript::eState::Idle;
 			mAnimator->PlayAnimation(L"PlayerIdle", true);
 		}
+	}
+	void PlayerScript::OnCollisionEnter(Collider* other)
+	{
+		int a = 0;
+	}
+	void PlayerScript::OnCollisionStay(Collider* other)
+	{
+		int a = 0;
+	}
+	void PlayerScript::OnCollisionExit(Collider* other)
+	{
+		int a = 0;
 	}
 }

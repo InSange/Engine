@@ -5,6 +5,7 @@
 #include "NGameObject.h"
 #include "../NuNuEngine_SOURCE/NAnimator.h"
 #include "NObject.h"
+#include "NCollider.h"
 
 namespace NuNu
 {
@@ -28,7 +29,7 @@ namespace NuNu
 		mDeathTime += Time::DeltaTime();
 		if (mDeathTime > 3.0f)
 		{
-			object::Destroy(GetOwner());
+			//object::Destroy(GetOwner());
 		}
 
 		mTime += Time::DeltaTime();
@@ -52,6 +53,15 @@ namespace NuNu
 	{
 	}
 	void DemonScript::Render(HDC hdc)
+	{
+	}
+	void DemonScript::OnCollisionEnter(Collider* other)
+	{
+	}
+	void DemonScript::OnCollisionStay(Collider* other)
+	{
+	}
+	void DemonScript::OnCollisionExit(Collider* other)
 	{
 	}
 	void DemonScript::idle()

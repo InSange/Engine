@@ -47,4 +47,12 @@ namespace NuNu
 	{
 		Scene::Render(hdc);
 	}
+	void HellScene::OnEnter()
+	{
+		Scene::OnEnter();
+	}
+	void HellScene::OnExit()
+	{
+		Scene::OnExit();
+	}
 }

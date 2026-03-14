@@ -17,7 +17,11 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NAnimator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NBoxCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NCircleCollider2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NCollider.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NCollisionManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NEnum.h" />
@@ -41,7 +45,11 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)NAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NAnimator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NBoxCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NCircleCollider2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NCollider.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NCollisionManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NGameObject.cpp" />
@@ -49,6 +57,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NInput.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NLayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NResources.cpp" />
