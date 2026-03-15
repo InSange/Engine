@@ -6,6 +6,7 @@
 #include "../NuNuEngine_SOURCE/NApplication.h"
 #include "../NuNuEngine_SOURCE/NResources.h"
 #include "../NuNuEngine_SOURCE/NTexture.h"
+#include "../NuNuEngine_SOURCE/NSceneManager.h"
 
 #include "../NuNuEngine_Window/NLoadResources.h"
 #include "../NuNuEngine_Window/NLoadScenes.h"
@@ -141,11 +142,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, width, height, nullptr, nullptr, hInstance, nullptr);
 
-   UINT toolWidth = 600;
-   UINT toolHeight = 800;
-   HWND ToolHWnd = CreateWindowW(L"TILEWINDOW", L"TileWindow", WS_OVERLAPPEDWINDOW,
-       CW_USEDEFAULT, 0, toolWidth, toolHeight, nullptr, nullptr, hInstance, nullptr);
-
    application.Initialize(hWnd, width, height);
 
    if (!hWnd)
@@ -165,18 +161,30 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    int a = 0;
    srand((unsigned int)(& a));
 
-   // Tile 윈도우 크기 조정
-   NuNu::graphics::Texture* texture = NuNu::Resources::Find<NuNu::graphics::Texture>(L"Overworld");
-   
-   RECT rect = { 0, 0, texture->GetWidth(), texture->GetHeight()};
-   AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+   NuNu::Scene* activeScene = NuNu::SceneManager::GetActiveScene();
 
-   toolWidth = rect.right - rect.left;
-   toolHeight = rect.bottom - rect.top;
+   std::wstring name = activeScene->GetName();
 
-   SetWindowPos(ToolHWnd, nullptr, width, 0, toolWidth, toolHeight, 0);
-   ShowWindow(ToolHWnd, true);
-   UpdateWindow(ToolHWnd);
+   if (name == L"ToolScene")
+   {
+       UINT toolWidth = 600;
+       UINT toolHeight = 800;
+       HWND ToolHWnd = CreateWindowW(L"TILEWINDOW", L"TileWindow", WS_OVERLAPPEDWINDOW,
+           CW_USEDEFAULT, 0, toolWidth, toolHeight, nullptr, nullptr, hInstance, nullptr);
+
+       // Tile 윈도우 크기 조정
+       NuNu::graphics::Texture* texture = NuNu::Resources::Find<NuNu::graphics::Texture>(L"Overworld");
+
+       RECT rect = { 0, 0, texture->GetWidth(), texture->GetHeight() };
+       AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+
+       toolWidth = rect.right - rect.left;
+       toolHeight = rect.bottom - rect.top;
+
+       SetWindowPos(ToolHWnd, nullptr, width, 0, toolWidth, toolHeight, 0);
+       ShowWindow(ToolHWnd, true);
+       UpdateWindow(ToolHWnd);
+   }
 
    return TRUE;
 }

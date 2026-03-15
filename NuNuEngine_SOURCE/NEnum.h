@@ -6,6 +6,7 @@ namespace NuNu::enums
 	{
 		Trnasform,
 		Collider,
+		Rigidbody,
 		Script,
 		SpriteRenderer,
 		Animator,
@@ -20,6 +21,7 @@ namespace NuNu::enums
 		UI,
 		Enemy,
 		Player,
+		Floor,
 		Particle,
 		Max = 16,
 	};

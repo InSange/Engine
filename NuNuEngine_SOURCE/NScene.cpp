@@ -1,4 +1,5 @@
 #include "NScene.h"
+#include "NCollisionManager.h"
 
 namespace NuNu
 {
@@ -78,6 +79,7 @@ namespace NuNu
 
 	void Scene::OnExit()
 	{
+		CollisionManager::Clear();
 	}
 
 	void Scene::AddGameObject(GameObject* gameObj, enums::eLayerType type)

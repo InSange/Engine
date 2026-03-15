@@ -9,6 +9,7 @@
 #include "NResources.h"
 #include "NRenderer.h"
 #include "NCollider.h"
+#include "NRigidbody.h"
 #include "../NuNuEngine_SOURCE/NAnimator.h"
 
 namespace NuNu
@@ -108,6 +109,13 @@ namespace NuNu
 		{
 			mState = PlayerScript::eState::Walk;
 			mAnimator->PlayAnimation(L"PlayerUpMove", true);
+
+			Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+
+			Vector2 velocity = rb->GetVelocity();
+			velocity.y = -500.0f;
+			rb->SetVelocity(velocity);
+			rb->SetGround(false);
 		}
 		if (Input::GetKey(eKeyCode::Down))
 		{
@@ -126,25 +134,30 @@ namespace NuNu
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
 
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 
 		if (Input::GetKey(eKeyCode::Right))
 		{
-			pos.x += 100.0f * Time::DeltaTime();
+			//pos.x += 100.0f * Time::DeltaTime();
+			rb->AddForce(Vector2(100.0f, 0.0f));
 		}
 		if (Input::GetKey(eKeyCode::Left))
 		{
-			pos.x -= 100.0f * Time::DeltaTime();
+			//pos.x -= 100.0f * Time::DeltaTime();
+			rb->AddForce(Vector2(-100.0f, 0.0f));
 		}
 		if (Input::GetKey(eKeyCode::Up))
 		{
-			pos.y -= 100.0f * Time::DeltaTime();
+			//pos.y -= 100.0f * Time::DeltaTime();
+			rb->AddForce(Vector2(0.0f, -100.0f));
 		}
 		if (Input::GetKey(eKeyCode::Down))
 		{
-			pos.y += 100.0f * Time::DeltaTime();
+			//pos.y += 100.0f * Time::DeltaTime();
+			rb->AddForce(Vector2(0.0f, 100.0f));
 		}
 
-		tr->SetPosition(pos);
+		//tr->SetPosition(pos);
 
 		if (Input::GetKeyUp(eKeyCode::Right) || Input::GetKeyUp(eKeyCode::Left)
 			|| Input::GetKeyUp(eKeyCode::Up) || Input::GetKeyUp(eKeyCode::Down))

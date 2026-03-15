@@ -20,6 +20,9 @@
 #include "NCollisionManager.h"
 #include "NTile.h"
 #include "NTilemapRenderer.h"
+#include "NRigidbody.h"
+#include "NFloor.h"
+#include "NFloorScript.h"
 
 namespace NuNu
 {
@@ -31,7 +34,7 @@ namespace NuNu
 	}
 	void PlayScene::Initialize()
 	{
-		FILE* pFile = nullptr;
+/*		FILE* pFile = nullptr;
 		_wfopen_s(&pFile, L"..\\Resources\\Tile\\TileData.tile", L"rb");
 
 		while (true)
@@ -57,9 +60,9 @@ namespace NuNu
 			tmr->SetIndex(Vector2(idxX, idxY));
 		}
 
-		fclose(pFile);
+		fclose(pFile);*/
 
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Enemy, true);
+/*		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Enemy, true);*/
 
 		Scene::Initialize();
 		GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::None, Vector2(812.0f, 470.0f));
@@ -86,6 +89,7 @@ namespace NuNu
 		object::DontDestroyOnLoad(mPlayer);
 
 		PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
+		mPlayer->AddComponent<Rigidbody>();
 		BoxCollider2D* collider = mPlayer->AddComponent<BoxCollider2D>();
 		//CircleCollider2D* collider = mPlayer->AddComponent<CircleCollider2D>();
 		collider->SetOffset(Vector2(-50.0f, -50.0f));
@@ -121,7 +125,13 @@ namespace NuNu
 			, Vector2(0.0f, 0.0f), Vector2(386.0f, 246.0f), Vector2::Zero, 8, 0.05f);
 		manimator->PlayAnimation(L"MapleEffect", true);*/
 
-		Demon* mDemon = object::Instantiate<Demon>(enums::eLayerType::Enemy, Vector2(0, 0));
+		Floor* floor =  object::Instantiate<Floor>(eLayerType::Floor, Vector2(500.0f, 700.0f));
+
+		FloorScript* floorScript = floor->AddComponent<FloorScript>();
+		BoxCollider2D* floorCol =  floor->AddComponent<BoxCollider2D>();
+		floorCol->SetSize(Vector2(3.0f, 1.0f));
+
+/*		Demon* mDemon = object::Instantiate<Demon>(enums::eLayerType::Enemy, Vector2(0, 0));
 		mDemon->SetActive(true);
 		mDemon->AddComponent<DemonScript>();
 
@@ -147,7 +157,7 @@ namespace NuNu
 
 		mDemon->GetComponent<Transform>()->SetPosition(Vector2(500.0f, 500.0f));
 		mDemon->GetComponent<Transform>()->SetScale(Vector2(2.0f, 2.0f));
-		mDemon->GetComponent<Transform>()->SetRotation(30.0f);
+		mDemon->GetComponent<Transform>()->SetRotation(30.0f);*/
 
 		GameObject* obj = object::Instantiate<GameObject>(enums::eLayerType::UI, Vector2(rand() % 1600, rand() % 900));
 		obj->GetComponent<Transform>()->SetPosition(Vector2(100.0f, 100.0f));
@@ -183,6 +193,9 @@ namespace NuNu
 	void PlayScene::OnEnter()
 	{
 		Scene::OnEnter();
+
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Enemy, true);
+		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
 	}
 	void PlayScene::OnExit()
 	{

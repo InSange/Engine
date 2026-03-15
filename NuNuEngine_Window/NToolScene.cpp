@@ -50,23 +50,7 @@ namespace NuNu
 
 		if (Input::GetKeyDown(eKeyCode::LButton))
 		{
-			Vector2 pos = Input::GetMousePosition();
-			pos = renderer::mainCamera->CalculateTilePosition(pos);
-
-			if (pos.x >= 0.0f || pos.y >= 0.0f)
-			{
-				int idxX = pos.x / TilemapRenderer::TileSize.x;
-				int idxY = pos.y / TilemapRenderer::TileSize.y;
-
-				Tile* tile = object::Instantiate<Tile>(eLayerType::Tile);
-				TilemapRenderer* tmr = tile->AddComponent<TilemapRenderer>();
-
-				tmr->SetTexture(Resources::Find<graphics::Texture>(L"Overworld"));
-				tmr->SetIndex(TilemapRenderer::SelectedIndex);
-
-				tile->SetIndexPosition(idxX, idxY);
-				mTiles.push_back(tile);
-			}
+			createTileObject();
 		}
 
 		if (Input::GetKeyDown(eKeyCode::S))
@@ -83,27 +67,7 @@ namespace NuNu
 	{
 		Scene::Render(hdc);
 
-		UINT screenWidth = application.GetWidth();
-		UINT screenHeight = application.GetHeight();
-
-		int xCount = screenWidth / TilemapRenderer::TileSize.x;
-		int yCount = screenHeight / TilemapRenderer::TileSize.y;
-
-		for (size_t i = 0; i <= xCount; i++)
-		{
-			Vector2 pos = renderer::mainCamera->CalculatePosition(Vector2(TilemapRenderer::TileSize.x * i, 0.0f));
-			
-			MoveToEx(hdc, pos.x, 0, NULL);
-			LineTo(hdc, pos.x, screenHeight);
-		}
-
-		for (size_t i = 0; i <= yCount; i++)
-		{
-			Vector2 pos = renderer::mainCamera->CalculatePosition(Vector2(0.0f, TilemapRenderer::TileSize.y * i));
-
-			MoveToEx(hdc, 0, pos.y, NULL);
-			LineTo(hdc, screenWidth, pos.y);
-		}
+		renderGreed(hdc);
 	}
 
 	void ToolScene::OnEnter()
@@ -216,6 +180,53 @@ namespace NuNu
 		}
 
 		fclose(pFile);
+	}
+
+	void ToolScene::renderGreed(HDC hdc)
+	{
+		UINT screenWidth = application.GetWidth();
+		UINT screenHeight = application.GetHeight();
+
+		int xCount = screenWidth / TilemapRenderer::TileSize.x;
+		int yCount = screenHeight / TilemapRenderer::TileSize.y;
+
+		for (size_t i = 0; i <= xCount; i++)
+		{
+			Vector2 pos = renderer::mainCamera->CalculatePosition(Vector2(TilemapRenderer::TileSize.x * i, 0.0f));
+
+			MoveToEx(hdc, pos.x, 0, NULL);
+			LineTo(hdc, pos.x, screenHeight);
+		}
+
+		for (size_t i = 0; i <= yCount; i++)
+		{
+			Vector2 pos = renderer::mainCamera->CalculatePosition(Vector2(0.0f, TilemapRenderer::TileSize.y * i));
+
+			MoveToEx(hdc, 0, pos.y, NULL);
+			LineTo(hdc, screenWidth, pos.y);
+		}
+	}
+
+	void ToolScene::createTileObject()
+	{
+		Vector2 pos = Input::GetMousePosition();
+		pos = renderer::mainCamera->CalculateTilePosition(pos);
+
+		if (pos.x >= 0.0f || pos.y >= 0.0f)
+		{
+			int idxX = pos.x / TilemapRenderer::TileSize.x;
+			int idxY = pos.y / TilemapRenderer::TileSize.y;
+
+			Tile* tile = object::Instantiate<Tile>(eLayerType::Tile);
+			TilemapRenderer* tmr = tile->AddComponent<TilemapRenderer>();
+
+			tmr->SetTexture(Resources::Find<graphics::Texture>(L"Overworld"));
+			tmr->SetIndex(TilemapRenderer::SelectedIndex);
+
+			tile->SetIndexPosition(idxX, idxY);
+			mTiles.push_back(tile);
+		}
+
 	}
 }
 

@@ -9,7 +9,7 @@ namespace NuNu::object
 
 namespace NuNu
 {
-	class GameObject// : public Labelled
+	class GameObject : public Entity
 	{
 	public:
 		friend void object::Destroy(GameObject* obj);

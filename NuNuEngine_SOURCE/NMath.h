@@ -52,15 +52,37 @@ namespace NuNu::math
 		{
 
 		}
+
+		Vector2 operator-()
+		{
+			return Vector2(-x, -y);
+		}
 		Vector2 operator+ (Vector2 other)
 		{
 			return Vector2(x + other.x, y + other.y);
 		}
+
 		void operator+= (Vector2 other)
 		{
 			x += other.x;
 			y += other.y;
 		}
+		void operator-=(Vector2 other)
+		{
+			x -= other.x;
+			y -= other.y;
+		}
+		void operator*=(Vector2 other)
+		{
+			x *= other.x;
+			y *= other.y;
+		}
+		void operator*=(float value)
+		{
+			x *= value;
+			y *= value;
+		}
+
 		Vector2 operator- (Vector2 other)
 		{
 			return Vector2(x - other.x, y - other.y);
@@ -76,6 +98,15 @@ namespace NuNu::math
 		Vector2 operator*(float v)
 		{
 			return Vector2(x * v, y * v);
+		}
+
+		bool operator==(Vector2 v)
+		{
+			return (x == v.x) && (y == v.y);
+		}
+		bool operator!=(Vector2 v)
+		{
+			return (x != v.x) || (y != v.y);
 		}
 
 		void claer()
