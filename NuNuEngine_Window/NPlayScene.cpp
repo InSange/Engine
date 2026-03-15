@@ -18,6 +18,8 @@
 #include "NBoxCollider2D.h"
 #include "NCircleCollider2D.h"
 #include "NCollisionManager.h"
+#include "NTile.h"
+#include "NTilemapRenderer.h"
 
 namespace NuNu
 {
@@ -29,6 +31,34 @@ namespace NuNu
 	}
 	void PlayScene::Initialize()
 	{
+		FILE* pFile = nullptr;
+		_wfopen_s(&pFile, L"..\\Resources\\Tile\\TileData.tile", L"rb");
+
+		while (true)
+		{
+			int idxX = 0;
+			int idxY = 0;
+
+			int posX = 0;
+			int posY = 0;
+
+			if (fread(&idxX, sizeof(int), 1, pFile) == NULL)
+				break;
+			if (fread(&idxY, sizeof(int), 1, pFile) == NULL)
+				break;
+			if (fread(&posX, sizeof(int), 1, pFile) == NULL)
+				break;
+			if (fread(&posY, sizeof(int), 1, pFile) == NULL)
+				break;
+
+			Tile* tile = object::Instantiate<Tile>(eLayerType::Tile, Vector2(posX, posY));
+			TilemapRenderer* tmr = tile->AddComponent<TilemapRenderer>();
+			tmr->SetTexture(Resources::Find<graphics::Texture>(L"Overworld"));
+			tmr->SetIndex(Vector2(idxX, idxY));
+		}
+
+		fclose(pFile);
+
 		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Enemy, true);
 
 		Scene::Initialize();
@@ -44,13 +74,13 @@ namespace NuNu
 
 		bgObj->SetActive(false);
 
-/*		for (size_t i = 0; i < 5; i++)
-		{
-			GameObject* obj = object::Instantiate<GameObject>(enums::eLayerType::UI, Vector2(rand() % 1600, rand() % 900));
+		/*		for (size_t i = 0; i < 5; i++)
+				{
+					GameObject* obj = object::Instantiate<GameObject>(enums::eLayerType::UI, Vector2(rand() % 1600, rand() % 900));
 
-			sr = obj->AddComponent<SpriteRenderer>();
-			sr->SetTexture(Resources::Find<graphics::Texture>(L"TestIcon"));
-		}*/
+					sr = obj->AddComponent<SpriteRenderer>();
+					sr->SetTexture(Resources::Find<graphics::Texture>(L"TestIcon"));
+				}*/
 
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player, Vector2(0, 0));
 		object::DontDestroyOnLoad(mPlayer);
@@ -61,7 +91,7 @@ namespace NuNu
 		collider->SetOffset(Vector2(-50.0f, -50.0f));
 
 		//cameraComp->SetTraget(mPlayer);
-		
+
 		graphics::Texture* playerTexture = Resources::Find<graphics::Texture>(L"Player");
 		Animator* animator = mPlayer->AddComponent<Animator>();
 		animator->CreateAnimation(L"PlayerIdle", playerTexture
@@ -126,8 +156,8 @@ namespace NuNu
 		objAnim->CreateAnimationByFoler(L"Attack", L"../Resources/PlayerAttack", Vector2::Zero, 0.1f);
 		objAnim->PlayAnimation(L"Attack", true);
 
-/*		SpriteRenderer* asr = obj->AddComponent<SpriteRenderer>();
-		asr->SetTexture(Resources::Find<graphics::Texture>(L"Attack"));*/
+		/*		SpriteRenderer* asr = obj->AddComponent<SpriteRenderer>();
+				asr->SetTexture(Resources::Find<graphics::Texture>(L"Attack"));*/
 
 		Scene::Initialize();
 	}

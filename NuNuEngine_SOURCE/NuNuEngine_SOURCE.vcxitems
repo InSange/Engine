@@ -40,6 +40,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NSpriteRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NTexture.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NTilemapRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NTransform.h" />
   </ItemGroup>
@@ -68,6 +69,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NSpriteRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NTexture.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NTilemapRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NTransform.cpp" />
   </ItemGroup>

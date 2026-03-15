@@ -16,6 +16,7 @@ namespace NuNu::enums
 	{
 		None,
 		BackGround,
+		Tile,
 		UI,
 		Enemy,
 		Player,

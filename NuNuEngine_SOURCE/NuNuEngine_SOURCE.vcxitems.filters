@@ -77,6 +77,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NDontDestroyOnLoad.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NTilemapRenderer.cpp">
+      <Filter>Component\TileMapRenderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -161,6 +164,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NDontDestroyOnLoad.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NTilemapRenderer.h">
+      <Filter>Component\TileMapRenderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -213,6 +219,9 @@
     </Filter>
     <Filter Include="Component\Collider">
       <UniqueIdentifier>{feb06017-8041-488f-aef3-298b7cb92e4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\TileMapRenderer">
+      <UniqueIdentifier>{8c96e6f7-a862-4d54-8c24-caa4b4800d02}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

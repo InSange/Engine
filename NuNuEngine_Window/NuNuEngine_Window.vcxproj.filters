@@ -27,7 +27,6 @@
     <ClInclude Include="NSpaceScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="NLoadResources.h" />
     <ClInclude Include="NPlayerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
@@ -35,6 +34,18 @@
       <Filter>Contents</Filter>
     </ClInclude>
     <ClInclude Include="NDemonScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="NToolScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="NTile.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="NCameraScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="NLoadResources.h">
       <Filter>Scripts</Filter>
     </ClInclude>
   </ItemGroup>
@@ -58,6 +69,15 @@
       <Filter>Contents</Filter>
     </ClCompile>
     <ClCompile Include="NDemonScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="NToolScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="NTile.cpp">
+      <Filter>Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="NCameraScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
