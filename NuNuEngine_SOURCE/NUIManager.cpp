@@ -69,7 +69,7 @@ namespace NuNu
 
 	void UIManager::Render(HDC hdc)
 	{
-		if (!mUIBases.size() <= 0)
+		if (mUIBases.size() <= 0)
 			return;
 
 		std::vector<UIBase*> buff;
