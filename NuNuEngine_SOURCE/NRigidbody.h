@@ -18,6 +18,7 @@ namespace NuNu
 		void AddForce(Vector2 force) { mForce = force; }
 
 		void SetGround(bool ground) { mbGround = ground; }
+		bool GetGround() { return mbGround; }
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
 		Vector2 GetVelocity() { return mVelocity; }
 

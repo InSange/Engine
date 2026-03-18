@@ -106,16 +106,19 @@ namespace NuNu
 			mState = PlayerScript::eState::Walk;
 			mAnimator->PlayAnimation(L"PlayerRightMove", true);
 		}
-		if (Input::GetKey(eKeyCode::Up))
+		if (Input::GetKeyDown(eKeyCode::Up))
 		{
-			mState = PlayerScript::eState::Walk;
-			mAnimator->PlayAnimation(L"PlayerUpMove", true);
-
 			Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+			if (rb->GetGround())
+			{
+				mState = PlayerScript::eState::Walk;
+				mAnimator->PlayAnimation(L"PlayerUpMove", true);
 
-			Vector2 velocity = rb->GetVelocity();
-			velocity.y = -500.0f;
-			rb->SetVelocity(velocity);
+				Vector2 velocity = rb->GetVelocity();
+				velocity.y = -500.0f;
+				rb->SetVelocity(velocity);
+				rb->SetGround(false);
+			}
 		}
 		if (Input::GetKey(eKeyCode::Down))
 		{
@@ -159,10 +162,15 @@ namespace NuNu
 			//pos.x -= 100.0f * Time::DeltaTime();
 			rb->AddForce(Vector2(-100.0f, 0.0f));
 		}
-		if (Input::GetKey(eKeyCode::Up))
+		if (Input::GetKeyDown(eKeyCode::Up))
 		{
-			//pos.y -= 100.0f * Time::DeltaTime();
-			rb->AddForce(Vector2(0.0f, -100.0f));
+			if (rb->GetGround())
+			{
+				Vector2 velocity = rb->GetVelocity();
+				velocity.y = -500.0f;
+				rb->SetVelocity(velocity);
+				rb->SetGround(false);
+			}
 		}
 		if (Input::GetKey(eKeyCode::Down))
 		{

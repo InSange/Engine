@@ -4,7 +4,7 @@ namespace NuNu::enums
 {
 	enum class eComponentType
 	{
-		Trnasform,
+		Transform,
 		Collider,
 		Rigidbody,
 		Script,
