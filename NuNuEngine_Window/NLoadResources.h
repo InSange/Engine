@@ -20,5 +20,7 @@ namespace NuNu
 
 		Resources::Load<graphics::Texture>(L"Overworld", L"../Resources/BackGround/Overworld.png");
 		Resources::Load<graphics::Texture>(L"Dungeon", L"../Resources/BackGround/dungeon_tiles.png");
+
+		Resources::Load<graphics::Texture>(L"HPBAR", L"..\\Resources\\HPBAR.bmp");
 	}
 }

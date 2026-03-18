@@ -43,4 +43,11 @@ namespace NuNu::enums
 		Rect2D,
 		End,
 	};
+
+	enum class eUIType
+	{
+		HpBar,
+		Button,
+		End,
+	};
 }

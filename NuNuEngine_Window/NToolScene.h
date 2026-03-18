@@ -22,7 +22,7 @@ namespace NuNu
 		void Load();
 
 	private:
-		void renderGreed(HDC hdc);
+		void renderGrid(HDC hdc);
 		void createTileObject();
 
 	private:

@@ -67,7 +67,7 @@ namespace NuNu
 	{
 		Scene::Render(hdc);
 
-		renderGreed(hdc);
+		renderGrid(hdc);
 	}
 
 	void ToolScene::OnEnter()
@@ -182,7 +182,7 @@ namespace NuNu
 		fclose(pFile);
 	}
 
-	void ToolScene::renderGreed(HDC hdc)
+	void ToolScene::renderGrid(HDC hdc)
 	{
 		UINT screenWidth = application.GetWidth();
 		UINT screenHeight = application.GetHeight();

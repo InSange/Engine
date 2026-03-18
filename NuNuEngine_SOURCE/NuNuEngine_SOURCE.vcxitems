@@ -44,6 +44,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NTilemapRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NTransform.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NUIBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NUIButton.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NUIHUD.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NUIManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)NAnimation.cpp" />
@@ -74,5 +78,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NTilemapRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NTransform.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NUIBase.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NUIButton.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NUIHUD.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NUIManager.cpp" />
   </ItemGroup>
 </Project>

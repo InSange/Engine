@@ -10,6 +10,7 @@
 #include "NRenderer.h"
 #include "NCollider.h"
 #include "NRigidbody.h"
+#include "NUIManager.h"
 #include "../NuNuEngine_SOURCE/NAnimator.h"
 
 namespace NuNu
@@ -115,7 +116,6 @@ namespace NuNu
 			Vector2 velocity = rb->GetVelocity();
 			velocity.y = -500.0f;
 			rb->SetVelocity(velocity);
-			rb->SetGround(false);
 		}
 		if (Input::GetKey(eKeyCode::Down))
 		{
@@ -128,6 +128,19 @@ namespace NuNu
 			mState = PlayerScript::eState::Attack;
 			mAnimator->PlayAnimation(L"PlayerAttack", false);
 		}*/
+
+		if (Input::GetKeyDown(eKeyCode::I))
+		{
+			UIManager::Push(eUIType::HpBar);
+			//UIManager::Push(eUIType::Button);
+
+		}
+
+		if (Input::GetKeyDown(eKeyCode::O))
+		{
+			UIManager::Pop(eUIType::HpBar);
+
+		}
 	}
 	void PlayerScript::move()
 	{

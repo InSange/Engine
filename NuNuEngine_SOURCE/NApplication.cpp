@@ -4,6 +4,7 @@
 #include "NSceneManager.h"
 #include "NResources.h"
 #include "NCollisionManager.h"
+#include "NUIManager.h"
 
 namespace NuNu
 {
@@ -32,6 +33,7 @@ namespace NuNu
 		initializeEtc();
 
 		CollisionManager::Initialize();
+		UIManager::Initialize();
 		SceneManager::Initialize();
 	}
 
@@ -50,12 +52,14 @@ namespace NuNu
 		Time::Tick();
 
 		CollisionManager::Update();
+		UIManager::Update();
 		SceneManager::Update();
 	}
 
 	void Application::LateUpdate()
 	{
 		CollisionManager::LateUpdate();
+		UIManager::LateUpdate();
 		SceneManager::LateUpdate();
 	}
 
@@ -65,6 +69,7 @@ namespace NuNu
 
 		Time::Render(mBackHdc);
 		CollisionManager::Render(mBackHdc);
+		UIManager::Render(mBackHdc);
 		SceneManager::Render(mBackHdc);
 
 		copyRenderTarget(mBackHdc, mHdc);
@@ -78,6 +83,7 @@ namespace NuNu
 	void Application::Release()
 	{
 		SceneManager::Release();
+		UIManager::Release();
 		Resources::Release();
 	}
 
