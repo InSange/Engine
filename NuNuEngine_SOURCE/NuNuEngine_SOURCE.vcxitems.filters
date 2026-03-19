@@ -95,6 +95,18 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NUIHUD.cpp">
       <Filter>UI\Button</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NFmod.cpp">
+      <Filter>Fmod</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NAudioListener.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NAudioSource.cpp">
+      <Filter>Component\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NAudioClip.cpp">
+      <Filter>Resource\Audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -197,6 +209,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NUIHUD.h">
       <Filter>UI\Button</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NFmod.h">
+      <Filter>Fmod</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NAudioListener.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NAudioSource.h">
+      <Filter>Component\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NAudioClip.h">
+      <Filter>Resource\Audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -264,6 +288,15 @@
     </Filter>
     <Filter Include="UI\HUD">
       <UniqueIdentifier>{307b52cf-590b-4443-8e01-d7a9fa2f5554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fmod">
+      <UniqueIdentifier>{a13416b1-61af-4c03-8895-1511fedfbc95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Audio">
+      <UniqueIdentifier>{38dd6a9f-00be-460e-9a20-a185260cc1d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Audio">
+      <UniqueIdentifier>{a791630a-57c5-4c5d-819c-ef06a43312cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

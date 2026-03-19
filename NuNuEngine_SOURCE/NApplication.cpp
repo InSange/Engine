@@ -5,6 +5,7 @@
 #include "NResources.h"
 #include "NCollisionManager.h"
 #include "NUIManager.h"
+#include "NFmod.h"
 
 namespace NuNu
 {
@@ -32,6 +33,7 @@ namespace NuNu
 		createBuffer(width, height);
 		initializeEtc();
 
+		Fmod::Initialize();
 		CollisionManager::Initialize();
 		UIManager::Initialize();
 		SceneManager::Initialize();

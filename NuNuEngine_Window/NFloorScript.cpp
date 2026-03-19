@@ -7,6 +7,7 @@
 #include "NObject.h"
 #include "NRigidbody.h"
 #include "NCollider.h"
+#include "NAudioSource.h"
 
 namespace NuNu
 {
@@ -60,6 +61,11 @@ namespace NuNu
 			Vector2 otherTrPos = otherTr->GetPosition();
 			otherTrPos.y -= (otherBottom - floorTop) - 0.01f;
 			otherTr->SetPosition(otherTrPos);
+
+			AudioSource* as = GetOwner()->GetComponent<AudioSource>();
+			//as->SetClip();
+			as->SetLoop(true);
+			as->Play();
 
 			otherRb->SetGround(true);
 		}

@@ -11,6 +11,8 @@ namespace NuNu::enums
 		SpriteRenderer,
 		Animator,
 		Camera,
+		AudioListener,
+		AudioSource,
 		End,
 	};
 	enum class eLayerType

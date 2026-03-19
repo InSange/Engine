@@ -24,6 +24,9 @@
 #include "NRigidbody.h"
 #include "NFloor.h"
 #include "NFloorScript.h"
+#include "NAudioClip.h"
+#include "NAudioListener.h"
+#include "NAudioSource.h"
 
 namespace NuNu
 {
@@ -91,6 +94,7 @@ namespace NuNu
 
 		PlayerScript* playerScript = mPlayer->AddComponent<PlayerScript>();
 		mPlayer->AddComponent<Rigidbody>();
+		mPlayer->AddComponent<AudioListener>();
 		BoxCollider2D* collider = mPlayer->AddComponent<BoxCollider2D>();
 		//CircleCollider2D* collider = mPlayer->AddComponent<CircleCollider2D>();
 		collider->SetOffset(Vector2(-50.0f, -50.0f));
@@ -129,7 +133,9 @@ namespace NuNu
 		Floor* floor =  object::Instantiate<Floor>(eLayerType::Floor, Vector2(500.0f, 700.0f));
 
 		FloorScript* floorScript = floor->AddComponent<FloorScript>();
+		AudioSource* as = floor->AddComponent<AudioSource>();
 		BoxCollider2D* floorCol =  floor->AddComponent<BoxCollider2D>();
+
 		floorCol->SetSize(Vector2(3.0f, 1.0f));
 
 /*		Demon* mDemon = object::Instantiate<Demon>(enums::eLayerType::Enemy, Vector2(0, 0));
@@ -169,6 +175,10 @@ namespace NuNu
 
 		/*		SpriteRenderer* asr = obj->AddComponent<SpriteRenderer>();
 				asr->SetTexture(Resources::Find<graphics::Texture>(L"Attack"));*/
+
+		AudioClip* ac = Resources::Load<AudioClip>(L"BGSound", L"..\\Resources\\Sound\\smw_bonus_game_end.wav");
+		as->SetClip(ac);
+		//as->Play();
 
 		Scene::Initialize();
 	}

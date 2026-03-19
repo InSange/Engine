@@ -17,6 +17,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NAnimator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NAudioClip.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NAudioListener.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NAudioSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NBoxCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NCircleCollider2D.h" />
@@ -26,6 +29,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NDontDestroyOnLoad.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NEnum.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NFmod.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NInput.h" />
@@ -52,6 +56,9 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)NAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NAnimator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NAudioClip.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NAudioListener.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NAudioSource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NBoxCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NCircleCollider2D.cpp" />
@@ -60,6 +67,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NDontDestroyOnLoad.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NFmod.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NInput.cpp" />
