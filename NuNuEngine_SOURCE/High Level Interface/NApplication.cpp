@@ -34,6 +34,7 @@ namespace NuNu
 		initializeEtc();
 
 		mGraphicDevice = std::make_unique<graphics::GraphicDevice_DX11>();
+		mGraphicDevice->Initialize();
 
 		Fmod::Initialize();
 		CollisionManager::Initialize();
