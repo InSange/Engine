@@ -44,6 +44,23 @@ namespace NuNu
 		default:
 			break;
 		}
+
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector2 pos = tr->GetPosition();
+		COLORREF color = mPixelMap->GetPixel(pos.x, pos.y + 50);
+
+		Rigidbody* playerRb = GetOwner()->GetComponent<Rigidbody>();
+		if (color == RGB(255, 0, 0))
+		{
+			playerRb->SetGround(true);
+
+			pos.y -= 1;
+			tr->SetPosition(pos);
+		}
+		else
+		{
+			playerRb->SetGround(false);
+		}
 	}
 	void PlayerScript::LateUpdate()
 	{

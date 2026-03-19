@@ -22,5 +22,6 @@ namespace NuNu
 		Resources::Load<graphics::Texture>(L"Dungeon", L"../Resources/BackGround/dungeon_tiles.png");
 
 		Resources::Load<graphics::Texture>(L"HPBAR", L"..\\Resources\\HPBAR.bmp");
+		Resources::Load<graphics::Texture>(L"PixelMap", L"..\\Resources\\pixelMap.bmp");
 	}
 }

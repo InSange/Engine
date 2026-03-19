@@ -130,13 +130,17 @@ namespace NuNu
 			, Vector2(0.0f, 0.0f), Vector2(386.0f, 246.0f), Vector2::Zero, 8, 0.05f);
 		manimator->PlayAnimation(L"MapleEffect", true);*/
 
-		Floor* floor =  object::Instantiate<Floor>(eLayerType::Floor, Vector2(500.0f, 700.0f));
-
+		Floor* floor = object::Instantiate<Floor>(eLayerType::Floor, Vector2(0.0f, 0.0f));
+		floor->SetName(L"Floor");
 		FloorScript* floorScript = floor->AddComponent<FloorScript>();
 		AudioSource* as = floor->AddComponent<AudioSource>();
-		BoxCollider2D* floorCol =  floor->AddComponent<BoxCollider2D>();
+		SpriteRenderer* floorSR = floor->AddComponent<SpriteRenderer>();
+		floorSR->SetTexture(Resources::Find<graphics::Texture>(L"PixelMap"));
+		playerScript->SetPixelMapTexture(Resources::Find<graphics::Texture>(L"PixelMap"));
 
-		floorCol->SetSize(Vector2(3.0f, 1.0f));
+		/*BoxCollider2D* floorCol =  floor->AddComponent<BoxCollider2D>();
+
+		floorCol->SetSize(Vector2(3.0f, 1.0f));*/
 
 /*		Demon* mDemon = object::Instantiate<Demon>(enums::eLayerType::Enemy, Vector2(0, 0));
 		mDemon->SetActive(true);
