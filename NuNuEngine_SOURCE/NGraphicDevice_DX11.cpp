@@ -29,17 +29,17 @@ namespace NuNu
 
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 
-		swapChainDesc.OutputWindow = application.GetHwnd();
-		swapChainDesc.Windowed = true;
-		swapChainDesc.BufferCount = 2;
-		swapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+		swapChainDesc.OutputWindow = application.GetHwnd();	// 어느 윈도우에 해당 화면을 띄울것인지 세팅
+		swapChainDesc.Windowed = true;	// 전체화면이 아닌 창모드 실행
+		swapChainDesc.BufferCount = 2;	// 삼중 버퍼(3)도 가능하지만 이중 버퍼링 사용
+		swapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;	// 창모드 <-> 전체 화면 전환을 허용
 		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD; // 이전 프레임 장면을 유지하지 않는다.
 
-		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-		swapChainDesc.BufferDesc.Width = application.GetWidth();
-		swapChainDesc.BufferDesc.Height = application.GetHeight();
-		swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-		swapChainDesc.BufferDesc.RefreshRate.Numerator = 144;
+		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;	// 렌더 타겟으로 사용
+		swapChainDesc.BufferDesc.Width = application.GetWidth();	// 백버퍼의 너비
+		swapChainDesc.BufferDesc.Height = application.GetHeight();	// 백버퍼의 높이
+		swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;	// 백버퍼의 포맷
+		swapChainDesc.BufferDesc.RefreshRate.Numerator = 144;	// 수직 동기화
 		swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
 		swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 		swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
