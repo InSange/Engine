@@ -107,6 +107,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.cpp">
       <Filter>Resource\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NGraphicDevice_DX11.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h">
@@ -221,6 +222,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.h">
       <Filter>Resource\Audio</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NGraphicDevice_DX11.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -300,4 +302,3 @@
     </Filter>
   </ItemGroup>
 </Project>
-

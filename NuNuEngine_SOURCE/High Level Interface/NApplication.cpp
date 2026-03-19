@@ -1,4 +1,4 @@
-﻿#include "High Level Interface/NApplication.h"
+#include "High Level Interface/NApplication.h"
 #include "Helpers/NInput.h"
 #include "Helpers/NTime.h"
 #include "Scene/NSceneManager.h"
@@ -70,14 +70,20 @@ namespace NuNu
 
 	void Application::Render() // 화면 그리기
 	{
-		clearRenderTarget();
+		// 기존 GDI 화면 지우기 비활성화 (DX11이 대신 지움)
+		// clearRenderTarget();
 
+		// 기존 게임 로직 렌더링 (GDI)
 		Time::Render(mBackHdc);
 		CollisionManager::Render(mBackHdc);
 		UIManager::Render(mBackHdc);
 		SceneManager::Render(mBackHdc);
 
-		copyRenderTarget(mBackHdc, mHdc);
+		// DirectX 11 렌더링 호출 (그리기 및 프레임 교체 Present 수행)
+		mGraphicDevice->Draw();
+
+		// 기존 GDI 바탕화면에 덮어쓰기 비활성화 (DX11 SwapChain Present와 충돌 방지)
+		// copyRenderTarget(mBackHdc, mHdc);
 	}
 
 	void Application::Destroy()

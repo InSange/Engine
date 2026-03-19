@@ -6,4 +6,5 @@
   <Project Path="Editor_Window/Editor_Window.vcxproj" Id="c3624b54-a5e5-401f-9c6a-10d056bedb2a" />
   <Project Path="NuNuEngine_SOURCE/NuNuEngine_SOURCE.vcxitems" Id="b6c5dc1d-ba73-4484-b73f-abe6dfad8ae8" />
   <Project Path="NuNuEngine_Window/NuNuEngine_Window.vcxproj" Id="9ae8d9b8-1b7f-4561-8919-5e955d35732a" />
+  <Project Path="Shader_Source/Shader_Source.vcxitems" Id="7104f6a5-1cbc-43f0-88ca-dc8c8ffcf3c1" />
 </Solution>
