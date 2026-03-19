@@ -15,8 +15,6 @@
 #include <filesystem>
 #include <math.h>
 
-#include "NMath.h"
-
 #include <mmsystem.h>
 #include <dinput.h>
 #pragma comment(lib, "Msimg32.lib")
@@ -26,3 +24,5 @@
 #pragma comment(lib, "gdiplus.lib")
 
 #include "NEnum.h"
+#include "NMath.h"
+#include <wrl.h>
