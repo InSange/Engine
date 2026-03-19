@@ -1,224 +1,224 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NEntity.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NEntity.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NMath.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NMath.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NGameObject.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameObject\NGameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NTime.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Helpers\NTime.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NInput.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Helpers\NInput.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NScene.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scene\NScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NSceneManager.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scene\NSceneManager.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NApplication.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\NApplication.cpp">
       <Filter>High Level Interface</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NLayer.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Layer\NLayer.cpp">
       <Filter>Layer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NResource.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\NResource.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NResources.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\NResources.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NTexture.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Texture\NTexture.cpp">
       <Filter>Resource\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NScript.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Script\NScript.cpp">
       <Filter>Component\Script</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NSpriteRenderer.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\SpriteRenderer\NSpriteRenderer.cpp">
       <Filter>Component\SpriteRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NTransform.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Transform\NTransform.cpp">
       <Filter>Component\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NCamera.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NCamera.cpp">
       <Filter>Component\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NRenderer.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Renderer\NRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NComponent.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Component\NComponent.cpp">
       <Filter>Component\Component</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NAnimator.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Animation\NAnimator.cpp">
       <Filter>Component\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NAnimation.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Animation\NAnimation.cpp">
       <Filter>Component\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NCollider.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Collider\NCollider.cpp">
       <Filter>Component\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NBoxCollider2D.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Collider\NBoxCollider2D.cpp">
       <Filter>Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)NCollisionManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)NCircleCollider2D.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Collider\NCircleCollider2D.cpp">
       <Filter>Component\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NObject.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NObject.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NDontDestroyOnLoad.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scene\NDontDestroyOnLoad.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NTilemapRenderer.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\TileMapRenderer\NTilemapRenderer.cpp">
       <Filter>Component\TileMapRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NRigidbody.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\RigidBody\NRigidbody.cpp">
       <Filter>Component\RigidBody</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NUIBase.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI\NUIBase.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NUIManager.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI\NUIManager.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NUIButton.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI\HUD\NUIButton.cpp">
       <Filter>UI\HUD</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NUIHUD.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI\Button\NUIHUD.cpp">
       <Filter>UI\Button</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NFmod.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Fmod\NFmod.cpp">
       <Filter>Fmod</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NAudioListener.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioListener.cpp">
       <Filter>Component\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NAudioSource.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioSource.cpp">
       <Filter>Component\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NAudioClip.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.cpp">
       <Filter>Resource\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NEntity.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEntity.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NMath.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NMath.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NGameObject.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameObject\NGameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NTime.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Helpers\NTime.h">
       <Filter>Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NInput.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Helpers\NInput.h">
       <Filter>Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NScene.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scene\NScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NSceneManager.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scene\NSceneManager.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NApplication.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\NApplication.h">
       <Filter>High Level Interface</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NLayer.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Layer\NLayer.h">
       <Filter>Layer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NEnum.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEnum.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NObject.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NObject.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NResource.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\NResource.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NResources.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\NResources.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NTexture.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Texture\NTexture.h">
       <Filter>Resource\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NScript.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Script\NScript.h">
       <Filter>Component\Script</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NSpriteRenderer.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\SpriteRenderer\NSpriteRenderer.h">
       <Filter>Component\SpriteRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NTransform.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Transform\NTransform.h">
       <Filter>Component\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NCamera.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NCamera.h">
       <Filter>Component\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NRenderer.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Renderer\NRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NComponent.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Component\NComponent.h">
       <Filter>Component\Component</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NAnimator.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Animation\NAnimator.h">
       <Filter>Component\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NAnimation.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Animation\NAnimation.h">
       <Filter>Component\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NCollider.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Collider\NCollider.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NBoxCollider2D.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Collider\NBoxCollider2D.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)NCollisionManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)NCircleCollider2D.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Collider\NCircleCollider2D.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NDontDestroyOnLoad.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scene\NDontDestroyOnLoad.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NTilemapRenderer.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\TileMapRenderer\NTilemapRenderer.h">
       <Filter>Component\TileMapRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NRigidbody.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\RigidBody\NRigidbody.h">
       <Filter>Component\RigidBody</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NUIManager.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI\NUIManager.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NUIBase.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI\NUIBase.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NUIButton.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI\HUD\NUIButton.h">
       <Filter>UI\HUD</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NUIHUD.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI\Button\NUIHUD.h">
       <Filter>UI\Button</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NFmod.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Fmod\NFmod.h">
       <Filter>Fmod</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NAudioListener.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioListener.h">
       <Filter>Component\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NAudioSource.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioSource.h">
       <Filter>Component\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NAudioClip.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.h">
       <Filter>Resource\Audio</Filter>
     </ClInclude>
   </ItemGroup>
@@ -300,3 +300,4 @@
     </Filter>
   </ItemGroup>
 </Project>
+

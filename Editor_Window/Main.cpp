@@ -3,14 +3,14 @@
 
 #include "framework.h"
 #include "Editor_Window.h"
-#include "../NuNuEngine_SOURCE/NApplication.h"
-#include "../NuNuEngine_SOURCE/NResources.h"
-#include "../NuNuEngine_SOURCE/NTexture.h"
-#include "../NuNuEngine_SOURCE/NSceneManager.h"
+#include "../NuNuEngine_SOURCE/High Level Interface/NApplication.h"
+#include "../NuNuEngine_SOURCE/Resource/NResources.h"
+#include "../NuNuEngine_SOURCE/Resource/Texture/NTexture.h"
+#include "../NuNuEngine_SOURCE/Scene/NSceneManager.h"
 
-#include "../NuNuEngine_Window/NLoadResources.h"
-#include "../NuNuEngine_Window/NLoadScenes.h"
-#include "../NuNuEngine_Window/NToolScene.h"
+#include "../NuNuEngine_Window/Scripts/NLoadResources.h"
+#include "../NuNuEngine_Window/Scenes/NLoadScenes.h"
+#include "../NuNuEngine_Window/Scenes/NToolScene.h"
 
 #include <ctime>
 

@@ -12,85 +12,86 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NLoadScenes.h">
+    <ClInclude Include="Scenes\NLoadScenes.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="NPlayer.h">
+    <ClInclude Include="Contents\NPlayer.h">
       <Filter>Contents</Filter>
     </ClInclude>
-    <ClInclude Include="NHellScene.h">
+    <ClInclude Include="Scenes\NHellScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="NPlayScene.h">
+    <ClInclude Include="Scenes\NPlayScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="NSpaceScene.h">
+    <ClInclude Include="Scenes\NSpaceScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="NPlayerScript.h">
+    <ClInclude Include="Scripts\NPlayerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="NDemon.h">
+    <ClInclude Include="Contents\NDemon.h">
       <Filter>Contents</Filter>
     </ClInclude>
-    <ClInclude Include="NDemonScript.h">
+    <ClInclude Include="Scripts\NDemonScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="NToolScene.h">
+    <ClInclude Include="Scenes\NToolScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="NTile.h">
+    <ClInclude Include="Contents\NTile.h">
       <Filter>Contents</Filter>
     </ClInclude>
-    <ClInclude Include="NCameraScript.h">
+    <ClInclude Include="Scripts\NCameraScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="NLoadResources.h">
+    <ClInclude Include="Scripts\NLoadResources.h">
       <Filter>Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="NFloor.h">
+    <ClInclude Include="Contents\NFloor.h">
       <Filter>Contents</Filter>
     </ClInclude>
-    <ClInclude Include="NFloorScript.h">
+    <ClInclude Include="Scripts\NFloorScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NPlayer.cpp">
+    <ClCompile Include="Contents\NPlayer.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
-    <ClCompile Include="NHellScene.cpp">
+    <ClCompile Include="Scenes\NHellScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="NPlayScene.cpp">
+    <ClCompile Include="Scenes\NPlayScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="NSpaceScene.cpp">
+    <ClCompile Include="Scenes\NSpaceScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="NPlayerScript.cpp">
+    <ClCompile Include="Scripts\NPlayerScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="NDemon.cpp">
+    <ClCompile Include="Contents\NDemon.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
-    <ClCompile Include="NDemonScript.cpp">
+    <ClCompile Include="Scripts\NDemonScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="NToolScene.cpp">
+    <ClCompile Include="Scenes\NToolScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="NTile.cpp">
+    <ClCompile Include="Contents\NTile.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
-    <ClCompile Include="NCameraScript.cpp">
+    <ClCompile Include="Scripts\NCameraScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="NFloor.cpp">
+    <ClCompile Include="Contents\NFloor.cpp">
       <Filter>Contents</Filter>
     </ClCompile>
-    <ClCompile Include="NFloorScript.cpp">
+    <ClCompile Include="Scripts\NFloorScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
+

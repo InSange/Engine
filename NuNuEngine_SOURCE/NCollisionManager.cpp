@@ -1,10 +1,10 @@
-#include "NCollisionManager.h"
-#include "NScene.h"
-#include "NSceneManager.h"
-#include "NGameObject.h"
-#include "NCollider.h"
-#include "NTransform.h"
-#include "NGameObject.h"
+﻿#include "NCollisionManager.h"
+#include "Scene/NScene.h"
+#include "Scene/NSceneManager.h"
+#include "GameObject/NGameObject.h"
+#include "Component/Collider/NCollider.h"
+#include "Component/Transform/NTransform.h"
+#include "GameObject/NGameObject.h"
 
 namespace NuNu
 {
@@ -164,7 +164,7 @@ namespace NuNu
 			Vector2 leftCirclePos = leftPos + (leftSize / 2.0f);
 			Vector2 rightCirclePos = rightPos + (rightSize / 2.0f);
 
-			float dist = (leftCirclePos - rightCirclePos).length();
+			float dist = (leftCirclePos - rightCirclePos).Length();
 			if (dist <= (leftSize.x / 2.0f + rightSize.x / 2.0f))
 			{
 				return true;
@@ -197,7 +197,7 @@ namespace NuNu
 			float closestY = std::max(rectTop, std::min(circlePos.y, rectBottom));
 
 			Vector2 closestPoint = Vector2(closestX, closestY);
-			float distance = (circlePos - closestPoint).length();
+			float distance = (circlePos - closestPoint).Length();
 
 			if (distance <= radius)
 			{

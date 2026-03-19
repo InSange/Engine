@@ -1,7 +1,7 @@
-#pragma once
-#include "CommonInclude.h"
-#include "NBoxCollider2D.h"
-#include "NCircleCollider2D.h"
+﻿#pragma once
+#include "Common/CommonInclude.h"
+#include "Component/Collider/NBoxCollider2D.h"
+#include "Component/Collider/NCircleCollider2D.h"
 
 namespace NuNu
 {
@@ -37,4 +37,5 @@ namespace NuNu
 		static std::unordered_map<UINT64, bool> mCollisionMap;
 	};
 }
+
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -78,7 +78,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\NuNuEngine_SOURCE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\NuNuEngine_SOURCE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -94,7 +94,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\NuNuEngine_SOURCE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\NuNuEngine_SOURCE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -108,7 +108,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\NuNuEngine_SOURCE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\NuNuEngine_SOURCE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -130,7 +130,7 @@ copy "$(SolutionDir)\External\Library\Fmod\Debug\fmodstudioL.dll" "$(SolutionDir
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\NuNuEngine_SOURCE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\NuNuEngine_SOURCE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -144,36 +144,38 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="NCameraScript.h" />
-    <ClInclude Include="NDemon.h" />
-    <ClInclude Include="NDemonScript.h" />
-    <ClInclude Include="NFloor.h" />
-    <ClInclude Include="NFloorScript.h" />
-    <ClInclude Include="NHellScene.h" />
-    <ClInclude Include="NLoadResources.h" />
-    <ClInclude Include="NLoadScenes.h" />
-    <ClInclude Include="NPlayer.h" />
-    <ClInclude Include="NPlayerScript.h" />
-    <ClInclude Include="NPlayScene.h" />
-    <ClInclude Include="NSpaceScene.h" />
-    <ClInclude Include="NTile.h" />
-    <ClInclude Include="NToolScene.h" />
+    <ClInclude Include="Scripts\NCameraScript.h" />
+    <ClInclude Include="Contents\NDemon.h" />
+    <ClInclude Include="Scripts\NDemonScript.h" />
+    <ClInclude Include="Contents\NFloor.h" />
+    <ClInclude Include="Scripts\NFloorScript.h" />
+    <ClInclude Include="Scenes\NHellScene.h" />
+    <ClInclude Include="Scripts\NLoadResources.h" />
+    <ClInclude Include="Scenes\NLoadScenes.h" />
+    <ClInclude Include="Contents\NPlayer.h" />
+    <ClInclude Include="Scripts\NPlayerScript.h" />
+    <ClInclude Include="Scenes\NPlayScene.h" />
+    <ClInclude Include="Scenes\NSpaceScene.h" />
+    <ClInclude Include="Contents\NTile.h" />
+    <ClInclude Include="Scenes\NToolScene.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NCameraScript.cpp" />
-    <ClCompile Include="NDemon.cpp" />
-    <ClCompile Include="NDemonScript.cpp" />
-    <ClCompile Include="NFloor.cpp" />
-    <ClCompile Include="NFloorScript.cpp" />
-    <ClCompile Include="NHellScene.cpp" />
-    <ClCompile Include="NPlayer.cpp" />
-    <ClCompile Include="NPlayerScript.cpp" />
-    <ClCompile Include="NPlayScene.cpp" />
-    <ClCompile Include="NSpaceScene.cpp" />
-    <ClCompile Include="NTile.cpp" />
-    <ClCompile Include="NToolScene.cpp" />
+    <ClCompile Include="Scripts\NCameraScript.cpp" />
+    <ClCompile Include="Contents\NDemon.cpp" />
+    <ClCompile Include="Scripts\NDemonScript.cpp" />
+    <ClCompile Include="Contents\NFloor.cpp" />
+    <ClCompile Include="Scripts\NFloorScript.cpp" />
+    <ClCompile Include="Scenes\NHellScene.cpp" />
+    <ClCompile Include="Contents\NPlayer.cpp" />
+    <ClCompile Include="Scripts\NPlayerScript.cpp" />
+    <ClCompile Include="Scenes\NPlayScene.cpp" />
+    <ClCompile Include="Scenes\NSpaceScene.cpp" />
+    <ClCompile Include="Contents\NTile.cpp" />
+    <ClCompile Include="Scenes\NToolScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>
+
+
