@@ -8,13 +8,14 @@ namespace NuNu
 {
 	graphics::GraphicDevice_DX11::GraphicDevice_DX11()
 	{
+		graphics::GetDevice() = this;
 	}
 
 	graphics::GraphicDevice_DX11::~GraphicDevice_DX11()
 	{
 	}
 
-	void graphics::GraphicDevice_DX11::Initialize()
+	HRESULT graphics::GraphicDevice_DX11::CreateDevice()
 	{
 		D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_0 };
 		UINT creationFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
@@ -28,6 +29,137 @@ namespace NuNu
 			D3D11_SDK_VERSION, mDevice.GetAddressOf(),
 			0, mContext.GetAddressOf());
 
+		return hr;
+	}
+
+	HRESULT graphics::GraphicDevice_DX11::CreateSwapchain(DXGI_SWAP_CHAIN_DESC desc)
+	{
+		Microsoft::WRL::ComPtr<IDXGIDevice>     pDXGIDevice = nullptr;
+		Microsoft::WRL::ComPtr<IDXGIAdapter>    pAdapter = nullptr;
+		Microsoft::WRL::ComPtr<IDXGIFactory>    pFactory = nullptr;
+
+		if (FAILED(mDevice->QueryInterface(__uuidof(IDXGIDevice), (void**)pDXGIDevice.GetAddressOf())))
+			return S_FALSE;
+
+		if (FAILED(pDXGIDevice->GetParent(__uuidof(IDXGIAdapter), (void**)pAdapter.GetAddressOf())))
+			return S_FALSE;
+
+		if (FAILED(pAdapter->GetParent(__uuidof(IDXGIFactory), (void**)pFactory.GetAddressOf())))
+			return S_FALSE;
+
+		if (FAILED(pFactory->CreateSwapChain(mDevice.Get(), &desc, mSwapChain.GetAddressOf())))
+			return S_FALSE;
+
+		return S_OK;
+	}
+
+	HRESULT graphics::GraphicDevice_DX11::GetBuffer(UINT Buffer, REFIID riid, void** ppSurface)
+	{
+		if (FAILED(mSwapChain->GetBuffer(Buffer, riid, ppSurface)))
+			return S_FALSE;
+
+		return S_OK;
+	}
+
+	HRESULT graphics::GraphicDevice_DX11::CreateRenderTargetView(ID3D11Resource* pResource, const D3D11_RENDER_TARGET_VIEW_DESC* pDesc, ID3D11RenderTargetView** ppRTView)
+	{
+		if (FAILED(mDevice->CreateRenderTargetView(pResource, pDesc, ppRTView)))
+			return S_FALSE;
+
+		return S_OK;
+	}
+
+	HRESULT graphics::GraphicDevice_DX11::CreateDepthStencilView(ID3D11Resource* pResource, const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc, ID3D11DepthStencilView** ppDepthStencilView)
+	{
+		if (FAILED(mDevice->CreateDepthStencilView(pResource, pDesc, ppDepthStencilView)))
+			return S_FALSE;
+
+		return S_OK;
+	}
+
+	HRESULT graphics::GraphicDevice_DX11::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc, const D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Texture2D** ppTexture2D)
+	{
+		if (FAILED(mDevice->CreateTexture2D(pDesc, pInitialData, ppTexture2D)))
+			return S_FALSE;
+
+		return S_OK;
+	}
+
+	HRESULT graphics::GraphicDevice_DX11::CreateVertexShader(const std::wstring& fileName, ID3DBlob** ppCode, ID3D11VertexShader** ppVertexShader)
+	{
+		DWORD shaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
+		shaderFlags |= D3DCOMPILE_DEBUG;
+		shaderFlags |= D3DCOMPILE_SKIP_OPTIMIZATION;
+
+		ID3DBlob* errorBlob = nullptr;
+		const std::wstring shaderFilePath = L"..\\Shader_Source\\";
+		D3DCompileFromFile((shaderFilePath + fileName).c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+			, "main", "vs_5_0", shaderFlags, 0, ppCode, &errorBlob);
+
+		if (errorBlob)
+		{
+			OutputDebugStringA((char*)errorBlob->GetBufferPointer());
+			errorBlob->Release();
+			assert(NULL && "hlsl file have problem check message!");
+			return S_FALSE;
+		}
+
+		if (FAILED(mDevice->CreateVertexShader((*ppCode)->GetBufferPointer(), (*ppCode)->GetBufferSize(), nullptr, ppVertexShader)))
+			return S_FALSE;
+
+		return S_OK;
+	}
+
+	HRESULT graphics::GraphicDevice_DX11::CreatePixelShader(const std::wstring& fileName, ID3DBlob** ppCode, ID3D11PixelShader** ppPixelShader)
+	{
+		DWORD shaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
+		shaderFlags |= D3DCOMPILE_DEBUG;
+		shaderFlags |= D3DCOMPILE_SKIP_OPTIMIZATION;
+
+		ID3DBlob* errorBlob = nullptr;
+		const std::wstring shaderFilePath = L"..\\Shader_Source\\";
+		D3DCompileFromFile((shaderFilePath + fileName).c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+			, "main", "ps_5_0", shaderFlags, 0, ppCode, &errorBlob);
+
+		if (errorBlob)
+		{
+			OutputDebugStringA((char*)errorBlob->GetBufferPointer());
+			errorBlob->Release();
+			assert(NULL && "hlsl file have problem check message!");
+			return S_FALSE;
+		}
+
+		if (FAILED(mDevice->CreatePixelShader((*ppCode)->GetBufferPointer(), (*ppCode)->GetBufferSize(), nullptr, ppPixelShader)))
+			return S_FALSE;
+
+		return S_OK;
+	}
+
+	HRESULT graphics::GraphicDevice_DX11::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs, UINT NumElements, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength, ID3D11InputLayout** ppInputLayout)
+	{
+		if (FAILED(mDevice->CreateInputLayout(pInputElementDescs, NumElements
+			, pShaderBytecodeWithInputSignature
+			, BytecodeLength
+			, ppInputLayout)))
+			return S_FALSE;
+
+		return S_OK;
+	}
+
+	HRESULT graphics::GraphicDevice_DX11::CreateBuffer(const D3D11_BUFFER_DESC* pDesc, const D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Buffer** ppBuffer)
+	{
+		if (FAILED(mDevice->CreateBuffer(pDesc, pInitialData, ppBuffer)))
+			return S_FALSE;
+
+		return S_OK;
+	}
+
+	void graphics::GraphicDevice_DX11::Initialize()
+	{
+		if (FAILED(CreateDevice()))
+			assert(NULL && "Create Device Failed!");
+
+#pragma region swapchain desc
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 
 		swapChainDesc.OutputWindow = application.GetHwnd();	// 어느 윈도우에 해당 화면을 띄울것인지 세팅
@@ -45,6 +177,7 @@ namespace NuNu
 		swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 		swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 
+#pragma region 4X MSAA surported check
 		// 4X MSAA surported check
 		UINT quility = 0;
 		mDevice->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, 4, &quility);
@@ -54,28 +187,22 @@ namespace NuNu
 		//	swapChainDesc.SampleDesc.Quality = quility - 1;
 		//}
 
+#pragma endregion
+
 		swapChainDesc.SampleDesc.Count = 1; // how many multisamples
 		swapChainDesc.SampleDesc.Quality = 0;
 
-		Microsoft::WRL::ComPtr<IDXGIDevice>     pDXGIDevice = nullptr;
-		Microsoft::WRL::ComPtr<IDXGIAdapter>    pAdapter = nullptr;
-		Microsoft::WRL::ComPtr<IDXGIFactory>    pFactory = nullptr;
+#pragma endregion
+		if (FAILED(CreateSwapchain(swapChainDesc)))
+			assert(NULL && "Create Swapchain Failed!");
 
-		if (FAILED(mDevice->QueryInterface(__uuidof(IDXGIDevice), (void**)pDXGIDevice.GetAddressOf())))
-			return;
+		if (FAILED(GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)mRenderTarget.GetAddressOf())))
+			assert(NULL && "Couldn't bring rendertarget!");
 
-		if (FAILED(pDXGIDevice->GetParent(__uuidof(IDXGIAdapter), (void**)pAdapter.GetAddressOf())))
-			return;
+		if (FAILED(CreateRenderTargetView(mRenderTarget.Get(), nullptr, mRenderTargetView.GetAddressOf())))
+			assert(NULL && "Create RenderTargetView Failed!");
 
-		if (FAILED(pAdapter->GetParent(__uuidof(IDXGIFactory), (void**)pFactory.GetAddressOf())))
-			return;
-
-		if (FAILED(pFactory->CreateSwapChain(mDevice.Get(), &swapChainDesc, mSwapChain.GetAddressOf())))
-			return;
-
-		mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)mRenderTarget.GetAddressOf());
-		mDevice->CreateRenderTargetView(mRenderTarget.Get(), nullptr, mRenderTargetView.GetAddressOf());
-
+#pragma region depthstencil desc
 		D3D11_TEXTURE2D_DESC depthStencilDesc = {};
 		depthStencilDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
 		depthStencilDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -86,37 +213,20 @@ namespace NuNu
 		depthStencilDesc.SampleDesc.Count = 1;
 		depthStencilDesc.SampleDesc.Quality = 0;
 
+#pragma endregion
+		if (FAILED(CreateTexture2D(&depthStencilDesc, nullptr, mDepthStencil.GetAddressOf())))
+			assert(NULL && "Create depthstencil texture failed!");
 
-		if (FAILED(mDevice->CreateTexture2D(&depthStencilDesc, nullptr, mDepthStencil.GetAddressOf())))
-			return;
+		if (FAILED(CreateDepthStencilView(mDepthStencil.Get(), nullptr, mDepthStencilView.GetAddressOf())))
+			assert(NULL && "Create depthstencilview failed!");
 
-		if (FAILED(mDevice->CreateDepthStencilView(mDepthStencil.Get(), nullptr, mDepthStencilView.GetAddressOf())))
-			return;
+		if (FAILED(CreateVertexShader(L"TriangleVS.hlsl", &renderer::vsBlob, &renderer::vsShader)))
+			assert(NULL && "Create vertex shader failed!");
 
-		DWORD shaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
-		shaderFlags |= D3DCOMPILE_DEBUG;
-		shaderFlags |= D3DCOMPILE_SKIP_OPTIMIZATION;
+		if (FAILED(CreatePixelShader(L"TrianglePS.hlsl", &renderer::psBlob, &renderer::psShader)))
+			assert(NULL && "Create pixel shader failed!");
 
-		//vertex shader
-		{
-			ID3DBlob* errorBlob = nullptr;
-			D3DCompileFromFile(L"..\\Shader_Source\\TriangleVS.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-				, "main", "vs_5_0", shaderFlags, 0, &renderer::vsBlob, &errorBlob);
-
-			mDevice->CreateVertexShader(renderer::vsBlob->GetBufferPointer()
-				, renderer::vsBlob->GetBufferSize(), nullptr, &renderer::vsShader);
-		}
-
-		//pixel shader
-		{
-			ID3DBlob* errorBlob = nullptr;
-			D3DCompileFromFile(L"..\\Shader_Source\\TrianglePS.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-				, "main", "ps_5_0", shaderFlags, 0, &renderer::psBlob, &errorBlob);
-
-			mDevice->CreatePixelShader(renderer::psBlob->GetBufferPointer()
-				, renderer::psBlob->GetBufferSize(), nullptr, &renderer::psShader);
-		}
-
+#pragma region inputLayout Desc
 		D3D11_INPUT_ELEMENT_DESC inputLayoutDesces[2] = {};
 
 		inputLayoutDesces[0].AlignedByteOffset = 0;
@@ -133,11 +243,16 @@ namespace NuNu
 		inputLayoutDesces[1].SemanticName = "COLOR";
 		inputLayoutDesces[1].SemanticIndex = 0;
 
-		mDevice->CreateInputLayout(inputLayoutDesces, 2
+#pragma endregion
+		if (FAILED(CreateInputLayout(inputLayoutDesces, 2
 			, renderer::vsBlob->GetBufferPointer()
 			, renderer::vsBlob->GetBufferSize()
-			, &renderer::inputLayouts);
+			, &renderer::inputLayouts)))
+		{
+			assert(NULL && "Create input layout failed!");
+		}
 
+#pragma region vertex buffer desc
 		D3D11_BUFFER_DESC bufferDesc = {};
 
 		bufferDesc.ByteWidth = sizeof(renderer::Vertex) * 3;
@@ -145,21 +260,24 @@ namespace NuNu
 		bufferDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
 		bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
 
-		//xyz
-		//rgba
-		renderer::vertexes[0].pos = Vector3(0.0f, 0.5f, 0.0f);
-		renderer::vertexes[0].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-
-		renderer::vertexes[1].pos = Vector3(0.5f, -0.5f, 0.0f);
-		renderer::vertexes[1].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-
-		renderer::vertexes[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
-		renderer::vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-
 		D3D11_SUBRESOURCE_DATA sub = { renderer::vertexes };
-		//sub.pSysMem = renderer::vertexes;
+		
+#pragma endregion
+		if (FAILED(CreateBuffer(&bufferDesc, &sub, &renderer::vertexBuffer)))
+			assert(NULL && "Create vertex buffer failed!");
 
-		mDevice->CreateBuffer(&bufferDesc, &sub, &renderer::vertexBuffer);
+#pragma region index buffer desc
+		D3D11_BUFFER_DESC indexBufferdesc = {};
+		indexBufferdesc.ByteWidth = sizeof(UINT) * renderer::indices.size();
+		indexBufferdesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
+		indexBufferdesc.Usage = D3D11_USAGE_DEFAULT;
+		indexBufferdesc.CPUAccessFlags = 0;
+
+		D3D11_SUBRESOURCE_DATA indicesData = {};
+		indicesData.pSysMem = renderer::indices.data();
+#pragma endregion
+		if (FAILED(graphics::GetDevice()->CreateBuffer(&indexBufferdesc, &indicesData, &renderer::indexBuffer)))
+			assert(NULL && "indices buffer create fail!!");
 	}
 
 	void graphics::GraphicDevice_DX11::Draw()
@@ -184,10 +302,15 @@ namespace NuNu
 		UINT offset = 0;
 		mContext->IASetVertexBuffers(0, 1, &renderer::vertexBuffer, &vertexSize, &offset);
 
+		// 만들어둔 인덱스 버퍼를 렌더링 파이프라인(Input Assembler)에 장착합니다.
+		mContext->IASetIndexBuffer(renderer::indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
 		mContext->VSSetShader(renderer::vsShader, 0, 0);
 		mContext->PSSetShader(renderer::psShader, 0, 0);
 
-		mContext->Draw(3, 0);
+		// 단순 점 그리기(Draw)가 아니라, 인덱스 배열의 순서표에 따라 그리도록 DrawIndexed 호출
+		mContext->DrawIndexed(renderer::indices.size(), 0, 0);
+//		mContext->Draw(3, 0);
 
 		mSwapChain->Present(1, 0);
 	}

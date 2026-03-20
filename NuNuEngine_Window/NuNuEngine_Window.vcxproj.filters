@@ -4,11 +4,11 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{71bdbb09-fc26-4add-a5d0-d361acfe3d27}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents">
-      <UniqueIdentifier>{1bb40048-7ce2-474f-88b4-f0263b0ee9c0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scripts">
       <UniqueIdentifier>{b1190ee9-ef7b-4cb8-8edf-13e268298f6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\Contents">
+      <UniqueIdentifier>{1bb40048-7ce2-474f-88b4-f0263b0ee9c0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -16,7 +16,7 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Contents\NPlayer.h">
-      <Filter>Contents</Filter>
+      <Filter>Scenes\Contents</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\NHellScene.h">
       <Filter>Scenes</Filter>
@@ -31,7 +31,7 @@
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Contents\NDemon.h">
-      <Filter>Contents</Filter>
+      <Filter>Scenes\Contents</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\NDemonScript.h">
       <Filter>Scripts</Filter>
@@ -40,7 +40,7 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Contents\NTile.h">
-      <Filter>Contents</Filter>
+      <Filter>Scenes\Contents</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\NCameraScript.h">
       <Filter>Scripts</Filter>
@@ -49,7 +49,7 @@
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Contents\NFloor.h">
-      <Filter>Contents</Filter>
+      <Filter>Scenes\Contents</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\NFloorScript.h">
       <Filter>Scripts</Filter>
@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Contents\NPlayer.cpp">
-      <Filter>Contents</Filter>
+      <Filter>Scenes\Contents</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\NHellScene.cpp">
       <Filter>Scenes</Filter>
@@ -72,7 +72,7 @@
       <Filter>Scripts</Filter>
     </ClCompile>
     <ClCompile Include="Contents\NDemon.cpp">
-      <Filter>Contents</Filter>
+      <Filter>Scenes\Contents</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\NDemonScript.cpp">
       <Filter>Scripts</Filter>
@@ -81,17 +81,16 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Contents\NTile.cpp">
-      <Filter>Contents</Filter>
+      <Filter>Scenes\Contents</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\NCameraScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
     <ClCompile Include="Contents\NFloor.cpp">
-      <Filter>Contents</Filter>
+      <Filter>Scenes\Contents</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\NFloorScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
-

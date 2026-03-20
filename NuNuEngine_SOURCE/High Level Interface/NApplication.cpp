@@ -6,6 +6,7 @@
 #include "NCollisionManager.h"
 #include "UI/NUIManager.h"
 #include "Fmod/NFmod.h"
+#include "Renderer/NRenderer.h"
 
 namespace NuNu
 {
@@ -34,6 +35,7 @@ namespace NuNu
 		initializeEtc();
 
 		mGraphicDevice = std::make_unique<graphics::GraphicDevice_DX11>();
+		renderer::Initialize();
 		mGraphicDevice->Initialize();
 
 		Fmod::Initialize();
@@ -96,6 +98,8 @@ namespace NuNu
 		SceneManager::Release();
 		UIManager::Release();
 		Resources::Release();
+
+		renderer::Release();
 	}
 
 	void Application::clearRenderTarget()
