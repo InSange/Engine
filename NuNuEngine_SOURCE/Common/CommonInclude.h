@@ -25,4 +25,4 @@
 
 #include "Common/NEnum.h"
 #include "Common/NMath.h"
-#include <wrl.h>
+#include "NGraphics.h"

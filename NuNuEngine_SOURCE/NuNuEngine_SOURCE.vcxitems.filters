@@ -223,6 +223,7 @@
       <Filter>Resource\Audio</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)NGraphicDevice_DX11.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NGraphics.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
