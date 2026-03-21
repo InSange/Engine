@@ -28,6 +28,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Collider\NCollider.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Collision\NCollisionManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Component\NComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Graphics\Shader\NShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene\NDontDestroyOnLoad.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEnum.h" />
@@ -68,6 +69,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Collider\NCollider.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Collision\NCollisionManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Component\NComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Graphics\Shader\NShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene\NDontDestroyOnLoad.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Common\NEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Fmod\NFmod.cpp" />

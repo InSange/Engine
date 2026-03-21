@@ -112,6 +112,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX11.cpp">
       <Filter>Graphics\GraphicDevice</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Graphics\Shader\NShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h">
@@ -232,6 +233,7 @@
       <Filter>Graphics</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEnum.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Graphics\Shader\NShader.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

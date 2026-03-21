@@ -1,6 +1,6 @@
-﻿#include "Renderer/NRenderer.h"
 #include "Renderer/NRenderer.h"
-
+#include "Resource/NResources.h"
+#include "Resource/Graphics/Shader/NShader.h"
 
 namespace NuNu::renderer
 {
@@ -13,10 +13,6 @@ namespace NuNu::renderer
 	ID3D11Buffer* indexBuffer = nullptr;
 	ID3D11Buffer* constantBuffer = nullptr;
 
-	ID3DBlob* vsBlob = nullptr;
-	ID3D11VertexShader* vsShader = nullptr;
-	ID3DBlob* psBlob = nullptr;
-	ID3D11PixelShader* psShader = nullptr;
 	ID3D11InputLayout* inputLayouts = nullptr;
 
 	void LoadTriangleMesh()
@@ -40,18 +36,20 @@ namespace NuNu::renderer
 		LoadTriangleMesh();
 	}
 
+	void LoadShaders()
+	{
+		Resources::Load<graphics::Shader>(L"TriangleShader", L"..\\Shader_Source\\Triangle");
+	}
+
 	void Initialize()
 	{
 		LoadMeshes();
+		LoadShaders();
 	}
 
 	void Release()
 	{
 		vertexBuffer->Release();
-		vsBlob->Release();
-		vsShader->Release();
-		psBlob->Release();
-		psShader->Release();
 		inputLayouts->Release();
 		indexBuffer->Release();
 		constantBuffer->Release();

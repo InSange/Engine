@@ -9,6 +9,10 @@ namespace NuNu::graphics
 		GraphicDevice_DX11();
 		~GraphicDevice_DX11();
 
+		/// <summary>
+		/// gpu object make trought device 
+		/// </summary>
+		/// <returns></returns>
 		bool CreateDevice();
 		bool CreateSwapchain(DXGI_SWAP_CHAIN_DESC desc);
 		bool GetBuffer(UINT Buffer, REFIID riid, void** ppSurface);
@@ -21,6 +25,11 @@ namespace NuNu::graphics
 			, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength, ID3D11InputLayout** ppInputLayout);
 		bool CreateBuffer(const D3D11_BUFFER_DESC* pDesc, const D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Buffer** ppBuffer);
 
+		/// <summary>
+		/// context swtich
+		/// </summary>
+		void BindVS(ID3D11VertexShader* pVertexShader);
+		void BindPS(ID3D11PixelShader* pPixelShader);
 		void BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
 
 		void Initialize();

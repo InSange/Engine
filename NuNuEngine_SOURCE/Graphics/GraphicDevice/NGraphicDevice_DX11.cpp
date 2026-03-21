@@ -1,6 +1,8 @@
-﻿#include "Graphics/GraphicDevice/NGraphicDevice_DX11.h"
 #include "./High Level Interface/NApplication.h"
 #include "Renderer/NRenderer.h"
+#include "NGraphicDevice_DX11.h"
+#include "Resource/Graphics/Shader/NShader.h"
+#include "Resource/NResources.h"
 
 extern NuNu::Application application;
 
@@ -9,6 +11,9 @@ namespace NuNu
 	graphics::GraphicDevice_DX11::GraphicDevice_DX11()
 	{
 		graphics::GetDevice() = this;
+
+		if (!(CreateDevice()))
+			assert(NULL && "Create Device Failed!");
 	}
 
 	graphics::GraphicDevice_DX11::~GraphicDevice_DX11()
@@ -93,7 +98,7 @@ namespace NuNu
 
 		ID3DBlob* errorBlob = nullptr;
 		const std::wstring shaderFilePath = L"..\\Shader_Source\\";
-		D3DCompileFromFile((shaderFilePath + fileName).c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+		D3DCompileFromFile((shaderFilePath + fileName + L"VS.hlsl").c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 			, "main", "vs_5_0", shaderFlags, 0, ppCode, &errorBlob);
 
 		if (errorBlob)
@@ -118,7 +123,7 @@ namespace NuNu
 
 		ID3DBlob* errorBlob = nullptr;
 		const std::wstring shaderFilePath = L"..\\Shader_Source\\";
-		D3DCompileFromFile((shaderFilePath + fileName).c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+		D3DCompileFromFile((shaderFilePath + fileName + L"PS.hlsl").c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 			, "main", "ps_5_0", shaderFlags, 0, ppCode, &errorBlob);
 
 		if (errorBlob)
@@ -152,6 +157,16 @@ namespace NuNu
 			return false;
 
 		return true;
+	}
+
+	void graphics::GraphicDevice_DX11::BindVS(ID3D11VertexShader* pVertexShader)
+	{
+		mContext->VSSetShader(pVertexShader, 0, 0);
+	}
+
+	void graphics::GraphicDevice_DX11::BindPS(ID3D11PixelShader* pPixelShader)
+	{
+		mContext->PSSetShader(pPixelShader, 0, 0);
 	}
 
 	void graphics::GraphicDevice_DX11::BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer)
@@ -192,9 +207,6 @@ namespace NuNu
 
 	void graphics::GraphicDevice_DX11::Initialize()
 	{
-		if (!(CreateDevice()))
-			assert(NULL && "Create Device Failed!");
-
 #pragma region swapchain desc
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 
@@ -256,12 +268,6 @@ namespace NuNu
 		if (!(CreateDepthStencilView(mDepthStencil.Get(), nullptr, mDepthStencilView.GetAddressOf())))
 			assert(NULL && "Create depthstencilview failed!");
 
-		if (!(CreateVertexShader(L"TriangleVS.hlsl", &renderer::vsBlob, &renderer::vsShader)))
-			assert(NULL && "Create vertex shader failed!");
-
-		if (!(CreatePixelShader(L"TrianglePS.hlsl", &renderer::psBlob, &renderer::psShader)))
-			assert(NULL && "Create pixel shader failed!");
-
 #pragma region inputLayout Desc
 		D3D11_INPUT_ELEMENT_DESC inputLayoutDesces[2] = {};
 
@@ -280,9 +286,12 @@ namespace NuNu
 		inputLayoutDesces[1].SemanticIndex = 0;
 
 #pragma endregion
+
+		graphics::Shader* triangle = Resources::Find<graphics::Shader>(L"TriangleShader");
+
 		if (!(CreateInputLayout(inputLayoutDesces, 2
-			, renderer::vsBlob->GetBufferPointer()
-			, renderer::vsBlob->GetBufferSize()
+			, triangle->GetVSBlob()->GetBufferPointer()
+			, triangle->GetVSBlob()->GetBufferSize()
 			, &renderer::inputLayouts)))
 		{
 			assert(NULL && "Create input layout failed!");
@@ -357,8 +366,8 @@ namespace NuNu
 		// 만들어둔 인덱스 버퍼를 렌더링 파이프라인(Input Assembler)에 장착합니다.
 		mContext->IASetIndexBuffer(renderer::indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
-		mContext->VSSetShader(renderer::vsShader, 0, 0);
-		mContext->PSSetShader(renderer::psShader, 0, 0);
+		graphics::Shader* triangle = Resources::Find<graphics::Shader>(L"TriangleShader");
+		triangle->Bind();
 
 		// 단순 점 그리기(Draw)가 아니라, 인덱스 배열의 순서표에 따라 그리도록 DrawIndexed 호출
 		//mContext->DrawIndexed(renderer::indices.size(), 0, 0);
