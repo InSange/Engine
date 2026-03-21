@@ -67,7 +67,7 @@ namespace NuNu
 	{
 		Scene::Render();
 
-		renderGrid(hdc);
+		renderGrid();
 	}
 
 	void ToolScene::OnEnter()
@@ -191,7 +191,7 @@ namespace NuNu
 			fclose(pFile);
 	}
 
-	void ToolScene::renderGrid(HDC hdc)
+	void ToolScene::renderGrid()
 	{
 		
 	}
