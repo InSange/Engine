@@ -67,6 +67,12 @@ namespace NuNu::graphics
 	Texture::~Texture()
 	{
 	}
+
+	HRESULT Texture::Save(const std::wstring& path)
+	{
+		return E_NOTIMPL;
+	}
+
 	HRESULT Texture::Load(const std::wstring& path)
 	{
 		std::wstring ext = path.substr(path.find_last_of(L".") + 1);

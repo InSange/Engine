@@ -116,6 +116,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NVertexBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NIndexBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NConstantBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Mesh\NMesh.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Material\NMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h">
@@ -240,6 +242,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NVertexBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NIndexBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NConstantBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Mesh\NMesh.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Material\NMaterial.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

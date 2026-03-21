@@ -29,6 +29,7 @@ namespace NuNu::graphics
 		/// context swtich
 		/// </summary>
 		void SetDataBuffer(ID3D11Buffer* buffer, void* data, UINT size);
+		void BindPrimitiveTopology(const D3D11_PRIMITIVE_TOPOLOGY topology);
 		void BindVS(ID3D11VertexShader* pVertexShader);
 		void BindPS(ID3D11PixelShader* pPixelShader);
 		void BindVertexBuffer(UINT StartSlot, UINT NumBuffers, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets);
