@@ -10,8 +10,8 @@ namespace NuNu::renderer
 	std::vector<UINT> indices;
 
 	graphics::VertexBuffer vertexBuffer;
-	ID3D11Buffer* indexBuffer = nullptr;
-	ID3D11Buffer* constantBuffer = nullptr;
+	graphics::IndexBuffer indexBuffer;
+	graphics::ConstantBuffer constantBuffers[(UINT)eCBType::End] = {};
 
 	ID3D11InputLayout* inputLayouts = nullptr;
 
@@ -42,17 +42,21 @@ namespace NuNu::renderer
 		Resources::Load<graphics::Shader>(L"TriangleShader", L"..\\Shader_Source\\Triangle");
 	}
 
+	void LoadConstantBuffers()
+	{
+		constantBuffers[(UINT)eCBType::Transform].Create(eCBType::Transform, sizeof(Vector4));
+	}
+
 	void Initialize()
 	{
 		LoadMeshes();
 		LoadShaders();
+		LoadConstantBuffers();
 	}
 
 	void Release()
 	{
 		inputLayouts->Release();
-		indexBuffer->Release();
-		constantBuffer->Release();
 	}
 }
 
