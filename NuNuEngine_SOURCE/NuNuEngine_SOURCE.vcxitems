@@ -19,6 +19,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX11.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NVertexBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioSource.h" />
@@ -60,6 +61,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX11.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NVertexBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioListener.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioSource.cpp" />

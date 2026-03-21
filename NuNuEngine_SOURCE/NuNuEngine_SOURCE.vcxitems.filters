@@ -113,6 +113,7 @@
       <Filter>Graphics\GraphicDevice</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Graphics\Shader\NShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NVertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h">
@@ -234,6 +235,7 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEnum.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Graphics\Shader\NShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NVertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
