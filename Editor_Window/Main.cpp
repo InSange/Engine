@@ -8,7 +8,6 @@
 #include "../NuNuEngine_SOURCE/Resource/Texture/NTexture.h"
 #include "../NuNuEngine_SOURCE/Scene/NSceneManager.h"
 
-#include "../NuNuEngine_Window/Scripts/NLoadResources.h"
 #include "../NuNuEngine_Window/Scenes/NLoadScenes.h"
 #include "../NuNuEngine_Window/Scenes/NToolScene.h"
 
@@ -155,7 +154,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    Gdiplus::GdiplusStartup(&gpToken, &gpsi, NULL);
 
    // load Scene
-   NuNu::LoadResources();
+   // NuNu::LoadResources(); -> LoadingScene으로 업무 위임
    NuNu::LoadScenes();
    
    int a = 0;

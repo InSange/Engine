@@ -209,17 +209,17 @@ namespace NuNu
 	{
 		Scene::OnEnter();
 
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Enemy, true);
-		CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
+		// CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Enemy, true);
+		// CollisionManager::CollisionLayerCheck(eLayerType::Player, eLayerType::Floor, true);
 
-		UIManager::Push(eUIType::Button);
+		// UIManager::Push(eUIType::Button);
 	}
 	void PlayScene::OnExit()
 	{
 		/*		Transform* tr = bg->GetComponent<Transform>();
 				tr->SetPosition(Vector2(0, 0));*/
 
-		UIManager::Pop(eUIType::Button);
+		// UIManager::Pop(eUIType::Button);
 
 
 		Scene::OnExit();

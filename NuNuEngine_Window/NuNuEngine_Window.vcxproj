@@ -144,13 +144,13 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Scenes\NLoadingScene.h" />
     <ClInclude Include="Scripts\NCameraScript.h" />
     <ClInclude Include="Contents\NDemon.h" />
     <ClInclude Include="Scripts\NDemonScript.h" />
     <ClInclude Include="Contents\NFloor.h" />
     <ClInclude Include="Scripts\NFloorScript.h" />
     <ClInclude Include="Scenes\NHellScene.h" />
-    <ClInclude Include="Scripts\NLoadResources.h" />
     <ClInclude Include="Scenes\NLoadScenes.h" />
     <ClInclude Include="Contents\NPlayer.h" />
     <ClInclude Include="Scripts\NPlayerScript.h" />
@@ -160,6 +160,7 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
     <ClInclude Include="Scenes\NToolScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scenes\NLoadingScene.cpp" />
     <ClCompile Include="Scripts\NCameraScript.cpp" />
     <ClCompile Include="Contents\NDemon.cpp" />
     <ClCompile Include="Scripts\NDemonScript.cpp" />
@@ -177,5 +178,3 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>
-
-

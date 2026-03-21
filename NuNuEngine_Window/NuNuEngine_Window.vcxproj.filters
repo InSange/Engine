@@ -45,15 +45,13 @@
     <ClInclude Include="Scripts\NCameraScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\NLoadResources.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Contents\NFloor.h">
       <Filter>Scenes\Contents</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\NFloorScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="Scenes\NLoadingScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Contents\NPlayer.cpp">
@@ -92,5 +90,6 @@
     <ClCompile Include="Scripts\NFloorScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\NLoadingScene.cpp" />
   </ItemGroup>
 </Project>
