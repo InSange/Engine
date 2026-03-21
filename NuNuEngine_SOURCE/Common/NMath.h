@@ -1,5 +1,5 @@
-#pragma once
-#include "CommonInclude.h"
+﻿#pragma once
+#include "Common/CommonInclude.h"
 
 #include <cmath>
 #include <algorithm>

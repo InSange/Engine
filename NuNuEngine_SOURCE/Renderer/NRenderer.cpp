@@ -1,5 +1,5 @@
 ﻿#include "Renderer/NRenderer.h"
-#include "NRenderer.h"
+#include "Renderer/NRenderer.h"
 
 
 namespace NuNu::renderer
@@ -57,3 +57,4 @@ namespace NuNu::renderer
 		constantBuffer->Release();
 	}
 }
+

@@ -1,4 +1,4 @@
-﻿#include "UI/Button/NUIHUD.h"
+﻿#include "UI/HUD/NUIHUD.h"
 #include "Resource/NResources.h"
 
 namespace NuNu
@@ -50,3 +50,4 @@ namespace NuNu
 	{
 	}
 }
+

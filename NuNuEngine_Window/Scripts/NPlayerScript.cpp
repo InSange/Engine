@@ -5,13 +5,13 @@
 #include "GameObject/NGameObject.h"
 #include "Contents/NDemon.h"
 #include "Scripts/NDemonScript.h"
-#include "Common/NObject.h"
+#include "Object/NObject.h"
 #include "Resource/NResources.h"
 #include "Renderer/NRenderer.h"
 #include "Component/Collider/NCollider.h"
 #include "Component/RigidBody/NRigidbody.h"
 #include "UI/NUIManager.h"
-#include "Component/Animation/NAnimator.h"
+#include "Component/Animator/NAnimator.h"
 
 namespace NuNu
 {
@@ -236,4 +236,5 @@ namespace NuNu
 		int a = 0;
 	}
 }
+
 

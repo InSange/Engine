@@ -1,4 +1,4 @@
-﻿#include "Component/Animation/NAnimator.h"
+﻿#include "Component/Animator/NAnimator.h"
 #include "Resource/NResources.h"
 #include "Resource/Texture/NTexture.h"
 
@@ -199,3 +199,4 @@ namespace NuNu
 		return events->EndEvent.mEvent;
 	}
 }
+

@@ -1,8 +1,8 @@
-﻿#include "Component/Animation/NAnimation.h"
+﻿#include "Component/Animator/NAnimation.h"
 #include "Helpers/NTime.h"
 #include "Component/Transform/NTransform.h"
 #include "GameObject/NGameObject.h"
-#include "Component/Animation/NAnimator.h"
+#include "Component/Animator/NAnimator.h"
 #include "Renderer/NRenderer.h"
 
 namespace NuNu
@@ -164,3 +164,4 @@ namespace NuNu
 
 	}
 }
+

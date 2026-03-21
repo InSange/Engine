@@ -1,4 +1,4 @@
-﻿#include "NMath.h"
+﻿#include "Common/NMath.h"
 
 //-------------------------------------------------------------------------------------
 // SimpleMath.cpp -- Simplified C++ Math wrapper for DirectXMath

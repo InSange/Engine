@@ -3,7 +3,7 @@
 #include "Component/Transform/NTransform.h"
 #include "Helpers/NTime.h"
 #include "GameObject/NGameObject.h"
-#include "Common/NObject.h"
+#include "Object/NObject.h"
 
 namespace NuNu
 {
@@ -53,4 +53,5 @@ namespace NuNu
 	{
 	}
 }
+
 

@@ -8,17 +8,17 @@
 #include "Helpers/NInput.h"
 #include "Scenes/NSpaceScene.h"
 #include "Scene/NSceneManager.h"
-#include "Common/NObject.h"
+#include "Object/NObject.h"
 #include "Resource/Texture/NTexture.h"
 #include "Resource/NResources.h"
 #include "Scripts/NPlayerScript.h"
 #include "Scripts/NDemonScript.h"
 #include "Component/Camera/NCamera.h"
 #include "Renderer/NRenderer.h"
-#include "Component/Animation/NAnimator.h"
+#include "Component/Animator/NAnimator.h"
 #include "Component/Collider/NBoxCollider2D.h"
 #include "Component/Collider/NCircleCollider2D.h"
-#include "NCollisionManager.h"
+#include "Collision/NCollisionManager.h"
 #include "Contents/NTile.h"
 #include "Component/TileMapRenderer/NTilemapRenderer.h"
 #include "Component/RigidBody/NRigidbody.h"
@@ -225,4 +225,5 @@ namespace NuNu
 		Scene::OnExit();
 	}
 }
+
 

@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Component/Camera/NCamera.h"
-#include "../NGraphicDevice_DX11.h"
+#include "Graphics/GraphicDevice/NGraphicDevice_DX11.h"
 
 namespace NuNu::renderer
 {
@@ -29,5 +29,6 @@ namespace NuNu::renderer
 	void Initialize();
 	void Release();
 }
+
 
 

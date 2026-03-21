@@ -1,12 +1,5 @@
-#pragma once
-#include <d3d11.h>
-#include <d3dcompiler.h>
-#include <wrl.h>
-
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "d3dcompiler.lib")
-
-#include "../NuNuEngine_SOURCE/Common/CommonInclude.h"
+﻿#pragma once
+#include "Graphics/NGraphics.h"
 
 namespace NuNu::graphics
 {
@@ -52,4 +45,5 @@ namespace NuNu::graphics
 		return device;
 	}
 }
+
 

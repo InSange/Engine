@@ -1,9 +1,9 @@
-#include "High Level Interface/NApplication.h"
+﻿#include "High Level Interface/NApplication.h"
 #include "Helpers/NInput.h"
 #include "Helpers/NTime.h"
 #include "Scene/NSceneManager.h"
 #include "Resource/NResources.h"
-#include "NCollisionManager.h"
+#include "Collision/NCollisionManager.h"
 #include "UI/NUIManager.h"
 #include "Fmod/NFmod.h"
 #include "Renderer/NRenderer.h"
@@ -157,3 +157,4 @@ namespace NuNu
 		Time::Initailize();
 	}
 }
+

@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "GameObject/NGameObject.h"
-#include "../NGraphicDevice_DX11.h"
+#include "Graphics/GraphicDevice/NGraphicDevice_DX11.h"
 
 namespace NuNu
 {
@@ -48,4 +48,5 @@ namespace NuNu
 	};
 
 }
+
 

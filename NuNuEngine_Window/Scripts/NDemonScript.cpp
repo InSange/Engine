@@ -3,8 +3,8 @@
 #include "Component/Transform/NTransform.h"
 #include "Helpers/NTime.h"
 #include "GameObject/NGameObject.h"
-#include "Component/Animation/NAnimator.h"
-#include "Common/NObject.h"
+#include "Component/Animator/NAnimator.h"
+#include "Object/NObject.h"
 #include "Component/Collider/NCollider.h"
 
 namespace NuNu
@@ -162,4 +162,5 @@ namespace NuNu
 		tr->SetPosition(pos);
 	}
 }
+
 

@@ -1,5 +1,5 @@
 ﻿#include "UI/NUIManager.h"
-#include "UI/Button/NUIHUD.h"
+#include "UI/HUD/NUIHUD.h"
 #include "UI/HUD/NUIButton.h"
 
 namespace NuNu
@@ -182,3 +182,4 @@ namespace NuNu
 		}
 	}
 }
+

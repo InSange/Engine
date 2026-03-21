@@ -26,4 +26,3 @@
 
 #include "Common/NEnum.h"
 #include "Common/NMath.h"
-#include "NGraphics.h"

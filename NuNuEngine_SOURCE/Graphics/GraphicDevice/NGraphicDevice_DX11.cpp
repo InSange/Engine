@@ -1,4 +1,4 @@
-#include "NGraphicDevice_DX11.h"
+﻿#include "Graphics/GraphicDevice/NGraphicDevice_DX11.h"
 #include "./High Level Interface/NApplication.h"
 #include "Renderer/NRenderer.h"
 
@@ -367,3 +367,4 @@ namespace NuNu
 		mSwapChain->Present(1, 0);
 	}
 }
+

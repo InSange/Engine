@@ -1,20 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NEntity.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NMath.cpp">
-      <Filter>Common</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\NApplication.cpp">
+      <Filter>High Level Interface</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObject\NGameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Helpers\NTime.cpp">
-      <Filter>Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Helpers\NInput.cpp">
-      <Filter>Helpers</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NEntity.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene\NScene.cpp">
       <Filter>Scene</Filter>
@@ -22,11 +16,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene\NSceneManager.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\NApplication.cpp">
-      <Filter>High Level Interface</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Helpers\NInput.cpp">
+      <Filter>Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Layer\NLayer.cpp">
-      <Filter>Layer</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Helpers\NTime.cpp">
+      <Filter>Helpers</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\NResource.cpp">
       <Filter>Resource</Filter>
@@ -37,14 +31,17 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Texture\NTexture.cpp">
       <Filter>Resource\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Layer\NLayer.cpp">
+      <Filter>Layer</Filter>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Script\NScript.cpp">
       <Filter>Component\Script</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Component\SpriteRenderer\NSpriteRenderer.cpp">
-      <Filter>Component\SpriteRenderer</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Transform\NTransform.cpp">
       <Filter>Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\SpriteRenderer\NSpriteRenderer.cpp">
+      <Filter>Component\SpriteRenderer</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NCamera.cpp">
       <Filter>Component\Camera</Filter>
@@ -55,24 +52,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Component\NComponent.cpp">
       <Filter>Component\Component</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Animation\NAnimator.cpp">
-      <Filter>Component\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Animation\NAnimation.cpp">
-      <Filter>Component\Animation</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Collider\NCollider.cpp">
       <Filter>Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Collider\NBoxCollider2D.cpp">
       <Filter>Component\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NCollisionManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Collider\NCircleCollider2D.cpp">
       <Filter>Component\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NObject.cpp">
-      <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene\NDontDestroyOnLoad.cpp">
       <Filter>Scene</Filter>
@@ -80,8 +67,20 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\TileMapRenderer\NTilemapRenderer.cpp">
       <Filter>Component\TileMapRenderer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Component\RigidBody\NRigidbody.cpp">
-      <Filter>Component\RigidBody</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimation.cpp">
+      <Filter>Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimator.cpp">
+      <Filter>Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Collision\NCollisionManager.cpp">
+      <Filter>Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Object\NObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Rigidbody\NRigidbody.cpp">
+      <Filter>Component\Rigidbody</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UI\NUIBase.cpp">
       <Filter>UI</Filter>
@@ -89,11 +88,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)UI\NUIManager.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UI\HUD\NUIButton.cpp">
-      <Filter>UI\HUD</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)UI\Button\NUIHUD.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI\Button\NUIButton.cpp">
       <Filter>UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI\HUD\NUIHUD.cpp">
+      <Filter>UI\HUD</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Fmod\NFmod.cpp">
       <Filter>Fmod</Filter>
@@ -107,26 +106,25 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.cpp">
       <Filter>Resource\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)NGraphicDevice_DX11.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NMath.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX11.cpp">
+      <Filter>Graphics\GraphicDevice</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEntity.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NMath.h">
-      <Filter>Common</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\NApplication.h">
+      <Filter>High Level Interface</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObject\NGameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Helpers\NTime.h">
-      <Filter>Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Helpers\NInput.h">
-      <Filter>Helpers</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEntity.h">
+      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene\NScene.h">
       <Filter>Scene</Filter>
@@ -134,35 +132,32 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene\NSceneManager.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\NApplication.h">
-      <Filter>High Level Interface</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Helpers\NTime.h">
+      <Filter>Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Layer\NLayer.h">
-      <Filter>Layer</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEnum.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NObject.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\NResource.h">
-      <Filter>Resource</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Helpers\NInput.h">
+      <Filter>Helpers</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\NResources.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\NResource.h">
       <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Texture\NTexture.h">
       <Filter>Resource\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Layer\NLayer.h">
+      <Filter>Layer</Filter>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Script\NScript.h">
       <Filter>Component\Script</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Component\SpriteRenderer\NSpriteRenderer.h">
-      <Filter>Component\SpriteRenderer</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Transform\NTransform.h">
       <Filter>Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\SpriteRenderer\NSpriteRenderer.h">
+      <Filter>Component\SpriteRenderer</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NCamera.h">
       <Filter>Component\Camera</Filter>
@@ -173,19 +168,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Component\NComponent.h">
       <Filter>Component\Component</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Animation\NAnimator.h">
-      <Filter>Component\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Animation\NAnimation.h">
-      <Filter>Component\Animation</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Collider\NCollider.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Collider\NBoxCollider2D.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NCollisionManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Collider\NCircleCollider2D.h">
       <Filter>Component\Collider</Filter>
     </ClInclude>
@@ -195,20 +183,32 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\TileMapRenderer\NTilemapRenderer.h">
       <Filter>Component\TileMapRenderer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Component\RigidBody\NRigidbody.h">
-      <Filter>Component\RigidBody</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimator.h">
+      <Filter>Component\Animator</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UI\NUIManager.h">
-      <Filter>UI</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimation.h">
+      <Filter>Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Collision\NCollisionManager.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Object\NObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Rigidbody\NRigidbody.h">
+      <Filter>Component\Rigidbody</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)UI\NUIBase.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UI\HUD\NUIButton.h">
-      <Filter>UI\HUD</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI\NUIManager.h">
+      <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)UI\Button\NUIHUD.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI\Button\NUIButton.h">
       <Filter>UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI\HUD\NUIHUD.h">
+      <Filter>UI\HUD</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Fmod\NFmod.h">
       <Filter>Fmod</Filter>
@@ -222,84 +222,116 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.h">
       <Filter>Resource\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)NGraphicDevice_DX11.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NGraphics.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NMath.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX11.h">
+      <Filter>Graphics\GraphicDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\NGraphics.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEnum.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
-      <UniqueIdentifier>{14bf2618-2e67-4595-9763-e4c6620852be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component">
-      <UniqueIdentifier>{bfda78bf-3573-4eb1-b19d-3090efc45751}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject">
-      <UniqueIdentifier>{e51604ed-21af-4199-b813-489a3bb9cb1b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Helpers">
-      <UniqueIdentifier>{fcfb929f-821f-4982-b090-097c29745c63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{82b02f0e-ff42-4c6f-b186-d7ddb9531924}</UniqueIdentifier>
+      <UniqueIdentifier>{6755f524-b478-43fc-96e6-5e7ddacda79f}</UniqueIdentifier>
     </Filter>
     <Filter Include="High Level Interface">
-      <UniqueIdentifier>{cbdd0081-99bc-410c-b1b0-6807d2e92059}</UniqueIdentifier>
+      <UniqueIdentifier>{6d48bd93-6f32-49e7-8290-c1b869437497}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{856bd63e-b3b4-4356-9c56-f83b38de9948}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{d6139291-d546-424a-8c7b-198dc2cea2f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{5673ea82-26d1-4382-a40a-08bd18133fcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{94a14b71-e483-42aa-9ca2-d39ef88ea3c8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Layer">
-      <UniqueIdentifier>{3bd21026-dec5-4670-86e7-7fdbbb755bcd}</UniqueIdentifier>
+      <UniqueIdentifier>{27da9a98-bec8-41ea-858d-682c44c9619a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource">
-      <UniqueIdentifier>{960b0fa0-2efe-4b1b-8289-26751063a82a}</UniqueIdentifier>
+      <UniqueIdentifier>{85baae49-991e-430d-95a0-c4b900939211}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource\Texture">
-      <UniqueIdentifier>{e5f2d7e5-b4a5-4d2a-b859-8428d1a7539f}</UniqueIdentifier>
+      <UniqueIdentifier>{8130d146-2da0-499a-8180-8ad535a0ab1d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\Script">
-      <UniqueIdentifier>{ce0e6da1-7bcb-4f0f-a0d6-7fb8730a0bf5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component\SpriteRenderer">
-      <UniqueIdentifier>{9dd3f23d-3f0a-480d-9b01-b69820505599}</UniqueIdentifier>
+      <UniqueIdentifier>{45554c90-5ea8-4313-a849-1ea57b4f16ce}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\Transform">
-      <UniqueIdentifier>{4f6f29d1-89db-4bb7-83d5-1004936d29da}</UniqueIdentifier>
+      <UniqueIdentifier>{ae702c2c-e730-4f91-8d35-abd38c38cace}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Camera">
-      <UniqueIdentifier>{c7afaa16-9efc-4588-a981-6b3b86fe4320}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Renderer">
-      <UniqueIdentifier>{c435a8e0-8d43-4854-b5fc-163f1a1771a8}</UniqueIdentifier>
+    <Filter Include="Component\SpriteRenderer">
+      <UniqueIdentifier>{60fa222c-11bd-4934-924c-e1e2fd7424cd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\Component">
-      <UniqueIdentifier>{92a83ad8-17ba-48a3-b149-8e238657135f}</UniqueIdentifier>
+      <UniqueIdentifier>{80cf80ef-5c77-4732-8d2a-36b32a9b2244}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Animation">
-      <UniqueIdentifier>{eb7799d3-2870-4d08-914e-3404bedaa700}</UniqueIdentifier>
+    <Filter Include="Component\Camera">
+      <UniqueIdentifier>{b826747d-6890-4992-a254-565f4c4bd496}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{f5b6b8a1-aaf9-4e30-975d-e9744fdc599b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\Collider">
-      <UniqueIdentifier>{feb06017-8041-488f-aef3-298b7cb92e4f}</UniqueIdentifier>
+      <UniqueIdentifier>{0f986301-7fbe-44ed-92fc-bc325c23dda0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\TileMapRenderer">
-      <UniqueIdentifier>{8c96e6f7-a862-4d54-8c24-caa4b4800d02}</UniqueIdentifier>
+      <UniqueIdentifier>{7a59537c-89b8-4e2c-be04-c24b8f8887f8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\RigidBody">
-      <UniqueIdentifier>{86db3d5b-d731-4c35-9e11-7a1007c7c349}</UniqueIdentifier>
+    <Filter Include="Component\Rigidbody">
+      <UniqueIdentifier>{ee83a344-2551-450f-b386-c7e2c75dc040}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animator">
+      <UniqueIdentifier>{117a3025-eb98-4395-b046-3eabfca57575}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collision">
+      <UniqueIdentifier>{07d01f8a-000f-46ad-b3f5-7a40d64e7699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{456c967d-ab09-4089-851f-1f93a1b5a6f9}</UniqueIdentifier>
     </Filter>
     <Filter Include="UI">
-      <UniqueIdentifier>{4835c36e-b77d-4d4c-a49a-8092ed8799d0}</UniqueIdentifier>
+      <UniqueIdentifier>{46205f1f-cfa3-4e42-a616-34c9c2e5ebba}</UniqueIdentifier>
     </Filter>
     <Filter Include="UI\Button">
-      <UniqueIdentifier>{cb5ab20d-3601-4412-8f67-7159578835c6}</UniqueIdentifier>
+      <UniqueIdentifier>{d08a284c-e3e4-45eb-ad2c-18e056cde31f}</UniqueIdentifier>
     </Filter>
     <Filter Include="UI\HUD">
-      <UniqueIdentifier>{307b52cf-590b-4443-8e01-d7a9fa2f5554}</UniqueIdentifier>
+      <UniqueIdentifier>{ce03b2f5-dc7b-4684-9287-018cd5e287be}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fmod">
-      <UniqueIdentifier>{a13416b1-61af-4c03-8895-1511fedfbc95}</UniqueIdentifier>
+      <UniqueIdentifier>{cd91f168-fb9a-4669-82d7-8321f86675b9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Component\Audio">
-      <UniqueIdentifier>{38dd6a9f-00be-460e-9a20-a185260cc1d3}</UniqueIdentifier>
+      <UniqueIdentifier>{b8cc4a54-a71f-4f78-b2a3-635df8860453}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource\Audio">
-      <UniqueIdentifier>{a791630a-57c5-4c5d-819c-ef06a43312cf}</UniqueIdentifier>
+      <UniqueIdentifier>{148fe3ba-4d16-4c58-a72b-8f38e0e8a262}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Mesh">
+      <UniqueIdentifier>{f8004de2-e7b8-43c1-9929-a01c2896ac55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Material">
+      <UniqueIdentifier>{629a5afe-93a4-4290-b702-831f5731fc87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Graphics">
+      <UniqueIdentifier>{c398174a-59f9-4305-b98f-d36e23054f8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Graphics\Shader">
+      <UniqueIdentifier>{2f3864bb-1921-4e73-911f-bf6c17979940}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{f79170ad-6dae-46b9-b593-20813947a1a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\GraphicDevice">
+      <UniqueIdentifier>{02858ed0-bc1c-4697-a572-b020030609cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

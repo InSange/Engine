@@ -1,5 +1,5 @@
 ﻿#include "Scenes/NToolScene.h"
-#include "Common/NObject.h"
+#include "Object/NObject.h"
 #include "Contents/NTile.h"
 #include "Component/TileMapRenderer/NTilemapRenderer.h"
 #include "Resource/NResources.h"
@@ -294,4 +294,5 @@ LRESULT CALLBACK WndTileProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 	}
 	return 0;
 }
+
 

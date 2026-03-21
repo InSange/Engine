@@ -1,4 +1,4 @@
-﻿#include "NCollisionManager.h"
+﻿#include "Collision/NCollisionManager.h"
 #include "Scene/NScene.h"
 #include "Scene/NSceneManager.h"
 #include "GameObject/NGameObject.h"
@@ -208,3 +208,4 @@ namespace NuNu
 		return false;
 	}
 }
+

@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Component/Component/NComponent.h"
-#include "Component/Animation/NAnimation.h"
+#include "Component/Animator/NAnimation.h"
 
 namespace NuNu
 {
@@ -65,5 +65,6 @@ namespace NuNu
 		std::map<std::wstring, Events*> mEvents;
 	};
 }
+
 
 

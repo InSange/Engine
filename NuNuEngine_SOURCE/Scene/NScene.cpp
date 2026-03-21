@@ -1,5 +1,5 @@
 ﻿#include "Scene/NScene.h"
-#include "NCollisionManager.h"
+#include "Collision/NCollisionManager.h"
 
 namespace NuNu
 {
@@ -104,3 +104,4 @@ namespace NuNu
 		}
 	}
 }
+
