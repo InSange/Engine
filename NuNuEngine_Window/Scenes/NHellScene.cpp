@@ -43,9 +43,9 @@ namespace NuNu
 		Scene::LateUpdate();
 	}
 
-	void HellScene::Render(HDC hdc)
+	void HellScene::Render()
 	{
-		Scene::Render(hdc);
+		Scene::Render();
 	}
 	void HellScene::OnEnter()
 	{

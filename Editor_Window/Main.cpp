@@ -157,9 +157,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	// NuNu::LoadResources(); -> LoadingScene으로 업무 위임
 	NuNu::LoadScenes();
 
-	unsigned int a = 0;
-	srand((unsigned int)(&a));
-
 	NuNu::Scene* activeScene = NuNu::SceneManager::GetActiveScene();
 
 	std::wstring name = activeScene->GetName();

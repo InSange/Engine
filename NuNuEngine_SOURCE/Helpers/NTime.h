@@ -8,7 +8,7 @@ namespace NuNu
 	public:
 		static void Initailize();
 		static void Tick();
-		static void Render(HDC hdc);
+		static void Render();
 
 		inline static float DeltaTime() { return deltaTime; }
 

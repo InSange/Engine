@@ -199,9 +199,9 @@ namespace NuNu
 			SceneManager::LoadScene(L"SpaceScene");
 		}
 	}
-	void PlayScene::Render(HDC hdc)
+	void PlayScene::Render()
 	{
-		Scene::Render(hdc);
+		Scene::Render();
 		/*wchar_t str[50] = L"Play Scene";
 		TextOut(hdc, 0, 0, str, 10);*/
 	}

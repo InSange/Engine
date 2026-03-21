@@ -31,7 +31,7 @@ namespace NuNu
 	{
 	}
 
-	void FloorScript::Render(HDC hdc)
+	void FloorScript::Render()
 	{
 	}
 

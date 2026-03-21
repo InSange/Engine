@@ -37,18 +37,18 @@ namespace NuNu
 	{
 	}
 
-	void TilemapRenderer::Render(HDC hdc)
+	void TilemapRenderer::Render()
 	{
-		if (mTexture == nullptr)
-			assert(false);
+/*		if (mTexture == nullptr)
+			assert(false);*/
 
 
-		Transform* tr = GetOwner()->GetComponent<Transform>();
+/*		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
 		float rot = tr->GetRotation();
-		Vector2 scale = tr->GetScale();
+		Vector2 scale = tr->GetScale();*/
 
-		pos = renderer::mainCamera->CalculatePosition(pos);
+/*		pos = renderer::mainCamera->CalculatePosition(pos);
 
 		float finalWidth = mTileSize.x * mSize.x * scale.x;
 		float finalHeight = mTileSize.y * mSize.y * scale.y;
@@ -111,7 +111,7 @@ namespace NuNu
 				static_cast<INT>(mTileSize.x),
 				static_cast<INT>(mTileSize.y),
 				Gdiplus::UnitPixel, nullptr);//&imgAtt);
-		}
+		}*/
 	}
 }
 

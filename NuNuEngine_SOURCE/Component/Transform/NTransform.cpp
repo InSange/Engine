@@ -26,7 +26,7 @@ namespace NuNu
 	{
 	}
 
-	void Transform::Render(HDC hdc)
+	void Transform::Render()
 	{
 	}
 }

@@ -15,8 +15,8 @@ namespace NuNu::graphics
 
     HRESULT graphics::Shader::Load(const std::wstring& path)
     {
-        int fineNameBeginOffset = path.rfind(L"\\") + 1;
-        int fineNameEndOffset = path.length() - fineNameBeginOffset;
+        size_t fineNameBeginOffset = path.rfind(L"\\") + 1;
+        size_t fineNameEndOffset = path.length() - fineNameBeginOffset;
 
         const std::wstring fileName(path.substr(fineNameBeginOffset, fineNameEndOffset));
 

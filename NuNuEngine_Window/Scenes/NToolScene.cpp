@@ -63,9 +63,9 @@ namespace NuNu
 		}
 	}
 
-	void ToolScene::Render(HDC hdc)
+	void ToolScene::Render()
 	{
-		Scene::Render(hdc);
+		Scene::Render();
 
 		renderGrid(hdc);
 	}
@@ -193,27 +193,7 @@ namespace NuNu
 
 	void ToolScene::renderGrid(HDC hdc)
 	{
-		UINT screenWidth = application.GetWidth();
-		UINT screenHeight = application.GetHeight();
-
-		int xCount = (int)(screenWidth / TilemapRenderer::TileSize.x);
-		int yCount = (int)(screenHeight / TilemapRenderer::TileSize.y);
-
-		for (int i = 0; i <= xCount; i++)
-		{
-			Vector2 pos = renderer::mainCamera->CalculatePosition(Vector2(TilemapRenderer::TileSize.x * i, 0.0f));
-
-			MoveToEx(hdc, (int)pos.x, 0, NULL);
-			LineTo(hdc, (int)pos.x, screenHeight);
-		}
-
-		for (int i = 0; i <= yCount; i++)
-		{
-			Vector2 pos = renderer::mainCamera->CalculatePosition(Vector2(0.0f, TilemapRenderer::TileSize.y * i));
-
-			MoveToEx(hdc, 0, (int)pos.y, NULL);
-			LineTo(hdc, (int)screenWidth, (int)pos.y);
-		}
+		
 	}
 
 	void ToolScene::createTileObject()
@@ -265,32 +245,8 @@ LRESULT CALLBACK WndTileProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 	}
 	case WM_PAINT:
 	{
-		// 여기는 계속 반복적으로 그려냄
-		// DC 화면 출력에 필요한 모든 정보를 가지는 데이터 구조체
-		// GDI모듈에 의해서 관리
-		// 폰트, 선 굵기, 색상 등
-		// 화면 출력에 필요한 모든 경우는 WINAPI에서는 DC를 통해서 작업을 진행
-
 		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(hWnd, &ps);
-
-		NuNu::graphics::Texture* texture = NuNu::Resources::Find<NuNu::graphics::Texture>(L"Overworld");
-
-		Gdiplus::Graphics graphics(hdc);
-
-		Gdiplus::Rect destRect(
-			static_cast<INT>(0),
-			static_cast<INT>(0),
-			static_cast<INT>(texture->GetWidth()),
-			static_cast<INT>(texture->GetHeight())
-		);
-
-		graphics.DrawImage(texture->GetImage(),
-			destRect,
-			0, 0,
-			static_cast<INT>(texture->GetWidth()),
-			static_cast<INT>(texture->GetHeight()),
-			Gdiplus::UnitPixel, nullptr);//&imgAtt);
+		BeginPaint(hWnd, &ps);
 
 		EndPaint(hWnd, &ps);
 	}

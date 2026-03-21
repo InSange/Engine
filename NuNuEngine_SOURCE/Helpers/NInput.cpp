@@ -107,10 +107,10 @@ namespace NuNu
 		mMousePosition.x = -1.0f;
 		mMousePosition.y = -1.0f;
 
-		if (mousePos.x > 0 && mousePos.x < width)
-			mMousePosition.x = mousePos.x;
-		if (mousePos.y > 0 && mousePos.y < height)
-			mMousePosition.y = mousePos.y;
+		if (CAST_UINT(mousePos.x) > 0 && CAST_UINT(mousePos.x) < width)
+			mMousePosition.x = CAST_FLOAT(mousePos.x);
+		if (CAST_UINT(mousePos.y) > 0 && CAST_UINT(mousePos.y) < height)
+			mMousePosition.y = CAST_FLOAT(mousePos.y);
 	}
 
 	void Input::clearKeys()

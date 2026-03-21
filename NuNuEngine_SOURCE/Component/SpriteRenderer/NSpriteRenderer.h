@@ -13,7 +13,7 @@ namespace NuNu
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;
-		void Render(HDC hdc) override;
+		void Render() override;
 
 		void SetTexture(graphics::Texture* tex) { mTexture = tex; }
 		void SetSize(math::Vector2 size) { mSize = size; }

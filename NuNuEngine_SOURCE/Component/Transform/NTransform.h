@@ -14,14 +14,15 @@ namespace NuNu
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;
-		void Render(HDC hdc) override;
+		void Render() override;
 
 		void SetPosition(Vector2 pos) { mPosition.x = pos.x; mPosition.y = pos.y; }
-		Vector2 GetPosition() { return mPosition; }
 		void SetRotation(float rotate) { mRotation = rotate; }
-		float GetRotation() { return mRotation; }
 		void SetScale(Vector2 scale) { mScale = scale; }
-		Vector2 GetScale() { return mScale; }
+		
+		Vector2 GetPosition() const { return mPosition; }
+		float GetRotation() const { return mRotation; }
+		Vector2 GetScale() const { return mScale; }
 
 	private:
 		Vector2 mPosition;

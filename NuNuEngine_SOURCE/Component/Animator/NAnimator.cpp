@@ -53,10 +53,10 @@ namespace NuNu
 	{
 	}
 
-	void Animator::Render(HDC hdc)
+	void Animator::Render()
 	{
-		if (mActiveAnimation)
-			mActiveAnimation->Render(hdc);
+/*		if (mActiveAnimation)
+			mActiveAnimation->Render();*/
 	}
 
 	void Animator::CreateAnimation(const std::wstring& name, graphics::Texture* spriteSheet, Vector2 leftTop, Vector2 size, Vector2 offset, UINT spriteLength, float duration)
@@ -77,9 +77,9 @@ namespace NuNu
 		mAnimations.insert(std::make_pair(name, anim));
 	}
 
-	void Animator::CreateAnimationByFoler(const std::wstring& name, const std::wstring& path, Vector2 offset, float duration)
+	void Animator::CreateAnimationByFoler(/*const std::wstring& name, const std::wstring& path, Vector2 offset, float duration*/)
 	{
-		Animation* anim = nullptr;
+		/*Animation* anim = nullptr;
 
 		anim = FindAnimation(name);
 		if (anim != nullptr) return;
@@ -140,7 +140,7 @@ namespace NuNu
 			}
 		}
 
-		CreateAnimation(name, spriteSheet, Vector2::Zero, Vector2(imageWidth, imageHeight), offset, fileCount, duration);
+		CreateAnimation(name, spriteSheet, Vector2::Zero, Vector2(imageWidth, imageHeight), offset, fileCount, duration);*/
 	}
 
 	Animation* Animator::FindAnimation(const std::wstring& name)

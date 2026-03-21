@@ -48,14 +48,14 @@ namespace NuNu
 		}
 	}
 
-	void Layer::Render(HDC hdc)
+	void Layer::Render()
 	{
 		for (GameObject* gameObj : mGameObjects)
 		{
 			if (gameObj == nullptr) continue;
 			if (gameObj->IsActive() == false) continue;
 
-			gameObj->Render(hdc);
+			gameObj->Render();
 		}
 	}
 
@@ -90,7 +90,7 @@ namespace NuNu
 		for (GameObject* gameObj : mGameObjects)
 		{
 			GameObject::eState active = gameObj->GetState();
-			if (active == GameObject::eState::Destroyed)
+			if (active == GameObject::eState::Dead)
 				gameObjects.push_back(gameObj);
 		}
 	}

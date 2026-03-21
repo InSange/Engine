@@ -27,7 +27,7 @@ namespace NuNu::graphics
 		image->SetName(keyName);
 		image->SetWidth(width);
 		image->SetHeight(height);
-
+		/*
 		if (ext == L"bmp")
 		{
 			image->mType = eTextureType::Bmp;
@@ -51,7 +51,7 @@ namespace NuNu::graphics
 			image->mType = eTextureType::Png;
 
 			image->mImage = new Gdiplus::Bitmap(width, height, PixelFormat32bppARGB);
-		}
+		}*/
 
 		Resources::Insert(keyName, image);
 
@@ -94,7 +94,7 @@ namespace NuNu::graphics
 	{
 		std::wstring ext = path.substr(path.find_last_of(L".") + 1);
 		// bmp
-		if (ext == L"bmp")
+/*		if (ext == L"bmp")
 		{
 			mType = eTextureType::Bmp;
 			mBitmap = (HBITMAP)LoadImageW(nullptr, path.c_str(), IMAGE_BITMAP,
@@ -138,13 +138,13 @@ namespace NuNu::graphics
 
 			mWidth = mImage->GetWidth();
 			mHeight = mImage->GetHeight();
-		}
+		}*/
 
 		return S_OK;
 	}
 
-	COLORREF Texture::GetPixel(int x, int y)
+/*	COLORREF Texture::GetPixel(int x, int y)
 	{
 		return ::GetPixel(mHdc, x, y);
-	}
+	}*/
 }

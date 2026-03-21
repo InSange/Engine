@@ -33,9 +33,9 @@ namespace NuNu
 	{
 	}
 
-	void UIHUD::OnRender(HDC hdc)
+	void UIHUD::OnRender()
 	{
-		TransparentBlt(hdc
+/*		TransparentBlt(hdc
 			, 0, 0
 			, mTexture->GetWidth()
 			, mTexture->GetHeight()
@@ -43,7 +43,7 @@ namespace NuNu
 			, 0, 0
 			, mTexture->GetWidth() /// 2.0f
 			, mTexture->GetHeight()
-			, RGB(255, 0, 255));
+			, RGB(255, 0, 255));*/
 	}
 
 	void UIHUD::OnClear()

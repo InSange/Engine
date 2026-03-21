@@ -49,7 +49,7 @@ namespace NuNu
 	{
 	}
 
-	void CameraScript::Render(HDC hdc)
+	void CameraScript::Render()
 	{
 	}
 }

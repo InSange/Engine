@@ -45,11 +45,11 @@ namespace NuNu
 			SceneManager::LoadScene(L"PlayScene");
 		}
 	}
-	void SpaceScene::Render(HDC hdc)
+	void SpaceScene::Render()
 	{
-		Scene::Render(hdc);
+		Scene::Render();
 		wchar_t str[50] = L"Hell Scene";
-		TextOut(hdc, 0, 0, str, 10);
+		//TextOut(hdc, 0, 0, str, 10);
 	}
 	void SpaceScene::OnEnter()
 	{

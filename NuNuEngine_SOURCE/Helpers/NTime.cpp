@@ -25,18 +25,18 @@ namespace NuNu
 		mPrevFrequency.QuadPart = mCurrentFrequency.QuadPart;
 	}
 
-	void Time::Render(HDC hdc)
+	void Time::Render()
 	{
-		static float time = 0.0f;
+		//static float time = 0.0f;
 
-		time += deltaTime;
-		float fps = 1.0f / deltaTime;
+		//time += deltaTime;
+		//float fps = 1.0f / deltaTime;
 		
-		wchar_t str[50] = L"";
-		swprintf_s(str, 50, L"Time : %f, Frame : %d", time, (int)fps); 
-		int len = wcsnlen_s(str, 50);
+		//wchar_t str[50] = L"";
+		//swprintf_s(str, 50, L"Time : %f, Frame : %d", time, (int)fps); 
+		//int len = wcsnlen_s(str, 50);
 
 
-		TextOut(hdc, 0, 0, str, len);
+		//TextOut(hdc, 0, 0, str, len);
 	}
 }

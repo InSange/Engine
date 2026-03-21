@@ -20,9 +20,9 @@ namespace NuNu
 		GameObject::LateUpdate();
 	}
 
-	void Player::Render(HDC hdc)
+	void Player::Render()
 	{
-		GameObject::Render(hdc);
+		GameObject::Render();
 	}
 }
 

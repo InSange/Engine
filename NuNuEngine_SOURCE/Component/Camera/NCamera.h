@@ -6,8 +6,8 @@ namespace NuNu
 	class Camera : public Component
 	{
 	public:
-		Vector2 CalculatePosition(Vector2 pos) { return pos - mDistance; }
-		Vector2 CalculateTilePosition(Vector2 pos) { return pos + mDistance; }
+		Vector2 CalculatePosition(Vector2 pos) const { return pos - mDistance; }
+		Vector2 CalculateTilePosition(Vector2 pos) const { return pos + mDistance; }
 
 		Camera();
 		~Camera();
@@ -15,7 +15,7 @@ namespace NuNu
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;
-		void Render(HDC hdc) override;
+		void Render() override;
 
 		void SetTraget(GameObject* target) { mTarget = target; }
 

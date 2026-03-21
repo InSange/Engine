@@ -27,18 +27,18 @@ namespace NuNu
 	{
 	}
 
-	void SpriteRenderer::Render(HDC hdc)
+	void SpriteRenderer::Render()
 	{
 		if (mTexture == nullptr)
 			assert(false);
 
 
-		Transform* tr = GetOwner()->GetComponent<Transform>();
+	/*	Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
 		float rot = tr->GetRotation();
-		Vector2 scale = tr->GetScale();
+		Vector2 scale = tr->GetScale();*/
 
-		pos = renderer::mainCamera->CalculatePosition(pos);
+/*		pos = renderer::mainCamera->CalculatePosition(pos);
 
 		if (mTexture->GetTextureType() == graphics::Texture::eTextureType::Bmp)
 		{
@@ -87,7 +87,7 @@ namespace NuNu
 				static_cast<INT>(mTexture->GetWidth()),
 				static_cast<INT>(mTexture->GetHeight()),
 				Gdiplus::UnitPixel, nullptr);//&imgAtt);
-		}
+		}*/
 	}
 }
 

@@ -30,7 +30,7 @@ namespace NuNu
 	{
 	}
 
-	void Collider::Render(HDC hdc)
+	void Collider::Render()
 	{
 	}
 

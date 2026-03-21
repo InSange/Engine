@@ -29,7 +29,7 @@ namespace NuNu
 	}
 	void PlayerScript::Update()
 	{
-		if (mAnimator == nullptr) mAnimator = GetOwner()->GetComponent<Animator>();
+		/*if (mAnimator == nullptr) mAnimator = GetOwner()->GetComponent<Animator>();
 		switch (mState)
 		{
 		case NuNu::PlayerScript::eState::Idle:
@@ -60,17 +60,17 @@ namespace NuNu
 		else
 		{
 			playerRb->SetGround(false);
-		}
+		}*/
 	}
 	void PlayerScript::LateUpdate()
 	{
 	}
-	void PlayerScript::Render(HDC hdc)
+	void PlayerScript::Render()
 	{
 	}
 	void PlayerScript::idle()
 	{
-		if (Input::GetKey(eKeyCode::LButton))
+/*		if (Input::GetKey(eKeyCode::LButton))
 		{
 			Demon* mDemon = object::Instantiate<Demon>(enums::eLayerType::Enemy, Vector2(0, 0));
 			mDemon->SetActive(true);
@@ -106,11 +106,11 @@ namespace NuNu
 
 			mDemonScript->mDest = direction;
 
-/*
+
 			mState = PlayerScript::eState::Attack;
 			mAnimator->PlayAnimation(L"PlayerAttack", false);
 
-			Vector2 mousePos = Input::GetMousePosition();*/
+			Vector2 mousePos = Input::GetMousePosition();
 		}
 
 		if (Input::GetKey(eKeyCode::Right))
@@ -142,12 +142,12 @@ namespace NuNu
 			mState = PlayerScript::eState::Walk;
 			mAnimator->PlayAnimation(L"PlayerUpMove", true);
 		}
-		/*if (Input::GetKey(eKeyCode::SpaceBar))
+		if (Input::GetKey(eKeyCode::SpaceBar))
 		{
 			animTime = 0.0f;
 			mState = PlayerScript::eState::Attack;
 			mAnimator->PlayAnimation(L"PlayerAttack", false);
-		}*/
+		}
 
 		if (Input::GetKeyDown(eKeyCode::I))
 		{
@@ -160,11 +160,11 @@ namespace NuNu
 		{
 			UIManager::Pop(eUIType::HpBar);
 
-		}
+		}*/
 	}
 	void PlayerScript::move()
 	{
-		Transform* tr = GetOwner()->GetComponent<Transform>();
+/*		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector2 pos = tr->GetPosition();
 
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
@@ -202,7 +202,7 @@ namespace NuNu
 		{
 			mState = PlayerScript::eState::Idle;
 			mAnimator->PlayAnimation(L"PlayerIdle", true);
-		}
+		}*/
 	}
 
 	void PlayerScript::attack()
@@ -217,23 +217,20 @@ namespace NuNu
 
 	void PlayerScript::AttackEnd()
 	{
-		if (mAnimator->IsCompleteAnimation())
+/*		if (mAnimator->IsCompleteAnimation())
 		{
 			mState = PlayerScript::eState::Idle;
 			mAnimator->PlayAnimation(L"PlayerIdle", true);
-		}
+		}*/
 	}
 	void PlayerScript::OnCollisionEnter(Collider* other)
 	{
-		int a = 0;
 	}
 	void PlayerScript::OnCollisionStay(Collider* other)
 	{
-		int a = 0;
 	}
 	void PlayerScript::OnCollisionExit(Collider* other)
 	{
-		int a = 0;
 	}
 }
 

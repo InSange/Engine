@@ -19,7 +19,7 @@ namespace NuNu
 			Created,
 			Active,
 			Paused,
-			Destroyed,
+			Dead,
 			End
 		};
 
@@ -29,7 +29,7 @@ namespace NuNu
 		virtual void Initialize();
 		virtual void Update();
 		virtual void LateUpdate();
-		virtual void Render(HDC hdc);
+		virtual void Render();
 
 		template<typename T>
 		T* AddComponent()
@@ -56,22 +56,22 @@ namespace NuNu
 			return component;
 		}
 
-		eState GetState() { return mState; }
+		eState GetState() const { return mState; }
 		void SetActive(bool power)
 		{
 			if (power == true) mState = eState::Active;
 			else mState = eState::Paused;
 		}
-		bool IsActive() { return mState == eState::Active; }
-		
-		void Death() { mState = eState::Destroyed; }
-		bool IsDead() { return mState == eState::Destroyed; }
+		bool IsActive() const { return mState == eState::Active; }
+
+		bool IsDead() const { return mState == eState::Dead; }
 
 		void SetLayerType(eLayerType layerType) { mLayerType = layerType; }
-		eLayerType GetLayerType() { return mLayerType; }
+		eLayerType GetLayerType() const { return mLayerType; }
 
 	private:
 		void initializeTransform();
+		void death() { mState = eState::Dead;}
 
 	private:
 		eState mState;

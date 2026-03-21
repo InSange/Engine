@@ -28,14 +28,14 @@ namespace NuNu
 		void InActive();
 		void Update();
 		void LateUpdate();
-		void Render(HDC hdc);
+		void Render();
 		void UIClear();
 
 		virtual void OnInit();
 		virtual void OnActive();
 		virtual void OnInActive();
 		virtual void OnLateUpdate();
-		virtual void OnRender(HDC hdc);
+		virtual void OnRender();
 		virtual void OnUpdate();
 		virtual void OnClear();
 

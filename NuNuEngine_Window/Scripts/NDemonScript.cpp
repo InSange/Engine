@@ -52,7 +52,7 @@ namespace NuNu
 	void DemonScript::LateUpdate()
 	{
 	}
-	void DemonScript::Render(HDC hdc)
+	void DemonScript::Render()
 	{
 	}
 	void DemonScript::OnCollisionEnter(Collider* other)

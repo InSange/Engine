@@ -20,8 +20,8 @@ namespace NuNu
 	}
 	void Camera::Initialize()
 	{
-		mResolution.x = application.GetWidth();
-		mResolution.y = application.GetHeight();
+		mResolution.x = CAST_FLOAT(application.GetWidth());
+		mResolution.y = CAST_FLOAT(application.GetHeight());
 	}
 	void Camera::Update()
 	{
@@ -42,7 +42,7 @@ namespace NuNu
 	{
 		// 오브젝트들 위치 보정
 	}
-	void Camera::Render(HDC hdc)
+	void Camera::Render()
 	{
 	}
 }

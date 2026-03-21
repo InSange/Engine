@@ -13,7 +13,7 @@ namespace NuNu
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;
-		void Render(HDC hdc) override;
+		void Render() override;
 
 		void OnEnter() override;
 		void OnExit() override;
@@ -22,7 +22,7 @@ namespace NuNu
 		void Load();
 
 	private:
-		void renderGrid(HDC hdc);
+		void renderGrid();
 		void createTileObject();
 
 	private:

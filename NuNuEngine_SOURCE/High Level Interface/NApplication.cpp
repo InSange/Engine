@@ -76,10 +76,10 @@ namespace NuNu
 		// clearRenderTarget();
 
 		// 기존 게임 로직 렌더링 (GDI)
-		Time::Render(mBackHdc);
-		CollisionManager::Render(mBackHdc);
-		UIManager::Render(mBackHdc);
-		SceneManager::Render(mBackHdc);
+		Time::Render();
+		CollisionManager::Render();
+		UIManager::Render();
+		SceneManager::Render();
 
 		// DirectX 11 렌더링 호출 (그리기 및 프레임 교체 Present 수행)
 		mGraphicDevice->Draw();
@@ -128,7 +128,7 @@ namespace NuNu
 		mHwnd = hwnd;
 		mHdc = GetDC(mHwnd);
 
-		RECT rect = { 0, 0, width, height };
+		RECT rect = { 0, 0, static_cast<LONG>(width), static_cast<LONG>(height) };
 		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
 		mWidth = rect.right - rect.left;
