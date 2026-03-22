@@ -3,6 +3,7 @@
 #include "NGraphicDevice_DX11.h"
 #include "Resource/Graphics/Shader/NShader.h"
 #include "Resource/NResources.h"
+#include "../../Resource/Texture/NTexture.h"
 
 extern NuNu::Application application;
 
@@ -160,12 +161,41 @@ namespace NuNu
 		return true;
 	}
 
-	void graphics::GraphicDevice_DX11::SetDataBuffer(ID3D11Buffer* buffer, void* data, UINT size)
+	bool GraphicDevice_DX11::CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppSRView)
+	{
+		if (FAILED(mDevice->CreateShaderResourceView(pResource, pDesc, ppSRView)))
+			return false;
+
+		return true;
+	}
+
+	void graphics::GraphicDevice_DX11::SetDataGpuBuffer(ID3D11Buffer* buffer, void* data, UINT size)
 	{
 		D3D11_MAPPED_SUBRESOURCE sub = {};
 		mContext->Map(buffer, 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &sub);
 		memcpy(sub.pData, data, size);
 		mContext->Unmap(buffer, 0);
+	}
+
+	void GraphicDevice_DX11::SetShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV)
+	{
+		if ((UINT)eShaderStage::VS & (UINT)stage)
+			mContext->VSSetShaderResources(startSlot, 1, ppSRV);
+
+		if ((UINT)eShaderStage::HS & (UINT)stage)
+			mContext->HSSetShaderResources(startSlot, 1, ppSRV);
+
+		if ((UINT)eShaderStage::DS & (UINT)stage)
+			mContext->DSSetShaderResources(startSlot, 1, ppSRV);
+
+		if ((UINT)eShaderStage::GS & (UINT)stage)
+			mContext->GSSetShaderResources(startSlot, 1, ppSRV);
+
+		if ((UINT)eShaderStage::PS & (UINT)stage)
+			mContext->PSSetShaderResources(startSlot, 1, ppSRV);
+
+		if ((UINT)eShaderStage::CS & (UINT)stage)
+			mContext->CSSetShaderResources(startSlot, 1, ppSRV);
 	}
 
 	void graphics::GraphicDevice_DX11::BindPrimitiveTopology(const D3D11_PRIMITIVE_TOPOLOGY topology)
@@ -293,7 +323,7 @@ namespace NuNu
 			assert(NULL && "Create depthstencilview failed!");
 
 #pragma region inputLayout Desc
-		D3D11_INPUT_ELEMENT_DESC inputLayoutDesces[2] = {};
+		D3D11_INPUT_ELEMENT_DESC inputLayoutDesces[3] = {};
 
 		inputLayoutDesces[0].AlignedByteOffset = 0;
 		inputLayoutDesces[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
@@ -309,6 +339,13 @@ namespace NuNu
 		inputLayoutDesces[1].SemanticName = "COLOR";
 		inputLayoutDesces[1].SemanticIndex = 0;
 
+		inputLayoutDesces[2].AlignedByteOffset = 28; //12 + 16
+		inputLayoutDesces[2].Format = DXGI_FORMAT_R32G32_FLOAT;
+		inputLayoutDesces[2].InputSlot = 0;
+		inputLayoutDesces[2].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		inputLayoutDesces[2].SemanticName = "TEXCOORD";
+		inputLayoutDesces[2].SemanticIndex = 0;
+
 #pragma endregion
 
 		graphics::Shader* triangle = Resources::Find<graphics::Shader>(L"TriangleShader");
@@ -320,6 +357,14 @@ namespace NuNu
 		{
 			assert(NULL && "Create input layout failed!");
 		}
+
+		graphics::Shader* sprite = Resources::Find<graphics::Shader>(L"SpriteShader");
+
+		if (!(CreateInputLayout(inputLayoutDesces, 3
+			, sprite->GetVSBlob()->GetBufferPointer()
+			, sprite->GetVSBlob()->GetBufferSize()
+			, &renderer::inputLayouts)))
+			assert(NULL && "Create input layout failed!");
 	}
 
 	void graphics::GraphicDevice_DX11::Draw()
@@ -340,7 +385,7 @@ namespace NuNu
 		mContext->IASetInputLayout(renderer::inputLayouts);
 		renderer::mesh->Bind();
 
-		Vector4 pos(0.5f, 0.0f, 0.0f, 1.0f);
+		Vector4 pos(0.0f, 0.0f, 0.0f, 1.0f);
 
 		renderer::constantBuffers[(UINT)eCBType::Transform].SetData(&pos);
 		renderer::constantBuffers[(UINT)eCBType::Transform].Bind(eShaderStage::VS);
@@ -348,9 +393,11 @@ namespace NuNu
 		graphics::Shader* triangle = Resources::Find<graphics::Shader>(L"TriangleShader");
 		triangle->Bind();
 
-		// 단순 점 그리기(Draw)가 아니라, 인덱스 배열의 순서표에 따라 그리도록 DrawIndexed 호출
-		//mContext->DrawIndexed(renderer::indices.size(), 0, 0);
-		mContext->Draw(3, 0);
+		graphics::Texture* texture = Resources::Find<graphics::Texture>(L"Player");
+		if (texture)
+			texture->Bind(eShaderStage::PS, 0);
+
+		mContext->DrawIndexed(6, 0, 0);
 
 		mSwapChain->Present(1, 0);
 	}

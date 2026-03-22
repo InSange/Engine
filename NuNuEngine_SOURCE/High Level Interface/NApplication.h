@@ -12,6 +12,9 @@ namespace NuNu
 		~Application();
 
 		void Initialize(HWND hwnd, UINT width, UINT height);
+		void AdjustWindowRect(HWND hwnd, UINT width, UINT height);
+		void InitializeEtc();
+
 		void Run();
 
 		void Update();
@@ -25,14 +28,12 @@ namespace NuNu
 		UINT GetWidth() const { return mWidth; }
 		UINT GetHeight() const { return mHeight; }
 
-	private:
-		void clearRenderTarget();
-		void copyRenderTarget(HDC source, HDC dest);
-		void adjustWindowRect(HWND hwnd, UINT width, UINT height);
-		void createBuffer(UINT width, UINT height);
-		void initializeEtc();
+		bool IsLoaded() const { return mbLoaded; }
+		void IsLoaded(bool load) { mbLoaded = load; }
 
 	private:
+		bool mbLoaded;
+
 		std::unique_ptr<graphics::GraphicDevice_DX11> mGraphicDevice;
 
 		HWND mHwnd;

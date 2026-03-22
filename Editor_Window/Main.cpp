@@ -60,13 +60,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸
 
 	MSG msg;
 
-	// GetMessage(&msg, nullptr, 0, 0)
-	// 프로세스에서 발생한 메세지를 메시지 큐에서 가져오는 함수
-	// 메세지큐에 아무것도 없다면? 아무 메세지도 가져오지 않음. 일반적인 프레임웤
-
-	// PeekMessage : 메세지큐에 메세지 유무에 상관없이 함수가 리턴
-	// 리턴 값이 true면 메시지 존재, false면 메시지가 없음 알려줌
-
+	NuNu::LoadScenes();
 
 	while (true)
 	{
@@ -89,7 +83,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸
 	}
 
 	application.Release();
-	Gdiplus::GdiplusShutdown(gpToken);
 
 	return (int)msg.wParam;
 }
@@ -141,8 +134,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, width, height, nullptr, nullptr, hInstance, nullptr);
 
-	application.Initialize(hWnd, width, height);
-
 	if (!hWnd)
 	{
 		return FALSE;
@@ -151,36 +142,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
 
-	Gdiplus::GdiplusStartup(&gpToken, &gpsi, NULL);
-
-	// load Scene
-	// NuNu::LoadResources(); -> LoadingScene으로 업무 위임
-	NuNu::LoadScenes();
-
-	NuNu::Scene* activeScene = NuNu::SceneManager::GetActiveScene();
-
-	std::wstring name = activeScene->GetName();
-
-	if (name == L"ToolScene")
-	{
-		UINT toolWidth = 600;
-		UINT toolHeight = 800;
-		HWND ToolHWnd = CreateWindowW(L"TILEWINDOW", L"TileWindow", WS_OVERLAPPEDWINDOW,
-			CW_USEDEFAULT, 0, toolWidth, toolHeight, nullptr, nullptr, hInstance, nullptr);
-
-		// Tile 윈도우 크기 조정
-		NuNu::graphics::Texture* texture = NuNu::Resources::Find<NuNu::graphics::Texture>(L"Overworld");
-
-		RECT rect = { 0, 0, (LONG)texture->GetWidth(), (LONG)texture->GetHeight() };
-		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
-
-		toolWidth = rect.right - rect.left;
-		toolHeight = rect.bottom - rect.top;
-
-		SetWindowPos(ToolHWnd, nullptr, width, 0, toolWidth, toolHeight, 0);
-		ShowWindow(ToolHWnd, true);
-		UpdateWindow(ToolHWnd);
-	}
+	application.Initialize(hWnd, width, height);
 
 	return TRUE;
 }

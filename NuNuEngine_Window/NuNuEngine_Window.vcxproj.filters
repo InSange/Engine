@@ -92,4 +92,7 @@
     </ClCompile>
     <ClCompile Include="Scenes\NLoadingScene.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>

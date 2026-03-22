@@ -6,61 +6,9 @@ extern NuNu::Application application;
 
 namespace NuNu::graphics
 {
-	Texture* Texture::Create(const std::wstring& name, UINT width, UINT height)
-	{
-		std::wstring keyName = name;
-		std::wstring ext = L"";
-
-		size_t dotPos = name.find_last_of(L".");
-		if (dotPos != std::wstring::npos) 
-		{
-			keyName = name.substr(0, dotPos);
-			ext = name.substr(dotPos + 1);
-		}
-
-		Texture* image = Resources::Find<Texture>(keyName);
-
-		if (image != nullptr)
-			return image;
-
-		image = new Texture();
-		image->SetName(keyName);
-		image->SetWidth(width);
-		image->SetHeight(height);
-		/*
-		if (ext == L"bmp")
-		{
-			image->mType = eTextureType::Bmp;
-
-			HDC hdc = application.GetHdc();
-
-			image->mBitmap = CreateCompatibleBitmap(hdc, width, height);
-			image->mHdc = CreateCompatibleDC(hdc);
-
-			HBRUSH transparentBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
-			HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, transparentBrush);
-
-			::Rectangle(image->GetHdc(), -1, -1, image->GetWidth() + 1, image->GetHeight() + 1);
-			SelectObject(hdc, oldBrush);
-
-			HBITMAP oldBitmap = (HBITMAP)SelectObject(image->mHdc, image->mBitmap);
-			DeleteObject(oldBitmap);
-		}
-		else if (ext == L"png" || ext == L"jpg")
-		{
-			image->mType = eTextureType::Png;
-
-			image->mImage = new Gdiplus::Bitmap(width, height, PixelFormat32bppARGB);
-		}*/
-
-		Resources::Insert(keyName, image);
-
-		return image;
-	}
-
 	Texture::Texture()
 		: Resource(enums::eResourceType::Texture)
-		, mbAlpha(false)
+		, mDesc{}
 	{
 	}
 
@@ -76,58 +24,42 @@ namespace NuNu::graphics
 	HRESULT Texture::Load(const std::wstring& path)
 	{
 		std::wstring ext = path.substr(path.find_last_of(L".") + 1);
-		// bmp
-/*		if (ext == L"bmp")
+
+		if (ext == L".dds" || ext == L".DDS")
 		{
-			mType = eTextureType::Bmp;
-			mBitmap = (HBITMAP)LoadImageW(nullptr, path.c_str(), IMAGE_BITMAP,
-				0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
-
-			if (mBitmap == nullptr) return S_FALSE;
-
-			BITMAP info = {};
-			GetObject(mBitmap, sizeof(BITMAP), &info);
-
-			mWidth = info.bmWidth;
-			mHeight = info.bmHeight;
-
-			if (info.bmBitsPixel == 32)
-				mbAlpha = true;
-			else if (info.bmBitsPixel == 24)
-				mbAlpha = false;
-
-			HDC mainDC = application.GetHdc();
-			mHdc = CreateCompatibleDC(mainDC);
-
-			HBITMAP oldBitmap = (HBITMAP)SelectObject(mHdc, mBitmap);
-			DeleteObject(oldBitmap);
+			if (FAILED(LoadFromDDSFile(path.c_str(), DDS_FLAGS::DDS_FLAGS_NONE, nullptr, mImage)))
+				return S_FALSE;
 		}
-		else if (ext == L"png")
+		else if (ext == L".tga" || ext == L".TGA")
 		{
-			mType = eTextureType::Png;
-			mImage = Gdiplus::Image::FromFile(path.c_str());
-
-			if (mImage == nullptr) return S_FALSE;
-
-			mWidth = mImage->GetWidth();
-			mHeight = mImage->GetHeight();
+			if (FAILED(LoadFromTGAFile(path.c_str(), nullptr, mImage)))
+				return S_FALSE;
 		}
-		else if (ext == L"jpg")
+		else // WIC (png, jpg, jpeg, bmp )
 		{
-			mType = eTextureType::jpg;
-			mImage = Gdiplus::Image::FromFile(path.c_str());
+			if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
+				return S_FALSE;
+		}
 
-			if (mImage == nullptr) return S_FALSE;
+		HRESULT hr = CreateShaderResourceView
+		(
+			graphics::GetDevice()->GetID3D11Device().Get()
+			, mImage.GetImages()
+			, mImage.GetImageCount()
+			, mImage.GetMetadata()
+			, mSRV.GetAddressOf()
+		);
 
-			mWidth = mImage->GetWidth();
-			mHeight = mImage->GetHeight();
-		}*/
+		if (hr == S_FALSE)
+			assert(false/*"Textrue load fail!!"*/);
+
+		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
 
 		return S_OK;
 	}
 
-/*	COLORREF Texture::GetPixel(int x, int y)
+	void Texture::Bind(eShaderStage stage, UINT startSlot)
 	{
-		return ::GetPixel(mHdc, x, y);
-	}*/
+		graphics::GetDevice()->SetShaderResource(stage, startSlot, mSRV.GetAddressOf());
+	}
 }

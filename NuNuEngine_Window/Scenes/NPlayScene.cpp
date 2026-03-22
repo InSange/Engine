@@ -27,6 +27,7 @@
 #include "Resource/Audio/NAudioClip.h"
 #include "Component/Audio/NAudioListener.h"
 #include "Component/Audio/NAudioSource.h"
+#include "../../NuNuEngine_SOURCE/Graphics/GraphicDevice/NGraphicDevice_DX11.h"
 
 namespace NuNu
 {
@@ -202,8 +203,8 @@ namespace NuNu
 	void PlayScene::Render()
 	{
 		Scene::Render();
-		/*wchar_t str[50] = L"Play Scene";
-		TextOut(hdc, 0, 0, str, 10);*/
+
+		graphics::GetDevice()->Draw();
 	}
 	void PlayScene::OnEnter()
 	{

@@ -3,6 +3,9 @@
 #include "../NuNuEngine_SOURCE/Scene/NSceneManager.h"
 #include "../NuNuEngine_SOURCE/Resource/NResources.h"
 #include "../NuNuEngine_SOURCE/Resource/Texture/NTexture.h"
+#include "../../NuNuEngine_SOURCE/High Level Interface/NApplication.h"
+
+extern NuNu::Application application;
 
 namespace NuNu
 {
@@ -26,17 +29,6 @@ namespace NuNu
 
 	void LoadingScene::Update()
 	{
-		if (mbLoadCompleted)
-		{
-			//만약 메인쓰레드가 종료되는데 자식쓰레드가 남아있다면
-			//자식쓰레드를 메인쓰레드에 편입시켜 메인쓰레드가 종료되기전까지 block
-			mResourcesLoadThread->join();
-
-			//메인쓰레드와 완전 분리 시켜 독립적인 쓰레드 운영가능
-			//mResourcesLoad->detach();
-
-			SceneManager::LoadScene(L"PlayScene");
-		}
 	}
 
 	void LoadingScene::LateUpdate()
@@ -45,6 +37,19 @@ namespace NuNu
 
 	void LoadingScene::Render()
 	{
+		int a = 0;
+
+		if (mbLoadCompleted /*&& application.IsLoaded()*/)
+		{
+			//만약 메인쓰레드가 종료되는데 자식쓰레드가 남아있다면
+			//자식쓰레드를 메인쓰레드에 편입시켜 메인쓰레드가 종료되기전까지 block
+			mResourcesLoadThread->join();
+
+			//메인쓰레드와 완전 분리 시켜 독립적인 쓰레드 운영가능
+			//mResourcesLoadThread->detach();
+
+			SceneManager::LoadScene(L"PlayScene");
+		}
 	}
 
 	void LoadingScene::OnEnter()
@@ -57,6 +62,12 @@ namespace NuNu
 
 	void LoadingScene::resourcesLoad(std::mutex& m)
 	{
+		while (true)
+		{
+			if (application.IsLoaded() == true)
+				break;
+		}
+
 		m.lock();
 		{
 			Resources::Load<graphics::Texture>(L"BG", L"../Resources/BlackHole.jpg");

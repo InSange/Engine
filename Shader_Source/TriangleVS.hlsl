@@ -4,12 +4,14 @@ struct VS_Input
 {
     float3 pos : POSITION;
     float4 color : COLOR;
+    //float2 uv : TEXCOORD;
 };
 
 struct VS_Output
 {
     float4 pos : SV_Position;
     float4 color : COLOR;
+    //float2 uv : TEXCOORD;
 };
 
 // 버텍스 셰이더
