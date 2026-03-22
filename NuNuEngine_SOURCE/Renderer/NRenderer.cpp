@@ -1,16 +1,17 @@
 #include "Renderer/NRenderer.h"
 #include "Resource/NResources.h"
 #include "Resource/Graphics/Shader/NShader.h"
+#include "../Resource/Mesh/NMesh.h"
+#include "../Resource/Material/NMaterial.h"
 
 namespace NuNu::renderer
 {
 	Camera* mainCamera = nullptr;
 
-	Mesh* mesh = nullptr;
 	ConstantBuffer constantBuffers[(UINT)eCBType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[(UINT)eSamplerType::End] = {};
 
-	ID3D11InputLayout* inputLayouts = nullptr;
+	Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayout = nullptr;
 
 	void LoadStates()
 	{
@@ -62,7 +63,7 @@ namespace NuNu::renderer
 
 	void LoadTriangleMesh()
 	{
-		mesh = new Mesh();
+		Mesh* mesh = new Mesh();
 
 		std::vector<graphics::Vertex> vertexes = {};
 		std::vector<UINT> indices = {};
@@ -83,11 +84,13 @@ namespace NuNu::renderer
 
 		mesh->CreateVB(vertexes);
 		mesh->CreateIB(indices);
+
+		NuNu::Resources::Insert(L"TriangleMesh", mesh);
 	}
 
 	void LoadRectMesh()
 	{
-		mesh = new Mesh();
+		Mesh* mesh = new Mesh();
 
 		std::vector<graphics::Vertex> vertexes = {};
 		std::vector<UINT> indices = {};
@@ -120,6 +123,8 @@ namespace NuNu::renderer
 
 		mesh->CreateVB(vertexes);
 		mesh->CreateIB(indices);
+
+		NuNu::Resources::Insert(L"RectMesh", mesh);
 	}
 
 	void LoadMeshes()
@@ -134,6 +139,15 @@ namespace NuNu::renderer
 		Resources::Load<graphics::Shader>(L"SpriteShader", L"..\\Shader_Source\\Sprite");
 	}
 
+	void LoadMeterails()
+	{
+		Material* spriteMaterial = new Material();
+		NuNu::Resources::Insert(L"SpriteMaterial", spriteMaterial);
+
+		spriteMaterial->SetShader(NuNu::Resources::Find<graphics::Shader>(L"SpriteShader"));
+		//NuNu::Resources::Load<graphics::Material>(L"SpriteMaterial", L"..\\Materials\\SpriteMaterial")
+	}
+
 	void LoadConstantBuffers()
 	{
 		constantBuffers[(UINT)eCBType::Transform].Create(eCBType::Transform, sizeof(Vector4));
@@ -144,13 +158,12 @@ namespace NuNu::renderer
 		LoadStates();
 		LoadMeshes();
 		LoadShaders();
+		LoadMeterails();
 		LoadConstantBuffers();
 	}
 
 	void Release()
 	{
-		inputLayouts->Release();
-		delete mesh;
 	}
 }
 
