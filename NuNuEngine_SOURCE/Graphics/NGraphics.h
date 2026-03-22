@@ -36,6 +36,14 @@ namespace NuNu::graphics
 		End,
 	};
 
+	enum class eSamplerType
+	{
+		Anisotropic,
+		Point,
+		PostProcess,
+		End,
+	};
+
 	struct GpuBuffer
 	{
 		Microsoft::WRL::ComPtr<ID3D11Buffer> buffer = nullptr;

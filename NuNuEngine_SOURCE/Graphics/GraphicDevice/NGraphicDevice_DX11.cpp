@@ -84,6 +84,14 @@ namespace NuNu
 		return true;
 	}
 
+	bool graphics::GraphicDevice_DX11::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState)
+	{
+		if (FAILED(mDevice->CreateSamplerState(pSamplerDesc, ppSamplerState)))
+			return false;
+
+		return true;
+	}
+
 	bool graphics::GraphicDevice_DX11::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc, const D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Texture2D** ppTexture2D)
 	{
 		if (FAILED(mDevice->CreateTexture2D(pDesc, pInitialData, ppTexture2D)))
@@ -257,6 +265,40 @@ namespace NuNu
 		default:
 			break;
 		}
+	}
+
+	/// <summary>
+	/// https://blog.naver.com/hanbulkr/222428873601 DX 라이프사이클
+	/// </summary>
+	/// <param name="stage"></param>
+	/// <param name="StartSlot"></param>
+	/// <param name="NumSamplers"></param>
+	/// <param name="ppSamplers"></param>
+	void graphics::GraphicDevice_DX11::BindSampler(eShaderStage stage, UINT StartSlot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers)
+	{
+		if (eShaderStage::VS == stage)
+			mContext->VSSetSamplers(StartSlot, NumSamplers, ppSamplers);
+
+		if (eShaderStage::HS == stage)
+			mContext->HSSetSamplers(StartSlot, NumSamplers, ppSamplers);
+
+		if (eShaderStage::DS == stage)
+			mContext->DSSetSamplers(StartSlot, NumSamplers, ppSamplers);
+
+		if (eShaderStage::GS == stage)
+			mContext->GSSetSamplers(StartSlot, NumSamplers, ppSamplers);
+
+		if (eShaderStage::PS == stage)
+			mContext->PSSetSamplers(StartSlot, NumSamplers, ppSamplers);
+	}
+
+	void graphics::GraphicDevice_DX11::BindSamplers(UINT StartSlot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers)
+	{
+		BindSampler(eShaderStage::VS, StartSlot, NumSamplers, ppSamplers);
+		BindSampler(eShaderStage::HS, StartSlot, NumSamplers, ppSamplers);
+		BindSampler(eShaderStage::DS, StartSlot, NumSamplers, ppSamplers);
+		BindSampler(eShaderStage::GS, StartSlot, NumSamplers, ppSamplers);
+		BindSampler(eShaderStage::PS, StartSlot, NumSamplers, ppSamplers);
 	}
 
 	void graphics::GraphicDevice_DX11::Initialize()
