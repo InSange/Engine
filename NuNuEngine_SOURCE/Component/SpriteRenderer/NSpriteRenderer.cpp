@@ -21,6 +21,7 @@ namespace NuNu
 	void SpriteRenderer::Initialize()
 	{
 		mMesh = Resources::Find<Mesh>(L"RectMesh");
+		mMaterial = Resources::Find<Material>(L"Sprite-Default-Material");
 	}
 
 	void SpriteRenderer::Update()
@@ -40,7 +41,7 @@ namespace NuNu
 			mMaterial->BindShader();
 
 		if (mSprite)
-			mSprite->Bind(eShaderStage::PS, CAST_UINT(eTextureType::Albedo));
+			mSprite->Bind(eShaderStage::PS, CAST_UINT(eTextureType::Sprite));
 
 		if (mMesh)
 			graphics::GetDevice()->DrawIndexed(mMesh->GetIndexCount(), 0, 0);
