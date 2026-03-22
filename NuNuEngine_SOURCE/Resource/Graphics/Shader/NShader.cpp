@@ -1,4 +1,4 @@
-﻿#include "Resource/Graphics/Shader/NShader.h"
+#include "Resource/Graphics/Shader/NShader.h"
 #include "NShader.h"
 
 namespace NuNu::graphics
