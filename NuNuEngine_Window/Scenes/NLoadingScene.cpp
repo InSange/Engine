@@ -4,6 +4,9 @@
 #include "../NuNuEngine_SOURCE/Resource/NResources.h"
 #include "../NuNuEngine_SOURCE/Resource/Texture/NTexture.h"
 #include "../../NuNuEngine_SOURCE/High Level Interface/NApplication.h"
+#include "../../NuNuEngine_SOURCE/Scene/NSceneManager.h"
+#include "NSpaceScene.h"
+#include "NPlayScene.h"
 
 extern NuNu::Application application;
 
@@ -89,6 +92,9 @@ namespace NuNu
 			Resources::Load<graphics::Texture>(L"PixelMap", L"..\\Resources\\pixelMap.bmp");
 
 			renderer::Initialize();
+
+			SceneManager::CreateScene<SpaceScene>(L"TitleScene");
+			SceneManager::CreateScene<PlayScene>(L"PlayScene");
 		}
 		m.unlock();
 
