@@ -60,7 +60,7 @@ namespace NuNu::graphics
 		void Present() const;
 
 	public:
-		[[discard]] Microsoft::WRL::ComPtr<ID3D11Device> GetID3D11Device() { return mDevice; }
+		[[nodiscard]] Microsoft::WRL::ComPtr<ID3D11Device> GetID3D11Device() { return mDevice; }
 
 	private:	// COM 스마트 포인터는 직접 Release를 호출하지 않아도 자동으로 GPU 메모리를 깔끔하게 해재해 주는 스마트 포인터
 		Microsoft::WRL::ComPtr<ID3D11Device> mDevice;	// GPU를 제어하는 핵심 객체

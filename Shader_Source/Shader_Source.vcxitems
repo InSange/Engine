@@ -14,10 +14,12 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="$(MSBuildThisFileDirectory)Sprite-DefaultPS.hlsl" />
-    <FxCompile Include="$(MSBuildThisFileDirectory)Sprite-DefaultVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)SpriteDefaultPS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)SpriteDefaultVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)TrianglePS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)TriangleVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)WireframePS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)WireframeVS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)ConstantBuffers.hlsli" />

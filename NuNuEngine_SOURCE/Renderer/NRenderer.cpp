@@ -56,19 +56,16 @@ namespace NuNu::renderer
 		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-		GetDevice()->CreateSamplerState(&samplerDesc, samplerStates[(UINT)eSamplerType::PostProcess].GetAddressOf());
+		GetDevice()->CreateSamplerState(&samplerDesc, samplerStates[static_cast<UINT>(eSamplerType::PostProcess)].GetAddressOf());
 
-		GetDevice()->CreateSamplerState(&samplerDesc,
-			samplerStates[static_cast<UINT>(eSamplerType::PostProcess)].GetAddressOf());
-
-		GetDevice()->BindSamplers(static_cast<UINT>(eSamplerType::Point), 1,
+	/*	GetDevice()->BindSamplers(static_cast<UINT>(eSamplerType::Point), 1,
 			samplerStates[static_cast<UINT>(eSamplerType::Point)].GetAddressOf());
 		GetDevice()->BindSamplers(static_cast<UINT>(eSamplerType::Linear), 1,
 			samplerStates[static_cast<UINT>(eSamplerType::Linear)].GetAddressOf());
 		GetDevice()->BindSamplers(static_cast<UINT>(eSamplerType::Anisotropic), 1,
 			samplerStates[static_cast<UINT>(eSamplerType::Anisotropic)].GetAddressOf());
 		GetDevice()->BindSamplers(static_cast<UINT>(eSamplerType::PostProcess), 1,
-			samplerStates[static_cast<UINT>(eSamplerType::PostProcess)].GetAddressOf());
+			samplerStates[static_cast<UINT>(eSamplerType::PostProcess)].GetAddressOf());*/
 #pragma endregion
 
 #pragma region rasterize state
@@ -200,7 +197,6 @@ namespace NuNu::renderer
 		vertexes[1].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 		vertexes[1].uv = Vector2(1.0f, 0.0f);
 
-		vertexes[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
 		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
 		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 		vertexes[2].uv = Vector2(1.0f, 1.0f);
@@ -239,7 +235,7 @@ namespace NuNu::renderer
 		inputLayoutDesces[2].SemanticName = "TEXCOORD";
 		inputLayoutDesces[2].SemanticIndex = 0;
 
-		Shader* spriteShader = Resources::Find<Shader>(L"Sprite-Default-Shader");
+		Shader* spriteShader = Resources::Find<Shader>(L"SpriteDefaultShader");
 		mesh->SetVertexBufferParams(3, inputLayoutDesces, spriteShader->GetVSBlob()->GetBufferPointer(), spriteShader->GetVSBlob()->GetBufferSize());
 
 		mesh->CreateVB(vertexes);
@@ -257,7 +253,8 @@ namespace NuNu::renderer
 	void LoadShaders()
 	{
 		Resources::Load<Shader>(L"TriangleShader", L"..\\Shader_Source\\Triangle");
-		Resources::Load<Shader>(L"Sprite-Default-Shader", L"..\\Shader_Source\\Sprite-Default");
+		Resources::Load<Shader>(L"SpriteDefaultShader", L"..\\Shader_Source\\SpriteDefault");
+		Resources::Load<Shader>(L"WireframeShader", L"..\\Shaders_SOURCE\\Wireframe");
 	}
 
 	void LoadMaterials()
@@ -270,7 +267,7 @@ namespace NuNu::renderer
 		auto spriteMaterial = new Material();
 		Texture* texture = Resources::Find<Texture>(L"Player");
 		spriteMaterial->SetAlbedoTexture(texture);
-		spriteMaterial->SetShader(Resources::Find<Shader>(L"Sprite-Default-Shader"));
+		spriteMaterial->SetShader(Resources::Find<Shader>(L"SpriteDefaultShader"));
 
 		Resources::Insert(L"Sprite-Default-Material", spriteMaterial);
 

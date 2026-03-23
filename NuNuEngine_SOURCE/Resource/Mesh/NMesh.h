@@ -10,10 +10,10 @@ namespace NuNu
 	class Mesh : public Resource
 	{
 	public:
-		struct Data
+		struct MeshData
 		{
-			Data();
-			virtual ~Data();
+			MeshData();
+			virtual ~MeshData();
 
 			D3D11_PRIMITIVE_TOPOLOGY mTopology;
 			std::vector<graphics::Vertex> vertices;
@@ -40,6 +40,6 @@ namespace NuNu
 		graphics::VertexBuffer mVB;
 		graphics::IndexBuffer mIB;
 
-		Data mData;
+		MeshData mData;
 	};
 }
