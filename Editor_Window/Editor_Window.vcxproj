@@ -157,6 +157,9 @@
     <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ImportGroup Label="Shared">
+    <Import Project="..\Editor_SOURCE\Editor_SOURCE.vcxitems" Label="Shared" />
+  </ImportGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\directxtex_desktop_win10.2025.10.28.1\build\native\directxtex_desktop_win10.targets" Condition="Exists('..\packages\directxtex_desktop_win10.2025.10.28.1\build\native\directxtex_desktop_win10.targets')" />

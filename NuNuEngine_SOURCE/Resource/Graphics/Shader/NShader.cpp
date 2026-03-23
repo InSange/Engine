@@ -4,7 +4,7 @@
 
 namespace NuNu::graphics
 {
-    bool Shader::bWireframe = true;
+    bool Shader::bWireframe = false;
 
     graphics::Shader::Shader()
         : Resource(eResourceType::Shader)
