@@ -9,7 +9,6 @@
 #include "../NuNuEngine_SOURCE/Scene/NSceneManager.h"
 
 #include "../NuNuEngine_Window/Scenes/NLoadScenes.h"
-#include "../NuNuEngine_Window/Scenes/NToolScene.h"
 
 #include <ctime>
 
@@ -48,7 +47,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸
 	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	LoadStringW(hInstance, IDC_EDITORWINDOW, szWindowClass, MAX_LOADSTRING);
 	MyRegisterClass(hInstance, szWindowClass, WndProc);
-	MyRegisterClass(hInstance, L"TILEWINDOW", WndTileProc);
 
 	// 애플리케이션 초기화를 수행합니다:
 	if (!InitInstance(hInstance, nCmdShow))

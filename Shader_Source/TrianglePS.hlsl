@@ -1,21 +1,21 @@
 #include "Samplers.hlsli"
 
-struct VS_Input
+struct VSInput
 {
     float3 pos : POSITION;
     float4 color : COLOR;
 };
 
-struct VS_Output
+struct VSOutput
 {
     float4 pos : SV_Position;
     float4 color : COLOR;
 };
 
 // 픽셀 셰이더
-float4 main(VS_Output output) : SV_Target
+float4 main(VSOutput input) : SV_Target
 {
-    return output.color;
+    return input.color;
 }
 
 /*

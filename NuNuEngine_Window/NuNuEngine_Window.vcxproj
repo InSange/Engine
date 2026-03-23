@@ -147,9 +147,7 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
     <ClInclude Include="Scenes\NLoadingScene.h" />
     <ClInclude Include="Scripts\NCameraScript.h" />
     <ClInclude Include="Contents\NDemon.h" />
-    <ClInclude Include="Scripts\NDemonScript.h" />
     <ClInclude Include="Contents\NFloor.h" />
-    <ClInclude Include="Scripts\NFloorScript.h" />
     <ClInclude Include="Scenes\NHellScene.h" />
     <ClInclude Include="Scenes\NLoadScenes.h" />
     <ClInclude Include="Contents\NPlayer.h" />
@@ -157,22 +155,18 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
     <ClInclude Include="Scenes\NPlayScene.h" />
     <ClInclude Include="Scenes\NSpaceScene.h" />
     <ClInclude Include="Contents\NTile.h" />
-    <ClInclude Include="Scenes\NToolScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scenes\NLoadingScene.cpp" />
     <ClCompile Include="Scripts\NCameraScript.cpp" />
     <ClCompile Include="Contents\NDemon.cpp" />
-    <ClCompile Include="Scripts\NDemonScript.cpp" />
     <ClCompile Include="Contents\NFloor.cpp" />
-    <ClCompile Include="Scripts\NFloorScript.cpp" />
     <ClCompile Include="Scenes\NHellScene.cpp" />
     <ClCompile Include="Contents\NPlayer.cpp" />
     <ClCompile Include="Scripts\NPlayerScript.cpp" />
     <ClCompile Include="Scenes\NPlayScene.cpp" />
     <ClCompile Include="Scenes\NSpaceScene.cpp" />
     <ClCompile Include="Contents\NTile.cpp" />
-    <ClCompile Include="Scenes\NToolScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -12,7 +12,6 @@
 #include "Resource/Texture/NTexture.h"
 #include "Resource/NResources.h"
 #include "Scripts/NPlayerScript.h"
-#include "Scripts/NDemonScript.h"
 #include "Component/Camera/NCamera.h"
 #include "Renderer/NRenderer.h"
 #include "Component/Animator/NAnimator.h"
@@ -23,37 +22,48 @@
 #include "Component/TileMapRenderer/NTilemapRenderer.h"
 #include "Component/RigidBody/NRigidbody.h"
 #include "Contents/NFloor.h"
-#include "Scripts/NFloorScript.h"
 #include "Resource/Audio/NAudioClip.h"
 #include "Component/Audio/NAudioListener.h"
 #include "Component/Audio/NAudioSource.h"
 #include "../../NuNuEngine_SOURCE/Graphics/GraphicDevice/NGraphicDevice_DX11.h"
 #include "../../NuNuEngine_SOURCE/Component/SpriteRenderer/NSpriteRenderer.h"
 #include "../../NuNuEngine_SOURCE/Resource/Material/NMaterial.h"
+#include "../Scripts/NCameraScript.h"
 
 namespace NuNu
 {
 	PlayScene::PlayScene()
 	{
 	}
+
 	PlayScene::~PlayScene()
 	{
 	}
+
 	void PlayScene::Initialize()
 	{
+		Scene::Initialize();
+
+		GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::None, Vector3(0.0f, 0.0f, -10.0f));
+		Camera* cameraComp = camera->AddComponent<Camera>();
+		cameraComp->SetProjectionType(Camera::eProjectionType::Orthographic);
+		cameraComp->SetSize(200.0f);
+
+		CameraScript* cameraScript = camera->AddComponent<CameraScript>();
+		renderer::mainCamera = cameraComp;
+
 		mPlayer = object::Instantiate<Player>(enums::eLayerType::Player);
 		object::DontDestroyOnLoad(mPlayer);
 
 		SpriteRenderer* sr = mPlayer->AddComponent<SpriteRenderer>();
-		//sr->SetMaterial(Resources::Find<Material>(L"Sprite-Default-Material"));
 		sr->SetSprite(Resources::Find<graphics::Texture>(L"Player"));
-
-		Scene::Initialize();
 	}
+
 	void PlayScene::Update()
 	{
 		Scene::Update();
 	}
+
 	void PlayScene::LateUpdate()
 	{
 		Scene::LateUpdate();
@@ -63,10 +73,12 @@ namespace NuNu
 			SceneManager::LoadScene(L"SpaceScene");
 		}
 	}
+
 	void PlayScene::Render()
 	{
 		Scene::Render();
 	}
+
 	void PlayScene::OnEnter()
 	{
 		Scene::OnEnter();
@@ -76,6 +88,7 @@ namespace NuNu
 
 		// UIManager::Push(eUIType::Button);
 	}
+
 	void PlayScene::OnExit()
 	{
 		/*		Transform* tr = bg->GetComponent<Transform>();

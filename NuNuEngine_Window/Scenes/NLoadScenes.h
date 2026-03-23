@@ -5,7 +5,6 @@
 #include "Scenes/NPlayScene.h"
 #include "Scenes/NHellScene.h"
 #include "Scenes/NSpaceScene.h"
-#include "Scenes/NToolScene.h"
 
 namespace NuNu
 {

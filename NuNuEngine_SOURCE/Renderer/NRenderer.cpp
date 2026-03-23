@@ -8,7 +8,7 @@ namespace NuNu::renderer
 {
 	Camera* mainCamera = nullptr;
 
-	ConstantBuffer constantBuffers[(UINT)eCBType::End] = {};
+	ConstantBuffer* constantBuffers[(UINT)eCBType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[(UINT)eSamplerType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[(UINT)eRasterizerState::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBlendState::End] = {};
@@ -19,6 +19,7 @@ namespace NuNu::renderer
 #pragma region sampler state
 		D3D11_SAMPLER_DESC samplerDesc = {};
 		samplerDesc.Filter = D3D11_FILTER::D3D11_FILTER_ANISOTROPIC;
+		samplerDesc.MaxAnisotropy = 16;
 		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
@@ -57,10 +58,10 @@ namespace NuNu::renderer
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 		GetDevice()->CreateSamplerState(&samplerDesc, samplerStates[(UINT)eSamplerType::PostProcess].GetAddressOf());
 
-		GetDevice()->BindSamplers((UINT)eSamplerType::Point, 1, samplerStates[(UINT)eSamplerType::Point].GetAddressOf());
+		/*GetDevice()->BindSamplers((UINT)eSamplerType::Point, 1, samplerStates[(UINT)eSamplerType::Point].GetAddressOf());
 		GetDevice()->BindSamplers((UINT)eSamplerType::Linear, 1, samplerStates[(UINT)eSamplerType::Linear].GetAddressOf());
 		GetDevice()->BindSamplers((UINT)eSamplerType::Anisotropic, 1, samplerStates[(UINT)eSamplerType::Anisotropic].GetAddressOf());
-		GetDevice()->BindSamplers((UINT)eSamplerType::PostProcess, 1, samplerStates[(UINT)eSamplerType::PostProcess].GetAddressOf());
+		GetDevice()->BindSamplers((UINT)eSamplerType::PostProcess, 1, samplerStates[(UINT)eSamplerType::PostProcess].GetAddressOf());*/
 #pragma endregion
 
 #pragma region rasterize state
@@ -265,7 +266,8 @@ namespace NuNu::renderer
 
 	void LoadConstantBuffers()
 	{
-		constantBuffers[(UINT)eCBType::Transform].Create(eCBType::Transform, sizeof(Vector4));
+		constantBuffers[CBSLOT_TRANSFORM] = new ConstantBuffer(eCBType::Transform);
+		constantBuffers[CBSLOT_TRANSFORM]->Create(sizeof(TransformCB));
 	}
 
 	void Initialize()
@@ -279,6 +281,11 @@ namespace NuNu::renderer
 
 	void Release()
 	{
+		for (UINT i = 0; i < (UINT)eCBType::End; i++)
+		{
+			delete constantBuffers[i];
+			constantBuffers[i] = nullptr;
+		}
 	}
 }
 

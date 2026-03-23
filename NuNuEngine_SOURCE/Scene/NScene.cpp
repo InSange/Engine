@@ -1,5 +1,6 @@
 ﻿#include "Scene/NScene.h"
 #include "Collision/NCollisionManager.h"
+#include "NSceneManager.h"
 
 namespace NuNu
 {
@@ -21,16 +22,8 @@ namespace NuNu
 
 	void Scene::Initialize()
 	{
-		/*GameObject* camera = object::Instantiate<GameObject>(enums::eLayerType::None);
-		Camera* cameraComp = camera->AddComponent<Camera>();
-		camera->AddComponent<PlayerScript>();*/
-
-		for (Layer* layer : mLayers)
-		{
-			if (layer == nullptr) continue;
-
-			layer->Initialize();
-		}
+		const std::wstring& sceneName = GetName();
+		SceneManager::SetActiveScene(sceneName);
 	}
 
 	void Scene::Update()

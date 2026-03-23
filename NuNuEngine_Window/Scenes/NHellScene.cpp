@@ -20,7 +20,7 @@ namespace NuNu
 			Player* bg = new Player();
 			Transform* tr
 				= bg->GetComponent<Transform>();
-			tr->SetPosition(Vector2(0, 0));
+			tr->SetPosition(Vector3(0, 0, 0));
 
 			tr->SetName(L"TR");
 

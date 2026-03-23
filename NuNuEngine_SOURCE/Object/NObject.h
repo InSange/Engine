@@ -22,7 +22,7 @@ namespace NuNu::object
 	}
 
 	template <typename T>
-	static T* Instantiate(enums::eLayerType type, math::Vector2 position)
+	static T* Instantiate(enums::eLayerType type, math::Vector3 position)
 	{
 		T* gameObject = new T();
 		gameObject->SetLayerType(type);

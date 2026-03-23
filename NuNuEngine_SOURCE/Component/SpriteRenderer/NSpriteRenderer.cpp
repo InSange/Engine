@@ -34,6 +34,10 @@ namespace NuNu
 
 	void SpriteRenderer::Render()
 	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		if (tr)
+			tr->Bind();
+
 		if (mMesh)
 			mMesh->Bind();
 

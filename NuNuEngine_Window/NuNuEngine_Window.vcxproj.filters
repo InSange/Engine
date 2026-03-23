@@ -33,12 +33,6 @@
     <ClInclude Include="Contents\NDemon.h">
       <Filter>Scenes\Contents</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\NDemonScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenes\NToolScene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Contents\NTile.h">
       <Filter>Scenes\Contents</Filter>
     </ClInclude>
@@ -47,9 +41,6 @@
     </ClInclude>
     <ClInclude Include="Contents\NFloor.h">
       <Filter>Scenes\Contents</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\NFloorScript.h">
-      <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\NLoadingScene.h" />
   </ItemGroup>
@@ -72,12 +63,6 @@
     <ClCompile Include="Contents\NDemon.cpp">
       <Filter>Scenes\Contents</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\NDemonScript.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenes\NToolScene.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Contents\NTile.cpp">
       <Filter>Scenes\Contents</Filter>
     </ClCompile>
@@ -86,9 +71,6 @@
     </ClCompile>
     <ClCompile Include="Contents\NFloor.cpp">
       <Filter>Scenes\Contents</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\NFloorScript.cpp">
-      <Filter>Scripts</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\NLoadingScene.cpp" />
   </ItemGroup>

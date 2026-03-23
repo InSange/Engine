@@ -98,6 +98,7 @@ namespace NuNu
 		}
 		m.unlock();
 
+		SceneManager::SetActiveScene(L"LoadingScene");
 		// complete
 		mbLoadCompleted = true;
 	}

@@ -4,7 +4,6 @@
 #include "Helpers/NTime.h"
 #include "GameObject/NGameObject.h"
 #include "Contents/NDemon.h"
-#include "Scripts/NDemonScript.h"
 #include "Object/NObject.h"
 #include "Resource/NResources.h"
 #include "Renderer/NRenderer.h"
@@ -164,8 +163,8 @@ namespace NuNu
 	}
 	void PlayerScript::move()
 	{
-/*		Transform* tr = GetOwner()->GetComponent<Transform>();
-		Vector2 pos = tr->GetPosition();
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
 
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 
@@ -202,7 +201,7 @@ namespace NuNu
 		{
 			mState = PlayerScript::eState::Idle;
 			mAnimator->PlayAnimation(L"PlayerIdle", true);
-		}*/
+		}
 	}
 
 	void PlayerScript::attack()
