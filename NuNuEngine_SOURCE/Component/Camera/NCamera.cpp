@@ -11,7 +11,7 @@ namespace NuNu
 	Matrix Camera::ProjectionMatrix = Matrix::Identity;
 
 	Camera::Camera()
-		: Component(enums::eComponentType::Camera)
+		: Component(eComponentType::Camera)
 		, mProjectionType(eProjectionType::Perspective)
 		, mViewMatrix(Matrix::Identity)
 		, mProjectionMatrix(Matrix::Identity)
@@ -51,21 +51,21 @@ namespace NuNu
 
 	void Camera::CreateViewMatrix()
 	{
-		Transform* tr = GetOwner()->GetComponent<Transform>();
+		const Transform* tr = GetOwner()->GetComponent<Transform>();
 
 		const Vector3 pos = tr->GetPosition();
 		const Vector3 up = tr->Up();
-		const Vector3 forward = tr->Foward();
+		const Vector3 forward = tr->Forward();
 
 		mViewMatrix = Matrix::CreateLookToLH(pos, forward, up);
 	}
 
 	void Camera::CreateProjectionMatrix(eProjectionType type)
 	{
-		RECT winRect;
+		RECT winRect = {};
 		GetClientRect(application.GetHwnd(), &winRect);
-		float width = (winRect.right - winRect.left);
-		float height = (winRect.bottom - winRect.top);
+		const float width = CAST_FLOAT(winRect.right - winRect.left);
+		const float height = CAST_FLOAT(winRect.bottom - winRect.top);
 		mAspectRatio = width / height;
 
 		switch (type)

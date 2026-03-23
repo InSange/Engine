@@ -26,11 +26,11 @@ namespace NuNu
 
 	GameObject::~GameObject()
 	{
-		for (Component* comp : mComponents)
+		for (const Component* comp : mComponents)
 		{
 			if (comp == nullptr) continue;
-			delete comp;
-			comp = nullptr;
+
+			SAFE_DELETE(comp);
 		}
 	}
 

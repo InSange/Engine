@@ -5,7 +5,7 @@
 namespace NuNu
 {
 	BoxCollider2D::BoxCollider2D()
-		: Collider(enums::eColliderType::Rect2D)
+		: Collider(eColliderType::Rect2D)
 	{
 	}
 	BoxCollider2D::~BoxCollider2D()

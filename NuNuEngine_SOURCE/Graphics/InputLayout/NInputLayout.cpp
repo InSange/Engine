@@ -1,4 +1,4 @@
-#include "NInputLayout.h"
+﻿#include "NInputLayout.h"
 
 namespace NuNu::graphics
 {
@@ -17,10 +17,10 @@ namespace NuNu::graphics
 			, pShaderBytecodeWithInputSignature
 			, BytecodeLength
 			, mInputLayout.GetAddressOf())))
-			assert(NULL && "Create input layout failed!");
+			assert(nullptr && "Create input layout failed!");
 	}
 
-	void InputLayout::Bind()
+	void InputLayout::Bind() const
 	{
 		if (mInputLayout)
 			GetDevice()->BindInputLayout(mInputLayout.Get());

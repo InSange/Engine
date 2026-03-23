@@ -18,12 +18,11 @@ namespace NuNu::graphics
 		bool GetBuffer(UINT Buffer, REFIID riid, void** ppSurface);
 		bool CreateRenderTargetView(ID3D11Resource* pResource, const D3D11_RENDER_TARGET_VIEW_DESC* pDesc, ID3D11RenderTargetView** ppRTView);
 		bool CreateDepthStencilView(ID3D11Resource* pResource, const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc, ID3D11DepthStencilView** ppDepthStencilView);
-		bool CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState);
 		bool CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc, const D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Texture2D** ppTexture2D);
+		bool CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState);
 		bool CreateVertexShader(const std::wstring& fileName, ID3DBlob** ppCode, ID3D11VertexShader** ppVertexShader);
 		bool CreatePixelShader(const std::wstring& fileName, ID3DBlob** ppCode, ID3D11PixelShader** ppPixelShader);
-		bool CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs, UINT NumElements
-			, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength, ID3D11InputLayout** ppInputLayout);
+		bool CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs, UINT NumElements, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength, ID3D11InputLayout** ppInputLayout);
 		bool CreateBuffer(const D3D11_BUFFER_DESC* pDesc, const D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Buffer** ppBuffer);
 		bool CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppSRView);
 		bool CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc, ID3D11RasterizerState** ppRasterizerState);
@@ -37,7 +36,7 @@ namespace NuNu::graphics
 		void SetShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV);
 
 		void BindInputLayout(ID3D11InputLayout* pInputLayout);
-		void BindPrimitiveTopology(const D3D11_PRIMITIVE_TOPOLOGY topology);
+		void BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY topology);
 		void BindVS(ID3D11VertexShader* pVertexShader);
 		void BindPS(ID3D11PixelShader* pPixelShader);
 		void BindVertexBuffer(UINT StartSlot, UINT NumBuffers, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets);
@@ -56,12 +55,12 @@ namespace NuNu::graphics
 		void ClearDepthStencilView();
 
 		void Initialize();
-		void Draw(UINT VertexCount, UINT StartVertexLocation);
-		void DrawIndexed(UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation);
-		void Present();
+		void Draw(UINT vertexCount, UINT startVertexLocation) const;
+		void DrawIndexed(UINT indexCount, UINT startIndexLocation, INT baseVertexLocation) const;
+		void Present() const;
 
 	public:
-		Microsoft::WRL::ComPtr<ID3D11Device> GetID3D11Device() { return mDevice; }
+		[[discard]] Microsoft::WRL::ComPtr<ID3D11Device> GetID3D11Device() { return mDevice; }
 
 	private:	// COM 스마트 포인터는 직접 Release를 호출하지 않아도 자동으로 GPU 메모리를 깔끔하게 해재해 주는 스마트 포인터
 		Microsoft::WRL::ComPtr<ID3D11Device> mDevice;	// GPU를 제어하는 핵심 객체

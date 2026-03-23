@@ -11,10 +11,10 @@ namespace NuNu::graphics
 	{
 	public:
 		Texture();
-		~Texture();
+		virtual ~Texture();
 
-		virtual HRESULT Save(const std::wstring& path) override;
-		virtual HRESULT Load(const std::wstring& path) override;
+		HRESULT Save(const std::wstring& path) override;
+		HRESULT Load(const std::wstring& path) override;
 
 		void Bind(eShaderStage stage, UINT startSlot);
 

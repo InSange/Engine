@@ -8,7 +8,7 @@ namespace NuNu
 
 	float Time::deltaTime = 0.0f;
 
-	void Time::Initailize()
+	void Time::Initialize()
 	{
 		QueryPerformanceFrequency(&mCpuFrequency); // CPU 고유 진동수
 		QueryPerformanceCounter(&mPrevFrequency); // 프로그램 시작 했을 때 현재 진동수
@@ -27,16 +27,5 @@ namespace NuNu
 
 	void Time::Render()
 	{
-		//static float time = 0.0f;
-
-		//time += deltaTime;
-		//float fps = 1.0f / deltaTime;
-		
-		//wchar_t str[50] = L"";
-		//swprintf_s(str, 50, L"Time : %f, Frame : %d", time, (int)fps); 
-		//int len = wcsnlen_s(str, 50);
-
-
-		//TextOut(hdc, 0, 0, str, len);
 	}
 }

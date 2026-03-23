@@ -1,4 +1,4 @@
-#include "./High Level Interface/NApplication.h"
+﻿#include "./High Level Interface/NApplication.h"
 #include "Renderer/NRenderer.h"
 #include "NGraphicDevice_DX11.h"
 #include "Resource/Graphics/Shader/NShader.h"
@@ -13,10 +13,10 @@ namespace NuNu
 {
 	graphics::GraphicDevice_DX11::GraphicDevice_DX11()
 	{
-		graphics::GetDevice() = this;
+		GetDevice() = this;
 
 		if (!(CreateDevice()))
-			assert(NULL && "Create Device Failed!");
+			assert(nullptr && "Create Device Failed!");
 	}
 
 	graphics::GraphicDevice_DX11::~GraphicDevice_DX11()
@@ -31,11 +31,11 @@ namespace NuNu
 		creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-		if (FAILED(D3D11CreateDevice(0, D3D_DRIVER_TYPE_HARDWARE,
-			0, creationFlags,
+		if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE,
+			nullptr, creationFlags,
 			featureLevels, ARRAYSIZE(featureLevels),
 			D3D11_SDK_VERSION, mDevice.GetAddressOf(),
-			0, mContext.GetAddressOf())))
+			nullptr, mContext.GetAddressOf())))
 			return false;
 
 		return true;
@@ -115,9 +115,9 @@ namespace NuNu
 
 		if (errorBlob)
 		{
-			OutputDebugStringA((char*)errorBlob->GetBufferPointer());
+			OutputDebugStringA(static_cast<char*>(errorBlob->GetBufferPointer()));
 			errorBlob->Release();
-			assert(NULL && "hlsl file have problem check message!");
+			assert(nullptr && "hlsl file have problem check message!");
 			return false;
 		}
 
@@ -140,9 +140,9 @@ namespace NuNu
 
 		if (errorBlob)
 		{
-			OutputDebugStringA((char*)errorBlob->GetBufferPointer());
+			OutputDebugStringA(static_cast<char*>(errorBlob->GetBufferPointer()));
 			errorBlob->Release();
-			assert(NULL && "hlsl file have problem check message!");
+			assert(nullptr && "hlsl file have problem check message!");
 			return false;
 		}
 
@@ -206,29 +206,29 @@ namespace NuNu
 	void graphics::GraphicDevice_DX11::SetDataGpuBuffer(ID3D11Buffer* buffer, void* data, UINT size)
 	{
 		D3D11_MAPPED_SUBRESOURCE sub = {};
-		mContext->Map(buffer, 0, D3D11_MAP::D3D11_MAP_WRITE_DISCARD, 0, &sub);
+		mContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
 		memcpy(sub.pData, data, size);
 		mContext->Unmap(buffer, 0);
 	}
 
 	void GraphicDevice_DX11::SetShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV)
 	{
-		if ((UINT)eShaderStage::VS & (UINT)stage)
+		if (static_cast<UINT>(eShaderStage::VS) & static_cast<UINT>(stage))
 			mContext->VSSetShaderResources(startSlot, 1, ppSRV);
 
-		if ((UINT)eShaderStage::HS & (UINT)stage)
+		if (static_cast<UINT>(eShaderStage::HS) & static_cast<UINT>(stage))
 			mContext->HSSetShaderResources(startSlot, 1, ppSRV);
 
-		if ((UINT)eShaderStage::DS & (UINT)stage)
+		if (static_cast<UINT>(eShaderStage::DS) & static_cast<UINT>(stage))
 			mContext->DSSetShaderResources(startSlot, 1, ppSRV);
 
-		if ((UINT)eShaderStage::GS & (UINT)stage)
+		if (static_cast<UINT>(eShaderStage::GS) & static_cast<UINT>(stage))
 			mContext->GSSetShaderResources(startSlot, 1, ppSRV);
 
-		if ((UINT)eShaderStage::PS & (UINT)stage)
+		if (static_cast<UINT>(eShaderStage::PS) & static_cast<UINT>(stage))
 			mContext->PSSetShaderResources(startSlot, 1, ppSRV);
 
-		if ((UINT)eShaderStage::CS & (UINT)stage)
+		if (static_cast<UINT>(eShaderStage::CS) & static_cast<UINT>(stage))
 			mContext->CSSetShaderResources(startSlot, 1, ppSRV);
 	}
 
@@ -244,12 +244,12 @@ namespace NuNu
 
 	void graphics::GraphicDevice_DX11::BindVS(ID3D11VertexShader* pVertexShader)
 	{
-		mContext->VSSetShader(pVertexShader, 0, 0);
+		mContext->VSSetShader(pVertexShader, nullptr, 0);
 	}
 
 	void graphics::GraphicDevice_DX11::BindPS(ID3D11PixelShader* pPixelShader)
 	{
-		mContext->PSSetShader(pPixelShader, 0, 0);
+		mContext->PSSetShader(pPixelShader, nullptr, 0);
 	}
 
 	void graphics::GraphicDevice_DX11::BindVertexBuffer(UINT StartSlot, UINT NumBuffers, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets)
@@ -264,28 +264,28 @@ namespace NuNu
 
 	void graphics::GraphicDevice_DX11::BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer)
 	{
-		UINT slot = (UINT)type;
+		UINT slot = static_cast<UINT>(type);
 		switch (stage)
 		{
-		case NuNu::graphics::eShaderStage::VS:
+		case eShaderStage::VS:
 			mContext->VSSetConstantBuffers(slot, 1, &buffer);
 			break;
-		case NuNu::graphics::eShaderStage::HS:
+		case eShaderStage::HS:
 			mContext->HSSetConstantBuffers(slot, 1, &buffer);
 			break;
-		case NuNu::graphics::eShaderStage::DS:
+		case eShaderStage::DS:
 			mContext->DSSetConstantBuffers(slot, 1, &buffer);
 			break;
-		case NuNu::graphics::eShaderStage::GS:
+		case eShaderStage::GS:
 			mContext->GSSetConstantBuffers(slot, 1, &buffer);
 			break;
-		case NuNu::graphics::eShaderStage::PS:
+		case eShaderStage::PS:
 			mContext->PSSetConstantBuffers(slot, 1, &buffer);
 			break;
-		case NuNu::graphics::eShaderStage::CS:
+		case eShaderStage::CS:
 			mContext->CSSetConstantBuffers(slot, 1, &buffer);
 			break;
-		case NuNu::graphics::eShaderStage::All:
+		case eShaderStage::All:
 			mContext->VSSetConstantBuffers(slot, 1, &buffer);
 			mContext->HSSetConstantBuffers(slot, 1, &buffer);
 			mContext->DSSetConstantBuffers(slot, 1, &buffer);
@@ -352,7 +352,7 @@ namespace NuNu
 		D3D11_VIEWPORT viewPort =
 		{
 			0, 0,
-			(float)application.GetWidth(), (float)application.GetHeight(),
+static_cast<float>(application.GetWidth()), static_cast<float>(application.GetHeight()),
 			0.0f, 1.0f
 		};
 
@@ -417,19 +417,19 @@ namespace NuNu
 
 #pragma endregion
 		if (!(CreateSwapchain(swapChainDesc)))
-			assert(NULL && "Create Swapchain Failed!");
+			assert(nullptr && "Create Swapchain Failed!");
 
-		if (!(GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)mRenderTarget.GetAddressOf())))
-			assert(NULL && "Couldn't bring rendertarget!");
+		if (!(GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(mRenderTarget.GetAddressOf()))))
+			assert(nullptr && "Couldn't bring rendertarget!");
 
 		if (!(CreateRenderTargetView(mRenderTarget.Get(), nullptr, mRenderTargetView.GetAddressOf())))
-			assert(NULL && "Create RenderTargetView Failed!");
+			assert(nullptr && "Create RenderTargetView Failed!");
 
 #pragma region depthstencil desc
 		D3D11_TEXTURE2D_DESC depthStencilDesc = {};
-		depthStencilDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL;
-		depthStencilDesc.Format = DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT;
-		depthStencilDesc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;
+		depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+		depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
 		depthStencilDesc.Width = application.GetWidth();
 		depthStencilDesc.Height = application.GetHeight();
 		depthStencilDesc.ArraySize = 1;
@@ -438,22 +438,22 @@ namespace NuNu
 
 #pragma endregion
 		if (!(CreateTexture2D(&depthStencilDesc, nullptr, mDepthStencil.GetAddressOf())))
-			assert(NULL && "Create depthstencil texture failed!");
+			assert(nullptr && "Create depthstencil texture failed!");
 
 		if (!(CreateDepthStencilView(mDepthStencil.Get(), nullptr, mDepthStencilView.GetAddressOf())))
-			assert(NULL && "Create depthstencilview failed!");
+			assert(nullptr && "Create depthstencilview failed!");
 
 	}
 
-	void graphics::GraphicDevice_DX11::Draw(UINT VertexCount, UINT StartVertexLocation)
+	void GraphicDevice_DX11::Draw(UINT vertexCount, UINT startVertexLocation) const
 	{
-		mContext->Draw(VertexCount, StartVertexLocation);
+		mContext->Draw(vertexCount, startVertexLocation);
 	}
-	void graphics::GraphicDevice_DX11::DrawIndexed(UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation)
+	void GraphicDevice_DX11::DrawIndexed(UINT indexCount, UINT startIndexLocation, INT baseVertexLocation) const
 	{
-		mContext->DrawIndexed(IndexCount, StartIndexLocation, BaseVertexLocation);
+		mContext->DrawIndexed(indexCount, startIndexLocation, baseVertexLocation);
 	}
-	void graphics::GraphicDevice_DX11::Present()
+	void GraphicDevice_DX11::Present() const
 	{
 		mSwapChain->Present(1, 0);
 	}

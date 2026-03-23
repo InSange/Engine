@@ -15,7 +15,7 @@ namespace NuNu
 		};
 
 		PlayerScript();
-		~PlayerScript();
+		virtual ~PlayerScript();
 
 		void Initialize() override;
 		void Update() override;

@@ -23,13 +23,13 @@ namespace NuNu
 		void Destroy();
 		void Release();
 
-		HWND GetHwnd() const { return mHwnd; }
-		HDC GetHdc() const { return mHdc; }
-		UINT GetWidth() const { return mWidth; }
-		UINT GetHeight() const { return mHeight; }
+		[[nodiscard]] HWND GetHwnd() const { return mHwnd; }
 
-		bool IsLoaded() const { return mbLoaded; }
-		void IsLoaded(bool load) { mbLoaded = load; }
+		[[nodiscard]] UINT GetWidth() const { return mWidth; }
+		[[nodiscard]] UINT GetHeight() const { return mHeight; }
+
+		[[nodiscard]] bool IsLoaded() const { return mbLoaded; }
+		[[noreturn]] void IsLoaded(const bool load) { mbLoaded = load; }
 
 	private:
 		bool mbLoaded;
@@ -37,10 +37,6 @@ namespace NuNu
 		std::unique_ptr<graphics::GraphicDevice_DX11> mGraphicDevice;
 
 		HWND mHwnd;
-		HDC mHdc;
-		HDC mBackHdc;
-
-		HBITMAP mBackBitMap;
 
 		UINT mWidth;
 		UINT mHeight;

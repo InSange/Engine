@@ -24,7 +24,7 @@ namespace NuNu
 		};
 
 		GameObject();
-		~GameObject();
+		virtual ~GameObject();
 
 		virtual void Initialize();
 		virtual void Update();
@@ -38,7 +38,7 @@ namespace NuNu
 			comp->Initialize();
 			comp->SetOwner(this);
 
-			mComponents[(UINT)comp->GetType()] = comp;
+			mComponents[static_cast<UINT>(comp->GetType())] = comp;
 
 			return comp;
 		}
@@ -62,12 +62,11 @@ namespace NuNu
 			if (power == true) mState = eState::Active;
 			else mState = eState::Paused;
 		}
-		bool IsActive() const { return mState == eState::Active; }
 
-		bool IsDead() const { return mState == eState::Dead; }
-
-		void SetLayerType(eLayerType layerType) { mLayerType = layerType; }
-		eLayerType GetLayerType() const { return mLayerType; }
+		[[nodiscard]] bool IsActive() const { return mState == eState::Active; }
+		[[nodiscard]] bool IsDead() const { return mState == eState::Dead; }
+		[[nodiscard]] eLayerType GetLayerType() const { return mLayerType; }
+		[[noreturn]] void SetLayerType(const eLayerType layerType) { mLayerType = layerType; }
 
 	private:
 		void initializeTransform();

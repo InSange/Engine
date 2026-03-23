@@ -75,22 +75,22 @@ namespace NuNu
 		CollisionManager::Clear();
 	}
 
-	void Scene::AddGameObject(GameObject* gameObj, enums::eLayerType type)
+	void Scene::AddGameObject(GameObject* gameObj, eLayerType type)
 	{
 		if (gameObj == nullptr) return;
-		mLayers[(UINT)type]->AddGameObject(gameObj);
+		mLayers[static_cast<UINT>(type)]->AddGameObject(gameObj);
 	}
 
 	void Scene::EraseGameObject(GameObject* gameObj)
 	{
 		eLayerType layerType = gameObj->GetLayerType();
-		mLayers[(UINT)layerType]->EraseGameObject(gameObj);
+		mLayers[static_cast<UINT>(layerType)]->EraseGameObject(gameObj);
 	}
 
 	void Scene::createLayers()
 	{
-		mLayers.resize((UINT)enums::eLayerType::Max);
-		for (size_t i = 0; i < (UINT)enums::eLayerType::Max; i++)
+		mLayers.resize(static_cast<UINT>(enums::eLayerType::Max));
+		for (size_t i = 0; i < static_cast<UINT>(enums::eLayerType::Max); i++)
 		{
 			mLayers[i] = new Layer();
 			//mLayers[i]->SetType(enums::eLayerType(i));

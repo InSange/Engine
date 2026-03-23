@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../NResource.h"
 #include "../../Graphics/InputLayout/NInputLayout.h"
 #include "../../Graphics/GpuBuffer/NVertexBuffer.h"
@@ -13,7 +13,7 @@ namespace NuNu
 		struct Data
 		{
 			Data();
-			~Data();
+			virtual ~Data();
 
 			D3D11_PRIMITIVE_TOPOLOGY mTopology;
 			std::vector<graphics::Vertex> vertices;
@@ -24,8 +24,8 @@ namespace NuNu
 		Mesh();
 		~Mesh();
 
-		virtual HRESULT Save(const std::wstring& path) override;
-		virtual HRESULT Load(const std::wstring& path) override;
+		HRESULT Save(const std::wstring& path) override;
+		HRESULT Load(const std::wstring& path) override;
 
 		bool CreateVB(const std::vector<graphics::Vertex>& vertices);
 		bool CreateIB(const std::vector<UINT>& indices);

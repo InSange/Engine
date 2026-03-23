@@ -21,6 +21,8 @@ namespace NuNu
 
 	LoadingScene::~LoadingScene()
 	{
+		mResourcesLoadThread->join();
+
 		delete mResourcesLoadThread;
 		mResourcesLoadThread = nullptr;
 	}
@@ -40,17 +42,8 @@ namespace NuNu
 
 	void LoadingScene::Render()
 	{
-		int a = 0;
-
-		if (mbLoadCompleted /*&& application.IsLoaded()*/)
+		if (mbLoadCompleted)
 		{
-			//만약 메인쓰레드가 종료되는데 자식쓰레드가 남아있다면
-			//자식쓰레드를 메인쓰레드에 편입시켜 메인쓰레드가 종료되기전까지 block
-			mResourcesLoadThread->join();
-
-			//메인쓰레드와 완전 분리 시켜 독립적인 쓰레드 운영가능
-			//mResourcesLoadThread->detach();
-
 			SceneManager::LoadScene(L"PlayScene");
 		}
 	}

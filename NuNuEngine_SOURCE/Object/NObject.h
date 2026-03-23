@@ -9,7 +9,7 @@
 namespace NuNu::object
 {
 	template <typename T>
-	static T* Instantiate(enums::eLayerType type)
+	static T* Instantiate(eLayerType type)
 	{
 		T* gameObject = new T();
 		gameObject->SetLayerType(type);
@@ -22,7 +22,7 @@ namespace NuNu::object
 	}
 
 	template <typename T>
-	static T* Instantiate(enums::eLayerType type, math::Vector3 position)
+	static T* Instantiate(eLayerType type, Vector3 position)
 	{
 		T* gameObject = new T();
 		gameObject->SetLayerType(type);
@@ -31,7 +31,7 @@ namespace NuNu::object
 
 		layer->AddGameObject(gameObject);
 
-		Transform* tr = gameObject->GetComponent<Transform>();
+		Transform* tr = gameObject->template GetComponent<Transform>();
 		tr->SetPosition(position);
 
 		return gameObject;

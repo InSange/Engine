@@ -7,7 +7,7 @@ namespace NuNu
 	{
 	public:
 		LoadingScene();
-		~LoadingScene();
+		virtual ~LoadingScene();
 
 		void Initialize() override;
 		void Update() override;

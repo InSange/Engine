@@ -7,7 +7,7 @@ extern NuNu::Application application;
 namespace NuNu::graphics
 {
 	Texture::Texture()
-		: Resource(enums::eResourceType::Texture)
+		: Resource(eResourceType::Texture)
 		, mDesc{}
 	{
 	}
@@ -43,7 +43,7 @@ namespace NuNu::graphics
 
 		HRESULT hr = CreateShaderResourceView
 		(
-			graphics::GetDevice()->GetID3D11Device().Get()
+			GetDevice()->GetID3D11Device().Get()
 			, mImage.GetImages()
 			, mImage.GetImageCount()
 			, mImage.GetMetadata()
@@ -53,13 +53,13 @@ namespace NuNu::graphics
 		if (hr == S_FALSE)
 			assert(false/*"Textrue load fail!!"*/);
 
-		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
+		mSRV->GetResource(reinterpret_cast<ID3D11Resource**>(mTexture.GetAddressOf()));
 
 		return S_OK;
 	}
 
 	void Texture::Bind(eShaderStage stage, UINT startSlot)
 	{
-		graphics::GetDevice()->SetShaderResource(stage, startSlot, mSRV.GetAddressOf());
+		GetDevice()->SetShaderResource(stage, startSlot, mSRV.GetAddressOf());
 	}
 }

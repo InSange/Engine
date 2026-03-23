@@ -9,7 +9,7 @@ namespace NuNu
 	{
 	public:
 		Scene();
-		~Scene();
+		virtual ~Scene();
 
 		virtual void Initialize();
 		virtual void Update();
@@ -20,9 +20,9 @@ namespace NuNu
 		virtual void OnEnter();
 		virtual void OnExit();
 
-		void AddGameObject(GameObject* gameObj, enums::eLayerType type);
+		void AddGameObject(GameObject* gameObj, eLayerType type);
 		void EraseGameObject(GameObject* gameObj);
-		Layer* GetLayer(enums::eLayerType type) { return mLayers[(UINT)type]; }
+		Layer* GetLayer(eLayerType type) { return mLayers[static_cast<UINT>(type)]; }
 	private: 
 		void createLayers();
 	private:

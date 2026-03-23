@@ -37,7 +37,7 @@ namespace NuNu
 
 		mTime += Time::DeltaTime();
 
-		if (mAnimationSheet[mIndex].duration < mTime)
+		if (mAnimationSheet[mIndex].Duration < mTime)
 		{
 			mTime = 0.0f;
 			if (mIndex < mAnimationSheet.size() - 1)
@@ -64,11 +64,11 @@ namespace NuNu
 		for (size_t i = 0; i < spriteLength; i++)
 		{
 			Sprite sprite = {};
-			sprite.leftTop.x = leftTop.x + (size.x * i);
-			sprite.leftTop.y = leftTop.y;
-			sprite.size = size;
-			sprite.offset = offset;
-			sprite.duration = duration;
+			sprite.LeftTop.x = leftTop.x + (size.x * i);
+			sprite.LeftTop.y = leftTop.y;
+			sprite.Size = size;
+			sprite.Offset = offset;
+			sprite.Duration = duration;
 
 			mAnimationSheet.push_back(sprite);
 		}

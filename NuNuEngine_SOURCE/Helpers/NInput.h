@@ -27,32 +27,32 @@ namespace NuNu
 	public:
 		struct Key
 		{
-			eKeyCode keyCode;
-			eKeyState state;
+			eKeyCode KeyCode;
+			eKeyState State;
 			bool bPressed;
 		};
 
-		static void Initailize();
+		static void Initialize();
 		static void Update();
 
 
-		__forceinline static bool GetKeyDown(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Down; }
-		__forceinline static bool GetKeyUp(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Up; }
-		__forceinline static bool GetKey(eKeyCode key) { return mKeys[(UINT)key].state == eKeyState::Pressed; }
+		__forceinline static bool GetKeyDown(eKeyCode key) { return Keys[(UINT)key].State == eKeyState::Down; }
+		__forceinline static bool GetKeyUp(eKeyCode key) { return Keys[(UINT)key].State == eKeyState::Up; }
+		__forceinline static bool GetKey(eKeyCode key) { return Keys[(UINT)key].State == eKeyState::Pressed; }
 		__forceinline static math::Vector2 GetMousePosition() { return mMousePosition; }
 
 	private:
 		static void createKeys();
 		static void updateKeys();
-		static void updateKey(Input::Key& key);
+		static void updateKey(Key& key);
 		static bool isKeyDown(eKeyCode code);
-		static void updateKeyDown(Input::Key& key);
-		static void updateKeyUp(Input::Key& key);
+		static void updateKeyDown(Key& key);
+		static void updateKeyUp(Key& key);
 		static void getMousePositionByWindow();
 		static void clearKeys();
 
 	private:
-		static std::vector<Key> mKeys;
+		static std::vector<Key> Keys;
 		static math::Vector2 mMousePosition;
 	};
 }

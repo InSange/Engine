@@ -7,12 +7,12 @@ namespace NuNu
 	{
 	public:
 		Rigidbody();
-		~Rigidbody();
+		virtual ~Rigidbody();
 
-		virtual void Initialize();
-		virtual void Update();
-		virtual void LateUpdate();
-		virtual void Render();
+		void Initialize() override;
+		void Update() override;
+		void LateUpdate() override;
+		void Render() override;
 
 		Vector2 GetVelocity() const { return mVelocity; }
 		void SetMass(float mass) { mMass = mass; }

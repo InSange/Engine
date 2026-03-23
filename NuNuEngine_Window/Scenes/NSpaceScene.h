@@ -7,7 +7,7 @@ namespace NuNu
 	{
 	public:
 		SpaceScene();
-		~SpaceScene();
+		virtual ~SpaceScene();
 
 		void Initialize() override;
 		void Update() override;

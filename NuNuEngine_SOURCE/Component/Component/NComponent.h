@@ -9,7 +9,7 @@ namespace NuNu
 	class Component : public Entity
 	{
 	public:
-		Component(enums::eComponentType type);
+		Component(eComponentType type);
 		virtual ~Component();
 
 		virtual void Initialize();
@@ -17,13 +17,14 @@ namespace NuNu
 		virtual void LateUpdate();
 		virtual void Render();
 
-		void SetOwner(GameObject* owner) { mOwner = owner; }
-		GameObject* GetOwner() const { return mOwner; }
-		enums::eComponentType GetType() const { return mType; }
+		[[nodiscard]] eComponentType GetType() const { return mType; }
+
+		[[nodiscard]] GameObject* GetOwner() const { return mOwner; }
+		[[noreturn]] void SetOwner(GameObject* owner) { mOwner = owner; }
 
 	private:
 		GameObject* mOwner;
-		enums::eComponentType mType;
+		eComponentType mType;
 	};
 }
 

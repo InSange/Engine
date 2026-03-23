@@ -7,7 +7,7 @@ namespace NuNu
 	{
 	public:
 		PlayScene();
-		~PlayScene();
+		virtual ~PlayScene();
 
 		void Initialize() override;
 		void Update() override;

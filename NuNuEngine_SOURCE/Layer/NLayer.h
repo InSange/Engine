@@ -9,7 +9,7 @@ namespace NuNu
 	{
 	public:
 		Layer();
-		~Layer();
+		virtual ~Layer();
 
 		virtual void Initialize();
 		virtual void Update();
@@ -21,7 +21,7 @@ namespace NuNu
 		void EraseGameObject(GameObject* eraseGameObj);
 		//void SetType(enums::eLayerType type) { mType = type; }
 
-		const std::vector<GameObject*> GetGameObjects() { return mGameObjects; }
+		std::vector<GameObject*>& GetGameObjects() { return mGameObjects; }
 
 	private:
 		void findDeadGameObjects(OUT std::vector<GameObject*>& gameObjects);

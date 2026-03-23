@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Graphics/GraphicDevice/NGraphicDevice_DX11.h"
 
 namespace NuNu::graphics
@@ -7,7 +7,7 @@ namespace NuNu::graphics
 	{
 	public:
 		VertexBuffer();
-		~VertexBuffer();
+		virtual ~VertexBuffer();
 
 		bool Create(const std::vector<Vertex>& vertexes);
 		void Bind();

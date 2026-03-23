@@ -4,7 +4,7 @@
 namespace NuNu
 {
 	Mesh::Data::Data()
-		: mTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+		: mTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 		, vertices{}
 		, indices{}
 	{

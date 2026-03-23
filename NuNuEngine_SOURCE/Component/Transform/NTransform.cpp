@@ -47,12 +47,12 @@ namespace NuNu
 	{
 	}
 
-	void Transform::Bind()
+	void Transform::Bind() const
 	{
 		graphics::TransformCB cbData = {};
-		cbData.world = GetWorldMatrix();
-		cbData.view = Camera::GetGpuViewMatrix();
-		cbData.projection = Camera::GetGpuProjectionMatrix();
+		cbData.World = GetWorldMatrix();
+		cbData.View = Camera::GetGpuViewMatrix();
+		cbData.Projection = Camera::GetGpuProjectionMatrix();
 
 		graphics::ConstantBuffer* cb = renderer::constantBuffers[CBSLOT_TRANSFORM];
 

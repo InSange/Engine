@@ -8,7 +8,7 @@ namespace NuNu
 	{
 	public:
 		CameraScript();
-		~CameraScript();
+		virtual ~CameraScript();
 
 		void Initialize() override;
 		void Update() override;

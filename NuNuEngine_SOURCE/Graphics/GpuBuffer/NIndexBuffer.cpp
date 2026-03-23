@@ -1,4 +1,4 @@
-#include "NIndexBuffer.h"
+﻿#include "NIndexBuffer.h"
 
 namespace NuNu::graphics
 {
@@ -24,7 +24,7 @@ namespace NuNu::graphics
 		sub.pSysMem = indices.data();
 
 		if (!GetDevice()->CreateBuffer(&desc, &sub, buffer.GetAddressOf()))
-			assert(NULL && "indices buffer create fail!!");
+			assert(nullptr && "indices buffer create fail!!");
 
 		return true;
 	}

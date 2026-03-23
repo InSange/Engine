@@ -11,15 +11,15 @@ namespace NuNu
 		{
 			void operator=(std::function<void()> func)
 			{
-				mEvent = std::move(func);
+				Action = std::move(func);
 			}
 
-			void operator()()
+			void operator()() const
 			{
-				if (mEvent) mEvent();
+				if (Action) Action();
 			}
 
-			std::function<void()> mEvent;
+			std::function<void()> Action;
 		};
 
 		struct Events
@@ -30,7 +30,7 @@ namespace NuNu
 		};
 
 		Animator();
-		~Animator();
+		virtual ~Animator();
 
 		void Initialize() override;
 		void Update() override;
@@ -44,7 +44,7 @@ namespace NuNu
 			, Vector2 offset
 			, UINT spriteLength
 			, float duration);
-		void CreateAnimationByFoler(/*const std::wstring& name, const std::wstring& path, Vector2 offset, float duration*/);
+		void CreateAnimationByFoler(/*const std::wstring& name, const std::wstring& path, Vector2 Offset, float Duration*/);
 
 		Animation* FindAnimation(const std::wstring& name);
 		void PlayAnimation(const std::wstring& name, bool loop = false);
@@ -55,7 +55,7 @@ namespace NuNu
 		std::function<void()>& GetCompleteEvent(const std::wstring& name);
 		std::function<void()>& GetEndEvent(const std::wstring& name);
 
-		bool IsCompleteAnimation() { return mActiveAnimation->IsComplete(); }
+		[[nodiscard]] bool IsComplete() const { return mActiveAnimation->IsComplete(); }
 
 	private:
 		std::map<std::wstring, Animation*> mAnimations;

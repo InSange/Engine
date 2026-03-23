@@ -10,12 +10,13 @@ namespace NuNu
 		AudioClip();
 		virtual ~AudioClip();
 
-		virtual HRESULT Load(const std::wstring& path) override;
+		HRESULT Load(const std::wstring& path) override;
 
 		void Play();
 		void Stop();
-		void Set3DAttributes(const Vector3 pos);
-		void SetLoop(bool loop) { mbLoop = loop; }
+		void Set3DAttributes(Vector3 pos);
+
+		[[noreturn]] void SetLoop(bool loop) { mbLoop = loop; }
 
 	private:
 		FMOD::Sound* mSound;

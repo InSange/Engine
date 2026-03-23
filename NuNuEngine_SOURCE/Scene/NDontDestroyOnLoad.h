@@ -7,7 +7,7 @@ namespace NuNu
 	{
 	public:
 		DontDestroyOnLoad();
-		~DontDestroyOnLoad();
+		virtual ~DontDestroyOnLoad();
 
 		void Initialize() override;
 		void Update() override;

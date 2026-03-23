@@ -12,11 +12,8 @@ namespace NuNu
 {
 	Application::Application()
 		: mHwnd(nullptr)
-		, mHdc(nullptr)
 		, mWidth(0)
 		, mHeight(0)
-		, mBackHdc(nullptr)
-		, mBackBitMap(nullptr)
 		, mbLoaded(false)
 	{
 
@@ -24,17 +21,16 @@ namespace NuNu
 
 	Application::~Application()
 	{
-		DeleteDC(mBackHdc); // 이중 hdc 삭제
-		DeleteObject(mBackBitMap); // 이중 비트맵 삭제
-		ReleaseDC(mHwnd, mHdc);	// 본체 반환
 	}
 
 	void Application::Initialize(HWND hwnd, UINT width, UINT height) //HWND는 포인터 주소로 연결되어 있음
 	{
+		mHwnd = hwnd;
+
 		AdjustWindowRect(hwnd, width, height);
 		InitializeEtc();
 
-		mGraphicDevice = std::make_unique<graphics::GraphicDevice_DX11>();
+		mGraphicDevice = std::make_unique<GraphicDevice_DX11>();
 		//renderer::Initialize();
 		mGraphicDevice->Initialize();
 
@@ -46,10 +42,7 @@ namespace NuNu
 
 	void Application::AdjustWindowRect(HWND hwnd, UINT width, UINT height)
 	{
-		mHwnd = hwnd;
-		mHdc = GetDC(hwnd);
-
-		RECT rect = { 0, 0, (LONG)width, (LONG)height };
+		RECT rect = { 0, 0, static_cast<LONG>(width), static_cast<LONG>(height) };
 		::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
 		mWidth = rect.right - rect.left;
@@ -61,8 +54,8 @@ namespace NuNu
 
 	void Application::InitializeEtc()
 	{
-		Input::Initailize();
-		Time::Initailize();
+		Input::Initialize();
+		Time::Initialize();
 	}
 
 	void Application::Run()
@@ -96,17 +89,17 @@ namespace NuNu
 
 	void Application::Render() // 화면 그리기
 	{
-		graphics::GetDevice()->ClearRenderTargetView();
-		graphics::GetDevice()->ClearDepthStencilView();
-		graphics::GetDevice()->BindViewPort();
-		graphics::GetDevice()->BindDefaultRenderTarget();
+		GetDevice()->ClearRenderTargetView();
+		GetDevice()->ClearDepthStencilView();
+		GetDevice()->BindViewPort();
+		GetDevice()->BindDefaultRenderTarget();
 
 		Time::Render();
 		CollisionManager::Render();
 		UIManager::Render();
 		SceneManager::Render();
 
-		graphics::GetDevice()->Present();
+		GetDevice()->Present();
 	}
 
 	void Application::Destroy()

@@ -6,7 +6,7 @@ namespace NuNu
 	class Time
 	{
 	public:
-		static void Initailize();
+		static void Initialize();
 		static void Tick();
 		static void Render();
 

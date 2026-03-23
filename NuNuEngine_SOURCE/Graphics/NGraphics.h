@@ -105,8 +105,8 @@ namespace NuNu::graphics
 	//Constant Buffer
 	CBUFFER(TransformCB, CBSLOT_TRANSFORM)
 	{
-		math::Matrix world;
-		math::Matrix view;
-		math::Matrix projection;
+		math::Matrix World;
+		math::Matrix View;
+		math::Matrix Projection;
 	};
 }

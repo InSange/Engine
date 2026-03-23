@@ -9,7 +9,7 @@ namespace NuNu
 
 	bool SceneManager::SetActiveScene(const std::wstring& name)
 	{
-		std::map<std::wstring, Scene*>::iterator it = mScene.find(name);
+		auto it = mScene.find(name);
 
 		if (it == mScene.end()) return false;
 

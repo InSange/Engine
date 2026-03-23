@@ -11,11 +11,11 @@ namespace NuNu
 	{
 		struct
 		{
-			UINT32 left;
-			UINT32 right;
+			UINT32 Left;
+			UINT32 Right;
 		};
 
-		UINT64 id;
+		UINT64 Id;
 	};
 
 	class CollisionManager
@@ -33,7 +33,7 @@ namespace NuNu
 		static bool Intersect(Collider* left, Collider* right);
 
 	private:
-		static std::bitset <eLayerTypeMax> mCollisionLayerMatrix[eLayerTypeMax];
+		static std::bitset<CAST_UINT(eLayerType::Max)> mCollisionLayerMatrix[CAST_UINT(eLayerType::Max)];
 		static std::unordered_map<UINT64, bool> mCollisionMap;
 	};
 }

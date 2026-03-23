@@ -1,4 +1,4 @@
-#include "NConstantBuffer.h"
+﻿#include "NConstantBuffer.h"
 
 namespace NuNu::graphics
 {
@@ -24,13 +24,13 @@ namespace NuNu::graphics
 		sub.pSysMem = data;
 
 		bool success = false;
-		if (data == NULL)
+		if (data == nullptr)
 			success = GetDevice()->CreateBuffer(&desc, nullptr, buffer.GetAddressOf());
 		else
 			success = GetDevice()->CreateBuffer(&desc, &sub, buffer.GetAddressOf());
 
 		if (!success)
-			assert(NULL, "Create constant buffer failed!");
+			assert(false && "Create constant buffer failed!");
 
 		return true;
 	}

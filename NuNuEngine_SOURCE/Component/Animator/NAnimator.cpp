@@ -184,19 +184,19 @@ namespace NuNu
 	std::function<void()>& Animator::GetStartEvent(const std::wstring& name)
 	{
 		Events* events = FindEvents(name);
-		return events->StartEvent.mEvent;
+		return events->StartEvent.Action;
 	}
 
 	std::function<void()>& Animator::GetCompleteEvent(const std::wstring& name)
 	{
 		Events* events = FindEvents(name);
-		return events->CompleteEvent.mEvent;
+		return events->CompleteEvent.Action;
 	}
 
 	std::function<void()>& Animator::GetEndEvent(const std::wstring& name)
 	{
 		Events* events = FindEvents(name);
-		return events->EndEvent.mEvent;
+		return events->EndEvent.Action;
 	}
 }
 

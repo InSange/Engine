@@ -7,7 +7,7 @@ namespace NuNu
 	{
 	public:
 		HellScene();
-		~HellScene();
+		virtual ~HellScene();
 
 		void Initialize() override;
 		void Update() override;
