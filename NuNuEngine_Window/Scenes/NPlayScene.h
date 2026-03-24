@@ -17,7 +17,6 @@ namespace NuNu
 		void OnEnter() override;
 		void OnExit() override;
 	private:
-		class Player* mPlayer;
 	};
 }
 

@@ -17,8 +17,8 @@ namespace NuNu
 		void LateUpdate() override;
 		void Render() override;
 
-		[[noreturn]] void SetSprite(graphics::Texture* sprite) { mSprite = sprite; }
-		[[noreturn]] void SetMaterial(Material* material) { mMaterial = material; }
+		void SetSprite(graphics::Texture* sprite) { mSprite = sprite; }
+		void SetMaterial(Material* material) { mMaterial = material; }
 
 	private:
 		graphics::Texture* mSprite;

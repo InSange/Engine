@@ -43,8 +43,8 @@ namespace NuNu
 
 		void Reset();
 
-		[[nodiscard]] bool IsComplete() const { return mbComplete; }
-		[[noreturn]] void SetAnimator(class Animator* animator) { mAnimator = animator; }
+		bool IsComplete() const { return mbComplete; }
+		void SetAnimator(class Animator* animator) { mAnimator = animator; }
 
 	private:
 		Animator* mAnimator;

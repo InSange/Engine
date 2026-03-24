@@ -16,7 +16,7 @@ namespace NuNu
 		void Stop();
 		void Set3DAttributes(Vector3 pos);
 
-		[[noreturn]] void SetLoop(bool loop) { mbLoop = loop; }
+		void SetLoop(bool loop) { mbLoop = loop; }
 
 	private:
 		FMOD::Sound* mSound;

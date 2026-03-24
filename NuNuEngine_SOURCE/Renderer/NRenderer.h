@@ -9,7 +9,7 @@ using namespace NuNu::graphics;
 namespace NuNu::renderer
 {
 	extern Camera* mainCamera;
-
+	extern GameObject* selectedObject;
 	extern ConstantBuffer* constantBuffers[static_cast<UINT>(eCBType::End)];
 
 	extern Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[static_cast<UINT>(eSamplerType::End)];

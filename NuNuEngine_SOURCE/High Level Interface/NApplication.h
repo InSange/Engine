@@ -24,13 +24,13 @@ namespace NuNu
 		void Destroy();
 		void Release();
 
-		[[nodiscard]] HWND GetHwnd() const { return mHwnd; }
+		HWND GetHwnd() const { return mHwnd; }
 
-		[[nodiscard]] UINT GetWidth() const { return mWidth; }
-		[[nodiscard]] UINT GetHeight() const { return mHeight; }
+		UINT GetWidth() const { return mWidth; }
+		UINT GetHeight() const { return mHeight; }
 
-		[[nodiscard]] bool IsLoaded() const { return mbLoaded; }
-		[[noreturn]] void IsLoaded(const bool load) { mbLoaded = load; }
+		bool IsLoaded() const { return mbLoaded; }
+		void IsLoaded(const bool load) { mbLoaded = load; }
 
 	private:
 		bool mbLoaded;
