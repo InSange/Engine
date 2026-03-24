@@ -11,11 +11,13 @@ namespace NuNu
 		Application();
 		~Application();
 
-		void Initialize(HWND hwnd, UINT width, UINT height);
-		void AdjustWindowRect(HWND hwnd, UINT width, UINT height);
+		void Initialize(HWND hwnd, int width, int height);
+		void AdjustWindowRect(HWND hwnd, int width, int height);
+		void ReszieGraphicDevice(int width, int height);
 		void InitializeEtc();
 
 		void Run();
+		void Close();
 
 		void Update();
 		void LateUpdate();
@@ -31,9 +33,11 @@ namespace NuNu
 
 		bool IsLoaded() const { return mbLoaded; }
 		void IsLoaded(const bool load) { mbLoaded = load; }
+		bool IsRunning() const { return mbRunning; }
 
 	private:
 		bool mbLoaded;
+		bool mbRunning;
 
 		std::unique_ptr<graphics::GraphicDevice_DX11> mGraphicDevice;
 

@@ -203,6 +203,59 @@ namespace NuNu
 		return true;
 	}
 
+	bool graphics::GraphicDevice_DX11::Resize(D3D11_VIEWPORT viewport)
+	{
+		// 리소스 해제
+		mRenderTargetView.Reset();
+		mRenderTarget.Reset();
+
+		mDepthStencilView.Reset();
+		mDepthStencil.Reset();
+		// 후면 버퍼 크기 재생성
+		HRESULT hr = mSwapChain->ResizeBuffers(0, // 현재 개수 유지
+			(UINT)viewport.Width, // 해상도 변경
+			(UINT)viewport.Height,
+			DXGI_FORMAT_UNKNOWN, // 현재 포맷 유지
+			0);
+		// GetBuffer로 후면 버퍼 Texture2D를 받아옴
+		// Get render target by Swapchain
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> renderTarget = nullptr;
+		hr = mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)(renderTarget.GetAddressOf()));
+		
+		D3D11_TEXTURE2D_DESC desc = {};
+		renderTarget->GetDesc(&desc);
+		mRenderTarget = renderTarget;
+		// RTV 텍스쳐를 GPU가 여기에 그릴 것이라고 등록
+		// Create RenderTargetView
+		hr = mDevice->CreateRenderTargetView(mRenderTarget.Get(), nullptr, mRenderTargetView.GetAddressOf());
+		// 깊이 24비트 + 스텐실 8비트 포맷으로 Z버퍼 용도용 스텐실 텍스쳐 생성
+		// Create DepthStencil
+		D3D11_TEXTURE2D_DESC depthStencilDesc = {};
+		depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+		depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
+		depthStencilDesc.Width = (UINT)viewport.Width;
+		depthStencilDesc.Height = (UINT)viewport.Height;
+		depthStencilDesc.ArraySize = 1;
+		depthStencilDesc.SampleDesc.Count = 1;
+		depthStencilDesc.SampleDesc.Quality = 0;
+		depthStencilDesc.MipLevels = 1;
+		depthStencilDesc.MiscFlags = 0;
+
+		hr = mDevice->CreateTexture2D(&depthStencilDesc, nullptr, mDepthStencil.GetAddressOf());
+		// 스텐실 텍스쳐를 GPU에 등록
+		// Create DepthStencilView
+		hr = mDevice->CreateDepthStencilView(mDepthStencil.Get(), nullptr, mDepthStencilView.GetAddressOf());
+		// 뷰포트 크기 갱신
+		// Set Viewport
+		BindViewPort();
+		// RTV + DSV를 GPU 파이프라인 출력단에 최종 연결
+		// Bind RenderTarget
+		BindRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+
+		return true;
+	}
+
 	void graphics::GraphicDevice_DX11::SetDataGpuBuffer(ID3D11Buffer* buffer, void* data, UINT size)
 	{
 		D3D11_MAPPED_SUBRESOURCE sub = {};

@@ -15,6 +15,7 @@ namespace NuNu
 		, mWidth(0)
 		, mHeight(0)
 		, mbLoaded(false)
+		, mbRunning(false)
 	{
 
 	}
@@ -23,7 +24,7 @@ namespace NuNu
 	{
 	}
 
-	void Application::Initialize(HWND hwnd, UINT width, UINT height) //HWND는 포인터 주소로 연결되어 있음
+	void Application::Initialize(HWND hwnd, int width, int height) //HWND는 포인터 주소로 연결되어 있음
 	{
 		mHwnd = hwnd;
 
@@ -38,19 +39,47 @@ namespace NuNu
 		CollisionManager::Initialize();
 		UIManager::Initialize();
 		SceneManager::Initialize();
+
+		mbRunning = true;
 	}
 
-	void Application::AdjustWindowRect(HWND hwnd, UINT width, UINT height)
+	void Application::AdjustWindowRect(HWND hwnd, int width, int height)
 	{
 		RECT rect = { 0, 0, static_cast<LONG>(width), static_cast<LONG>(height) };
 		::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+		::GetWindowRect(hwnd, &rect); // 현재 윈도우의 좌표와 크기를 가져옴
+
+		int x = rect.left;
+		int y = rect.top;
 
 		mWidth = rect.right - rect.left;
 		mHeight = rect.bottom - rect.top;
 
-		SetWindowPos(hwnd, nullptr, 0, 0, mWidth, mHeight, 0);
+		SetWindowPos(hwnd, nullptr, x, y, mWidth, mHeight, 0);
 		ShowWindow(hwnd, true);
 	}
+
+	void Application::ReszieGraphicDevice(int width, int height)
+	{
+		if (mGraphicDevice == nullptr)
+			return;
+
+		RECT winRect;
+		GetClientRect(mHwnd, &winRect);
+		D3D11_VIEWPORT viewport = {};
+		viewport.TopLeftX = 0.0f;
+		viewport.TopLeftY = 0.0f;
+		viewport.Width = static_cast<float>(winRect.right - winRect.left);
+		viewport.Height = static_cast<float>(winRect.bottom - winRect.top);
+		viewport.MinDepth = 0.0f;
+		viewport.MaxDepth = 1.0f;
+
+		mWidth = width;
+		mHeight = height;
+
+		mGraphicDevice->Resize(viewport);
+	}
+
 
 	void Application::InitializeEtc()
 	{
@@ -69,6 +98,12 @@ namespace NuNu
 
 		Destroy();
 	}
+
+	void Application::Close()
+	{
+		mbRunning = false;
+	}
+
 
 	void Application::Update() // 로직 갱신
 	{

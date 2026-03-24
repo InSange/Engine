@@ -56,7 +56,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸
 
 	MSG msg;
 
-	while (true)
+	while (application.IsRunning())
 	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) // 메세지가 있으면
 		{
@@ -130,19 +130,19 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	const UINT width = 1600;
 	const UINT height = 900;
-	//HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-	//	0, 0, width, height, nullptr, nullptr, hInstance, nullptr);
+	HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT, CW_USEDEFAULT, width, height, nullptr, nullptr, hInstance, nullptr);
 
-	// 원래는 전체 화면(1600x900)이 제목 표시줄에 먹혀서 작아지는 현상을 방지
-	RECT rect = { 0, 0, (LONG)width, (LONG)height };
-	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+	//// 원래는 전체 화면(1600x900)이 제목 표시줄에 먹혀서 작아지는 현상을 방지
+	//RECT rect = { 0, 0, (LONG)width, (LONG)height };
+	//AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
-	// 현재 DX11 해상도 변환(Resize) 기능이 없으므로, 창 늘리기(스케일링)와 최대화 버튼을 잠시 끕니다.
-	// (안 그러면 화면이 늘어나면서 마우스 좌표가 다 망가져버립니다!)
-	HWND hWnd = CreateWindowW(szWindowClass, szTitle, 
-		WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX,
-		0, 0, rect.right - rect.left, rect.bottom - rect.top, 
-		nullptr, nullptr, hInstance, nullptr);
+	//// 현재 DX11 해상도 변환(Resize) 기능이 없으므로, 창 늘리기(스케일링)와 최대화 버튼을 잠시 끕니다.
+	//// (안 그러면 화면이 늘어나면서 마우스 좌표가 다 망가져버립니다!)
+	//HWND hWnd = CreateWindowW(szWindowClass, szTitle, 
+	//	WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX,
+	//	0, 0, rect.right - rect.left, rect.bottom - rect.top, 
+	//	nullptr, nullptr, hInstance, nullptr);
 
 	if (!hWnd)
 	{
@@ -199,6 +199,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}
+	}
+	break;
+	case WM_SIZE:
+	{
+		RECT rect = { 0, 0, 1600, 900 }; // 기본값 설정
+		GetWindowRect(hWnd, &rect); // 현재 윈도우의 좌표와 크기를 가져옴
+
+		int x = rect.left;
+		int y = rect.top;
+		int width = rect.right - rect.left;
+		int height = rect.bottom - rect.top;
+
+		application.ReszieGraphicDevice(width, height);
 	}
 	break;
 	case WM_KEYDOWN:
