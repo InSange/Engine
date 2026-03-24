@@ -25,6 +25,7 @@ namespace NuNu::graphics
 		bool CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs, UINT NumElements, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength, ID3D11InputLayout** ppInputLayout);
 		bool CreateBuffer(const D3D11_BUFFER_DESC* pDesc, const D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Buffer** ppBuffer);
 		bool CreateShaderResourceView(ID3D11Resource* pResource, const D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11ShaderResourceView** ppSRView);
+		bool CreateUnorderedAccessView(ID3D11Resource* pResource, const D3D11_UNORDERED_ACCESS_VIEW_DESC* pDesc, ID3D11UnorderedAccessView** ppUAView);
 		bool CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc, ID3D11RasterizerState** ppRasterizerState);
 		bool CreateBlendState(const D3D11_BLEND_DESC* pBlendState, ID3D11BlendState** ppBlendState);
 		bool CreateDepthStencilState(const D3D11_DEPTH_STENCIL_DESC* pDepthStencilDesc, ID3D11DepthStencilState** ppDepthStencilState);
@@ -52,6 +53,8 @@ namespace NuNu::graphics
 		void BindRenderTargets(UINT NumViews = 1, ID3D11RenderTargetView* const* ppRenderTargetViews = nullptr, ID3D11DepthStencilView* pDepthStencilView = nullptr);
 		void BindDefaultRenderTarget();
 
+		void CopyResource(ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource);
+
 		void ClearRenderTargetView();
 		void ClearDepthStencilView();
 
@@ -63,12 +66,13 @@ namespace NuNu::graphics
 	public:
 		Microsoft::WRL::ComPtr<ID3D11Device> GetID3D11Device() { return mDevice; }
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext> GetID3D11DeviceContext() { return mContext; }
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> GetFrameBuffer() { return mFrameBuffer; }
 
 	private:	// COM 스마트 포인터는 직접 Release를 호출하지 않아도 자동으로 GPU 메모리를 깔끔하게 해재해 주는 스마트 포인터
 		Microsoft::WRL::ComPtr<ID3D11Device> mDevice;	// GPU를 제어하는 핵심 객체
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext> mContext;	// GPU에게 명령을 내리는 객체
-		Microsoft::WRL::ComPtr<ID3D11Texture2D> mRenderTarget;	// 렌더 타겟
-		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>	mRenderTargetView;	// 렌더 타겟 뷰 -> 백버퍼에 렌더링된 결과를 화면에 띄우기 위한 뷰
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> mFrameBuffer;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> mFrameBufferView;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D>			mDepthStencil;	// 깊이 스텐실 -> 2D는 우선순위, 3D는 게임에서 물체의 앞뒤를 구분하기 위한 스텐실 (Z버퍼)
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView>	mDepthStencilView;	// 깊이 스텐실 뷰
 

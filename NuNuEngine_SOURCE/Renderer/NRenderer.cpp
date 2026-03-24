@@ -3,6 +3,10 @@
 #include "Resource/Graphics/Shader/NShader.h"
 #include "../Resource/Mesh/NMesh.h"
 #include "../Resource/Material/NMaterial.h"
+#include "../Graphics/RenderTarget/NRenderTarget.h"
+#include "../High Level Interface/NApplication.h"
+
+extern NuNu::Application application;
 
 namespace NuNu::renderer
 {
@@ -14,6 +18,8 @@ namespace NuNu::renderer
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[static_cast<UINT>(eRasterizerState::End)] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[static_cast<UINT>(eBlendState::End)] = {};
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[static_cast<UINT>(eDepthStencilState::End)] = {};
+
+	RenderTarget* FrameBuffer = nullptr;
 
 	void LoadStates()
 	{
@@ -279,6 +285,16 @@ namespace NuNu::renderer
 		constantBuffers[CBSLOT_TRANSFORM]->Create(sizeof(TransformCB));
 	}
 
+	void LoadFrameBuffer()
+	{
+		RenderTargetSpecification spec;
+		spec.Attachments = { eRenderTragetFormat::RGBA8, eRenderTragetFormat::Depth };
+		spec.Width = application.GetWidth();
+		spec.Height = application.GetHeight();
+
+		FrameBuffer = RenderTarget::Create(spec);
+	}
+
 	void Initialize()
 	{
 		LoadStates();
@@ -286,10 +302,14 @@ namespace NuNu::renderer
 		LoadMeshes();
 		LoadMaterials();
 		LoadConstantBuffers();
+		LoadFrameBuffer();
 	}
 
 	void Release()
 	{
+		delete FrameBuffer;
+		FrameBuffer = nullptr;
+
 		for (UINT i = 0; i < static_cast<UINT>(eCBType::End); i++)
 		{
 			delete constantBuffers[i];

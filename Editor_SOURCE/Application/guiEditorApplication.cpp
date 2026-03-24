@@ -11,15 +11,22 @@ extern NuNu::Application application;
 
 namespace gui
 {
+	std::map<std::wstring, EditorWindow*> EditorApplication::mEditorWindows;
 	ImGuiWindowFlags EditorApplication::mFlag = ImGuiWindowFlags_None;
 	ImGuiDockNodeFlags EditorApplication::mDockspaceFlags = ImGuiDockNodeFlags_None;
 	EditorApplication::eState EditorApplication::mState = EditorApplication::eState::Active;
 	bool EditorApplication::mFullScreen = true;
-	std::map<std::wstring, EditorWindow*> EditorApplication::mEditorWindows;
+
+	NuNu::math::Vector2 EditorApplication::mViewportBounds[2] = {};
+	NuNu::math::Vector2 EditorApplication::mViewportSize;
+	bool EditorApplication::mViewportFocused = false;
+	bool EditorApplication::mViewportHovered = false;
+	NuNu::graphics::RenderTarget* EditorApplication::mFrameBuffer = nullptr;
 
 	bool EditorApplication::Initialize()
 	{
 		imGguiInitialize();
+		mFrameBuffer = NuNu::renderer::FrameBuffer;
 
 		InspectorWindow* inspector = new InspectorWindow();
 		mEditorWindows.insert(std::make_pair(L"InspectorWindow", inspector));
@@ -70,6 +77,11 @@ namespace gui
 
 	void EditorApplication::SaveSceneAs()
 	{
+	}
+
+	void EditorApplication::OpenScene(const std::filesystem::path& path)
+	{
+
 	}
 
 	bool EditorApplication::imGguiInitialize()
@@ -233,7 +245,43 @@ namespace gui
 
 		// viewport
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
-		ImGui::Begin("Viewport");
+		ImGui::Begin("Scene");
+
+		auto viewportMinRegion = ImGui::GetWindowContentRegionMin(); // 씬뷰의 최소 좌표
+		auto viewportMaxRegion = ImGui::GetWindowContentRegionMax(); // 씬뷰의 최대 좌표
+		auto viewportOffset = ImGui::GetWindowPos(); // 씬뷰의 위치
+
+		const int letTop = 0;
+		mViewportBounds[letTop] = { viewportMinRegion.x + viewportOffset.x, viewportMinRegion.y + viewportOffset.y };
+
+		const int rightBottom = 1;
+		mViewportBounds[rightBottom] = { viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y };
+
+		// check if the mouse,keyboard is on the Sceneview
+		mViewportFocused = ImGui::IsWindowFocused();
+		mViewportHovered = ImGui::IsWindowHovered();
+
+		// to do : mouse, keyboard event
+		// 
+
+		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+		mViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+		NuNu::graphics::Texture* texture = mFrameBuffer->GetAttachmentTexture(0);
+		ImGui::Image((ImTextureID)texture->GetSRV().Get(), ImVec2{ mViewportSize.x, mViewportSize.y }
+		, ImVec2{ 0, 0 }, ImVec2{ 1, 1 });
+
+		// Open Scene by drag and drop
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("PROJECT_ITEM"))
+			{
+				const wchar_t* path = (const wchar_t*)payload->Data;
+				OpenScene(path);
+			}
+			ImGui::EndDragDropTarget();
+		}
+
+		// To do : guizmo
 
 		ImGui::End();
 		ImGui::PopStyleVar();
@@ -263,16 +311,16 @@ namespace gui
 		//Matrix viewMatirx;
 		//Matrix projectionMatirx;
 
-		//if (ya::renderer::mainCamera)
+		//if (NuNu::renderer::mainCamera)
 		//{
-		//	viewMatirx = ya::renderer::mainCamera->GetViewMatrix();
-		//	projectionMatirx = ya::renderer::mainCamera->GetProjectionMatrix();
+		//	viewMatirx = NuNu::renderer::mainCamera->GetViewMatrix();
+		//	projectionMatirx = NuNu::renderer::mainCamera->GetProjectionMatrix();
 		//}
 
 		//Matrix modelMatrix;
-		//if (ya::renderer::selectedObject)
+		//if (NuNu::renderer::selectedObject)
 		//{
-		//	modelMatrix = ya::renderer::selectedObject->GetComponent<ya::Transform>()->GetWorldMatrix();
+		//	modelMatrix = NuNu::renderer::selectedObject->GetComponent<NuNu::Transform>()->GetWorldMatrix();
 		//}
 
 		//ImGuizmo::Manipulate(*viewMatirx.m, *projectionMatirx.m,

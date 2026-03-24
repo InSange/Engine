@@ -25,6 +25,9 @@
 //
 #pragma once
 
+#include "imgui.h"
+#include "imgui_internal.h"
+
 namespace ImZoomSlider
 {
    typedef int ImGuiZoomSliderFlags;

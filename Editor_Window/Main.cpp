@@ -149,9 +149,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		return FALSE;
 	}
 
-	ShowWindow(hWnd, nCmdShow);
-	UpdateWindow(hWnd);
-
 	HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 	if (FAILED(hr))
 		assert(false);
@@ -211,7 +208,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		int width = rect.right - rect.left;
 		int height = rect.bottom - rect.top;
 
-		application.ReszieGraphicDevice(width, height);
+		application.ResizeGraphicDevice();
 	}
 	break;
 	case WM_KEYDOWN:

@@ -179,6 +179,14 @@ namespace NuNu
 		return true;
 	}
 
+	bool GraphicDevice_DX11::CreateUnorderedAccessView(ID3D11Resource* pResource, const D3D11_UNORDERED_ACCESS_VIEW_DESC* pDesc, ID3D11UnorderedAccessView** ppUAView)
+	{
+		if (FAILED(mDevice->CreateUnorderedAccessView(pResource, pDesc, ppUAView)))
+			return false;
+
+		return true;
+	}
+
 	bool graphics::GraphicDevice_DX11::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc, ID3D11RasterizerState** ppRasterizerState)
 	{
 		if (FAILED(mDevice->CreateRasterizerState(pRasterizerDesc, ppRasterizerState)))
@@ -206,8 +214,8 @@ namespace NuNu
 	bool graphics::GraphicDevice_DX11::Resize(D3D11_VIEWPORT viewport)
 	{
 		// 리소스 해제
-		mRenderTargetView.Reset();
-		mRenderTarget.Reset();
+		mFrameBufferView.Reset();
+		mFrameBuffer.Reset();
 
 		mDepthStencilView.Reset();
 		mDepthStencil.Reset();
@@ -224,10 +232,10 @@ namespace NuNu
 		
 		D3D11_TEXTURE2D_DESC desc = {};
 		renderTarget->GetDesc(&desc);
-		mRenderTarget = renderTarget;
+		mFrameBuffer = renderTarget;
 		// RTV 텍스쳐를 GPU가 여기에 그릴 것이라고 등록
 		// Create RenderTargetView
-		hr = mDevice->CreateRenderTargetView(mRenderTarget.Get(), nullptr, mRenderTargetView.GetAddressOf());
+		hr = mDevice->CreateRenderTargetView(mFrameBuffer.Get(), nullptr, mFrameBufferView.GetAddressOf());
 		// 깊이 24비트 + 스텐실 8비트 포맷으로 Z버퍼 용도용 스텐실 텍스쳐 생성
 		// Create DepthStencil
 		D3D11_TEXTURE2D_DESC depthStencilDesc = {};
@@ -251,7 +259,7 @@ namespace NuNu
 		BindViewPort();
 		// RTV + DSV를 GPU 파이프라인 출력단에 최종 연결
 		// Bind RenderTarget
-		BindRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+		BindRenderTargets(1, mFrameBufferView.GetAddressOf(), mDepthStencilView.Get());
 
 		return true;
 	}
@@ -419,13 +427,18 @@ static_cast<float>(application.GetWidth()), static_cast<float>(application.GetHe
 
 	void graphics::GraphicDevice_DX11::BindDefaultRenderTarget()
 	{
-		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+		mContext->OMSetRenderTargets(1, mFrameBufferView.GetAddressOf(), mDepthStencilView.Get());
+	}
+
+	void GraphicDevice_DX11::CopyResource(ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource)
+	{
+		mContext->CopyResource(pDstResource, pSrcResource);
 	}
 
 	void graphics::GraphicDevice_DX11::ClearRenderTargetView()
 	{
 		FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
-		mContext->ClearRenderTargetView(mRenderTargetView.Get(), backgroundColor);
+		mContext->ClearRenderTargetView(mFrameBufferView.Get(), backgroundColor);
 	}
 
 	void graphics::GraphicDevice_DX11::ClearDepthStencilView()
@@ -472,10 +485,10 @@ static_cast<float>(application.GetWidth()), static_cast<float>(application.GetHe
 		if (!(CreateSwapchain(swapChainDesc)))
 			assert(nullptr && "Create Swapchain Failed!");
 
-		if (!(GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(mRenderTarget.GetAddressOf()))))
+		if (!(GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(mFrameBuffer.GetAddressOf()))))
 			assert(nullptr && "Couldn't bring rendertarget!");
 
-		if (!(CreateRenderTargetView(mRenderTarget.Get(), nullptr, mRenderTargetView.GetAddressOf())))
+		if (!(CreateRenderTargetView(mFrameBuffer.Get(), nullptr, mFrameBufferView.GetAddressOf())))
 			assert(nullptr && "Create RenderTargetView Failed!");
 
 #pragma region depthstencil desc

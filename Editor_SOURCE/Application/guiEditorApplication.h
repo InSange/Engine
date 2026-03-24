@@ -3,6 +3,8 @@
 #include "../GUI/Editor/guiEditor.h"
 #include "../GUI/EditorWindow/guiEditorWindow.h"
 
+#include "../../NuNuEngine_SOURCE/Graphics/RenderTarget/NRenderTarget.h"
+
 namespace gui
 {
 	/// <summary>
@@ -58,16 +60,22 @@ namespace gui
 		static void NewScene();
 		static void SaveScene();
 		static void SaveSceneAs();
+		static void OpenScene(const std::filesystem::path& path);
 
 	private:
 		static bool imGguiInitialize();
 		static void imGuiRender();
 
+		static std::map<std::wstring, EditorWindow*> mEditorWindows;
 		static ImGuiWindowFlags mFlag;
 		static ImGuiDockNodeFlags mDockspaceFlags;
 		static eState mState;
 		static bool mFullScreen;
+		static NuNu::math::Vector2 mViewportBounds[2];
+		static NuNu::math::Vector2 mViewportSize;
+		static bool mViewportFocused;
+		static bool mViewportHovered;
 
-		static std::map<std::wstring, EditorWindow*> mEditorWindows; // 여러 패널 관리용 딕셔너리
+		static NuNu::graphics::RenderTarget* mFrameBuffer;
 	};
 }

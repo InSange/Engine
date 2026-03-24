@@ -12,8 +12,9 @@ namespace NuNu
 		~Application();
 
 		void Initialize(HWND hwnd, int width, int height);
+		void InitializeWindow(HWND hwnd);
 		void AdjustWindowRect(HWND hwnd, int width, int height);
-		void ReszieGraphicDevice(int width, int height);
+		void ResizeGraphicDevice();
 		void InitializeEtc();
 
 		void Run();
@@ -43,10 +44,16 @@ namespace NuNu
 
 		HWND mHwnd;
 
+		// window size
+		UINT mWindowWidth;
+		UINT mWindowHeight;
+
+		// client size
 		UINT mWidth;
 		UINT mHeight;
 
-		// std::vector<Scene*> mScenes;
+		// window position
+		UINT mX, mY;
 	};
 
 }

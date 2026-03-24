@@ -119,6 +119,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Mesh\NMesh.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Material\NMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\InputLayout\NInputLayout.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\RenderTarget\NRenderTarget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h">
@@ -246,6 +247,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Mesh\NMesh.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Material\NMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\InputLayout\NInputLayout.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\RenderTarget\NRenderTarget.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

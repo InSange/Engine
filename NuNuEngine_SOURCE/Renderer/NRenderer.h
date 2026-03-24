@@ -2,6 +2,7 @@
 #include "Component/Camera/NCamera.h"
 #include "Graphics/GraphicDevice/NGraphicDevice_DX11.h"
 #include "../Graphics/GpuBuffer/NConstantBuffer.h"
+#include "../Graphics/RenderTarget/NRenderTarget.h"
 
 using namespace NuNu::math;
 using namespace NuNu::graphics;
@@ -16,6 +17,8 @@ namespace NuNu::renderer
 	extern Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[static_cast<UINT>(eRasterizerState::End)];
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[static_cast<UINT>(eBlendState::End)];
 	extern Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[static_cast<UINT>(eDepthStencilState::End)];
+
+	extern RenderTarget* FrameBuffer;
 
 	void Initialize();
 	void Release();
