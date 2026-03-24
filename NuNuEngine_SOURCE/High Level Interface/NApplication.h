@@ -8,6 +8,12 @@ namespace NuNu
 	class Application
 	{
 	public:
+		struct WindowData
+		{
+			std::wstring Title;
+			//EventCallbackFn EventCallback;
+		};
+
 		Application();
 		~Application();
 

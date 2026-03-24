@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="imgui">
@@ -9,6 +9,33 @@
     </Filter>
     <Filter Include="imGuizmo">
       <UniqueIdentifier>{620c0c27-8c6c-40f7-ba58-1880319e4436}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{ed4254c0-41ed-4381-b638-a20521289c52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Application">
+      <UniqueIdentifier>{a1b2c3d4-e5f6-7890-abcd-ef1234567890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Component">
+      <UniqueIdentifier>{b2c3d4e5-f6a7-8901-bcde-f12345678901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Component\Transform">
+      <UniqueIdentifier>{c3d4e5f6-a7b8-9012-cdef-123456789012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Editor">
+      <UniqueIdentifier>{d4e5f6a7-b8c9-0123-defa-234567890123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\EditorWindow">
+      <UniqueIdentifier>{e5f6a7b8-c9d0-1234-efab-345678901234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Entity">
+      <UniqueIdentifier>{f6a7b8c9-d0e1-2345-fabc-456789012345}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\GUILayout">
+      <UniqueIdentifier>{a7b8c9d0-e1f2-3456-abcd-567890123456}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\View">
+      <UniqueIdentifier>{b927f8a4-e210-40dc-99f5-47cd1fa98ec9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -48,14 +75,30 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Application\guiEditorApplication.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Component\guiComponent.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Component\Transform\guiTransform.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\EditorWindow\guiEditorWindow.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Editor\guiEditor.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Entity\guiEntity.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\GUILayout\guiGUILayout.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)guiInspectorWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Application\guiEditorApplication.cpp">
+      <Filter>GUI\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Component\guiComponent.cpp">
+      <Filter>GUI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Component\Transform\guiTransform.cpp">
+      <Filter>GUI\Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\EditorWindow\guiEditorWindow.cpp">
+      <Filter>GUI\EditorWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Editor\guiEditor.cpp">
+      <Filter>GUI\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Entity\guiEntity.cpp">
+      <Filter>GUI\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\GUILayout\guiGUILayout.cpp">
+      <Filter>GUI\GUILayout</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\View\guiInspectorWindow.cpp">
+      <Filter>GUI\View</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui_impl_dx11.h">
@@ -100,13 +143,29 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)imstb_truetype.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Application\guiEditorApplication.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Component\guiComponent.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Component\Transform\guiTransform.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\EditorWindow\guiEditorWindow.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Editor\guiEditor.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Entity\guiEntity.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\GUILayout\guiGUILayout.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)guiInspectorWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Application\guiEditorApplication.h">
+      <Filter>GUI\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Component\guiComponent.h">
+      <Filter>GUI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Component\Transform\guiTransform.h">
+      <Filter>GUI\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\EditorWindow\guiEditorWindow.h">
+      <Filter>GUI\EditorWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Editor\guiEditor.h">
+      <Filter>GUI\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Entity\guiEntity.h">
+      <Filter>GUI\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\GUILayout\guiGUILayout.h">
+      <Filter>GUI\GUILayout</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\View\guiInspectorWindow.h">
+      <Filter>GUI\View</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

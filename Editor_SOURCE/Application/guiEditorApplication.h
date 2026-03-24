@@ -75,6 +75,7 @@ namespace gui
 		static NuNu::math::Vector2 mViewportSize;
 		static bool mViewportFocused;
 		static bool mViewportHovered;
+		static int mGuizmoType;
 
 		static NuNu::graphics::RenderTarget* mFrameBuffer;
 	};
