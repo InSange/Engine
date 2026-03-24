@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Globals">
     <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -14,6 +14,13 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Application\guiEditorApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Component\guiComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Component\Transform\guiTransform.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\EditorWindow\guiEditorWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Editor\guiEditor.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Entity\guiEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\GUILayout\guiGUILayout.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ImGuizmo.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GraphEditor.cpp" />
@@ -28,6 +35,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Application\guiEditorApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Component\guiComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Component\Transform\guiTransform.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\EditorWindow\guiEditorWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Editor\guiEditor.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Entity\guiEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Entity\guitEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\GUILayout\guiGUILayout.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)imconfig.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ImGuizmo.h" />

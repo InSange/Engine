@@ -83,6 +83,11 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Shader_Source" "$(SolutionDir)x64\Shader_Source" /E /I /Y /R /D
+xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -99,6 +104,11 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Shader_Source" "$(SolutionDir)x64\Shader_Source" /E /I /Y /R /D
+xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -114,6 +124,11 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Shader_Source" "$(SolutionDir)x64\Shader_Source" /E /I /Y /R /D
+xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -131,6 +146,11 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Shader_Source" "$(SolutionDir)x64\Shader_Source" /E /I /Y /R /D
+xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Editor_Window.h" />

@@ -31,5 +31,6 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
+    <None Include="imgui.ini" />
   </ItemGroup>
 </Project>

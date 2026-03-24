@@ -84,8 +84,6 @@ namespace NuNu
 			Resources::Load<graphics::Texture>(L"HPBAR", L"..\\Resources\\HPBAR.bmp");
 			Resources::Load<graphics::Texture>(L"PixelMap", L"..\\Resources\\pixelMap.bmp");
 
-			renderer::Initialize();
-
 			SceneManager::CreateScene<SpaceScene>(L"TitleScene");
 			SceneManager::CreateScene<PlayScene>(L"PlayScene");
 		}
