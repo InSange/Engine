@@ -120,6 +120,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Material\NMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\InputLayout\NInputLayout.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\RenderTarget\NRenderTarget.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\NWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h">
@@ -248,6 +249,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Material\NMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\InputLayout\NInputLayout.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\RenderTarget\NRenderTarget.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\NWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\NEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\NApplicationEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\NMouseEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

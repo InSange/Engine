@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Application\guiEditorApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Application\guiImguiEditor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Component\guiComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Component\Transform\guiTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GUI\EditorWindow\guiEditorWindow.cpp" />
@@ -37,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Application\guiEditorApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Application\guiImguiEditor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Component\guiComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Component\Transform\guiTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GUI\EditorWindow\guiEditorWindow.h" />

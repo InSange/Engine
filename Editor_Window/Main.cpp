@@ -208,7 +208,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		int width = rect.right - rect.left;
 		int height = rect.bottom - rect.top;
 
-		application.ResizeGraphicDevice();
+		application.GetWindow().SetWindowResize(LOWORD(lParam), HIWORD(lParam));
+	}
+	break;
+	case WM_MOUSEMOVE:
+	{
+		application.GetWindow().SetCursorPos(wParam, lParam);
+		gui::EditorApplication::SetCursorPos(wParam, lParam);
 	}
 	break;
 	case WM_KEYDOWN:

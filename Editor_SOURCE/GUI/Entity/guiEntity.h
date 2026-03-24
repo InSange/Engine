@@ -1,5 +1,6 @@
 #pragma once
 #include "../../../NuNuEngine_SOURCE/Common/CommonInclude.h"
+#include "../../../NuNuEngine_SOURCE/Event/NEvent.h"
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui.h"

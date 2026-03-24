@@ -7,20 +7,16 @@
 #include "UI/NUIManager.h"
 #include "Fmod/NFmod.h"
 #include "Renderer/NRenderer.h"
+#include "Event/NApplicationEvent.h"
+#include "Event/NMouseEvent.h"
 
 namespace NuNu
 {
 	Application::Application()
-		: mHwnd(nullptr)
-		, mWindowWidth(0)
-		, mWindowHeight(0)
-		, mWidth(0)
-		, mHeight(0)
-		, mX(0), mY(0)
-		, mbLoaded(false)
+		: mbLoaded(false)
 		, mbRunning(false)
 	{
-
+		mWindow.SetEventCallBack(N_BIND_EVENT_FN(Application::OnEvent));
 	}
 
 	Application::~Application()
@@ -29,8 +25,7 @@ namespace NuNu
 
 	void Application::Initialize(HWND hwnd, int width, int height) //HWND는 포인터 주소로 연결되어 있음
 	{
-		mHwnd = hwnd;
-
+		mWindow.SetHwnd(hwnd);
 		AdjustWindowRect(hwnd, width, height);
 		InitializeEtc();
 
@@ -48,7 +43,8 @@ namespace NuNu
 
 	void Application::InitializeWindow(HWND hwnd)
 	{
-		SetWindowPos(hwnd, nullptr, mX, mY, mWindowWidth, mWindowHeight, 0);
+		SetWindowPos(hwnd, nullptr, mWindow.GetXPos(), mWindow.GetYPos()
+			, mWindow.GetWindowWidth(), mWindow.GetWindowHeight(), 0);
 		ShowWindow(hwnd, SW_SHOWDEFAULT);
 	}
 
@@ -58,36 +54,29 @@ namespace NuNu
 		::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
 		RECT winRect;
-		::GetWindowRect(mHwnd, &winRect);
+		::GetWindowRect(mWindow.GetHwnd(), &winRect);
 
 		//window position
-		mX = winRect.left;
-		mY = winRect.top;
+		mWindow.SetPos(winRect.left, winRect.top);
 
 		// window size
-		mWindowWidth = rect.right - rect.left;
-		mWindowHeight = rect.bottom - rect.top;
+		mWindow.SetWindowWidth(rect.right - rect.left);
+		mWindow.SetWindowHeight(rect.bottom - rect.top);
 
 		//client size
-		mWidth = width;
-		mHeight = height;
+		mWindow.SetWidth(width);
+		mWindow.SetHeight(height);
 
 		InitializeWindow(hwnd);
 	}
 
-	void Application::ResizeGraphicDevice()
+	void Application::ReszieGraphicDevice(UINT width, UINT height)
 	{
 		if (mGraphicDevice == nullptr)
 			return;
 
-		RECT winRect;
-		::GetClientRect(mHwnd, &winRect);
-
-		UINT newWidth  = static_cast<UINT>(winRect.right  - winRect.left);
-		UINT newHeight = static_cast<UINT>(winRect.bottom - winRect.top);
-
 		// 창이 최소화되거나 아직 초기화 전이면 크기가 0 -> 무시
-		if (newWidth == 0 || newHeight == 0)
+		if (width == 0 || height == 0)
 			return;
 
 		// FrameBuffer가 아직 생성되지 않은 초기화 시점이어도 안전하게 무시
@@ -97,16 +86,16 @@ namespace NuNu
 		D3D11_VIEWPORT viewport = {};
 		viewport.TopLeftX = 0.0f;
 		viewport.TopLeftY = 0.0f;
-		viewport.Width  = static_cast<float>(newWidth);
-		viewport.Height = static_cast<float>(newHeight);
+		viewport.Width = static_cast<float>(width);
+		viewport.Height = static_cast<float>(height);
 		viewport.MinDepth = 0.0f;
 		viewport.MaxDepth = 1.0f;
 
-		mWidth  = newWidth;
-		mHeight = newHeight;
+		mWindow.SetWidth(viewport.Width);
+		mWindow.SetHeight(viewport.Height);
 
 		mGraphicDevice->Resize(viewport);
-		renderer::FrameBuffer->Resize(mWidth, mHeight);
+		renderer::FrameBuffer->Resize(viewport.Width, viewport.Height);
 	}
 
 
@@ -114,6 +103,22 @@ namespace NuNu
 	{
 		Input::Initialize();
 		Time::Initialize();
+	}
+
+	void Application::OnEvent(Event& e)
+	{
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowResizeEvent>([this](WindowResizeEvent& e) -> bool
+			{
+				ReszieGraphicDevice(e.GetWidth(), e.GetHeight());
+				return true;
+			});
+
+		dispatcher.Dispatch<MouseMovedEvent>([this](MouseMovedEvent& e) -> bool
+			{
+				// Todo : MouseMovedEvent
+				return true;
+			});
 	}
 
 	void Application::Run()

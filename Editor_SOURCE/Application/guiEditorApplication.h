@@ -2,8 +2,10 @@
 
 #include "../GUI/Editor/guiEditor.h"
 #include "../GUI/EditorWindow/guiEditorWindow.h"
+#include "../Application/guiImguiEditor.h"
 
 #include "../../NuNuEngine_SOURCE/Graphics/RenderTarget/NRenderTarget.h"
+#include "../../NuNuEngine_SOURCE/Event/NEvent.h"
 
 namespace gui
 {
@@ -56,15 +58,24 @@ namespace gui
 		/// </summary>
 		static void Release();
 
+		/// <summary>
+		/// EditorApplication 이벤트 처리
+		/// </summary>
+		static void OnEvent(NuNu::Event& e);
+
 		static void OpenProject();
 		static void NewScene();
 		static void SaveScene();
 		static void SaveSceneAs();
 		static void OpenScene(const std::filesystem::path& path);
 
+		static void OnImGuiRender();
+
+		//Event
+		static void SetCursorPos(double x, double y);
+
 	private:
-		static bool imGguiInitialize();
-		static void imGuiRender();
+		static ImguiEditor* mImguiEditor;
 
 		static std::map<std::wstring, EditorWindow*> mEditorWindows;
 		static ImGuiWindowFlags mFlag;
@@ -78,5 +89,6 @@ namespace gui
 		static int mGuizmoType;
 
 		static NuNu::graphics::RenderTarget* mFrameBuffer;
+		static NuNu::EventCallbackFn mEventCallback;
 	};
 }

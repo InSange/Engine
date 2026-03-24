@@ -413,7 +413,7 @@ namespace NuNu
 		D3D11_VIEWPORT viewPort =
 		{
 			0, 0,
-static_cast<float>(application.GetWidth()), static_cast<float>(application.GetHeight()),
+static_cast<float>(application.GetWindow().GetWidth()), static_cast<float>(application.GetWindow().GetHeight()),
 			0.0f, 1.0f
 		};
 
@@ -451,15 +451,15 @@ static_cast<float>(application.GetWidth()), static_cast<float>(application.GetHe
 #pragma region swapchain desc
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
 
-		swapChainDesc.OutputWindow = application.GetHwnd();	// 어느 윈도우에 해당 화면을 띄울것인지 세팅
+		swapChainDesc.OutputWindow = application.GetWindow().GetHwnd();	// 어느 윈도우에 해당 화면을 띄울것인지 세팅
 		swapChainDesc.Windowed = true;	// 전체화면이 아닌 창모드 실행
 		swapChainDesc.BufferCount = 2;	// 삼중 버퍼(3)도 가능하지만 이중 버퍼링 사용
 		swapChainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;	// 창모드 <-> 전체 화면 전환을 허용
 		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD; // 이전 프레임 장면을 유지하지 않는다.
 
 		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;	// 렌더 타겟으로 사용
-		swapChainDesc.BufferDesc.Width = application.GetWidth();	// 백버퍼의 너비
-		swapChainDesc.BufferDesc.Height = application.GetHeight();	// 백버퍼의 높이
+		swapChainDesc.BufferDesc.Width = application.GetWindow().GetWidth();	// 백버퍼의 너비
+		swapChainDesc.BufferDesc.Height = application.GetWindow().GetHeight();	// 백버퍼의 높이
 		swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;	// 백버퍼의 포맷
 		swapChainDesc.BufferDesc.RefreshRate.Numerator = 144;	// 수직 동기화
 		swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
@@ -496,8 +496,8 @@ static_cast<float>(application.GetWidth()), static_cast<float>(application.GetHe
 		depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 		depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 		depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
-		depthStencilDesc.Width = application.GetWidth();
-		depthStencilDesc.Height = application.GetHeight();
+		depthStencilDesc.Width = application.GetWindow().GetWidth();
+		depthStencilDesc.Height = application.GetWindow().GetHeight();
 		depthStencilDesc.ArraySize = 1;
 		depthStencilDesc.SampleDesc.Count = 1;
 		depthStencilDesc.SampleDesc.Quality = 0;
