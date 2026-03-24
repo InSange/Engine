@@ -55,6 +55,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Editor\guiEditor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Entity\guiEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GUI\GUILayout\guiGUILayout.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)guiInspectorWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui_impl_dx11.h">
@@ -105,7 +106,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GUI\EditorWindow\guiEditorWindow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Editor\guiEditor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Entity\guiEntity.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Entity\guitEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GUI\GUILayout\guiGUILayout.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)guiInspectorWindow.h" />
   </ItemGroup>
 </Project>

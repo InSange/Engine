@@ -1,4 +1,4 @@
-﻿// Editor_Window.cpp : 애플리케이션에 대한 진입점을 정의합니다.
+// Editor_Window.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
 #include "framework.h"
@@ -38,6 +38,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸
 	// _CrtSetBreakAlloc(414);
 	 // TODO: 여기에 코드를 입력합니다.
 	 //
+
+	SetProcessDPIAware();
 
 	 // 전역 문자열을 초기화합니다.
 	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -128,8 +130,19 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	const UINT width = 1600;
 	const UINT height = 900;
-	HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-		0, 0, width, height, nullptr, nullptr, hInstance, nullptr);
+	//HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+	//	0, 0, width, height, nullptr, nullptr, hInstance, nullptr);
+
+	// 원래는 전체 화면(1600x900)이 제목 표시줄에 먹혀서 작아지는 현상을 방지
+	RECT rect = { 0, 0, (LONG)width, (LONG)height };
+	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+
+	// 현재 DX11 해상도 변환(Resize) 기능이 없으므로, 창 늘리기(스케일링)와 최대화 버튼을 잠시 끕니다.
+	// (안 그러면 화면이 늘어나면서 마우스 좌표가 다 망가져버립니다!)
+	HWND hWnd = CreateWindowW(szWindowClass, szTitle, 
+		WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX,
+		0, 0, rect.right - rect.left, rect.bottom - rect.top, 
+		nullptr, nullptr, hInstance, nullptr);
 
 	if (!hWnd)
 	{
