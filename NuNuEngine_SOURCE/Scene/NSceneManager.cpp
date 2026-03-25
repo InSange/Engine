@@ -1,11 +1,54 @@
 ﻿#include "Scene/NSceneManager.h"
 #include "Scene/NDontDestroyOnLoad.h"
+#include "../Event/NGameObjectEvent.h"
 
 namespace NuNu
 {
 	std::map<std::wstring, Scene*> SceneManager::mScene = {};
 	Scene* SceneManager::mActiveScene = nullptr;
 	Scene* SceneManager::mDontDestroyOnLoad = nullptr;
+	EventQueue SceneManager::mEventQueue;
+
+	void SceneManager::Initialize()
+	{
+		mDontDestroyOnLoad = CreateScene<DontDestroyOnLoad>(L"DontDestroyOnLoad");
+		InitializeEventHandlers();
+	}
+
+	void SceneManager::Update()
+	{
+		mActiveScene->Update();
+		mDontDestroyOnLoad->Update();
+	}
+
+	void SceneManager::LateUpdate()
+	{
+		mActiveScene->LateUpdate();
+		mDontDestroyOnLoad->LateUpdate();
+	}
+
+	void SceneManager::Render()
+	{
+		mActiveScene->Render();
+		mDontDestroyOnLoad->Render();
+	}
+
+	void SceneManager::EndOfFrame()
+	{
+		mActiveScene->EndOfFrame();
+		mDontDestroyOnLoad->EndOfFrame();
+
+		mEventQueue.Process();
+	}
+
+	void SceneManager::Release()
+	{
+		for (auto& iter : mScene)
+		{
+			delete iter.second;
+			iter.second = nullptr;
+		}
+	}
 
 	bool SceneManager::SetActiveScene(const std::wstring& name)
 	{
@@ -40,43 +83,35 @@ namespace NuNu
 		return gameObjects;
 	}
 
-	void SceneManager::Initialize()
+	void SceneManager::InitializeEventHandlers()
 	{
-		mDontDestroyOnLoad = CreateScene<DontDestroyOnLoad>(L"DontDestroyOnLoad");
+		mEventQueue.RegisterHandler<GameObjectCreatedEvent>([](GameObjectCreatedEvent& e) -> bool
+			{
+				SceneManager::GameObjectCreated(e.GetGameObject(), e.GetScene());
+				return true;
+			});
+
+		mEventQueue.RegisterHandler<GameObjectDestroyedEvent>([](GameObjectDestroyedEvent& e) -> bool
+			{
+				SceneManager::GameObjectDestroyed(e.GetGameObject(), e.GetScene());
+				return true;
+			});
+
+		// 기본 핸들러 등록
+		mEventQueue.SetCallback([](Event& e)
+			{
+				std::cout << "[Application] Unhandled Event: " << e.ToString() << std::endl;
+			});
 	}
 
-	void SceneManager::Update()
+	void SceneManager::GameObjectCreated(GameObject* gameObject, Scene* scene)
 	{
-		mActiveScene->Update();
-		mDontDestroyOnLoad->Update();
+		scene->AddGameObject(gameObject, gameObject->GetLayerType());
 	}
 
-	void SceneManager::LateUpdate()
+	void SceneManager::GameObjectDestroyed(GameObject* gameObject, Scene* scene)
 	{
-		mActiveScene->LateUpdate();
-		mDontDestroyOnLoad->LateUpdate();
-	}
-
-	void SceneManager::Render()
-	{
-		mActiveScene->Render();
-		mDontDestroyOnLoad->Render();
-	}
-
-	void SceneManager::EndOfFrame()
-	{
-		mActiveScene->EndOfFrame();
-		mDontDestroyOnLoad->EndOfFrame();
-	}
-
-	void SceneManager::Release()
-	{
-		for (auto& iter : mScene)
-		{
-			delete iter.second;
-			iter.second = nullptr;
-		}
-		mScene.clear();
+		scene->EraseGameObject(gameObject);
 	}
 
 }

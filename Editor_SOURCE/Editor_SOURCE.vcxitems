@@ -16,8 +16,8 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Application\guiEditorApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Application\guiImguiEditor.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)guiHierarchyWindow.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)guiProjectWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\View\guiHierarchyWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\View\guiProjectWindow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Component\guiComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GUI\Component\Transform\guiTransform.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GUI\EditorWindow\guiEditorWindow.cpp" />
@@ -37,14 +37,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui_impl_win32.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui_tables.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)imgui_widgets.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)guiConsoleWindow.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)guiGameWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\View\guiConsoleWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\View\guiGameWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Application\guiEditorApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Application\guiImguiEditor.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)guiHierarchyWindow.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)guiProjectWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\View\guiHierarchyWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\View\guiProjectWindow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Component\guiComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GUI\Component\Transform\guiTransform.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GUI\EditorWindow\guiEditorWindow.h" />
@@ -66,7 +66,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)imstb_rectpack.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)imstb_textedit.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)imstb_truetype.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)guiConsoleWindow.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)guiGameWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\View\guiConsoleWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\View\guiGameWindow.h" />
   </ItemGroup>
 </Project>

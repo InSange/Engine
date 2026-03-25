@@ -7,6 +7,7 @@
 #include "Component/Transform/NTransform.h"
 #include "../High Level Interface/NApplication.h"
 #include "../Event/NGameObjectEvent.h"
+#include "../Scene/NSceneManager.h"
 
 extern NuNu::Application application;
 
@@ -19,11 +20,7 @@ namespace NuNu::object
 		gameObject->SetLayerType(type);
 
 		Scene* activeScene = SceneManager::GetActiveScene();
-		Layer* layer = activeScene->GetLayer(type);
-
-		layer->AddGameObject(gameObject);
-
-		application.PushEvent(new NuNu::GameObjectCreatedEvent(gameObject, activeScene));
+		SceneManager::PushEvent(new NuNu::GameObjectCreatedEvent(gameObject, activeScene));
 
 		return gameObject;
 	}
@@ -33,13 +30,12 @@ namespace NuNu::object
 	{
 		T* gameObject = new T();
 		gameObject->SetLayerType(type);
-		Scene* activeScene = SceneManager::GetActiveScene();
-		Layer* layer = activeScene->GetLayer(type);
-
-		layer->AddGameObject(gameObject);
 
 		Transform* tr = gameObject->template GetComponent<Transform>();
 		tr->SetPosition(position);
+
+		Scene* activeScene = SceneManager::GetActiveScene();
+		SceneManager::PushEvent(new NuNu::GameObjectCreatedEvent(gameObject, activeScene));
 
 		return gameObject;
 	}
@@ -60,6 +56,6 @@ namespace NuNu::object
 			gameObject->death();
 
 		Scene* activeScene = SceneManager::GetActiveScene();
-		application.PushEvent(new NuNu::GameObjectDestroyedEvent(gameObject, activeScene));
+		SceneManager::PushEvent(new NuNu::GameObjectDestroyedEvent(gameObject, activeScene));
 	}
 }

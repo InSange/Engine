@@ -9,7 +9,6 @@
 #include "Renderer/NRenderer.h"
 #include "Event/NApplicationEvent.h"
 #include "Event/NMouseEvent.h"
-#include "Event/NGameObjectEvent.h"
 
 namespace NuNu
 {
@@ -105,31 +104,6 @@ namespace NuNu
 		Input::Initialize();
 		Time::Initialize();
 
-		InitializeEventHandlers();
-	}
-
-	void Application::InitializeEventHandlers()
-	{
-		// 이벤트 핸들러 등록
-		mEventQueue.RegisterHandler<GameObjectCreatedEvent>([this](GameObjectCreatedEvent& e) -> bool
-			{
-				int a = 0;
-
-				return true;
-			});
-
-		mEventQueue.RegisterHandler<GameObjectDestroyedEvent>([this](GameObjectDestroyedEvent& e) -> bool
-			{
-				int a = 0;
-
-				return true;
-			});
-
-		// 기본 핸들러 등록
-		mEventQueue.SetCallback([this](Event& e)
-			{
-				std::cout << "[Application] Unhandled Event: " << e.ToString() << std::endl;
-			});
 	}
 
 	void Application::OnWindowEvent(Event& e)
@@ -204,8 +178,6 @@ namespace NuNu
 	void Application::EndOfFrame()
 	{
 		SceneManager::EndOfFrame();
-
-		mEventQueue.Process();
 	}
 
 	void Application::Release()
