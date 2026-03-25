@@ -253,6 +253,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NApplicationEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NMouseEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\NKeyEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

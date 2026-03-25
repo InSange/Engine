@@ -200,27 +200,41 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	break;
 	case WM_SIZE:
 	{
-		RECT rect = { 0, 0, 1600, 900 }; // 기본값 설정
-		GetWindowRect(hWnd, &rect); // 현재 윈도우의 좌표와 크기를 가져옴
-
-		int x = rect.left;
-		int y = rect.top;
-		int width = rect.right - rect.left;
-		int height = rect.bottom - rect.top;
-
 		application.GetWindow().SetWindowResize(LOWORD(lParam), HIWORD(lParam));
+	}
+	break;
+	case WM_KEYDOWN:
+	case WM_SYSKEYDOWN:
+	case WM_KEYUP:
+	case WM_SYSKEYUP:
+	{
+		const int keyCode = static_cast<int>(wParam);
+		const int scancode = (lParam >> 16) & 0x1ff;
+
+		const int KEY_RELEASE = 0;
+		const int KEY_PRESS = 1;
+
+		const int action = ((lParam >> 31) & 1) ? KEY_RELEASE : KEY_PRESS;
+
+		const int mods = []() -> int
+			{
+				int mod = 0;
+				if (GetKeyState(VK_SHIFT) & 0x8000) mod |= 1;
+				if (GetKeyState(VK_CONTROL) & 0x8000) mod |= 2;
+				if (GetKeyState(VK_MENU) & 0x8000) mod |= 4;
+
+				return mod;
+			}();
+
+		gui::EditorApplication::SetKeyPressed(keyCode, scancode, action, mods);
+
 	}
 	break;
 	case WM_MOUSEMOVE:
 	{
-		application.GetWindow().SetCursorPos(wParam, lParam);
 		gui::EditorApplication::SetCursorPos(wParam, lParam);
 	}
 	break;
-	case WM_KEYDOWN:
-	{
-
-	}
 	case WM_PAINT:
 	{
 		// 여기는 계속 반복적으로 그려냄

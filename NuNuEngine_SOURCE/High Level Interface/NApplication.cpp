@@ -70,13 +70,13 @@ namespace NuNu
 		InitializeWindow(hwnd);
 	}
 
-	void Application::ReszieGraphicDevice(UINT width, UINT height)
+	void Application::ResizeGraphicDevice(WindowResizeEvent& e)
 	{
 		if (mGraphicDevice == nullptr)
 			return;
 
 		// 창이 최소화되거나 아직 초기화 전이면 크기가 0 -> 무시
-		if (width == 0 || height == 0)
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 			return;
 
 		// FrameBuffer가 아직 생성되지 않은 초기화 시점이어도 안전하게 무시
@@ -86,8 +86,8 @@ namespace NuNu
 		D3D11_VIEWPORT viewport = {};
 		viewport.TopLeftX = 0.0f;
 		viewport.TopLeftY = 0.0f;
-		viewport.Width = static_cast<float>(width);
-		viewport.Height = static_cast<float>(height);
+		viewport.Width = static_cast<float>(e.GetWidth());
+		viewport.Height = static_cast<float>(e.GetHeight());
 		viewport.MinDepth = 0.0f;
 		viewport.MaxDepth = 1.0f;
 
@@ -110,13 +110,7 @@ namespace NuNu
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowResizeEvent>([this](WindowResizeEvent& e) -> bool
 			{
-				ReszieGraphicDevice(e.GetWidth(), e.GetHeight());
-				return true;
-			});
-
-		dispatcher.Dispatch<MouseMovedEvent>([this](MouseMovedEvent& e) -> bool
-			{
-				// Todo : MouseMovedEvent
+				ResizeGraphicDevice(e);
 				return true;
 			});
 	}

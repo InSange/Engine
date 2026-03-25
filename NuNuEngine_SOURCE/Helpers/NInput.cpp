@@ -7,7 +7,7 @@ namespace NuNu
 {
 	std::vector<Input::Key> Input::Keys = {};
 	Vector2 Input::mMousePosition = Vector2::One;
-
+/*
 	int ASCII[static_cast<UINT>(eKeyCode::End)] = {
 		'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
 		'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
@@ -16,7 +16,7 @@ namespace NuNu
 		VK_LBUTTON, VK_MBUTTON, VK_RBUTTON,
 		VK_LCONTROL,
 		VK_SPACE,
-	};
+	};*/
 
 	void Input::Initialize()
 	{
@@ -30,12 +30,15 @@ namespace NuNu
 
 	void Input::createKeys()
 	{
-		for (size_t i = 0; i < static_cast<UINT>(eKeyCode::End); i++)
+		for (int vk = 0; vk <= 0xFF; ++vk)
 		{
+			eKeyCode keyCode = static_cast<eKeyCode>(vk);
+
 			Key key = {};
 			key.bPressed = false;
 			key.State = eKeyState::None;
-			key.KeyCode = static_cast<eKeyCode>(i);
+			key.KeyCode = keyCode;
+			key.VK_KeyCode = vk;
 
 			Keys.push_back(key);
 		}
@@ -73,7 +76,7 @@ namespace NuNu
 
 	bool Input::isKeyDown(eKeyCode code)
 	{
-		return GetAsyncKeyState(ASCII[static_cast<UINT>(code)]) & 0x8000;
+		return GetAsyncKeyState(static_cast<int>(code)) & 0x8000;
 	}
 
 	void Input::updateKeyDown(Key& key)

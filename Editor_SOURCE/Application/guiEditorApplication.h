@@ -6,6 +6,13 @@
 
 #include "../../NuNuEngine_SOURCE/Graphics/RenderTarget/NRenderTarget.h"
 #include "../../NuNuEngine_SOURCE/Event/NEvent.h"
+#include "../../NuNuEngine_SOURCE/Event/NKeyEvent.h"
+#include "../../NuNuEngine_SOURCE/Event/NMouseEvent.h"
+
+namespace NuNu
+{
+	class KeyPressedEvent;
+}
 
 namespace gui
 {
@@ -72,7 +79,11 @@ namespace gui
 		static void OnImGuiRender();
 
 		//Event
+		static void SetKeyPressed(int keyCode, int scancode, int action, int mods);
 		static void SetCursorPos(double x, double y);
+		static bool OnKeyPressed(NuNu::KeyPressedEvent& e);
+
+		static void SetGuizmoType(int type) { mGuizmoType = type; }
 
 	private:
 		static ImguiEditor* mImguiEditor;

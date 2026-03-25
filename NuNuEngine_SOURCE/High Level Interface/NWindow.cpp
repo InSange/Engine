@@ -20,12 +20,4 @@ namespace NuNu
 			mData.EventCallback(event);
 	}
 
-	void Window::SetCursorPos(double x, double y)
-	{
-		MouseMovedEvent event(x, y);
-
-		if (mData.EventCallback)
-			mData.EventCallback(event);
-	}
-
 }

@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include "GameObject/NGameObject.h"
 #include "Graphics/GraphicDevice/NGraphicDevice_DX11.h"
+#include "Event/NApplicationEvent.h"
+#include "Event/NMouseEvent.h"
+#include "Event/NKeyEvent.h"
 #include "Event/NEvent.h"
 #include "NWindow.h"
 
@@ -16,7 +19,7 @@ namespace NuNu
 		void Initialize(HWND hwnd, int width, int height);
 		void InitializeWindow(HWND hwnd);
 		void AdjustWindowRect(HWND hwnd, int width, int height);
-		void ReszieGraphicDevice(UINT width, UINT height);
+		void ResizeGraphicDevice(WindowResizeEvent& e);
 		void InitializeEtc();
 
 		void OnEvent(Event& e);

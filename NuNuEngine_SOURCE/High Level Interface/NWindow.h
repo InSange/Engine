@@ -39,8 +39,7 @@ namespace NuNu
 		};
 
 		void Initialize();
-		void SetWindowResize(UINT width, UINT height);
-		void SetCursorPos(double x, double y);
+		void SetWindowResize(UINT width, UINT height);;
 
 		void SetEventCallBack(const EventCallbackFn& callback) { mData.EventCallback = callback; }
 

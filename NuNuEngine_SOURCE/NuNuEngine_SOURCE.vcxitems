@@ -17,6 +17,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NApplicationEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\NKeyEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NMouseEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\NGraphics.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimation.h" />
