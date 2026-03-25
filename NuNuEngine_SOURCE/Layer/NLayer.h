@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Common/NEntity.h"
+#include "Entity/NEntity.h"
 #include "Common/CommonInclude.h"
 #include "GameObject/NGameObject.h"
 

@@ -29,7 +29,7 @@ namespace NuNu
 		Vector3 pos = tr->GetPosition();
 	}
 
-	void AudioSource::Render()
+	void AudioSource::Render(const Matrix& view, const Matrix& projection)
 	{
 	}
 

@@ -19,7 +19,7 @@ namespace NuNu
     void Script::LateUpdate()
     {
     }
-    void Script::Render()
+    void Script::Render(const Matrix& view, const Matrix& projection)
     {
     }
     void Script::OnCollisionEnter(Collider* other)

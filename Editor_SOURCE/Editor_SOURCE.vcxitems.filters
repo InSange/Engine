@@ -99,6 +99,11 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GUI\View\guiInspectorWindow.cpp">
       <Filter>GUI\View</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Application\guiImguiEditor.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\View\guiHierarchyWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\View\guiProjectWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\View\guiConsoleWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GUI\View\guiGameWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)imgui_impl_dx11.h">
@@ -167,5 +172,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GUI\View\guiInspectorWindow.h">
       <Filter>GUI\View</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Application\guiImguiEditor.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\View\guiHierarchyWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\View\guiProjectWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\View\guiConsoleWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GUI\View\guiGameWindow.h" />
   </ItemGroup>
 </Project>

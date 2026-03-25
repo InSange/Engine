@@ -1,7 +1,7 @@
 ﻿#include "Component/TileMapRenderer/NTilemapRenderer.h"
 #include "Component/Transform/NTransform.h"
 #include "GameObject/NGameObject.h"
-#include "Renderer/NRenderer.h"
+#include "High Level Interface/Renderer/NRenderer.h"
 #include "High Level Interface/NApplication.h"
 
 namespace NuNu
@@ -37,7 +37,7 @@ namespace NuNu
 	{
 	}
 
-	void TilemapRenderer::Render()
+	void TilemapRenderer::Render(const Matrix& view, const Matrix& projection)
 	{
 /*		if (mTexture == nullptr)
 			assert(false);*/

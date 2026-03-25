@@ -3,10 +3,11 @@
 #include "Resource/Texture/NTexture.h"
 #include "../../Resource/Material/NMaterial.h"
 #include "../../Resource/Mesh/NMesh.h"
+#include "../../High Level Interface/Renderer/NBaseRenderer.h"
 
 namespace NuNu
 {
-	class SpriteRenderer : public Component
+	class SpriteRenderer : public BaseRenderer
 	{
 	public:
 		SpriteRenderer();
@@ -15,15 +16,12 @@ namespace NuNu
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;
-		void Render() override;
+		void Render(const Matrix& view, const Matrix& projection) override;
 
 		void SetSprite(graphics::Texture* sprite) { mSprite = sprite; }
-		void SetMaterial(Material* material) { mMaterial = material; }
 
 	private:
 		graphics::Texture* mSprite;
-		Material* mMaterial;
-		Mesh* mMesh;
 	};
 }
 

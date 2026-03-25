@@ -9,6 +9,7 @@
 #include "Renderer/NRenderer.h"
 #include "Event/NApplicationEvent.h"
 #include "Event/NMouseEvent.h"
+#include "Component/Transform/NTransform.h"
 
 namespace NuNu
 {
@@ -159,9 +160,9 @@ namespace NuNu
 		GetDevice()->BindDefaultRenderTarget();
 
 		Time::Render();
+		SceneManager::Render();
 		CollisionManager::Render();
 		UIManager::Render();
-		SceneManager::Render();
 
 		//copy back buffer
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> src = GetDevice()->GetFrameBuffer();

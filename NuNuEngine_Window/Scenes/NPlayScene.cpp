@@ -3,32 +3,15 @@
 #include "Contents/NPlayer.h"
 #include "UI/NUIManager.h"
 #include "Contents/NDemon.h"
-#include "Component/Transform/NTransform.h"
 #include "Component/SpriteRenderer/NSpriteRenderer.h"
-#include "Helpers/NInput.h"
 #include "Scenes/NSpaceScene.h"
-#include "Scene/NSceneManager.h"
 #include "Object/NObject.h"
 #include "Resource/Texture/NTexture.h"
 #include "Resource/NResources.h"
 #include "Scripts/NPlayerScript.h"
 #include "Component/Camera/NCamera.h"
-#include "Renderer/NRenderer.h"
-#include "Component/Animator/NAnimator.h"
-#include "Component/Collider/NBoxCollider2D.h"
-#include "Component/Collider/NCircleCollider2D.h"
-#include "Collision/NCollisionManager.h"
-#include "Contents/NTile.h"
-#include "Component/TileMapRenderer/NTilemapRenderer.h"
-#include "Component/RigidBody/NRigidbody.h"
-#include "Contents/NFloor.h"
-#include "Resource/Audio/NAudioClip.h"
-#include "Component/Audio/NAudioListener.h"
-#include "Component/Audio/NAudioSource.h"
-#include "../../NuNuEngine_SOURCE/Graphics/GraphicDevice/NGraphicDevice_DX11.h"
-#include "../../NuNuEngine_SOURCE/Component/SpriteRenderer/NSpriteRenderer.h"
-#include "../../NuNuEngine_SOURCE/Resource/Material/NMaterial.h"
-#include "../Scripts/NCameraScript.h"
+#include "High Level Interface/Renderer/NRenderer.h"
+#include "Component/Camera/NSceneCamera.h"
 
 namespace NuNu
 {
@@ -45,11 +28,10 @@ namespace NuNu
 		Scene::Initialize();
 
 		GameObject* camera = object::Instantiate<GameObject>(eLayerType::None, Vector3(0.0f, 0.0f, -10.0f));
-		Camera* cameraComp = camera->AddComponent<Camera>();
+		SceneCamera* cameraComp = camera->AddComponent<SceneCamera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Perspective);
 		cameraComp->SetSize(200.0f);
 
-		CameraScript* cameraScript = camera->AddComponent<CameraScript>();
 		renderer::mainCamera = cameraComp;
 
 		for (size_t i = 0; i < 1; i++)

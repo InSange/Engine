@@ -7,7 +7,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObject\NGameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NEntity.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Entity\NEntity.cpp">
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene\NScene.cpp">
@@ -46,7 +46,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NCamera.cpp">
       <Filter>Component\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Renderer\NRenderer.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Component\NComponent.cpp">
@@ -122,6 +122,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\RenderTarget\NRenderTarget.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\NWindow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Event\Queue\NEventQueue.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NEditorCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NSceneCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NBaseRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h">
@@ -133,7 +136,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObject\NGameObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEntity.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Entity\NEntity.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene\NScene.h">
@@ -172,7 +175,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NCamera.h">
       <Filter>Component\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Renderer\NRenderer.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Component\NComponent.h">
@@ -257,6 +260,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NKeyEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\Queue\NEventQueue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NGameObjectEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NEditorCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NSceneCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NBaseRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

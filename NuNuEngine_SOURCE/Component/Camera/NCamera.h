@@ -1,5 +1,9 @@
 ﻿#pragma once
 #include "Component/Component/NComponent.h"
+
+#include "Event/NEvent.h"
+#include "GameObject/NGameObject.h"
+
 namespace NuNu
 {
 	using namespace NuNu::math;
@@ -12,19 +16,13 @@ namespace NuNu
 			Orthographic
 		};
 
-		static Matrix GetGpuViewMatrix() { return ViewMatrix; }
-		static Matrix GetGpuProjectionMatrix() { return ProjectionMatrix; }
-
-		static void SetGpuViewMatrix(const Matrix& matrix) { ViewMatrix = matrix; }
-		static void SetGpuProjectionMatrix(const Matrix& matrix) { ProjectionMatrix = matrix; }
-		
 		Camera();
 		virtual ~Camera();
 
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;
-		void Render() override;
+		void Render(const Matrix& view, const Matrix& projection) override;
 
 		void CreateViewMatrix();
 		void CreateProjectionMatrix(eProjectionType type);
@@ -36,9 +34,6 @@ namespace NuNu
 		void SetSize(const float size) { mSize = size; }
 
 	private:
-		static Matrix ViewMatrix;
-		static Matrix ProjectionMatrix;
-
 		eProjectionType mProjectionType;
 
 		Matrix mViewMatrix;

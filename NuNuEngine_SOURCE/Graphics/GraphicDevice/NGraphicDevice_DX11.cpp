@@ -1,5 +1,5 @@
 ﻿#include "./High Level Interface/NApplication.h"
-#include "Renderer/NRenderer.h"
+#include "High Level Interface/Renderer/NRenderer.h"
 #include "NGraphicDevice_DX11.h"
 #include "Resource/Graphics/Shader/NShader.h"
 #include "Resource/NResources.h"

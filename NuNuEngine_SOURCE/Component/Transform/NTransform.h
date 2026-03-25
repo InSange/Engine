@@ -3,6 +3,8 @@
 
 namespace NuNu
 {
+	using namespace math;
+
 	class Transform : public Component
 	{
 	public:
@@ -12,9 +14,9 @@ namespace NuNu
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;
-		void Render() override;
+		void Render(const Matrix& view, const Matrix& projection) override;
 
-		void Bind() const;
+		void Bind(const Matrix& view, const Matrix& projection) const;
 	
 		Transform* GetParent() const { return mParent; }
 		void SetParent(Transform* parent) { mParent = parent; }

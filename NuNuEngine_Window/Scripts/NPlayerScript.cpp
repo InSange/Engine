@@ -6,7 +6,7 @@
 #include "Contents/NDemon.h"
 #include "Object/NObject.h"
 #include "Resource/NResources.h"
-#include "Renderer/NRenderer.h"
+#include "High Level Interface/Renderer/NRenderer.h"
 #include "Component/Collider/NCollider.h"
 #include "Component/RigidBody/NRigidbody.h"
 #include "UI/NUIManager.h"
@@ -43,12 +43,13 @@ namespace NuNu
 		if (Input::GetKeyDown(eKeyCode::D))
 		{
 			object::Destroy(mProjTile);
+			mProjTile = nullptr;
 		}
 	}
 	void PlayerScript::LateUpdate()
 	{
 	}
-	void PlayerScript::Render()
+	void PlayerScript::Render(const Matrix& view, const Matrix& projection)
 	{
 	}
 	void PlayerScript::idle()

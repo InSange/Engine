@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "Component/Camera/NCamera.h"
 #include "Graphics/GraphicDevice/NGraphicDevice_DX11.h"
-#include "../Graphics/GpuBuffer/NConstantBuffer.h"
-#include "../Graphics/RenderTarget/NRenderTarget.h"
+#include "../../Graphics/GpuBuffer/NConstantBuffer.h"
+#include "../../Graphics/RenderTarget/NRenderTarget.h"
 
 using namespace NuNu::math;
 using namespace NuNu::graphics;

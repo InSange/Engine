@@ -1,5 +1,5 @@
 ﻿#include "NShader.h"
-#include "../../../Renderer/NRenderer.h"
+#include "../../../High Level Interface/Renderer/NRenderer.h"
 #include "../../NResources.h"
 
 namespace NuNu::graphics
@@ -9,7 +9,7 @@ namespace NuNu::graphics
     graphics::Shader::Shader()
         : Resource(eResourceType::Shader)
         , mRasterizerState(eRasterizerState::SolidNone)
-        , mBlendState(eBlendState::AlphaBlend)
+        , mBlendState(eBlendState::Opaque)
         , mDepthStencilState(eDepthStencilState::LessEqual)
     {
 

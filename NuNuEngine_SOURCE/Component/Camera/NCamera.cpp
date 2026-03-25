@@ -2,14 +2,12 @@
 #include "GameObject/NGameObject.h"
 #include "Component/Transform/NTransform.h"
 #include "High Level Interface/NApplication.h"
+#include "Scene/NSceneManager.h"
 
 extern NuNu::Application application;
 
 namespace NuNu
 {
-	Matrix Camera::ViewMatrix = Matrix::Identity;
-	Matrix Camera::ProjectionMatrix = Matrix::Identity;
-
 	Camera::Camera()
 		: Component(eComponentType::Camera)
 		, mProjectionType(eProjectionType::Perspective)
@@ -28,7 +26,8 @@ namespace NuNu
 
 	void Camera::Initialize()
 	{
-
+		Scene* activeScene = SceneManager::GetActiveScene();
+		activeScene->AddCamera(this);
 	}
 
 	void Camera::Update()
@@ -40,12 +39,9 @@ namespace NuNu
 	{
 		CreateViewMatrix();
 		CreateProjectionMatrix(mProjectionType);
-
-		ViewMatrix = mViewMatrix;
-		ProjectionMatrix = mProjectionMatrix;
 	}
 
-	void Camera::Render()
+	void Camera::Render(const Matrix& view, const Matrix& projection)
 	{
 	}
 

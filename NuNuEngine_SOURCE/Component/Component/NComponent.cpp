@@ -23,7 +23,7 @@ namespace NuNu
 	{
 	}
 
-	void Component::Render()
+	void Component::Render(const Matrix& view, const Matrix& projection)
 	{
 	}
 }

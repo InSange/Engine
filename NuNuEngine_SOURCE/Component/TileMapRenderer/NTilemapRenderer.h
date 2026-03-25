@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Common/NEntity.h"
+#include "Entity/NEntity.h"
 #include "Component/Component/NComponent.h"
 #include "Resource/Texture/NTexture.h"
 
@@ -14,7 +14,7 @@ namespace NuNu
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;
-		void Render() override;
+		void Render(const Matrix& view, const Matrix& projection) override;
 
 		void SetTexture(graphics::Texture* tex) { mTexture = tex; }
 		void SetSize(math::Vector2 size) { mSize = size; }

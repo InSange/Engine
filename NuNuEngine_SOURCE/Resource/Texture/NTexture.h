@@ -2,6 +2,7 @@
 #include <DirectXTex.h>
 #include <DirectXTex.inl>
 
+
 #include "Resource/NResource.h"
 #include "../../Graphics/GraphicDevice/NGraphicDevice_DX11.h"
 

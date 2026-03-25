@@ -6,7 +6,7 @@
 #include "../GUI/View/guiHierarchyWindow.h"
 
 #include "../../NuNuEngine_SOURCE/High Level Interface/NApplication.h"
-#include "../../NuNuEngine_SOURCE/Renderer/NRenderer.h"
+#include "High Level Interface/Renderer/NRenderer.h"
 #include "../../NuNuEngine_SOURCE/GameObject/NGameObject.h"
 #include "../../NuNuEngine_SOURCE/Component/Transform/NTransform.h"
 #include "../../NuNuEngine_SOURCE/Helpers/NInput.h"

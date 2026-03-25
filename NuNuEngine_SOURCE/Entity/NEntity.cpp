@@ -1,4 +1,4 @@
-﻿#include "Common/NEntity.h"
+﻿#include "NEntity.h"
 
 namespace NuNu
 {

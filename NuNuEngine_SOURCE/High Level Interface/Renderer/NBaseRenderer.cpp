@@ -1,0 +1,43 @@
+#include "NBaseRenderer.h"
+#include "Component/Transform/NTransform.h"
+#include "GameObject/NGameObject.h"
+
+namespace NuNu
+{
+	BaseRenderer::BaseRenderer(eComponentType type)
+		: Component(type)
+		, mMaterial(nullptr)
+	{
+	}
+	BaseRenderer::~BaseRenderer()
+	{
+	}
+	void BaseRenderer::Initialize()
+	{
+	}
+	void BaseRenderer::Update()
+	{
+	}
+	void BaseRenderer::LateUpdate()
+	{
+
+	}
+	void BaseRenderer::Render(const Matrix& view, const Matrix& projection)
+	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		if (tr)
+			tr->Bind(view, projection);
+
+		if (mMesh)
+			mMesh->Bind();
+
+		if (mMaterial)
+			mMaterial->BindShader();
+	}
+
+	void BaseRenderer::Draw()
+	{
+		if (mMesh)
+			graphics::GetDevice()->DrawIndexed(mMesh->GetIndexCount(), 0, 0);
+	}
+}

@@ -50,13 +50,13 @@ namespace NuNu
 
 	void Layer::Render()
 	{
-		for (GameObject* gameObj : mGameObjects)
+/*		for (GameObject* gameObj : mGameObjects)
 		{
 			if (gameObj == nullptr) continue;
 			if (gameObj->IsActive() == false) continue;
 
 			gameObj->Render();
-		}
+		}*/
 	}
 
 	void Layer::EndOfFrame()

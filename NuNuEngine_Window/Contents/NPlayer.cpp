@@ -20,9 +20,9 @@ namespace NuNu
 		GameObject::LateUpdate();
 	}
 
-	void Player::Render()
+	void Player::Render(const Matrix& view, const Matrix& projection)
 	{
-		GameObject::Render();
+		GameObject::Render(view, projection);
 	}
 }
 

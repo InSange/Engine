@@ -36,15 +36,13 @@
     <ClInclude Include="Contents\NTile.h">
       <Filter>Scenes\Contents</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\NCameraScript.h">
-      <Filter>Scripts</Filter>
-    </ClInclude>
     <ClInclude Include="Contents\NFloor.h">
       <Filter>Scenes\Contents</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\NLoadingScene.h" />
     <ClInclude Include="Contents\NProjectTile.h" />
     <ClInclude Include="Scripts\NProjectTileScript.h" />
+    <ClInclude Include="Scenes\NEditorScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Contents\NPlayer.cpp">
@@ -68,15 +66,13 @@
     <ClCompile Include="Contents\NTile.cpp">
       <Filter>Scenes\Contents</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\NCameraScript.cpp">
-      <Filter>Scripts</Filter>
-    </ClCompile>
     <ClCompile Include="Contents\NFloor.cpp">
       <Filter>Scenes\Contents</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\NLoadingScene.cpp" />
     <ClCompile Include="Contents\NProjectTile.cpp" />
     <ClCompile Include="Scripts\NProjectTileScript.cpp" />
+    <ClCompile Include="Scenes\NEditorScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

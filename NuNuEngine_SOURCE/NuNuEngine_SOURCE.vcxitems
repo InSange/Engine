@@ -31,6 +31,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\InputLayout\NInputLayout.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\RenderTarget\NRenderTarget.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\NWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NEditorCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NSceneCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NBaseRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioSource.h" />
@@ -44,7 +47,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Material\NMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Mesh\NMesh.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scene\NDontDestroyOnLoad.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Entity\NEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEnum.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Fmod\NFmod.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GameObject\NGameObject.h" />
@@ -53,7 +56,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Layer\NLayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\NMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Object\NObject.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Renderer\NRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\NResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\NResources.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Rigidbody\NRigidbody.h" />
@@ -81,6 +84,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\InputLayout\NInputLayout.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\RenderTarget\NRenderTarget.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\NWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NEditorCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NSceneCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NBaseRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioListener.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioSource.cpp" />
@@ -94,7 +100,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Material\NMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Mesh\NMesh.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Scene\NDontDestroyOnLoad.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Entity\NEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Fmod\NFmod.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GameObject\NGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\NApplication.cpp" />
@@ -102,7 +108,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Layer\NLayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Common\NMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Object\NObject.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Renderer\NRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\NResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\NResources.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Rigidbody\NRigidbody.cpp" />

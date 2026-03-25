@@ -46,7 +46,7 @@ namespace NuNu::graphics
 		Point,
 		Linear,
 		Anisotropic,
-		PostProcess,
+		//PostProcess,
 		End,
 	};
 
@@ -81,7 +81,9 @@ namespace NuNu::graphics
 
 	enum class eBlendState
 	{
-		AlphaBlend,
+		Opaque,
+		Cutout,
+		Transparent,
 		OneOne,
 		End,
 	};
@@ -90,6 +92,7 @@ namespace NuNu::graphics
 	{
 		DepthNone,
 		LessEqual,
+		Always,
 		End,
 	};
 

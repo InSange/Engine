@@ -3,7 +3,7 @@
 #include "Component/Transform/NTransform.h"
 #include "GameObject/NGameObject.h"
 #include "Component/Animator/NAnimator.h"
-#include "Renderer/NRenderer.h"
+#include "High Level Interface/Renderer/NRenderer.h"
 
 namespace NuNu
 {
@@ -51,7 +51,7 @@ namespace NuNu
 		}
 	}
 
-	void Animation::Render()
+	void Animation::Render(const Matrix& view, const Matrix& projection)
 	{
 		if (mTexture == nullptr) return;
 	}

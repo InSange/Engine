@@ -1,5 +1,5 @@
 #include "NLoadingScene.h"
-#include "../NuNuEngine_SOURCE/Renderer/NRenderer.h"
+#include "../../NuNuEngine_SOURCE/High Level Interface/Renderer/NRenderer.h"
 #include "../NuNuEngine_SOURCE/Scene/NSceneManager.h"
 #include "../NuNuEngine_SOURCE/Resource/NResources.h"
 #include "../NuNuEngine_SOURCE/Resource/Texture/NTexture.h"
@@ -7,6 +7,7 @@
 #include "../../NuNuEngine_SOURCE/Scene/NSceneManager.h"
 #include "NSpaceScene.h"
 #include "NPlayScene.h"
+#include "NEditorScene.h"
 
 extern NuNu::Application application;
 
@@ -86,6 +87,7 @@ namespace NuNu
 
 			SceneManager::CreateScene<SpaceScene>(L"TitleScene");
 			SceneManager::CreateScene<PlayScene>(L"PlayScene");
+			SceneManager::CreateScene<EditorScene>(L"EditorScene");
 		}
 		m.unlock();
 

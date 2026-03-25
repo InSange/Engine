@@ -21,9 +21,9 @@ namespace NuNu
 		GameObject::LateUpdate();
 	}
 
-	void Tile::Render()
+	void Tile::Render(const Matrix& view, const Matrix& projection)
 	{
-		GameObject::Render();
+		GameObject::Render(view, projection);
 	}
 }
 

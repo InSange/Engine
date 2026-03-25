@@ -1,7 +1,7 @@
 ﻿#include "Component/Collider/NCircleCollider2D.h"
 #include "Component/Transform/NTransform.h"
 #include "GameObject/NGameObject.h"
-#include "Renderer/NRenderer.h"
+#include "High Level Interface/Renderer/NRenderer.h"
 #include "Component/Camera/NCamera.h"
 
 namespace NuNu
@@ -23,7 +23,7 @@ namespace NuNu
 	void CircleCollider2D::LateUpdate()
 	{
 	}
-	void CircleCollider2D::Render()
+	void CircleCollider2D::Render(const Matrix& view, const Matrix& projection)
 	{
 		const Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
