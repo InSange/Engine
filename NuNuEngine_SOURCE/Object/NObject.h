@@ -5,6 +5,10 @@
 #include "Scene/NSceneManager.h"
 #include "Scene/NScene.h"
 #include "Component/Transform/NTransform.h"
+#include "../High Level Interface/NApplication.h"
+#include "../Event/NGameObjectEvent.h"
+
+extern NuNu::Application application;
 
 namespace NuNu::object
 {
@@ -13,10 +17,13 @@ namespace NuNu::object
 	{
 		T* gameObject = new T();
 		gameObject->SetLayerType(type);
+
 		Scene* activeScene = SceneManager::GetActiveScene();
 		Layer* layer = activeScene->GetLayer(type);
 
 		layer->AddGameObject(gameObject);
+
+		application.PushEvent(new NuNu::GameObjectCreatedEvent(gameObject, activeScene));
 
 		return gameObject;
 	}
@@ -45,5 +52,14 @@ namespace NuNu::object
 
 		Scene* dontDestroyOnLoad = SceneManager::GetDontDestroyOnLoad();
 		dontDestroyOnLoad->AddGameObject(gameObject, gameObject->GetLayerType());
+	}
+
+	static void Destroy(GameObject* gameObject)
+	{
+		if (gameObject != nullptr)
+			gameObject->death();
+
+		Scene* activeScene = SceneManager::GetActiveScene();
+		application.PushEvent(new NuNu::GameObjectDestroyedEvent(gameObject, activeScene));
 	}
 }

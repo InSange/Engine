@@ -15,7 +15,7 @@ namespace NuNu
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render();
-		virtual void Destroy();
+		virtual void EndOfFrame();
 
 		virtual void OnEnter();
 		virtual void OnExit();

@@ -62,7 +62,7 @@ namespace NuNu
 		Animation* mActiveAnimation;
 		bool mbLoop;
 
-		std::map<std::wstring, Events*> mEvents;
+		std::map<std::wstring, Events*> mQueue;
 	};
 }
 

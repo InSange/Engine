@@ -4,7 +4,7 @@
 
 namespace NuNu::object
 {
-	void Destroy(GameObject* gameObject);
+	extern void Destroy(GameObject* gameObject);
 }
 
 namespace NuNu
@@ -19,7 +19,7 @@ namespace NuNu
 			Created,
 			Active,
 			Paused,
-			Dead,
+			Destroyed,
 			End
 		};
 
@@ -64,13 +64,13 @@ namespace NuNu
 		}
 
 		bool IsActive() const { return mState == eState::Active; }
-		bool IsDead() const { return mState == eState::Dead; }
+		bool IsDead() const { return mState == eState::Destroyed; }
 		eLayerType GetLayerType() const { return mLayerType; }
 		void SetLayerType(const eLayerType layerType) { mLayerType = layerType; }
 
 	private:
 		void initializeTransform();
-		void death() { mState = eState::Dead; }
+		void death() { mState = eState::Destroyed; }
 
 	private:
 		eState mState;

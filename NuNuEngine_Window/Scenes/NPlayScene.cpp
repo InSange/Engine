@@ -52,13 +52,17 @@ namespace NuNu
 		CameraScript* cameraScript = camera->AddComponent<CameraScript>();
 		renderer::mainCamera = cameraComp;
 
-		GameObject* player = object::Instantiate<Player>(eLayerType::Player);
-		object::DontDestroyOnLoad(player);
+		for (size_t i = 0; i < 1; i++)
+		{
+			GameObject* player = object::Instantiate<Player>(eLayerType::Player);
+			SpriteRenderer* sr = player->AddComponent<SpriteRenderer>();
+			sr->SetSprite(Resources::Find<Texture>(L"Player"));
 
-		SpriteRenderer* sr = player->AddComponent<SpriteRenderer>();
-		sr->SetSprite(Resources::Find<Texture>(L"Player"));
+			player->AddComponent<PlayerScript>();
 
-		renderer::selectedObject = player;
+			if (renderer::selectedObject == nullptr)
+				renderer::selectedObject = player;
+		}
 	}
 
 	void PlayScene::Update()
@@ -68,12 +72,7 @@ namespace NuNu
 
 	void PlayScene::LateUpdate()
 	{
-		Scene::LateUpdate();
 
-		if (Input::GetKeyDown(eKeyCode::N))
-		{
-			SceneManager::LoadScene(L"SpaceScene");
-		}
 	}
 
 	void PlayScene::Render()

@@ -43,6 +43,8 @@
       <Filter>Scenes\Contents</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\NLoadingScene.h" />
+    <ClInclude Include="Contents\NProjectTile.h" />
+    <ClInclude Include="Scripts\NProjectTileScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Contents\NPlayer.cpp">
@@ -73,6 +75,8 @@
       <Filter>Scenes\Contents</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\NLoadingScene.cpp" />
+    <ClCompile Include="Contents\NProjectTile.cpp" />
+    <ClCompile Include="Scripts\NProjectTileScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

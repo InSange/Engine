@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Component/Script/NScript.h"
 #include "Resource/Texture/NTexture.h"
+#include "../Contents/NProjectTile.h"
 
 namespace NuNu
 {
@@ -36,10 +37,7 @@ namespace NuNu
 		eState mState;
 		class Animator* mAnimator;
 
-		
-		/*void(*StartEvent)();
-		void(*CompeleteEvent)();
-		void(*EndEvent)();*/
+		ProjectTile* mProjTile;
 	};
 }
 

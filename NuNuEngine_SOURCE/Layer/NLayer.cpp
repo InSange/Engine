@@ -59,7 +59,7 @@ namespace NuNu
 		}
 	}
 
-	void Layer::Destroy()
+	void Layer::EndOfFrame()
 	{
 		std::vector<GameObject*> deleteObjects = {};
 		findDeadGameObjects(deleteObjects);
@@ -90,7 +90,7 @@ namespace NuNu
 		for (GameObject* gameObj : mGameObjects)
 		{
 			GameObject::eState active = gameObj->GetState();
-			if (active == GameObject::eState::Dead)
+			if (active == GameObject::eState::Destroyed)
 				gameObjects.push_back(gameObj);
 		}
 	}

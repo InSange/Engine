@@ -20,7 +20,7 @@ namespace NuNu
 			it.second = nullptr;
 		}
 
-		for (auto& it : mEvents)
+		for (auto& it : mQueue)
 		{
 			delete it.second;
 			it.second = nullptr;
@@ -72,7 +72,7 @@ namespace NuNu
 		anim->SetAnimator(this);
 
 		Events* events = new Events();
-		mEvents.insert(std::make_pair(name, events));
+		mQueue.insert(std::make_pair(name, events));
 
 		mAnimations.insert(std::make_pair(name, anim));
 	}
@@ -174,9 +174,9 @@ namespace NuNu
 
 	Animator::Events* Animator::FindEvents(const std::wstring& name)
 	{
-		auto it = mEvents.find(name);
+		auto it = mQueue.find(name);
 
-		if (it == mEvents.end()) return nullptr;
+		if (it == mQueue.end()) return nullptr;
 
 		return it->second;
 	}

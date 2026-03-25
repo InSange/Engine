@@ -4,15 +4,6 @@
 #include "High Level Interface/NApplication.h"
 #include "Component/Transform/NTransform.h"
 
-namespace NuNu::object
-{
-	void Destroy(GameObject* gameObject)
-	{
-		if (gameObject != nullptr)
-			gameObject->death();
-	}
-}
-
 namespace NuNu
 {
 #pragma region GameObject - Player

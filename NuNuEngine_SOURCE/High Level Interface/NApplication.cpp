@@ -9,6 +9,7 @@
 #include "Renderer/NRenderer.h"
 #include "Event/NApplicationEvent.h"
 #include "Event/NMouseEvent.h"
+#include "Event/NGameObjectEvent.h"
 
 namespace NuNu
 {
@@ -16,7 +17,7 @@ namespace NuNu
 		: mbLoaded(false)
 		, mbRunning(false)
 	{
-		mWindow.SetEventCallBack(N_BIND_EVENT_FN(Application::OnEvent));
+		mWindow.SetEventCallBack(N_BIND_EVENT_FN(Application::OnWindowEvent));
 	}
 
 	Application::~Application()
@@ -103,9 +104,35 @@ namespace NuNu
 	{
 		Input::Initialize();
 		Time::Initialize();
+
+		InitializeEventHandlers();
 	}
 
-	void Application::OnEvent(Event& e)
+	void Application::InitializeEventHandlers()
+	{
+		// 이벤트 핸들러 등록
+		mEventQueue.RegisterHandler<GameObjectCreatedEvent>([this](GameObjectCreatedEvent& e) -> bool
+			{
+				int a = 0;
+
+				return true;
+			});
+
+		mEventQueue.RegisterHandler<GameObjectDestroyedEvent>([this](GameObjectDestroyedEvent& e) -> bool
+			{
+				int a = 0;
+
+				return true;
+			});
+
+		// 기본 핸들러 등록
+		mEventQueue.SetCallback([this](Event& e)
+			{
+				std::cout << "[Application] Unhandled Event: " << e.ToString() << std::endl;
+			});
+	}
+
+	void Application::OnWindowEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowResizeEvent>([this](WindowResizeEvent& e) -> bool
@@ -124,7 +151,7 @@ namespace NuNu
 		LateUpdate();
 		Render();
 
-		Destroy();
+		EndOfFrame();
 	}
 
 	void Application::Close()
@@ -174,9 +201,11 @@ namespace NuNu
 		GetDevice()->Present();
 	}
 
-	void Application::Destroy()
+	void Application::EndOfFrame()
 	{
-		SceneManager::Destroy();
+		SceneManager::EndOfFrame();
+
+		mEventQueue.Process();
 	}
 
 	void Application::Release()

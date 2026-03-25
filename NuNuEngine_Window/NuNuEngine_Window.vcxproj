@@ -154,6 +154,8 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Contents\NProjectTile.h" />
+    <ClInclude Include="Scripts\NProjectTileScript.h" />
     <ClInclude Include="Scenes\NLoadingScene.h" />
     <ClInclude Include="Scripts\NCameraScript.h" />
     <ClInclude Include="Contents\NDemon.h" />
@@ -167,6 +169,8 @@ copy "$(SolutionDir)\External\Library\Fmod\Release\fmodstudio.dll" "$(SolutionDi
     <ClInclude Include="Contents\NTile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Contents\NProjectTile.cpp" />
+    <ClCompile Include="Scripts\NProjectTileScript.cpp" />
     <ClCompile Include="Scenes\NLoadingScene.cpp" />
     <ClCompile Include="Scripts\NCameraScript.cpp" />
     <ClCompile Include="Contents\NDemon.cpp" />

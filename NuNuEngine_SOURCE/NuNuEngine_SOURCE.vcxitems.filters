@@ -121,6 +121,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\InputLayout\NInputLayout.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\RenderTarget\NRenderTarget.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\NWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Event\Queue\NEventQueue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h">
@@ -254,6 +255,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NApplicationEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NMouseEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NKeyEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\Queue\NEventQueue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\NGameObjectEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

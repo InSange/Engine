@@ -19,6 +19,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NKeyEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NMouseEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\Queue\NEventQueue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\NGameObjectEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\NGraphics.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimator.h" />
@@ -71,6 +73,7 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Event\Queue\NEventQueue.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NIndexBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NVertexBuffer.cpp" />
