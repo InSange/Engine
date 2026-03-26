@@ -1,10 +1,9 @@
 ﻿#pragma once
-#include "Entity/NEntity.h"
-
+#include "Common/NLabelled.h"
 namespace NuNu
 {
 	using namespace enums;
-	class UIBase : public Entity
+	class UIBase : public Labelled
 	{
 	public:
 		struct Event

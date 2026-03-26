@@ -9,7 +9,7 @@ namespace NuNu::object
 
 namespace NuNu
 {
-	class GameObject : public Entity
+	class GameObject : public Labelled
 	{
 	public:
 		friend void object::Destroy(GameObject* obj);
@@ -56,24 +56,24 @@ namespace NuNu
 			return component;
 		}
 
-		eState GetState() const { return mState; }
+		eState GetState() const { return State; }
 		void SetActive(bool power)
 		{
-			if (power == true) mState = eState::Active;
-			else mState = eState::Paused;
+			if (power == true) State = eState::Active;
+			else State = eState::Paused;
 		}
 
-		bool IsActive() const { return mState == eState::Active; }
-		bool IsDead() const { return mState == eState::Destroyed; }
+		bool IsActive() const { return State == eState::Active; }
+		bool IsDead() const { return State == eState::Destroyed; }
 		eLayerType GetLayerType() const { return mLayerType; }
 		void SetLayerType(const eLayerType layerType) { mLayerType = layerType; }
 
 	private:
 		void initializeTransform();
-		void death() { mState = eState::Destroyed; }
+		void death() { State = eState::Destroyed; }
 
 	private:
-		eState mState;
+		eState State;
 		std::vector<Component*> mComponents;
 		eLayerType mLayerType;
 	};

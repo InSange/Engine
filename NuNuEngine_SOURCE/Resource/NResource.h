@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include "Entity/NEntity.h"
+#include "Common/NLabelled.h"
 
 namespace NuNu
 {
-	class Resource abstract : public Entity
+	class Resource abstract : public Labelled
 	{
 	public:
 		Resource(enums::eResourceType type);

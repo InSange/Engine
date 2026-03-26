@@ -7,7 +7,7 @@ namespace gui
 	/// EditorWindow는 독립적인 창을 생성하여 에디터에 새로운 도구나 워크플로우를 추가하는 데 사용됩니다.
 	/// 에디터 에서 실행되는 완전히 새로운 사용자 인터페이스를 제공합니다.
 	/// </summary>
-	class EditorWindow : public Entity
+	class EditorWindow : public Labelled
 	{
 	public:
 		enum class eState
@@ -29,15 +29,15 @@ namespace gui
 		virtual void OnDestroy();
 		virtual void OnEvent(NuNu::Event& e) {}
 
-		ImGuiWindowFlags GetFlag() const { return mFlag; }
-		eState GetState() const { return mState; }
-		void SetState(eState state) { mState = state; }
+		ImGuiWindowFlags GetFlag() const { return Flag; }
+		eState GetState() const { return State; }
+		void SetState(eState state) { State = state; }
 		ImVec2 GetSize() { return mSize; }
 		void SetSize(ImVec2 size) { mSize = size; }
 
 	private:
-		ImGuiWindowFlags mFlag;
-		eState mState;
+		ImGuiWindowFlags Flag;
+		eState State;
 		ImVec2 mSize;
 	};
 }

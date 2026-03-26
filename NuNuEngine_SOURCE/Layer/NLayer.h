@@ -1,11 +1,11 @@
 ﻿#pragma once
-#include "Entity/NEntity.h"
+#include "Common/NLabelled.h"
 #include "Common/CommonInclude.h"
 #include "GameObject/NGameObject.h"
 
 namespace NuNu
 {
-	class Layer : public Entity
+	class Layer : public Labelled
 	{
 	public:
 		Layer();

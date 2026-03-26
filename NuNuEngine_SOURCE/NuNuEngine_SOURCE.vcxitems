@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Entity\NComponents.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NApplicationEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NEvent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Event\NKeyEvent.h" />
@@ -34,6 +35,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NEditorCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NSceneCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NBaseRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NLabelled.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NUUID.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioListener.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioSource.h" />
@@ -87,6 +90,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NEditorCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NSceneCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NBaseRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NLabelled.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NUUID.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioListener.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioSource.cpp" />

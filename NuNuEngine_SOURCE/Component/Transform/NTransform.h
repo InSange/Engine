@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Common/NLabelled.h"
 #include "Component/Component/NComponent.h"
 
 namespace NuNu

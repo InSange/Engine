@@ -10,15 +10,15 @@ namespace NuNu
 	class GameObjectEvent : public Event
 	{
 	public:
-		GameObject::eState GetState() const { return mState; }
+		GameObject::eState GetState() const { return State; }
 		EVENT_CLASS_CATEGORY(EventCategoryGameObject | EventCategoryGame)
 
 	protected:
 		GameObjectEvent(const GameObject::eState state)
-			: mState(state) {
+			: State(state) {
 		}
 
-		GameObject::eState mState;
+		GameObject::eState State;
 	};
 
 	class GameObjectCreatedEvent : public GameObjectEvent

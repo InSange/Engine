@@ -8,6 +8,7 @@
 #include "../../NuNuEngine_SOURCE/Event/NEvent.h"
 #include "../../NuNuEngine_SOURCE/Event/NKeyEvent.h"
 #include "../../NuNuEngine_SOURCE/Event/NMouseEvent.h"
+#include "../../NuNuEngine_SOURCE/Component/Camera/NEditorCamera.h"
 
 namespace NuNu
 {
@@ -83,23 +84,24 @@ namespace gui
 		static void SetCursorPos(double x, double y);
 		static bool OnKeyPressed(NuNu::KeyPressedEvent& e);
 
-		static void SetGuizmoType(int type) { mGuizmoType = type; }
+		static void SetGuizmoType(int type) { GuizmoType = type; }
 
 	private:
-		static ImguiEditor* mImguiEditor;
+		static ImguiEditor* ImguiEditor;
 
 		static std::map<std::wstring, EditorWindow*> mEditorWindows;
-		static ImGuiWindowFlags mFlag;
-		static ImGuiDockNodeFlags mDockspaceFlags;
-		static eState mState;
-		static bool mFullScreen;
-		static NuNu::math::Vector2 mViewportBounds[2];
-		static NuNu::math::Vector2 mViewportSize;
-		static bool mViewportFocused;
-		static bool mViewportHovered;
-		static int mGuizmoType;
+		static ImGuiWindowFlags Flag;
+		static ImGuiDockNodeFlags DockspaceFlags;
+		static eState State;
+		static bool FullScreen;
+		static NuNu::math::Vector2 ViewportBounds[2];
+		static NuNu::math::Vector2 ViewportSize;
+		static bool ViewportFocused;
+		static bool ViewportHovered;
+		static int GuizmoType;
+		static NuNu::EditorCamera* EditorCamera;
 
-		static NuNu::graphics::RenderTarget* mFrameBuffer;
-		static NuNu::EventCallbackFn mEventCallback;
+		static NuNu::graphics::RenderTarget* FrameBuffer;
+		static NuNu::EventCallbackFn EventCallback;
 	};
 }

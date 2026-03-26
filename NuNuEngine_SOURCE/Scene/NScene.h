@@ -1,12 +1,12 @@
 ﻿#pragma once
-#include "Entity/NEntity.h"
 #include "GameObject/NGameObject.h"
 #include "Layer/NLayer.h"
 #include "Component/Camera/NCamera.h"
+#include "Common/NLabelled.h"
 
 namespace NuNu
 {
-	class Scene : public Entity
+	class Scene : public Labelled
 	{
 	public:
 		Scene();

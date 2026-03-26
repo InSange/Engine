@@ -1,12 +1,12 @@
 ﻿#pragma once
-#include "Entity/NEntity.h"
+#include "Common/NLabelled.h"
 
 namespace NuNu
 {
 	using namespace enums;
 
 	class GameObject;
-	class Component : public Entity
+	class Component : public Labelled
 	{
 	public:
 		Component(eComponentType type);

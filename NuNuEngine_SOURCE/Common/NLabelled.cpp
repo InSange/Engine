@@ -1,9 +1,10 @@
-﻿#include "guiEntity.h"
+#include "NLabelled.h"
 
-namespace gui
+
+namespace NuNu
 {
 	Labelled::Labelled()
-		: mName("")
+		: mName(L"")
 	{
 	}
 

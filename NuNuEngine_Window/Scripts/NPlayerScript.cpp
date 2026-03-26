@@ -16,7 +16,7 @@
 namespace NuNu
 {
 	PlayerScript::PlayerScript()
-		: mState(eState::Idle)
+		: State(eState::Idle)
 		, mAnimator(nullptr)
 		, animTime(0.0f)
 	{
@@ -94,7 +94,7 @@ namespace NuNu
 		if (Input::GetKeyUp(eKeyCode::Right) || Input::GetKeyUp(eKeyCode::Left)
 			|| Input::GetKeyUp(eKeyCode::Up) || Input::GetKeyUp(eKeyCode::Down))
 		{
-			mState = eState::Idle;
+			State = eState::Idle;
 			mAnimator->PlayAnimation(L"PlayerIdle", true);
 		}
 	}

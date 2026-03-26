@@ -125,6 +125,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NEditorCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NSceneCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NBaseRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NLabelled.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NUUID.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h">
@@ -263,6 +265,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NEditorCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NSceneCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NBaseRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NLabelled.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NUUID.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Entity\NComponents.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

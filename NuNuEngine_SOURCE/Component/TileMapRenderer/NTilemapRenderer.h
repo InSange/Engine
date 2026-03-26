@@ -1,7 +1,7 @@
 ﻿#pragma once
-#include "Entity/NEntity.h"
 #include "Component/Component/NComponent.h"
 #include "Resource/Texture/NTexture.h"
+#include "Common/NLabelled.h"
 
 namespace NuNu
 {

@@ -41,9 +41,6 @@ namespace NuNu
 			sr->SetSprite(Resources::Find<Texture>(L"Player"));
 
 			player->AddComponent<PlayerScript>();
-
-			if (renderer::selectedObject == nullptr)
-				renderer::selectedObject = player;
 		}
 	}
 

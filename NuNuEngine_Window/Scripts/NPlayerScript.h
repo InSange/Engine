@@ -34,7 +34,7 @@ namespace NuNu
 		void attack();
 	private:
 		float animTime;
-		eState mState;
+		eState State;
 		class Animator* mAnimator;
 
 		ProjectTile* mProjTile;
