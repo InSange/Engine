@@ -11,7 +11,7 @@ extern NuNu::Application application;
 
 namespace NuNu
 {
-	graphics::GraphicDevice_DX11::GraphicDevice_DX11()
+	GraphicDevice_DX11::GraphicDevice_DX11()
 	{
 		GetDevice() = this;
 
@@ -19,11 +19,11 @@ namespace NuNu
 			assert(nullptr && "Create Device Failed!");
 	}
 
-	graphics::GraphicDevice_DX11::~GraphicDevice_DX11()
+	GraphicDevice_DX11::~GraphicDevice_DX11()
 	{
 	}
 
-	bool graphics::GraphicDevice_DX11::CreateDevice()
+	bool GraphicDevice_DX11::CreateDevice()
 	{
 		D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_0 };
 		UINT creationFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
@@ -41,7 +41,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::CreateSwapchain(DXGI_SWAP_CHAIN_DESC desc)
+	bool GraphicDevice_DX11::CreateSwapchain(DXGI_SWAP_CHAIN_DESC desc)
 	{
 		Microsoft::WRL::ComPtr<IDXGIDevice>     pDXGIDevice = nullptr;
 		Microsoft::WRL::ComPtr<IDXGIAdapter>    pAdapter = nullptr;
@@ -62,7 +62,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::GetBuffer(UINT Buffer, REFIID riid, void** ppSurface)
+	bool GraphicDevice_DX11::GetBuffer(UINT Buffer, REFIID riid, void** ppSurface)
 	{
 		if (FAILED(mSwapChain->GetBuffer(Buffer, riid, ppSurface)))
 			return false;
@@ -70,7 +70,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::CreateRenderTargetView(ID3D11Resource* pResource, const D3D11_RENDER_TARGET_VIEW_DESC* pDesc, ID3D11RenderTargetView** ppRTView)
+	bool GraphicDevice_DX11::CreateRenderTargetView(ID3D11Resource* pResource, const D3D11_RENDER_TARGET_VIEW_DESC* pDesc, ID3D11RenderTargetView** ppRTView)
 	{
 		if (FAILED(mDevice->CreateRenderTargetView(pResource, pDesc, ppRTView)))
 			return false;
@@ -78,7 +78,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::CreateDepthStencilView(ID3D11Resource* pResource, const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc, ID3D11DepthStencilView** ppDepthStencilView)
+	bool GraphicDevice_DX11::CreateDepthStencilView(ID3D11Resource* pResource, const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc, ID3D11DepthStencilView** ppDepthStencilView)
 	{
 		if (FAILED(mDevice->CreateDepthStencilView(pResource, pDesc, ppDepthStencilView)))
 			return false;
@@ -86,7 +86,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState)
+	bool GraphicDevice_DX11::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState)
 	{
 		if (FAILED(mDevice->CreateSamplerState(pSamplerDesc, ppSamplerState)))
 			return false;
@@ -94,7 +94,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc, const D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Texture2D** ppTexture2D)
+	bool GraphicDevice_DX11::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc, const D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Texture2D** ppTexture2D)
 	{
 		if (FAILED(mDevice->CreateTexture2D(pDesc, pInitialData, ppTexture2D)))
 			return false;
@@ -102,7 +102,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::CreateVertexShader(const std::wstring& fileName, ID3DBlob** ppCode, ID3D11VertexShader** ppVertexShader)
+	bool GraphicDevice_DX11::CreateVertexShader(const std::wstring& fileName, ID3DBlob** ppCode, ID3D11VertexShader** ppVertexShader)
 	{
 		DWORD shaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
 		shaderFlags |= D3DCOMPILE_DEBUG;
@@ -127,7 +127,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::CreatePixelShader(const std::wstring& fileName, ID3DBlob** ppCode, ID3D11PixelShader** ppPixelShader)
+	bool GraphicDevice_DX11::CreatePixelShader(const std::wstring& fileName, ID3DBlob** ppCode, ID3D11PixelShader** ppPixelShader)
 	{
 		DWORD shaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
 		shaderFlags |= D3DCOMPILE_DEBUG;
@@ -152,7 +152,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs, UINT NumElements, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength, ID3D11InputLayout** ppInputLayout)
+	bool GraphicDevice_DX11::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* pInputElementDescs, UINT NumElements, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength, ID3D11InputLayout** ppInputLayout)
 	{
 		if (FAILED(mDevice->CreateInputLayout(pInputElementDescs, NumElements
 			, pShaderBytecodeWithInputSignature
@@ -163,7 +163,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::CreateBuffer(const D3D11_BUFFER_DESC* pDesc, const D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Buffer** ppBuffer)
+	bool GraphicDevice_DX11::CreateBuffer(const D3D11_BUFFER_DESC* pDesc, const D3D11_SUBRESOURCE_DATA* pInitialData, ID3D11Buffer** ppBuffer)
 	{
 		if (FAILED(mDevice->CreateBuffer(pDesc, pInitialData, ppBuffer)))
 			return false;
@@ -187,7 +187,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc, ID3D11RasterizerState** ppRasterizerState)
+	bool GraphicDevice_DX11::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc, ID3D11RasterizerState** ppRasterizerState)
 	{
 		if (FAILED(mDevice->CreateRasterizerState(pRasterizerDesc, ppRasterizerState)))
 			return false;
@@ -195,7 +195,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::CreateBlendState(const D3D11_BLEND_DESC* pBlendState, ID3D11BlendState** ppBlendState)
+	bool GraphicDevice_DX11::CreateBlendState(const D3D11_BLEND_DESC* pBlendState, ID3D11BlendState** ppBlendState)
 	{
 		if (FAILED(mDevice->CreateBlendState(pBlendState, ppBlendState)))
 			return false;
@@ -203,7 +203,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::CreateDepthStencilState(const D3D11_DEPTH_STENCIL_DESC* pDepthStencilDesc, ID3D11DepthStencilState** ppDepthStencilState)
+	bool GraphicDevice_DX11::CreateDepthStencilState(const D3D11_DEPTH_STENCIL_DESC* pDepthStencilDesc, ID3D11DepthStencilState** ppDepthStencilState)
 	{
 		if (FAILED(mDevice->CreateDepthStencilState(pDepthStencilDesc, ppDepthStencilState)))
 			return false;
@@ -211,7 +211,7 @@ namespace NuNu
 		return true;
 	}
 
-	bool graphics::GraphicDevice_DX11::Resize(D3D11_VIEWPORT viewport)
+	bool GraphicDevice_DX11::Resize(D3D11_VIEWPORT viewport)
 	{
 		// 리소스 해제
 		mFrameBufferView.Reset();
@@ -264,7 +264,7 @@ namespace NuNu
 		return true;
 	}
 
-	void graphics::GraphicDevice_DX11::SetDataGpuBuffer(ID3D11Buffer* buffer, void* data, UINT size)
+	void GraphicDevice_DX11::SetDataGpuBuffer(ID3D11Buffer* buffer, void* data, UINT size)
 	{
 		D3D11_MAPPED_SUBRESOURCE sub = {};
 		mContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
@@ -293,37 +293,37 @@ namespace NuNu
 			mContext->CSSetShaderResources(startSlot, 1, ppSRV);
 	}
 
-	void graphics::GraphicDevice_DX11::BindInputLayout(ID3D11InputLayout* pInputLayout)
+	void GraphicDevice_DX11::BindInputLayout(ID3D11InputLayout* pInputLayout)
 	{
 		mContext->IASetInputLayout(pInputLayout);
 	}
 
-	void graphics::GraphicDevice_DX11::BindPrimitiveTopology(const D3D11_PRIMITIVE_TOPOLOGY topology)
+	void GraphicDevice_DX11::BindPrimitiveTopology(const D3D11_PRIMITIVE_TOPOLOGY topology)
 	{
 		mContext->IASetPrimitiveTopology(topology);
 	}
 
-	void graphics::GraphicDevice_DX11::BindVS(ID3D11VertexShader* pVertexShader)
+	void GraphicDevice_DX11::BindVS(ID3D11VertexShader* pVertexShader)
 	{
 		mContext->VSSetShader(pVertexShader, nullptr, 0);
 	}
 
-	void graphics::GraphicDevice_DX11::BindPS(ID3D11PixelShader* pPixelShader)
+	void GraphicDevice_DX11::BindPS(ID3D11PixelShader* pPixelShader)
 	{
 		mContext->PSSetShader(pPixelShader, nullptr, 0);
 	}
 
-	void graphics::GraphicDevice_DX11::BindVertexBuffer(UINT StartSlot, UINT NumBuffers, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets)
+	void GraphicDevice_DX11::BindVertexBuffer(UINT StartSlot, UINT NumBuffers, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets)
 	{
 		mContext->IASetVertexBuffers(StartSlot, NumBuffers, ppVertexBuffers, pStrides, pOffsets);
 	}
 
-	void graphics::GraphicDevice_DX11::BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT Format, UINT Offset)
+	void GraphicDevice_DX11::BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT Format, UINT Offset)
 	{
 		mContext->IASetIndexBuffer(pIndexBuffer, Format, Offset);
 	}
 
-	void graphics::GraphicDevice_DX11::BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer)
+	void GraphicDevice_DX11::BindConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer)
 	{
 		UINT slot = static_cast<UINT>(type);
 		switch (stage)
@@ -366,7 +366,7 @@ namespace NuNu
 	/// <param name="StartSlot"></param>
 	/// <param name="NumSamplers"></param>
 	/// <param name="ppSamplers"></param>
-	void graphics::GraphicDevice_DX11::BindSampler(eShaderStage stage, UINT StartSlot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers)
+	void GraphicDevice_DX11::BindSampler(eShaderStage stage, UINT StartSlot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers)
 	{
 		if (eShaderStage::VS == stage)
 			mContext->VSSetSamplers(StartSlot, NumSamplers, ppSamplers);
@@ -384,7 +384,7 @@ namespace NuNu
 			mContext->PSSetSamplers(StartSlot, NumSamplers, ppSamplers);
 	}
 
-	void graphics::GraphicDevice_DX11::BindSamplers(UINT StartSlot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers)
+	void GraphicDevice_DX11::BindSamplers(UINT StartSlot, UINT NumSamplers, ID3D11SamplerState* const* ppSamplers)
 	{
 		BindSampler(eShaderStage::VS, StartSlot, NumSamplers, ppSamplers);
 		BindSampler(eShaderStage::HS, StartSlot, NumSamplers, ppSamplers);
@@ -393,22 +393,22 @@ namespace NuNu
 		BindSampler(eShaderStage::PS, StartSlot, NumSamplers, ppSamplers);
 	}
 
-	void graphics::GraphicDevice_DX11::BindRasterizerState(ID3D11RasterizerState* pRasterizerState)
+	void GraphicDevice_DX11::BindRasterizerState(ID3D11RasterizerState* pRasterizerState)
 	{
 		mContext->RSSetState(pRasterizerState);
 	}
 
-	void graphics::GraphicDevice_DX11::BindBlendState(ID3D11BlendState* pBlendState, const FLOAT BlendFactor[4], UINT SampleMask)
+	void GraphicDevice_DX11::BindBlendState(ID3D11BlendState* pBlendState, const FLOAT BlendFactor[4], UINT SampleMask)
 	{
 		mContext->OMSetBlendState(pBlendState, BlendFactor, SampleMask);
 	}
 
-	void graphics::GraphicDevice_DX11::BindDepthStencilState(ID3D11DepthStencilState* pDepthStencilState, UINT StencilRef)
+	void GraphicDevice_DX11::BindDepthStencilState(ID3D11DepthStencilState* pDepthStencilState, UINT StencilRef)
 	{
 		mContext->OMSetDepthStencilState(pDepthStencilState, StencilRef);
 	}
 
-	void graphics::GraphicDevice_DX11::BindViewPort()
+	void GraphicDevice_DX11::BindViewPort()
 	{
 		D3D11_VIEWPORT viewPort =
 		{
@@ -420,12 +420,12 @@ static_cast<float>(application.GetWindow().GetWidth()), static_cast<float>(appli
 		mContext->RSSetViewports(1, &viewPort);
 	}
 
-	void graphics::GraphicDevice_DX11::BindRenderTargets(UINT NumViews, ID3D11RenderTargetView* const* ppRenderTargetViews, ID3D11DepthStencilView* pDepthStencilView)
+	void GraphicDevice_DX11::BindRenderTargets(UINT NumViews, ID3D11RenderTargetView* const* ppRenderTargetViews, ID3D11DepthStencilView* pDepthStencilView)
 	{
 		mContext->OMSetRenderTargets(NumViews, ppRenderTargetViews, pDepthStencilView);
 	}
 
-	void graphics::GraphicDevice_DX11::BindDefaultRenderTarget()
+	void GraphicDevice_DX11::BindDefaultRenderTarget()
 	{
 		mContext->OMSetRenderTargets(1, mFrameBufferView.GetAddressOf(), mDepthStencilView.Get());
 	}
@@ -435,18 +435,29 @@ static_cast<float>(application.GetWindow().GetWidth()), static_cast<float>(appli
 		mContext->CopyResource(pDstResource, pSrcResource);
 	}
 
-	void graphics::GraphicDevice_DX11::ClearRenderTargetView()
+	void GraphicDevice_DX11::ClearRenderTargetView()
 	{
 		FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
 		mContext->ClearRenderTargetView(mFrameBufferView.Get(), backgroundColor);
 	}
 
-	void graphics::GraphicDevice_DX11::ClearDepthStencilView()
+	void GraphicDevice_DX11::ClearRenderTargetView(Microsoft::WRL::ComPtr<ID3D11RenderTargetView> rtv)
+	{
+		FLOAT backgroundColor[4] = { 0.2f, 0.2f, 0.2f, 1.0f };
+		mContext->ClearRenderTargetView(rtv.Get(), backgroundColor);
+	}
+
+	void GraphicDevice_DX11::ClearDepthStencilView()
 	{
 		mContext->ClearDepthStencilView(mDepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	}
 
-	void graphics::GraphicDevice_DX11::Initialize()
+	void GraphicDevice_DX11::ClearDepthStencilView(Microsoft::WRL::ComPtr<ID3D11DepthStencilView> dsv)
+	{
+		mContext->ClearDepthStencilView(dsv.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	}
+
+	void GraphicDevice_DX11::Initialize()
 	{
 #pragma region swapchain desc
 		DXGI_SWAP_CHAIN_DESC swapChainDesc = {};

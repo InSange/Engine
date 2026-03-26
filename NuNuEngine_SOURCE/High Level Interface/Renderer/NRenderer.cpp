@@ -5,6 +5,8 @@
 #include "../../Resource/Material/NMaterial.h"
 #include "../../Graphics/RenderTarget/NRenderTarget.h"
 #include "../NApplication.h"
+#include "../../Component/Transform/NTransform.h"
+#include "../Renderer/NBaseRenderer.h"
 
 extern NuNu::Application application;
 
@@ -333,6 +335,89 @@ namespace NuNu::renderer
 		LoadMaterials();
 		LoadConstantBuffers();
 		LoadFrameBuffer();
+	}
+
+	void RenderSceneFromCamera(Scene* scene, Camera* camera)
+	{
+		Matrix viewMatrix = camera->GetViewMatrix();
+		Matrix projectionMatrix = camera->GetProjectionMatrix();
+		Vector3 cameraPos = camera->GetOwner()->GetComponent<Transform>()->GetPosition();
+
+		std::vector<GameObject*> opaqueList;
+		std::vector<GameObject*> cutoutList;
+		std::vector<GameObject*> transparentList;
+
+		CollectRenderables(scene, opaqueList, cutoutList, transparentList);
+
+		SortByDistance(opaqueList, cameraPos, true);
+		SortByDistance(cutoutList, cameraPos, true);
+		SortByDistance(transparentList, cameraPos, false);
+
+		RenderRenderables(opaqueList, viewMatrix, projectionMatrix);
+		RenderRenderables(cutoutList, viewMatrix, projectionMatrix);
+		RenderRenderables(transparentList, viewMatrix, projectionMatrix);
+	}
+
+	void CollectRenderables(const Scene* scene, std::vector<GameObject*>& opaqueList, std::vector<GameObject*>& cutoutList
+		, std::vector<GameObject*>& transparentList)
+	{
+		const std::vector<Layer*>& layers = scene->GetLayers();
+		for (Layer* layer : layers)
+		{
+			if (layer == nullptr)
+				continue;
+
+			std::vector<GameObject*>& gameObjects = layer->GetGameObjects();
+			for (GameObject* gameObj : gameObjects)
+			{
+				if (gameObj == nullptr)
+					continue;
+				// to do : renderer 상속구조 만들기
+				BaseRenderer* baseRenderer = gameObj->GetComponent<BaseRenderer>();
+				if (baseRenderer == nullptr)
+					continue;
+
+				switch (baseRenderer->GetMaterial()->GetRenderingMode())
+				{
+				case graphics::eRenderingMode::Opaque:
+					opaqueList.push_back(gameObj);
+					break;
+
+				case graphics::eRenderingMode::CutOut:
+					cutoutList.push_back(gameObj);
+					break;
+
+				case graphics::eRenderingMode::Transparent:
+					transparentList.push_back(gameObj);
+					break;
+				}
+			}
+		}
+	}
+
+	void SortByDistance(std::vector<GameObject*>& renderList, const Vector3& cameraPos, bool bAscending)
+	{
+		// opaqueList and cutoutList are sorted in ascending order
+		// trasparentList is sorted in descending order
+		auto comparator = [cameraPos, bAscending](GameObject* a, GameObject* b)
+			{
+				float distA = Vector3::Distance(a->GetComponent<Transform>()->GetPosition(), cameraPos);
+				float distB = Vector3::Distance(b->GetComponent<Transform>()->GetPosition(), cameraPos);
+				return bAscending ? (distA < distB) : (distA > distB);
+			};
+
+		std::ranges::sort(renderList, comparator);
+	}
+
+	void RenderRenderables(const std::vector<GameObject*>& renderList, const Matrix& view, const Matrix& projection)
+	{
+		for (auto* obj : renderList)
+		{
+			if (obj == nullptr)
+				continue;
+
+			obj->Render(view, projection);
+		}
 	}
 
 	void Release()

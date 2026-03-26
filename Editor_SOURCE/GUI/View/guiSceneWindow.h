@@ -1,6 +1,9 @@
 #pragma once
 #include "../EditorWindow/guiEditorWindow.h"
-#include "../Editor/guiEditor.h""
+#include "../Editor/guiEditor.h"
+
+#include "../../../NuNuEngine_SOURCE/GameObject/NGameObject.h"
+#include "../../../NuNuEngine_SOURCE/Component/Camera/NEditorCamera.h"
 
 namespace gui
 {
@@ -18,7 +21,17 @@ namespace gui
 		void OnDisable() override;
 		void OnDestroy() override;
 
+		void SetGuizmoType(int type) { GuizmoType = type; }
+
 	private:
 		std::vector<Editor*> mEditors;
+		NuNu::GameObject* mEditorCameraObject;
+		NuNu::EditorCamera* mEditorCamera;
+
+		NuNu::math::Vector2 ViewportBounds[2];
+		NuNu::math::Vector2 ViewportSize;
+		bool ViewportFocused;
+		bool ViewportHovered;
+		int GuizmoType;
 	};
 }

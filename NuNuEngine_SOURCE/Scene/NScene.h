@@ -25,12 +25,8 @@ namespace NuNu
 		void EraseGameObject(GameObject* gameObj);
 		void AddCamera(Camera* camera);
 		void RemoveCamera(Camera* camera);
-		void CollectRenderables(std::vector<GameObject*>& opaqueList, std::vector<GameObject*>& cutoutList
-			, std::vector<GameObject*>& transparentList) const;
-		void SortByDistance(std::vector<GameObject*>& renderList, const Vector3& cameraPos, bool bAscending) const;
-		void RenderRenderables(const std::vector<GameObject*>& renderList
-			, const Matrix& view, const Matrix& projection) const;
 
+		const std::vector<Layer*>& GetLayers() const { return mLayers; }
 		Layer* GetLayer(eLayerType type) { return mLayers[static_cast<UINT>(type)]; }
 	private: 
 		void createLayers();

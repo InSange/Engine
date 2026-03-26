@@ -31,7 +31,6 @@ namespace NuNu
 
 		SceneCamera* cameraComp = camera->AddComponent<SceneCamera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Perspective);
-		cameraComp->SetSize(200.0f);
 
 		renderer::mainCamera = cameraComp;
 

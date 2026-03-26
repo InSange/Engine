@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Component/Camera/NCamera.h"
+#include "Scene/NScene.h"
 #include "Graphics/GraphicDevice/NGraphicDevice_DX11.h"
 #include "../../Graphics/GpuBuffer/NConstantBuffer.h"
 #include "../../Graphics/RenderTarget/NRenderTarget.h"
@@ -21,6 +22,12 @@ namespace NuNu::renderer
 	extern RenderTarget* FrameBuffer;
 
 	void Initialize();
+	void RenderSceneFromCamera(Scene* scene, Camera* camera);
+	void CollectRenderables(const Scene* scene, std::vector<GameObject*>& opaqueList, std::vector<GameObject*>& cutoutList
+		, std::vector<GameObject*>& transparentList);
+
+	void SortByDistance(std::vector<GameObject*>& renderList, const Vector3& cameraPos, bool bAscending);
+	void RenderRenderables(const std::vector<GameObject*>& renderList, const Matrix& view, const Matrix& projection);
 	void Release();
 }
 

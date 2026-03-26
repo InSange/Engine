@@ -74,6 +74,7 @@ namespace NuNu
 		__forceinline static bool GetKeyUp(eKeyCode key) { return Keys[(UINT)key].State == eKeyState::Up; }
 		__forceinline static bool GetKey(eKeyCode key) { return Keys[(UINT)key].State == eKeyState::Pressed; }
 		__forceinline static math::Vector2 GetMousePosition() { return mMousePosition; }
+		__forceinline static void SetBlocked(bool blocked) { mBlocked = blocked; }
 
 	private:
 		static void createKeys();
@@ -88,6 +89,7 @@ namespace NuNu
 	private:
 		static std::vector<Key> Keys;
 		static math::Vector2 mMousePosition;
+		static bool mBlocked;
 	};
 }
 

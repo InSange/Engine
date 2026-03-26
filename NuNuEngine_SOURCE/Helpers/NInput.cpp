@@ -7,6 +7,7 @@ namespace NuNu
 {
 	std::vector<Input::Key> Input::Keys = {};
 	Vector2 Input::mMousePosition = Vector2::One;
+	bool Input::mBlocked = false;
 /*
 	int ASCII[static_cast<UINT>(eKeyCode::End)] = {
 		'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
@@ -25,6 +26,9 @@ namespace NuNu
 
 	void Input::Update()
 	{
+		if (mBlocked == true)
+			return;
+
 		updateKeys();
 	}
 

@@ -34,8 +34,8 @@ namespace gui
 		template <typename T>
 		T* GetWindow(const std::wstring& name)
 		{
-			auto iter = mEditorWindows.find(name);
-			if (iter == mEditorWindows.end())
+			auto iter = EditorWindows.find(name);
+			if (iter == EditorWindows.end())
 				return nullptr;
 
 			return dynamic_cast<T*>(iter->second);
@@ -84,22 +84,23 @@ namespace gui
 		static void SetCursorPos(double x, double y);
 		static bool OnKeyPressed(NuNu::KeyPressedEvent& e);
 
+		// Getter and Setter
 		static void SetGuizmoType(int type) { GuizmoType = type; }
+		static ImguiEditor* GetImguiEditor() { return ImguiEditor; }
 
 	private:
 		static ImguiEditor* ImguiEditor;
 
-		static std::map<std::wstring, EditorWindow*> mEditorWindows;
+		static std::map<std::wstring, EditorWindow*> EditorWindows;
 		static ImGuiWindowFlags Flag;
 		static ImGuiDockNodeFlags DockspaceFlags;
 		static eState State;
 		static bool FullScreen;
-		static NuNu::math::Vector2 ViewportBounds[2];
+		/*static NuNu::math::Vector2 ViewportBounds[2];*/
 		static NuNu::math::Vector2 ViewportSize;
 		static bool ViewportFocused;
 		static bool ViewportHovered;
 		static int GuizmoType;
-		static NuNu::EditorCamera* EditorCamera;
 
 		static NuNu::graphics::RenderTarget* FrameBuffer;
 		static NuNu::EventCallbackFn EventCallback;
