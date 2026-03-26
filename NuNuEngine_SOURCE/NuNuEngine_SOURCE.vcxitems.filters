@@ -127,6 +127,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NBaseRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Common\NLabelled.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NUUID.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX12.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h">
@@ -268,6 +269,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\NLabelled.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NUUID.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Entity\NComponents.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX12.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">

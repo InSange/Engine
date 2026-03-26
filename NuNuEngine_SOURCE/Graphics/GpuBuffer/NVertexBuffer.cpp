@@ -20,7 +20,7 @@ namespace NuNu
 		D3D11_SUBRESOURCE_DATA sub = { };
 		sub.pSysMem = vertexes.data();
 
-		if (!(GetDevice()->CreateBuffer(&desc, &sub, buffer.GetAddressOf())))
+		if (!(GetDevice<GraphicDevice_DX11>()->CreateBuffer(&desc, &sub, buffer.GetAddressOf())))
 			assert(false && "Create vertex buffer failed!");
 
 		return true;
@@ -30,6 +30,6 @@ namespace NuNu
 	{
 		UINT offset = 0;
 		UINT vertexSize = sizeof(Vertex);
-		GetDevice()->BindVertexBuffer(0, 1, buffer.GetAddressOf(), &vertexSize, &offset);
+		GetDevice<GraphicDevice_DX11>()->BindVertexBuffer(0, 1, buffer.GetAddressOf(), &vertexSize, &offset);
 	}
 }

@@ -25,9 +25,9 @@ namespace NuNu::graphics
 
 		bool success = false;
 		if (data == nullptr)
-			success = GetDevice()->CreateBuffer(&desc, nullptr, buffer.GetAddressOf());
+			success = GetDevice<graphics::GraphicDevice_DX11>()->CreateBuffer(&desc, nullptr, buffer.GetAddressOf());
 		else
-			success = GetDevice()->CreateBuffer(&desc, &sub, buffer.GetAddressOf());
+			success = GetDevice<graphics::GraphicDevice_DX11>()->CreateBuffer(&desc, &sub, buffer.GetAddressOf());
 
 		if (!success)
 			assert(false && "Create constant buffer failed!");
@@ -37,11 +37,11 @@ namespace NuNu::graphics
 
 	void ConstantBuffer::SetData(void* data) const
 	{
-		GetDevice()->SetDataGpuBuffer(buffer.Get(), data, mSize);
+		GetDevice<graphics::GraphicDevice_DX11>()->SetDataGpuBuffer(buffer.Get(), data, mSize);
 	}
 
 	void ConstantBuffer::Bind(eShaderStage stage) const
 	{
-		GetDevice()->BindConstantBuffer(stage, mType, buffer.Get());
+		GetDevice<graphics::GraphicDevice_DX11>()->BindConstantBuffer(stage, mType, buffer.Get());
 	}
 }

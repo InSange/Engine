@@ -40,7 +40,7 @@ namespace gui
 		mEditorCameraObject->SetName(L"EditorCamera");
 
 		NuNu::Transform* tr = mEditorCameraObject->GetComponent<NuNu::Transform>();
-		tr->SetPosition(0.0f, 0.0f, -20.0f);
+		tr->SetPosition(3.0f, 0.0f, -20.0f);
 		tr->SetRotation(0.0f, 0.0f, 0.0f);
 
 		mEditorCamera = mEditorCameraObject->AddComponent<NuNu::EditorCamera>();
@@ -86,12 +86,12 @@ namespace gui
 		// clear the render target view & depth stencil view
 		NuNu::graphics::RenderTarget* rt = mEditorCamera->GetRenderTarget();
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> rtv = rt->GetAttachmentTexture(0)->GetRTV();
-		NuNu::graphics::GetDevice()->ClearRenderTargetView(rtv);
+		NuNu::graphics::GetDevice<NuNu::graphics::GraphicDevice_DX11>()->ClearRenderTargetView(rtv);
 		Microsoft::WRL::ComPtr<ID3D11DepthStencilView> dsv = rt->GetDepthAttachment()->GetDSV();
-		NuNu::graphics::GetDevice()->ClearDepthStencilView(dsv);
+		NuNu::graphics::GetDevice<NuNu::graphics::GraphicDevice_DX11>()->ClearDepthStencilView(dsv);
 
 		// set scene view render target & depth stencil view
-		NuNu::graphics::GetDevice()->BindRenderTargets(1, rtv.GetAddressOf(), dsv.Get());
+		NuNu::graphics::GetDevice<NuNu::graphics::GraphicDevice_DX11>()->BindRenderTargets(1, rtv.GetAddressOf(), dsv.Get());
 
 		// render the scene
 		Matrix viewMatrix = mEditorCamera->GetViewMatrix();
@@ -107,14 +107,17 @@ namespace gui
 		NuNu::renderer::CollectRenderables(scene, opaqueList, cutoutList, transparentList);
 
 		// sorting renderables by distance (between camera and game object)
-		NuNu::renderer::SortByDistance(opaqueList, cameraPos, true);
+		/*NuNu::renderer::SortByDistance(opaqueList, cameraPos, true);
 		NuNu::renderer::SortByDistance(cutoutList, cameraPos, true);
-		NuNu::renderer::SortByDistance(transparentList, cameraPos, false);
+		NuNu::renderer::SortByDistance(transparentList, cameraPos, false);*/
 
 		//render game objects
-		NuNu::renderer::RenderRenderables(opaqueList, viewMatrix, projectionMatrix);
+		/*NuNu::renderer::RenderRenderables(opaqueList, viewMatrix, projectionMatrix);
 		NuNu::renderer::RenderRenderables(cutoutList, viewMatrix, projectionMatrix);
-		NuNu::renderer::RenderRenderables(transparentList, viewMatrix, projectionMatrix);
+		NuNu::renderer::RenderRenderables(transparentList, viewMatrix, projectionMatrix);*/
+
+		// render the scene from the editor camera
+		NuNu::renderer::RenderSceneFromCamera(scene, mEditorCamera);
 
 		// imgui scene view viewport
 		const auto viewportMinRegion = ImGui::GetWindowContentRegionMin(); // 씬뷰의 최소 좌표
@@ -190,7 +193,7 @@ namespace gui
 		}
 
 		// repair the default render target
-		NuNu::graphics::GetDevice()->BindDefaultRenderTarget();
+		NuNu::graphics::GetDevice<NuNu::graphics::GraphicDevice_DX11>()->BindDefaultRenderTarget();
 
 		ImGui::End();
 		ImGui::PopStyleVar();

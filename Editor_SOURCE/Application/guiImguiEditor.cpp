@@ -51,7 +51,7 @@ namespace gui
 		// Setup Platform/Renderer backends
 		ImGui_ImplWin32_Init(application.GetWindow().GetHwnd());
 
-		NuNu::graphics::GraphicDevice_DX11*& graphicdevice = NuNu::graphics::GetDevice();
+		NuNu::graphics::GraphicDevice_DX11*& graphicdevice = NuNu::graphics::GetDevice<NuNu::graphics::GraphicDevice_DX11>();
 		ID3D11Device* device = graphicdevice->GetID3D11Device().Get();
 		ID3D11DeviceContext* device_context = graphicdevice->GetID3D11DeviceContext().Get();
 

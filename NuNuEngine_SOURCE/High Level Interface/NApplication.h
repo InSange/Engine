@@ -1,6 +1,12 @@
 ﻿#pragma once
 #include "GameObject/NGameObject.h"
+
+#ifdef DX12_ENABLED
+#include "Graphics/GraphicDevice/NGraphicDevice_DX12.h"
+#else
 #include "Graphics/GraphicDevice/NGraphicDevice_DX11.h"
+#endif
+
 #include "Event/NApplicationEvent.h"
 #include "Event/NMouseEvent.h"
 #include "Event/NKeyEvent.h"

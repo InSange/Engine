@@ -36,6 +36,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NSceneCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NBaseRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Common\NLabelled.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX12.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NUUID.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioListener.h" />
@@ -91,6 +92,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NSceneCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NBaseRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Common\NLabelled.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX12.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NUUID.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioListener.cpp" />

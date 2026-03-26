@@ -112,4 +112,7 @@ namespace NuNu::graphics
 		math::Matrix View;
 		math::Matrix Projection;
 	};
+
+	template<typename T>
+	inline T*& GetDevice();
 }

@@ -82,7 +82,8 @@ namespace NuNu::graphics
 		Microsoft::WRL::ComPtr<ID3D11SamplerState> mSamplers;	// 샘플러 Linear(부드럽게), Point(각지게), Anisotropic(최고 품질)
 	};
 
-	inline GraphicDevice_DX11*& GetDevice()
+	template<>
+	inline GraphicDevice_DX11*& GetDevice<GraphicDevice_DX11>()
 	{
 		static GraphicDevice_DX11* device = nullptr;
 

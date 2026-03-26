@@ -1,6 +1,7 @@
 #include "NBaseRenderer.h"
 #include "Component/Transform/NTransform.h"
 #include "GameObject/NGameObject.h"
+#include "Graphics/GraphicDevice/NGraphicDevice_DX11.h"
 
 namespace NuNu
 {
@@ -38,6 +39,6 @@ namespace NuNu
 	void BaseRenderer::Draw()
 	{
 		if (mMesh)
-			graphics::GetDevice()->DrawIndexed(mMesh->GetIndexCount(), 0, 0);
+			graphics::GetDevice<graphics::GraphicDevice_DX11>()->DrawIndexed(mMesh->GetIndexCount(), 0, 0);
 	}
 }

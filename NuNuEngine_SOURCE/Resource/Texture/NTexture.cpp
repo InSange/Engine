@@ -43,7 +43,7 @@ namespace NuNu::graphics
 
 		HRESULT hr = CreateShaderResourceView
 		(
-			GetDevice()->GetID3D11Device().Get()
+			GetDevice<GraphicDevice_DX11>()->GetID3D11Device().Get()
 			, mImage.GetImages()
 			, mImage.GetImageCount()
 			, mImage.GetMetadata()
@@ -72,7 +72,7 @@ namespace NuNu::graphics
 		mDesc.MipLevels = 1;
 		mDesc.MiscFlags = 0;
 
-		if (!GetDevice()->CreateTexture2D(&mDesc, nullptr, mTexture.GetAddressOf()))
+		if (!GetDevice<GraphicDevice_DX11>()->CreateTexture2D(&mDesc, nullptr, mTexture.GetAddressOf()))
 			return false;
 
 		if (!CreateGpuView(mDesc.BindFlags))
@@ -89,7 +89,7 @@ namespace NuNu::graphics
 		srvDesc.Texture2D.MostDetailedMip = 0;
 		srvDesc.ViewDimension = D3D11_SRV_DIMENSION::D3D11_SRV_DIMENSION_TEXTURE2D;
 
-		if (!GetDevice()->CreateShaderResourceView(mTexture.Get(), &srvDesc, mSRV.GetAddressOf()))
+		if (!GetDevice<GraphicDevice_DX11>()->CreateShaderResourceView(mTexture.Get(), &srvDesc, mSRV.GetAddressOf()))
 			return false;
 
 		return true;
@@ -102,7 +102,7 @@ namespace NuNu::graphics
 		uavDesc.Texture2D.MipSlice = 0;
 		uavDesc.ViewDimension = D3D11_UAV_DIMENSION::D3D11_UAV_DIMENSION_TEXTURE2D;
 
-		if (!GetDevice()->CreateUnorderedAccessView(mTexture.Get(), &uavDesc, mUAV.GetAddressOf()))
+		if (!GetDevice<GraphicDevice_DX11>()->CreateUnorderedAccessView(mTexture.Get(), &uavDesc, mUAV.GetAddressOf()))
 			return false;
 
 		return true;
@@ -116,7 +116,7 @@ namespace NuNu::graphics
 		rtvDesc.ViewDimension = D3D11_RTV_DIMENSION::D3D11_RTV_DIMENSION_TEXTURE2D;
 
 
-		if (!GetDevice()->CreateRenderTargetView(mTexture.Get(), &rtvDesc, mRTV.GetAddressOf()))
+		if (!GetDevice<GraphicDevice_DX11>()->CreateRenderTargetView(mTexture.Get(), &rtvDesc, mRTV.GetAddressOf()))
 			return false;
 
 		return true;
@@ -124,7 +124,7 @@ namespace NuNu::graphics
 
 	bool Texture::CreateDSV()
 	{
-		if (!GetDevice()->CreateDepthStencilView(mTexture.Get(), nullptr, mDSV.GetAddressOf()))
+		if (!GetDevice<GraphicDevice_DX11>()->CreateDepthStencilView(mTexture.Get(), nullptr, mDSV.GetAddressOf()))
 			return false;
 
 		return true;
@@ -158,6 +158,6 @@ namespace NuNu::graphics
 
 	void Texture::Bind(eShaderStage stage, UINT startSlot)
 	{
-		GetDevice()->SetShaderResource(stage, startSlot, mSRV.GetAddressOf());
+		GetDevice<GraphicDevice_DX11>()->SetShaderResource(stage, startSlot, mSRV.GetAddressOf());
 	}
 }

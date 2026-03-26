@@ -23,7 +23,7 @@ namespace NuNu::graphics
 		D3D11_SUBRESOURCE_DATA sub = {};
 		sub.pSysMem = indices.data();
 
-		if (!GetDevice()->CreateBuffer(&desc, &sub, buffer.GetAddressOf()))
+		if (!GetDevice<GraphicDevice_DX11>()->CreateBuffer(&desc, &sub, buffer.GetAddressOf()))
 			assert(nullptr && "indices buffer create fail!!");
 
 		return true;
@@ -31,6 +31,6 @@ namespace NuNu::graphics
 
 	void IndexBuffer::Bind() const
 	{
-		GetDevice()->BindIndexBuffer(buffer.Get(), DXGI_FORMAT_R32_UINT, 0);
+		GetDevice<GraphicDevice_DX11>()->BindIndexBuffer(buffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 	}
 }

@@ -13,7 +13,7 @@ namespace NuNu
 {
 	GraphicDevice_DX11::GraphicDevice_DX11()
 	{
-		GetDevice() = this;
+		GetDevice<graphics::GraphicDevice_DX11>() = this;
 
 		if (!(CreateDevice()))
 			assert(nullptr && "Create Device Failed!");
