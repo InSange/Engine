@@ -1,9 +1,13 @@
 ﻿#pragma once
-#include <d3d11.h>
+#include <d3d12.h>
+#include <dxgi1_6.h>
 #include <d3dcompiler.h>
 #include <wrl.h>
 
-#pragma comment(lib, "d3d11.lib")
+#include <include\d3dx12\d3dx12.h>
+
+#pragma comment(lib, "d3d12.lib")
+#pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
 #include "Common/CommonInclude.h"
@@ -12,6 +16,8 @@
 #define CBUFFER(name, slot) static const int CB_GETBINDSLOT(name) = slot; struct alignas(16) name 
 
 #define CBSLOT_TRANSFORM 0
+
+#define DX12_ENABLE
 
 namespace NuNu::graphics
 {
@@ -46,7 +52,7 @@ namespace NuNu::graphics
 		Point,
 		Linear,
 		Anisotropic,
-		//PostProcess,
+		PostProcess,
 		End,
 	};
 
@@ -55,7 +61,7 @@ namespace NuNu::graphics
 		Opaque,
 		CutOut,
 		Transparent,
-		PostProcess,
+		//PostProcess,
 		End,
 	};
 
@@ -98,8 +104,8 @@ namespace NuNu::graphics
 
 	struct GpuBuffer
 	{
-		Microsoft::WRL::ComPtr<ID3D11Buffer> buffer = nullptr;
-		D3D11_BUFFER_DESC desc = {};
+/*		Microsoft::WRL::ComPtr<ID3D11Buffer> buffer = nullptr;
+		D3D11_BUFFER_DESC desc = {};*/
 
 		GpuBuffer() = default;
 		virtual ~GpuBuffer() = default;

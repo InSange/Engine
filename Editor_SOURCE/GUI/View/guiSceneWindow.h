@@ -2,8 +2,8 @@
 #include "../EditorWindow/guiEditorWindow.h"
 #include "../Editor/guiEditor.h"
 
-#include "../../../NuNuEngine_SOURCE/GameObject/NGameObject.h"
-#include "../../../NuNuEngine_SOURCE/Component/Camera/NEditorCamera.h"
+#include "../../../NuNuEngine_CORE/GameObject/NGameObject.h"
+#include "../../../NuNuEngine_CORE/Component/Camera/NEditorCamera.h"
 
 namespace gui
 {

@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "../GraphicDevice/NGraphicDevice_DX11.h"
+#include "../GraphicDevice/NGraphicDevice_DX12.h"
 
 namespace NuNu::graphics
 {

@@ -1,4 +1,4 @@
-﻿#include "NIndexBuffer.h"
+#include "NIndexBuffer.h"
 
 namespace NuNu::graphics
 {
@@ -14,7 +14,7 @@ namespace NuNu::graphics
 	bool IndexBuffer::Create(const std::vector<UINT>& indices)
 	{
 		mIndexCount = (UINT)indices.size();
-
+#if 0
 		desc.ByteWidth = sizeof(UINT) * CAST_UINT(indices.size());
 		desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
 		desc.Usage = D3D11_USAGE_DEFAULT;
@@ -25,12 +25,14 @@ namespace NuNu::graphics
 
 		if (!GetDevice<GraphicDevice_DX11>()->CreateBuffer(&desc, &sub, buffer.GetAddressOf()))
 			assert(nullptr && "indices buffer create fail!!");
-
+#endif
 		return true;
 	}
 
 	void IndexBuffer::Bind() const
 	{
+#if 0
 		GetDevice<GraphicDevice_DX11>()->BindIndexBuffer(buffer.Get(), DXGI_FORMAT_R32_UINT, 0);
+#endif
 	}
 }

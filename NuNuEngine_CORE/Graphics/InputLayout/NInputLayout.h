@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Graphics/GraphicDevice/NGraphicDevice_DX11.h"
+#include "Graphics/GraphicDevice/NGraphicDevice_DX12.h"
 
 namespace NuNu::graphics
 {
@@ -9,11 +9,11 @@ namespace NuNu::graphics
 		InputLayout();
 		~InputLayout();
 
-		void CreateInputLayout(UINT vertexCount, D3D11_INPUT_ELEMENT_DESC* layout, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength);
+		//void CreateInputLayout(UINT vertexCount, D3D11_INPUT_ELEMENT_DESC* layout, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength);
 		void Bind() const;
 
 	private:
-		Microsoft::WRL::ComPtr<ID3D11InputLayout> mInputLayout;
+		//Microsoft::WRL::ComPtr<ID3D11InputLayout> mInputLayout;
 
 	};
 }

@@ -1,4 +1,4 @@
-﻿#include "GUI/Editor/guiEditor.h"
+﻿#include "guiEditor.h"
 
 namespace gui
 {

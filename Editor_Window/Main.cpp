@@ -3,12 +3,12 @@
 
 #include "framework.h"
 #include "Editor_Window.h"
-#include "../NuNuEngine_SOURCE/High Level Interface/NApplication.h"
+#include "../NuNuEngine_CORE/High Level Interface/NApplication.h"
 #include "../NuNuEngine_Window/Scenes/NLoadScenes.h"
 
 #include <ctime>
 
-#include "Application/guiEditorApplication.h"
+#include "guiEditorApplication.h"
 
 
 NuNu::Application application;
@@ -74,13 +74,27 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸
 			// 메세지가 없을 경우 여기서 게임로직 처리
 			application.Run(); // 매 프레임마다 호출
 
-			gui::EditorApplication::Run();	// 에디터 로직
+#ifdef WITH_EDITOR
+			gui::EditorApplication::Run();
+#else
+			application.CloseCommandList();
+#endif
+			//Excute command list
+			application.ExcuteCommandList();
+
+#ifdef WITH_EDITOR
+			gui::EditorApplication::UpdatePlatformWindows();
+#else
+			application.WaitForNextFrameResources();
+#endif
 
 			application.Present();	// 화면 출력
 		}
 	}
 
+#ifdef WITH_EDITOR
 	gui::EditorApplication::Release();
+#endif
 	application.Release();
 
 	return (int)msg.wParam;
@@ -156,7 +170,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	application.Initialize(hWnd, width, height);
 
 	NuNu::LoadScenes();
+#ifdef WITH_EDITOR
 	gui::EditorApplication::Initialize();
+#endif
 
 	return TRUE;
 }

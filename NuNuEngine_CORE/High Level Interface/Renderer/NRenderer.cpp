@@ -1,4 +1,4 @@
-﻿#include "NRenderer.h"
+#include "NRenderer.h"
 #include "Resource/NResources.h"
 #include "Resource/Graphics/Shader/NShader.h"
 #include "../../Resource/Mesh/NMesh.h"
@@ -16,15 +16,18 @@ namespace NuNu::renderer
 	GameObject* selectedObject = nullptr;
 
 	ConstantBuffer* constantBuffers[static_cast<UINT>(eCBType::End)] = {};
+#if 0
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[static_cast<UINT>(eSamplerType::End)] = {};
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[static_cast<UINT>(eRasterizerState::End)] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[static_cast<UINT>(eBlendState::End)] = {};
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[static_cast<UINT>(eDepthStencilState::End)] = {};
+#endif
 
 	RenderTarget* FrameBuffer = nullptr;
 
 	void LoadStates()
 	{
+#if 0
 #pragma region sampler state
 		D3D11_SAMPLER_DESC samplerDesc = {};
 		samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
@@ -57,7 +60,7 @@ namespace NuNu::renderer
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 		GetDevice<GraphicDevice_DX11>()->CreateSamplerState(&samplerDesc, samplerStates[static_cast<UINT>(eSamplerType::Linear)].GetAddressOf());
 
-		/*ZeroMemory(&samplerDesc, sizeof(samplerDesc));
+		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
 		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
 		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
 		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
@@ -65,16 +68,18 @@ namespace NuNu::renderer
 		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-		GetDevice<GraphicDevice_DX11>()->CreateSamplerState(&samplerDesc, samplerStates[static_cast<UINT>(eSamplerType::PostProcess)].GetAddressOf());*/
+		GetDevice<GraphicDevice_DX11>()->CreateSamplerState(&samplerDesc,
+			samplerStates[static_cast<UINT>(eSamplerType::PostProcess)].GetAddressOf());
 
-	/*	GetDevice<GraphicDevice_DX11>()->BindSamplers(static_cast<UINT>(eSamplerType::Point), 1,
+		GetDevice<GraphicDevice_DX11>()->BindSamplers(static_cast<UINT>(eSamplerType::Point), 1,
 			samplerStates[static_cast<UINT>(eSamplerType::Point)].GetAddressOf());
 		GetDevice<GraphicDevice_DX11>()->BindSamplers(static_cast<UINT>(eSamplerType::Linear), 1,
 			samplerStates[static_cast<UINT>(eSamplerType::Linear)].GetAddressOf());
 		GetDevice<GraphicDevice_DX11>()->BindSamplers(static_cast<UINT>(eSamplerType::Anisotropic), 1,
 			samplerStates[static_cast<UINT>(eSamplerType::Anisotropic)].GetAddressOf());
 		GetDevice<GraphicDevice_DX11>()->BindSamplers(static_cast<UINT>(eSamplerType::PostProcess), 1,
-			samplerStates[static_cast<UINT>(eSamplerType::PostProcess)].GetAddressOf());*/
+			samplerStates[static_cast<UINT>(eSamplerType::PostProcess)].GetAddressOf());
+
 #pragma endregion
 
 #pragma region rasterize state
@@ -132,17 +137,12 @@ namespace NuNu::renderer
 
 		bsDesc = {};
 		bsDesc.RenderTarget[0].BlendEnable = TRUE;
-		// 색상 블렌딩
 		bsDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
 		bsDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
 		bsDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-
-		// 알파 블렌딩 (보통 무시)
 		bsDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 		bsDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
 		bsDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-
-		// 출력 마스크: RGBA 다 써도 된다
 		bsDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		GetDevice<GraphicDevice_DX11>()->CreateBlendState(&bsDesc, blendStates[static_cast<UINT>(eBlendState::OneOne)].GetAddressOf());
 #pragma endregion
@@ -173,6 +173,7 @@ namespace NuNu::renderer
 			&dsDesc, depthStencilStates[static_cast<UINT>(eDepthStencilState::Always)].GetAddressOf());
 
 #pragma endregion
+#endif
 	}
 
 	void LoadTriangleMesh()
@@ -196,6 +197,7 @@ namespace NuNu::renderer
 		indices.push_back(1);
 		indices.push_back(2);
 
+#if 0
 		D3D11_INPUT_ELEMENT_DESC inputLayoutDesces[2] = {};
 		inputLayoutDesces[0].AlignedByteOffset = 0;
 		inputLayoutDesces[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
@@ -213,6 +215,7 @@ namespace NuNu::renderer
 
 		Shader* triangleShader = Resources::Find<Shader>(L"TriangleShader");
 		mesh->SetVertexBufferParams(2, inputLayoutDesces, triangleShader->GetVSBlob()->GetBufferPointer(), triangleShader->GetVSBlob()->GetBufferSize());
+#endif
 
 		mesh->CreateVB(vertexes);
 		mesh->CreateIB(indices);
@@ -252,6 +255,7 @@ namespace NuNu::renderer
 		indices.push_back(1);
 		indices.push_back(2);
 
+#if 0
 		D3D11_INPUT_ELEMENT_DESC inputLayoutDesces[3] = {};
 		inputLayoutDesces[0].AlignedByteOffset = 0;
 		inputLayoutDesces[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
@@ -276,6 +280,7 @@ namespace NuNu::renderer
 
 		Shader* spriteShader = Resources::Find<Shader>(L"SpriteDefaultShader");
 		mesh->SetVertexBufferParams(3, inputLayoutDesces, spriteShader->GetVSBlob()->GetBufferPointer(), spriteShader->GetVSBlob()->GetBufferSize());
+#endif
 
 		mesh->CreateVB(vertexes);
 		mesh->CreateIB(indices);
@@ -307,8 +312,6 @@ namespace NuNu::renderer
 		spriteMaterial->SetShader(Resources::Find<Shader>(L"SpriteDefaultShader"));
 
 		Resources::Insert(L"Sprite-Default-Material", spriteMaterial);
-
-		//NuNu::Resources::Load<Material>(L"SpriteMaterial", L"..\\Materials\\SpriteMaterial")
 	}
 
 	void LoadConstantBuffers()
@@ -397,8 +400,6 @@ namespace NuNu::renderer
 
 	void SortByDistance(std::vector<GameObject*>& renderList, const Vector3& cameraPos, bool bAscending)
 	{
-		// opaqueList and cutoutList are sorted in ascending order
-		// trasparentList is sorted in descending order
 		auto comparator = [cameraPos, bAscending](GameObject* a, GameObject* b)
 			{
 				float distA = Vector3::Distance(a->GetComponent<Transform>()->GetPosition(), cameraPos);
@@ -432,4 +433,3 @@ namespace NuNu::renderer
 		}
 	}
 }
-

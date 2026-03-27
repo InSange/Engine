@@ -1,4 +1,4 @@
-﻿#include "NShader.h"
+#include "NShader.h"
 #include "../../../High Level Interface/Renderer/NRenderer.h"
 #include "../../NResources.h"
 
@@ -12,7 +12,6 @@ namespace NuNu::graphics
         , mBlendState(eBlendState::Opaque)
         , mDepthStencilState(eDepthStencilState::LessEqual)
     {
-
     }
 
     graphics::Shader::~Shader()
@@ -49,22 +48,25 @@ namespace NuNu::graphics
 
     bool graphics::Shader::CreateVertexShader(const std::wstring& fileName)
     {
+#if 0
         if (!GetDevice<GraphicDevice_DX11>()->CreateVertexShader(fileName, mVSBlob.GetAddressOf(), mVS.GetAddressOf()))
             return false;
-
+#endif
         return true;
     }
 
     bool graphics::Shader::CreatePixelShader(const std::wstring& fileName)
     {
+#if 0
         if (!GetDevice<GraphicDevice_DX11>()->CreatePixelShader(fileName, mPSBlob.GetAddressOf(), mPS.GetAddressOf()))
             return false;
-
+#endif
         return true;
     }
 
     void graphics::Shader::Bind()
     {
+#if 0
         if (bWireframe)
         {
             Shader* wireframeShader = Resources::Find<Shader>(L"WireframeShader");
@@ -90,5 +92,6 @@ namespace NuNu::graphics
         GetDevice<GraphicDevice_DX11>()->BindRasterizerState(renderer::rasterizerStates[static_cast<UINT>(mRasterizerState)].Get());
         GetDevice<GraphicDevice_DX11>()->BindBlendState(renderer::blendStates[static_cast<UINT>(mBlendState)].Get(), nullptr, 0xffffff);
         GetDevice<GraphicDevice_DX11>()->BindDepthStencilState(renderer::depthStencilStates[static_cast<UINT>(mDepthStencilState)].Get(), 0);
+#endif
     }
 }

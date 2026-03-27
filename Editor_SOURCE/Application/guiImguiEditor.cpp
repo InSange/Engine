@@ -1,6 +1,6 @@
 #include "guiImguiEditor.h"
 
-#include "../../NuNuEngine_SOURCE/High Level Interface/NApplication.h"
+#include "../../NuNuEngine_CORE/High Level Interface/NApplication.h"
 
 extern NuNu::Application application;
 

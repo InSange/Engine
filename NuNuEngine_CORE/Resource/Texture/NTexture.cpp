@@ -1,4 +1,4 @@
-﻿#include "Resource/Texture/NTexture.h"
+#include "Resource/Texture/NTexture.h"
 #include "High Level Interface/NApplication.h"
 #include "Resource/NResources.h"
 
@@ -8,7 +8,6 @@ namespace NuNu::graphics
 {
 	Texture::Texture()
 		: Resource(eResourceType::Texture)
-		, mDesc{}
 	{
 	}
 
@@ -24,6 +23,7 @@ namespace NuNu::graphics
 	HRESULT Texture::Load(const std::wstring& path)
 	{
 		std::wstring ext = path.substr(path.find_last_of(L".") + 1);
+#if 0
 
 		if (ext == L".dds" || ext == L".DDS")
 		{
@@ -54,12 +54,13 @@ namespace NuNu::graphics
 			assert(false/*"Textrue load fail!!"*/);
 
 		mSRV->GetResource(reinterpret_cast<ID3D11Resource**>(mTexture.GetAddressOf()));
-
+#endif
 		return S_OK;
 	}
 
 	bool Texture::Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag)
 	{
+#if 0
 		mDesc.BindFlags = bindFlag;
 		mDesc.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;
 		mDesc.CPUAccessFlags = 0;
@@ -77,12 +78,13 @@ namespace NuNu::graphics
 
 		if (!CreateGpuView(mDesc.BindFlags))
 			return false;
-
+#endif
 		return true;
 	}
 
 	bool Texture::CreateSRV()
 	{
+#if 0
 		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 		srvDesc.Format = mDesc.Format;
 		srvDesc.Texture2D.MipLevels = 1;
@@ -91,12 +93,13 @@ namespace NuNu::graphics
 
 		if (!GetDevice<GraphicDevice_DX11>()->CreateShaderResourceView(mTexture.Get(), &srvDesc, mSRV.GetAddressOf()))
 			return false;
-
+#endif
 		return true;
 	}
 
 	bool Texture::CreateUAV()
 	{
+#if 0
 		D3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};
 		uavDesc.Format = mDesc.Format;
 		uavDesc.Texture2D.MipSlice = 0;
@@ -104,34 +107,36 @@ namespace NuNu::graphics
 
 		if (!GetDevice<GraphicDevice_DX11>()->CreateUnorderedAccessView(mTexture.Get(), &uavDesc, mUAV.GetAddressOf()))
 			return false;
-
+#endif
 		return true;
 	}
 
 	bool Texture::CreateRTV()
 	{
+#if 0
 		D3D11_RENDER_TARGET_VIEW_DESC rtvDesc = {};
 		rtvDesc.Format = mDesc.Format;
 		rtvDesc.Texture2D.MipSlice = 0;
 		rtvDesc.ViewDimension = D3D11_RTV_DIMENSION::D3D11_RTV_DIMENSION_TEXTURE2D;
 
-
 		if (!GetDevice<GraphicDevice_DX11>()->CreateRenderTargetView(mTexture.Get(), &rtvDesc, mRTV.GetAddressOf()))
 			return false;
-
+#endif
 		return true;
 	}
 
 	bool Texture::CreateDSV()
 	{
+#if 0
 		if (!GetDevice<GraphicDevice_DX11>()->CreateDepthStencilView(mTexture.Get(), nullptr, mDSV.GetAddressOf()))
 			return false;
-
+#endif
 		return true;
 	}
 
 	bool Texture::CreateGpuView(UINT flag)
 	{
+#if 0
 		if (flag & D3D11_BIND_FLAG::D3D11_BIND_RENDER_TARGET)
 		{
 			if (!CreateRTV())
@@ -152,12 +157,14 @@ namespace NuNu::graphics
 			if (!CreateUAV())
 				return false;
 		}
-
+#endif
 		return true;
 	}
 
 	void Texture::Bind(eShaderStage stage, UINT startSlot)
 	{
+#if 0
 		GetDevice<GraphicDevice_DX11>()->SetShaderResource(stage, startSlot, mSRV.GetAddressOf());
+#endif
 	}
 }

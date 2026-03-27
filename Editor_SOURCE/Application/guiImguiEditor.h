@@ -2,7 +2,7 @@
 #include "../GUI/Editor/guiEditor.h"
 #include "../GUI/EditorWindow/guiEditorWindow.h"
 
-#include "../../../NuNuEngine_SOURCE/Event/NEvent.h"
+#include "../../NuNuEngine_CORE/Event/NEvent.h"
 
 
 namespace gui

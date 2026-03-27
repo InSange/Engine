@@ -1,4 +1,4 @@
-﻿#include "NConstantBuffer.h"
+#include "NConstantBuffer.h"
 
 namespace NuNu::graphics
 {
@@ -14,6 +14,7 @@ namespace NuNu::graphics
 
 	bool ConstantBuffer::Create(UINT size, void* data)
 	{
+#if 0
 		mSize = size;
 		desc.ByteWidth = size;
 		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -31,17 +32,21 @@ namespace NuNu::graphics
 
 		if (!success)
 			assert(false && "Create constant buffer failed!");
-
+#endif
 		return true;
 	}
 
 	void ConstantBuffer::SetData(void* data) const
 	{
+#if 0
 		GetDevice<graphics::GraphicDevice_DX11>()->SetDataGpuBuffer(buffer.Get(), data, mSize);
+#endif
 	}
 
 	void ConstantBuffer::Bind(eShaderStage stage) const
 	{
+#if 0
 		GetDevice<graphics::GraphicDevice_DX11>()->BindConstantBuffer(stage, mType, buffer.Get());
+#endif
 	}
 }

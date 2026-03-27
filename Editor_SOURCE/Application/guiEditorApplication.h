@@ -4,11 +4,11 @@
 #include "../GUI/EditorWindow/guiEditorWindow.h"
 #include "../Application/guiImguiEditor.h"
 
-#include "../../NuNuEngine_SOURCE/Graphics/RenderTarget/NRenderTarget.h"
-#include "../../NuNuEngine_SOURCE/Event/NEvent.h"
-#include "../../NuNuEngine_SOURCE/Event/NKeyEvent.h"
-#include "../../NuNuEngine_SOURCE/Event/NMouseEvent.h"
-#include "../../NuNuEngine_SOURCE/Component/Camera/NEditorCamera.h"
+#include "../../NuNuEngine_CORE/Graphics/RenderTarget/NRenderTarget.h"
+#include "../../NuNuEngine_CORE/Event/NEvent.h"
+#include "../../NuNuEngine_CORE/Event/NKeyEvent.h"
+#include "../../NuNuEngine_CORE/Event/NMouseEvent.h"
+#include "../../NuNuEngine_CORE/Component/Camera/NEditorCamera.h"
 
 namespace NuNu
 {

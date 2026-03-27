@@ -15,7 +15,7 @@ namespace NuNu
 			MeshData();
 			virtual ~MeshData();
 
-			D3D11_PRIMITIVE_TOPOLOGY mTopology;
+			//D3D11_PRIMITIVE_TOPOLOGY mTopology;
 			std::vector<graphics::Vertex> vertices;
 
 			std::vector<UINT> indices;
@@ -29,7 +29,7 @@ namespace NuNu
 
 		bool CreateVB(const std::vector<graphics::Vertex>& vertices);
 		bool CreateIB(const std::vector<UINT>& indices);
-		void SetVertexBufferParams(UINT vertexCount, D3D11_INPUT_ELEMENT_DESC* layout, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength);
+		//void SetVertexBufferParams(UINT vertexCount, D3D11_INPUT_ELEMENT_DESC* layout, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength);
 
 		void Bind();
 

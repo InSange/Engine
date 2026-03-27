@@ -1,5 +1,5 @@
 #pragma once
-#include "../NuNuEngine_SOURCE/Scene/NScene.h"
+#include "Scene/NScene.h"
 
 namespace NuNu
 {

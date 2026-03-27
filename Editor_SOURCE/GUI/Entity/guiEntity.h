@@ -1,17 +1,17 @@
 #pragma once
-#include "../../../NuNuEngine_SOURCE/Common/CommonInclude.h"
-#include "../../../NuNuEngine_SOURCE/Event/NEvent.h"
+#include "../../../NuNuEngine_CORE/Common/CommonInclude.h"
+#include "../../../NuNuEngine_CORE/Event/NEvent.h"
 
 #define IMGUI_DEFINE_MATH_OPERATORS
-#include "imgui.h"
-#include "imgui_impl_win32.h"
-#include "imgui_impl_dx11.h"
+#include "../../imgui.h"
+#include "../../imgui_impl_win32.h"
+#include "../../imgui_impl_dx11.h"
 
-#include "ImGuizmo.h"
-#include "ImSequencer.h"
-#include "ImZoomSlider.h"
-#include "ImCurveEdit.h"
-#include "GraphEditor.h"
+#include "../../ImGuizmo.h"
+#include "../../ImSequencer.h"
+#include "../../ImZoomSlider.h"
+#include "../../ImCurveEdit.h"
+#include "../../GraphEditor.h"
 
 namespace gui
 {

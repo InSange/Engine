@@ -4,9 +4,9 @@
 namespace NuNu
 {
 	Mesh::MeshData::MeshData()
-		: mTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
-		, vertices{}
-		, indices{}
+		//: mTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+		//, vertices{}
+		//, indices{}
 	{
 	}
 
@@ -45,10 +45,10 @@ namespace NuNu
 		return mIB.Create(indices);
 	}
 
-	void Mesh::SetVertexBufferParams(UINT vertexCount, D3D11_INPUT_ELEMENT_DESC* layout, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength)
+	/*void Mesh::SetVertexBufferParams(UINT vertexCount, D3D11_INPUT_ELEMENT_DESC* layout, const void* pShaderBytecodeWithInputSignature, SIZE_T BytecodeLength)
 	{
 		mInputLayout.CreateInputLayout(vertexCount, layout, pShaderBytecodeWithInputSignature, BytecodeLength);
-	}
+	}*/
 
 	void Mesh::Bind()
 	{
@@ -57,7 +57,9 @@ namespace NuNu
 		mVB.Bind();
 		mIB.Bind();
 
+#if 0
 		graphics::GetDevice<graphics::GraphicDevice_DX11>()->BindPrimitiveTopology(mData.mTopology);
+#endif
 	}
 }
 

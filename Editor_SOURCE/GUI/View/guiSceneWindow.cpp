@@ -1,11 +1,11 @@
 #include "guiSceneWindow.h"
 
-#include "../../../NuNuEngine_SOURCE/High Level Interface/Renderer/NRenderer.h"
-#include "../../../NuNuEngine_SOURCE/Component/Transform/NTransform.h"
-#include "../../../NuNuEngine_SOURCE/Graphics/GraphicDevice/NGraphicDevice_DX11.h"
-#include "../../../NuNuEngine_SOURCE/High Level Interface/NApplication.h"
-#include "../../../NuNuEngine_SOURCE/High Level Interface/NWindow.h"
-#include "../../../NuNuEngine_SOURCE/Scene/NSceneManager.h"
+#include "../../../NuNuEngine_CORE/High Level Interface/Renderer/NRenderer.h"
+#include "../../../NuNuEngine_CORE/Component/Transform/NTransform.h"
+#include "../../../NuNuEngine_CORE/Graphics/GraphicDevice/NGraphicDevice_DX11.h"
+#include "../../../NuNuEngine_CORE/High Level Interface/NApplication.h"
+#include "../../../NuNuEngine_CORE/High Level Interface/NWindow.h"
+#include "../../../NuNuEngine_CORE/Scene/NSceneManager.h"
 
 #include "../../Application/guiEditorApplication.h"
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.props" Condition="Exists('..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -23,7 +24,7 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{c3624b54-a5e5-401f-9c6a-10d056bedb2a}</ProjectGuid>
     <RootNamespace>EditorWindow</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -57,6 +58,7 @@
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
+  <!-- Editor_SOURCE shared items removed; files now compiled directly in this project -->
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -77,7 +79,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\NuNuEngine_Window;..\NuNuEngine_SOURCE;$(SolutionDir)External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)External\Include\entt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\NuNuEngine_Window;..\NuNuEngine_CORE;$(SolutionDir)External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -98,7 +100,7 @@ xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\NuNuEngine_Window;..\NuNuEngine_SOURCE;$(SolutionDir)External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)External\Include\entt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\NuNuEngine_Window;..\NuNuEngine_CORE;$(SolutionDir)External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -117,7 +119,7 @@ xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\NuNuEngine_Window;..\NuNuEngine_SOURCE;$(SolutionDir)External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)External\Include\entt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\NuNuEngine_Window;..\NuNuEngine_CORE;$(SolutionDir)External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -139,7 +141,7 @@ xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\NuNuEngine_Window;..\NuNuEngine_SOURCE;$(SolutionDir)External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)External\Include\entt\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);..\NuNuEngine_Window;..\NuNuEngine_CORE;$(SolutionDir)External\Include\Fmod\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -155,11 +157,74 @@ xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
   <ItemGroup>
     <ClInclude Include="Editor_Window.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="guiDescriptorAllocator.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <!-- GUI -->
+    <ClInclude Include="guiEntity.h" />
+    <ClInclude Include="guiEditorWindow.h" />
+    <ClInclude Include="guiEditor.h" />
+    <ClInclude Include="guiComponent.h" />
+    <ClInclude Include="guiTransform.h" />
+    <ClInclude Include="guiGUILayout.h" />
+    <ClInclude Include="guiInspectorWindow.h" />
+    <ClInclude Include="guiConsoleWindow.h" />
+    <ClInclude Include="guiHierarchyWindow.h" />
+    <ClInclude Include="guiProjectWindow.h" />
+    <ClInclude Include="guiSceneWindow.h" />
+    <!-- Application -->
+    <ClInclude Include="guiEditorApplication.h" />
+    <ClInclude Include="guiImguiEditor.h" />
+    <!-- imgui -->
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_impl_dx11.h" />
+    <ClInclude Include="imgui_impl_dx12.h" />
+    <ClInclude Include="imgui_impl_win32.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="imstb_rectpack.h" />
+    <ClInclude Include="imstb_textedit.h" />
+    <ClInclude Include="imstb_truetype.h" />
+    <!-- ImGuizmo -->
+    <ClInclude Include="ImGuizmo.h" />
+    <ClInclude Include="ImCurveEdit.h" />
+    <ClInclude Include="ImGradient.h" />
+    <ClInclude Include="ImSequencer.h" />
+    <ClInclude Include="ImZoomSlider.h" />
+    <ClInclude Include="GraphEditor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <!-- GUI -->
+    <ClCompile Include="guiEntity.cpp" />
+    <ClCompile Include="guiEditorWindow.cpp" />
+    <ClCompile Include="guiEditor.cpp" />
+    <ClCompile Include="guiComponent.cpp" />
+    <ClCompile Include="guiTransform.cpp" />
+    <ClCompile Include="guiGUILayout.cpp" />
+    <ClCompile Include="guiInspectorWindow.cpp" />
+    <ClCompile Include="guiConsoleWindow.cpp" />
+    <ClCompile Include="guiHierarchyWindow.cpp" />
+    <ClCompile Include="guiProjectWindow.cpp" />
+    <ClCompile Include="guiSceneWindow.cpp" />
+    <!-- Application -->
+    <ClCompile Include="guiEditorApplication.cpp" />
+    <ClCompile Include="guiImguiEditor.cpp" />
+    <!-- imgui -->
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_dx11.cpp" />
+    <ClCompile Include="imgui_impl_dx12.cpp" />
+    <ClCompile Include="imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui_tables.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
+    <!-- ImGuizmo -->
+    <ClCompile Include="ImGuizmo.cpp" />
+    <ClCompile Include="ImCurveEdit.cpp" />
+    <ClCompile Include="ImGradient.cpp" />
+    <ClCompile Include="ImSequencer.cpp" />
+    <ClCompile Include="GraphEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Editor_Window.rc" />
@@ -172,6 +237,9 @@ xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
     <ProjectReference Include="..\NuNuEngine_Window\NuNuEngine_Window.vcxproj">
       <Project>{9ae8d9b8-1b7f-4561-8919-5e955d35732a}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\NuNuEngine_CORE\NuNuEngine_CORE.vcxproj">
+      <Project>{4A5B6C7D-8E9F-40A1-B2C3-D4E5F6A7B8C9}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -179,16 +247,18 @@ xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
     <None Include="packages.config" />
   </ItemGroup>
   <ImportGroup Label="Shared">
-    <Import Project="..\Editor_SOURCE\Editor_SOURCE.vcxitems" Label="Shared" />
   </ImportGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\directxtex_desktop_win10.2025.10.28.1\build\native\directxtex_desktop_win10.targets" Condition="Exists('..\packages\directxtex_desktop_win10.2025.10.28.1\build\native\directxtex_desktop_win10.targets')" />
+    <Import Project="..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.targets" Condition="Exists('..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>이 프로젝트는 이 컴퓨터에 없는 NuGet 패키지를 참조합니다. 해당 패키지를 다운로드하려면 NuGet 패키지 복원을 사용하십시오. 자세한 내용은 http://go.microsoft.com/fwlink/?LinkID=322105를 참조하십시오. 누락된 파일은 {0}입니다.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\directxtex_desktop_win10.2025.10.28.1\build\native\directxtex_desktop_win10.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_win10.2025.10.28.1\build\native\directxtex_desktop_win10.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.targets'))" />
   </Target>
 </Project>

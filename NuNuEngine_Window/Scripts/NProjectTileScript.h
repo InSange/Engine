@@ -1,6 +1,5 @@
 #pragma once
-#include "../../NuNuEngine_SOURCE/Component/Script/NScript.h"
-#include "../../NuNuEngine_SOURCE/Resource/Texture/NTexture.h"
+#include "Component/Script/NScript.h"
 
 namespace NuNu
 {

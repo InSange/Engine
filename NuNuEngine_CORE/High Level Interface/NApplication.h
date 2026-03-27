@@ -1,11 +1,7 @@
 ﻿#pragma once
 #include "GameObject/NGameObject.h"
 
-#ifdef DX12_ENABLED
 #include "Graphics/GraphicDevice/NGraphicDevice_DX12.h"
-#else
-#include "Graphics/GraphicDevice/NGraphicDevice_DX11.h"
-#endif
 
 #include "Event/NApplicationEvent.h"
 #include "Event/NMouseEvent.h"
@@ -36,7 +32,10 @@ namespace NuNu
 		void Update();
 		void LateUpdate();
 		void Render();
+		void ExcuteCommandList();
 		void Present();
+		void CloseCommandList();
+		void WaitForNextFrameResources();
 		void EndOfFrame();
 		void Release();
 
@@ -49,7 +48,7 @@ namespace NuNu
 		bool mbLoaded;
 		bool mbRunning;
 
-		std::unique_ptr<graphics::GraphicDevice_DX11> mGraphicDevice;
+		std::unique_ptr<graphics::GraphicDevice_DX12> mGraphicDevice_12;
 
 		Window mWindow;
 	};

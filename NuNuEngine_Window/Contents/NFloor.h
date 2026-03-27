@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "GameObject/NGameObject.h"
+#include <GameObject/NGameObject.h>
 
 namespace NuNu
 {

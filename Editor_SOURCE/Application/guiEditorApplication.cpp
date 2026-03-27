@@ -1,16 +1,16 @@
-#include "Application/guiEditorApplication.h"
+#include "guiEditorApplication.h"
 #include "../GUI/View/guiInspectorWindow.h"
 #include "../GUI/View/guiConsoleWindow.h"
 #include "../GUI/View/guiProjectWindow.h"
 #include "../GUI/View/guiSceneWindow.h"
 #include "../GUI/View/guiHierarchyWindow.h"
 
-#include "../../NuNuEngine_SOURCE/High Level Interface/NApplication.h"
-#include "High Level Interface/Renderer/NRenderer.h"
-#include "../../NuNuEngine_SOURCE/GameObject/NGameObject.h"
-#include "../../NuNuEngine_SOURCE/Component/Transform/NTransform.h"
-#include "../../NuNuEngine_SOURCE/Helpers/NInput.h"
-#include "../../NuNuEngine_SOURCE/Event/NMouseEvent.h"
+#include "../../NuNuEngine_CORE/High Level Interface/NApplication.h"
+#include "../../NuNuEngine_CORE/High Level Interface/Renderer/NRenderer.h"
+#include "../../NuNuEngine_CORE/GameObject/NGameObject.h"
+#include "../../NuNuEngine_CORE/Component/Transform/NTransform.h"
+#include "../../NuNuEngine_CORE/Helpers/NInput.h"
+#include "../../NuNuEngine_CORE/Event/NMouseEvent.h"
 #include "guiEditorApplication.h"
 
 extern NuNu::Application application;

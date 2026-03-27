@@ -1,6 +1,6 @@
 #pragma once
-#include "GUI/EditorWindow/guiEditorWindow.h"
-#include "GUI/Editor/guiEditor.h"
+#include "../../GUI/EditorWindow/guiEditorWindow.h"
+#include "../../GUI/Editor/guiEditor.h"
 
 namespace gui
 {

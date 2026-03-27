@@ -1,7 +1,7 @@
 ﻿#include "Contents/NPlayer.h"
-#include "Helpers/NInput.h"
-#include "Component/Transform/NTransform.h"
-#include "Helpers/NTime.h"
+#include <Helpers/NInput.h>
+#include <Component/Transform/NTransform.h>
+#include <Helpers/NTime.h>
 
 namespace NuNu
 {

@@ -30,8 +30,8 @@ namespace NuNu
 		AdjustWindowRect(hwnd, width, height);
 		InitializeEtc();
 
-		mGraphicDevice = std::make_unique<GraphicDevice_DX11>();
-		mGraphicDevice->Initialize();
+		mGraphicDevice_12 = std::make_unique<graphics::GraphicDevice_DX12>();
+		mGraphicDevice_12->Initialize();
 		renderer::Initialize();
 
 		Fmod::Initialize();
@@ -73,30 +73,6 @@ namespace NuNu
 
 	void Application::ResizeGraphicDevice(WindowResizeEvent& e)
 	{
-		if (mGraphicDevice == nullptr)
-			return;
-
-		// 창이 최소화되거나 아직 초기화 전이면 크기가 0 -> 무시
-		if (e.GetWidth() == 0 || e.GetHeight() == 0)
-			return;
-
-		// FrameBuffer가 아직 생성되지 않은 초기화 시점이어도 안전하게 무시
-		if (renderer::FrameBuffer == nullptr)
-			return;
-
-		D3D11_VIEWPORT viewport = {};
-		viewport.TopLeftX = 0.0f;
-		viewport.TopLeftY = 0.0f;
-		viewport.Width = static_cast<float>(e.GetWidth());
-		viewport.Height = static_cast<float>(e.GetHeight());
-		viewport.MinDepth = 0.0f;
-		viewport.MaxDepth = 1.0f;
-
-		mWindow.SetWidth(viewport.Width);
-		mWindow.SetHeight(viewport.Height);
-
-		mGraphicDevice->Resize(viewport);
-		renderer::FrameBuffer->Resize(viewport.Width, viewport.Height);
 	}
 
 
@@ -154,27 +130,29 @@ namespace NuNu
 
 	void Application::Render() // 화면 그리기
 	{
-		GetDevice<GraphicDevice_DX11>()->ClearRenderTargetView();
-		GetDevice<GraphicDevice_DX11>()->ClearDepthStencilView();
-		GetDevice<GraphicDevice_DX11>()->BindViewPort();
-		GetDevice<GraphicDevice_DX11>()->BindDefaultRenderTarget();
+		GetDevice()->Render();
+	}
 
-		Time::Render();
-		SceneManager::Render();
-		CollisionManager::Render();
-		UIManager::Render();
+	void Application::ExcuteCommandList()
+	{
+		GetDevice()->ExcuteCommandList();
+	}
 
-		//copy back buffer
-		Microsoft::WRL::ComPtr<ID3D11Texture2D> src = GetDevice<GraphicDevice_DX11>()->GetFrameBuffer();
-		Microsoft::WRL::ComPtr<ID3D11Texture2D> dst = renderer::FrameBuffer->GetAttachmentTexture(0)->GetTexture();
-
-		GetDevice<GraphicDevice_DX11>()->CopyResource(dst.Get(), src.Get());
+	void Application::CloseCommandList()
+	{
+		GetDevice()->CloseCommandList();
 	}
 
 	void Application::Present()
 	{
-		GetDevice<GraphicDevice_DX11>()->Present();
+		GetDevice()->Present();
 	}
+
+	void Application::WaitForNextFrameResources()
+	{
+		GetDevice()->WaitForNextFrameResources();
+	}
+
 
 	void Application::EndOfFrame()
 	{
@@ -190,4 +168,3 @@ namespace NuNu
 		renderer::Release();
 	}
 }
-
