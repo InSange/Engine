@@ -410,3 +410,6 @@ FodyWeavers.xsd
 #resource
 /x64￦Shaders_SOURCE￦
 /x64￦Resources￦
+
+# inc
+*.inc

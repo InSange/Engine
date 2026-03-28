@@ -1,6 +1,9 @@
 #include "NGraphicDevice_DX12.h"
 #include "High Level Interface/NApplication.h"
 
+#include "../../Resource/NResources.h"
+#include "../../Resource/Graphics/Shader/NShader.h"
+
 extern NuNu::Application application;
 
 namespace NuNu::graphics
@@ -9,6 +12,7 @@ namespace NuNu::graphics
 		: mbUseWarpDevice(false)
 		, mFrameIndex(0)
 		, mRtvDescriptorSize(0)
+		, mFenceLastSignalValue(0)
 	{
 		GetDevice() = this;
 		// Initialize the DirectX 12 device here
@@ -188,9 +192,9 @@ namespace NuNu::graphics
 		rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
 		rtvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 		if (FAILED(mDevice->CreateDescriptorHeap(&rtvHeapDesc, IID_PPV_ARGS(&mRtvHeap))))
-			assert(NULL && "Create RTV Heap Failed!"); \
+			assert(NULL && "Create RTV Heap Failed!");
 
-			mRtvDescriptorSize = mDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+		mRtvDescriptorSize = mDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 
 		// Create a RTV for each frame.
 		CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(mRtvHeap->GetCPUDescriptorHandleForHeapStart());
@@ -240,7 +244,7 @@ namespace NuNu::graphics
 
 
 		// load shader
-		Microsoft::WRL::ComPtr<ID3DBlob> vertexShader;
+/*		Microsoft::WRL::ComPtr<ID3DBlob> vertexShader;
 		Microsoft::WRL::ComPtr<ID3DBlob> pixelShader;
 
 #if defined(_DEBUG)
@@ -279,7 +283,7 @@ namespace NuNu::graphics
 		psoDesc.SampleDesc.Count = 1;
 
 		if (FAILED(mDevice->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&mPipelineState))))
-			assert(NULL, "CreateGraphicsPipelineState");
+			assert(NULL, "CreateGraphicsPipelineState");*/
 
 		// Create the command list.
 		if (FAILED(mDevice->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, mFrameContext[0].CommandAllocator.Get(), mPipelineState.Get(), IID_PPV_ARGS(&mCommandList))))
@@ -291,52 +295,53 @@ namespace NuNu::graphics
 			assert(NULL, "CommandList Close");
 
 		// Create the vertex buffer.
-		{
-			// Define the geometry for a triangle.
-			float aspectRatio = 1.0f;
-			Vertex triangleVertices[] =
-			{
-				{ { 0.0f, 0.25f * 1600.0f / 900.0f, 0.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },
-				{ { 0.25f, -0.25f * 1600.0f / 900.0f, 0.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } },
-				{ { -0.25f, -0.25f * 1600.0f / 900.0f, 0.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } }
-			};
+		//{
+		//	// Define the geometry for a triangle.
+		//	float aspectRatio = 1.0f;
+		//	Vertex triangleVertices[] =
+		//	{
+		//		{ { 0.0f, 0.25f * 1600.0f / 900.0f, 0.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },
+		//		{ { 0.25f, -0.25f * 1600.0f / 900.0f, 0.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } },
+		//		{ { -0.25f, -0.25f * 1600.0f / 900.0f, 0.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } }
+		//	};
 
-			const UINT vertexBufferSize = sizeof(triangleVertices);
+		//	const UINT vertexBufferSize = sizeof(triangleVertices);
 
-			// Note: using upload heaps to transfer static data like vert buffers is not 
-			// recommended. Every time the GPU needs it, the upload heap will be marshalled 
-			// over. Please read up on Default Heap usage. An upload heap is used here for 
-			// code simplicity and because there are very few verts to actually transfer.
-			CD3DX12_HEAP_PROPERTIES heapProps(D3D12_HEAP_TYPE_UPLOAD);
-			CD3DX12_RESOURCE_DESC bufferDesc = CD3DX12_RESOURCE_DESC::Buffer(vertexBufferSize);
+		//	// Note: using upload heaps to transfer static data like vert buffers is not 
+		//	// recommended. Every time the GPU needs it, the upload heap will be marshalled 
+		//	// over. Please read up on Default Heap usage. An upload heap is used here for 
+		//	// code simplicity and because there are very few verts to actually transfer.
+		//	CD3DX12_HEAP_PROPERTIES heapProps(D3D12_HEAP_TYPE_UPLOAD);
+		//	CD3DX12_RESOURCE_DESC bufferDesc = CD3DX12_RESOURCE_DESC::Buffer(vertexBufferSize);
 
-			if (FAILED(mDevice->CreateCommittedResource(
-				&heapProps,
-				D3D12_HEAP_FLAG_NONE,
-				&bufferDesc,
-				D3D12_RESOURCE_STATE_GENERIC_READ,
-				nullptr,
-				IID_PPV_ARGS(&mVertexBuffer))))
-				assert(NULL, "CreateCommittedResource");
+		//	if (FAILED(mDevice->CreateCommittedResource(
+		//		&heapProps,
+		//		D3D12_HEAP_FLAG_NONE,
+		//		&bufferDesc,
+		//		D3D12_RESOURCE_STATE_GENERIC_READ,
+		//		nullptr,
+		//		IID_PPV_ARGS(&mVertexBuffer))))
+		//		assert(NULL, "CreateCommittedResource");
 
-			// Copy the triangle data to the vertex buffer.
-			UINT8* pVertexDataBegin;
-			CD3DX12_RANGE readRange(0, 0);        // We do not intend to read from this resource on the CPU.
-			mVertexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pVertexDataBegin));
-			memcpy(pVertexDataBegin, triangleVertices, sizeof(triangleVertices));
-			mVertexBuffer->Unmap(0, nullptr);
+		//	// Copy the triangle data to the vertex buffer.
+		//	UINT8* pVertexDataBegin;
+		//	CD3DX12_RANGE readRange(0, 0);        // We do not intend to read from this resource on the CPU.
+		//	mVertexBuffer->Map(0, &readRange, reinterpret_cast<void**>(&pVertexDataBegin));
+		//	memcpy(pVertexDataBegin, triangleVertices, sizeof(triangleVertices));
+		//	mVertexBuffer->Unmap(0, nullptr);
 
-			// Initialize the vertex buffer view.
-			mVertexBufferView.BufferLocation = mVertexBuffer->GetGPUVirtualAddress();
-			mVertexBufferView.StrideInBytes = sizeof(Vertex);
-			mVertexBufferView.SizeInBytes = vertexBufferSize;
-		}
+		//	// Initialize the vertex buffer view.
+		//	mVertexBufferView.BufferLocation = mVertexBuffer->GetGPUVirtualAddress();
+		//	mVertexBufferView.StrideInBytes = sizeof(Vertex);
+		//	mVertexBufferView.SizeInBytes = vertexBufferSize;
+		//}
 
 		// Create synchronization objects and wait until assets have been uploaded to the GPU.
 		{
 			if (FAILED(mDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&mFence))))
 				assert(NULL, "CreateFence");
-			mFenceValue = 1;
+
+			mFrameContext[mFrameIndex].FenceValue++;
 
 			// Create an event handle to use for frame synchronization.
 			mFenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
@@ -349,30 +354,146 @@ namespace NuNu::graphics
 			// Wait for the command list to execute; we are reusing the same command 
 			// list in our main loop but for now, we just want to wait for setup to 
 			// complete before continuing.
-			WaitForPreviousFrame();
+			//WaitForGpu();
 		}
 	}
 
-	void GraphicDevice_DX12::WaitForPreviousFrame()
+	bool GraphicDevice_DX12::CreateCommittedResource(D3D12_HEAP_PROPERTIES* pHeapProperties,
+		D3D12_HEAP_FLAGS HeapFlags,
+		D3D12_RESOURCE_DESC* pDesc,
+		D3D12_RESOURCE_STATES InitialResourceState,
+		D3D12_CLEAR_VALUE* pOptimizedClearValue,
+		REFIID riidResource,
+		void** ppvResource)
+	{
+		if (FAILED(mDevice->CreateCommittedResource(
+			pHeapProperties,
+			HeapFlags,
+			pDesc,
+			InitialResourceState,
+			pOptimizedClearValue,
+			riidResource,
+			ppvResource)))
+			assert(NULL, "CreateCommittedResource");
+
+		return true;
+	}
+
+	bool GraphicDevice_DX12::CreateVertexShader(const std::wstring& fileName, ID3DBlob** ppCode)
+	{
+#if defined(_DEBUG)
+		// Enable better shader debugging with the graphics debugging tools.
+		UINT compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#else
+		UINT compileFlags = 0;
+#endif
+		ID3DBlob* errorBlob = nullptr;
+		const std::wstring shaderFilePath = L"..\\Shader_Source\\";
+		D3DCompileFromFile((shaderFilePath + fileName + L"VS.hlsl").c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+			, "main", "vs_5_0", compileFlags, 0, ppCode, &errorBlob);
+
+		if (errorBlob)
+		{
+			OutputDebugStringA(static_cast<char*>(errorBlob->GetBufferPointer()));
+			errorBlob->Release();
+			assert(NULL && "hlsl file have problem check message!");
+			return false;
+		}
+
+		return true;
+	}
+
+	bool GraphicDevice_DX12::CreatePixelShader(const std::wstring& fileName, ID3DBlob** ppCode)
+	{
+#if defined(_DEBUG)
+		// Enable better shader debugging with the graphics debugging tools.
+		UINT compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#else
+		UINT compileFlags = 0;
+#endif
+		ID3DBlob* errorBlob = nullptr;
+		const std::wstring shaderFilePath = L"..\\Shader_Source\\";
+		D3DCompileFromFile((shaderFilePath + fileName + L"PS.hlsl").c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+			, "main", "ps_5_0", compileFlags, 0, ppCode, &errorBlob);
+
+		if (errorBlob)
+		{
+			OutputDebugStringA(static_cast<char*>(errorBlob->GetBufferPointer()));
+			errorBlob->Release();
+			assert(NULL && "hlsl file have problem check message!");
+			return false;
+		}
+
+		return true;
+	}
+
+	bool GraphicDevice_DX12::CreateGraphicsPipelineState(_In_  const D3D12_GRAPHICS_PIPELINE_STATE_DESC* pDesc/*, void** ppPipelineState*/)
+	{
+		if (FAILED(mDevice->CreateGraphicsPipelineState(pDesc, IID_PPV_ARGS(&mPipelineState))))
+			assert(NULL, "CreateGraphicsPipelineState");
+
+		return true;
+	}
+
+	void GraphicDevice_DX12::BindVertexBuffer(UINT StartSlot, UINT NumViews, D3D12_VERTEX_BUFFER_VIEW* pViews)
+	{
+		mCommandList->IASetVertexBuffers(StartSlot, NumViews, pViews);
+	}
+
+	void GraphicDevice_DX12::BindViewportAndScissor()
+	{
+		int width = application.GetWindow().GetWidth();
+		int height = application.GetWindow().GetHeight();
+		CD3DX12_VIEWPORT viewport(0.0f, 0.0f, static_cast<float>(width), static_cast<float>(height));
+		CD3DX12_RECT scissorRect(0, 0, static_cast<LONG>(width), static_cast<LONG>(height));
+
+		mCommandList->RSSetViewports(1, &viewport);
+		mCommandList->RSSetScissorRects(1, &scissorRect);
+	}
+
+	void GraphicDevice_DX12::BindFrameBuffer()
+	{
+		CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(mRtvHeap->GetCPUDescriptorHandleForHeapStart(), mFrameIndex, mRtvDescriptorSize);
+		mCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, nullptr);
+
+		const float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
+		mCommandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
+	}
+
+	void GraphicDevice_DX12::SetBaseGraphicsRootSignature()
+	{
+		mCommandList->SetGraphicsRootSignature(mRootSignature.Get());
+	}
+
+	void GraphicDevice_DX12::WaitForGpu()
+	{
+		// Schedule a Signal command in the queue.
+		if (FAILED(mCommandQueue->Signal(mFence.Get(), mFrameContext[mFrameIndex].FenceValue)))
+			assert(NULL, "CommandQueue Signal Failed!");
+
+		// Wait until the fence has been processed.
+		if (FAILED(mFence->SetEventOnCompletion(mFrameContext[mFrameIndex].FenceValue, mFenceEvent)))
+			assert(NULL, "SetEventOnCompletion Failed!");
+
+		WaitForSingleObjectEx(mFenceEvent, INFINITE, FALSE);
+
+		// Increment the fence value for the current frame.
+		mFrameContext[mFrameIndex].FenceValue++;
+	}
+
+	void GraphicDevice_DX12::SignalFrameCompletion()
 	{
 		// WAITING FOR THE FRAME TO COMPLETE BEFORE CONTINUING IS NOT BEST PRACTICE.
 		// This is code implemented as such for simplicity. The D3D12HelloFrameBuffering
 		// sample illustrates how to use fences for efficient resource usage and to
 		// maximize GPU utilization.
 
-		// Signal and increment the fence value.
-		const UINT64 fence = mFenceValue;
-		if (FAILED(mCommandQueue->Signal(mFence.Get(), fence)))
-			assert(NULL, "mCommandQueue->Signal");
-		mFenceValue++;
+		UINT64 fenceValue = mFenceLastSignalValue + 1;
+		mCommandQueue->Signal(mFence.Get(), fenceValue);
+		mFenceLastSignalValue = fenceValue;
 
-		// Wait until the previous frame is finished.
-		if (mFence->GetCompletedValue() < fence)
-		{
-			if (FAILED(mFence->SetEventOnCompletion(fence, mFenceEvent)))
-				assert(NULL, "SetEventOnCompletion");
-			WaitForSingleObject(mFenceEvent, INFINITE);
-		}
+		FrameContext* frameCtx = &mFrameContext[mFrameIndex % 2];
+		frameCtx->FenceValue = fenceValue;
 
 		mFrameIndex = mSwapChain->GetCurrentBackBufferIndex();
 	}
@@ -400,49 +521,24 @@ namespace NuNu::graphics
 		return frameCtx;
 	}
 
-	void GraphicDevice_DX12::PopulateCommandList()
+	void GraphicDevice_DX12::MoveToNextFrame()
 	{
-		// Command list allocators can only be reset when the associated 
-		// command lists have finished execution on the GPU; apps should use 
-		// fences to determine GPU execution progress.
-		if (FAILED(mFrameContext[mFrameIndex].CommandAllocator->Reset()))
-			assert(NULL, "mCommandAllocator->Reset()");
+		// Schedule a Signal command in the queue.
+		const UINT64 currentFenceValue = mFrameContext[mFrameIndex].FenceValue;
+		mCommandQueue->Signal(mFence.Get(), currentFenceValue);
 
-		// However, when ExecuteCommandList() is called on a particular command 
-		// list, that command list can then be reset at any time and must be before 
-		// re-recording.
-		if (FAILED(mCommandList->Reset(mFrameContext[mFrameIndex].CommandAllocator.Get(), mPipelineState.Get())))
-			assert(NULL, "mCommandList->Reset()");
+		// Update the frame index.
+		mFrameIndex = mSwapChain->GetCurrentBackBufferIndex();
 
-		// Set necessary state.
-		mCommandList->SetGraphicsRootSignature(mRootSignature.Get());
+		// If the next frame is not ready to be rendered yet, wait until it is ready.
+		if (mFence->GetCompletedValue() < mFrameContext[mFrameIndex].FenceValue)
+		{
+			mFence->SetEventOnCompletion(mFrameContext[mFrameIndex].FenceValue, mFenceEvent);
+			WaitForSingleObjectEx(mFenceEvent, INFINITE, FALSE);
+		}
 
-		int width = application.GetWindow().GetWidth();
-		int height = application.GetWindow().GetHeight();
-		CD3DX12_VIEWPORT viewport(0.0f, 0.0f, static_cast<float>(width), static_cast<float>(height));
-		CD3DX12_RECT scissorRect(0, 0, static_cast<LONG>(width), static_cast<LONG>(height));
-
-		mCommandList->RSSetViewports(1, &viewport);
-		mCommandList->RSSetScissorRects(1, &scissorRect);
-
-		// Indicate that the back buffer will be used as a render target.
-		CD3DX12_RESOURCE_BARRIER resourceBarrierPR
-			= CD3DX12_RESOURCE_BARRIER::Transition(mRenderTargets[mFrameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
-		mCommandList->ResourceBarrier(1, &resourceBarrierPR);
-
-		CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(mRtvHeap->GetCPUDescriptorHandleForHeapStart(), mFrameIndex, mRtvDescriptorSize);
-		mCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, nullptr);
-
-		// Record commands.
-		const float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
-		mCommandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
-		mCommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		mCommandList->IASetVertexBuffers(0, 1, &mVertexBufferView);
-		mCommandList->DrawInstanced(3, 1, 0, 0);
-
-		// Indicate that the back buffer will now be used to present.
-		CD3DX12_RESOURCE_BARRIER resourceBarrierRT
-			= CD3DX12_RESOURCE_BARRIER::Transition(mRenderTargets[mFrameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+		// Set the fence value for the next frame.
+		mFrameContext[mFrameIndex].FenceValue = currentFenceValue + 1;
 	}
 
 	void GraphicDevice_DX12::ExcuteCommandList()
@@ -454,18 +550,64 @@ namespace NuNu::graphics
 	void GraphicDevice_DX12::Render()
 	{
 		// Record all the commands we need to render the scene into the command list.
-		PopulateCommandList();
+		// PopulateCommandList();
 	}
 
 	void GraphicDevice_DX12::CloseCommandList()
 	{
+		//Indicate that the back buffer will now be used to present.
+		CD3DX12_RESOURCE_BARRIER resourceBarrierRT
+			= CD3DX12_RESOURCE_BARRIER::Transition(mRenderTargets[mFrameIndex].Get(), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
+		mCommandList->ResourceBarrier(1, &resourceBarrierRT);
+
 		if (FAILED(mCommandList->Close()))
 			assert(NULL, "mCommandList->Close()");
+	}
+
+	void GraphicDevice_DX12::ResetCommandList()
+	{
+		// Reset the command list to prepare for recording new commands.
+		if (FAILED(mCommandList->Reset(mFrameContext[mFrameIndex].CommandAllocator.Get(), mPipelineState.Get())))
+			assert(NULL, "mCommandList->Reset()");
+	}
+
+	void GraphicDevice_DX12::ResetCommandAllocator()
+	{
+		// Reset the command allocator to prepare for recording new commands.
+		if (FAILED(mFrameContext[mFrameIndex].CommandAllocator->Reset()))
+			assert(NULL, "mCommandAllocator->Reset()");
+	}
+
+	void GraphicDevice_DX12::TranstionResourceBarrier(D3D12_RESOURCE_STATES before, D3D12_RESOURCE_STATES after)
+	{
+		CD3DX12_RESOURCE_BARRIER resourceBarrierPR
+			= CD3DX12_RESOURCE_BARRIER::Transition(mRenderTargets[mFrameIndex].Get(), before, after);
+		mCommandList->ResourceBarrier(1, &resourceBarrierPR);
+	}
+
+	void GraphicDevice_DX12::DrawInstanced(UINT VertexCountPerInstance,
+		UINT InstanceCount,
+		UINT StartVertexLocation,
+		UINT StartInstanceLocation)
+	{
+		//to do : 이것도 임시 방편 나중에 구조화 시켜야함
+		mCommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		mCommandList->DrawInstanced(VertexCountPerInstance, InstanceCount, StartVertexLocation, StartInstanceLocation);
+
+		//rect mCommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		//mCommandList->DrawInstanced(4, 1, 0, 0);
+	}
+
+	void GraphicDevice_DX12::PopulateCommandList()
+	{
+		mCommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		//mCommandList->IASetVertexBuffers(0, 1, &mVertexBufferView);
+		mCommandList->DrawInstanced(3, 1, 0, 0);
 	}
 
 	void GraphicDevice_DX12::Present()
 	{
 		mSwapChain->Present(1, 0);
-		WaitForPreviousFrame();
 	}
 }

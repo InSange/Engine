@@ -19,6 +19,7 @@ namespace NuNu
 		~Application();
 
 		void Initialize(HWND hwnd, int width, int height);
+		void WaitforGpu();
 		void InitializeWindow(HWND hwnd);
 		void AdjustWindowRect(HWND hwnd, int width, int height);
 		void ResizeGraphicDevice(WindowResizeEvent& e);
@@ -35,7 +36,9 @@ namespace NuNu
 		void ExcuteCommandList();
 		void Present();
 		void CloseCommandList();
+		void SignalFrameCompletion();
 		void WaitForNextFrameResources();
+		void MoveToNextFrame();
 		void EndOfFrame();
 		void Release();
 

@@ -13,6 +13,7 @@ namespace NuNu::graphics
 		void Bind();
 
 	private:
+		D3D12_VERTEX_BUFFER_VIEW mVertexBufferView;
 	};
 }
 

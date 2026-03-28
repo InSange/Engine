@@ -10,8 +10,8 @@
 
 #include "guiEditorApplication.h"
 
-
 NuNu::Application application;
+//#define WITH_EDITOR 
 
 #define MAX_LOADSTRING 100
 
@@ -85,10 +85,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸
 #ifdef WITH_EDITOR
 			gui::EditorApplication::UpdatePlatformWindows();
 #else
-			application.WaitForNextFrameResources();
+			//application.WaitForNextFrameResources();
 #endif
 
 			application.Present();	// 화면 출력
+
+#ifdef WITH_EDITOR
+#else
+			application.MoveToNextFrame();
+#endif
 		}
 	}
 
@@ -168,6 +173,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		assert(false);
 
 	application.Initialize(hWnd, width, height);
+#ifdef WITH_EDITOR
+#else
+	application.WaitforGpu();
+#endif
 
 	NuNu::LoadScenes();
 #ifdef WITH_EDITOR

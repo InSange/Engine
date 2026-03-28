@@ -38,9 +38,7 @@ namespace NuNu
 
 	void BaseRenderer::Draw()
 	{
-#if 0
 		if (mMesh)
-			graphics::GetDevice<graphics::GraphicDevice_DX11>()->DrawIndexed(mMesh->GetIndexCount(), 0, 0);
-#endif
+			graphics::GetDevice()->DrawInstanced(mMesh->GetIndexCount(), 1, 0, 0);
 	}
 }

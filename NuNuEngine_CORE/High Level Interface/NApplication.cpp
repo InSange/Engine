@@ -42,6 +42,11 @@ namespace NuNu
 		mbRunning = true;
 	}
 
+	void Application::WaitforGpu()
+	{
+		mGraphicDevice_12->WaitForGpu();
+	}
+
 	void Application::InitializeWindow(HWND hwnd)
 	{
 		SetWindowPos(hwnd, nullptr, mWindow.GetXPos(), mWindow.GetYPos()
@@ -130,6 +135,18 @@ namespace NuNu
 
 	void Application::Render() // 화면 그리기
 	{
+		GetDevice()->ResetCommandAllocator();
+		GetDevice()->ResetCommandList();
+		GetDevice()->SetBaseGraphicsRootSignature();
+		GetDevice()->BindViewportAndScissor();
+		GetDevice()->TranstionResourceBarrier(D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
+		GetDevice()->BindFrameBuffer();
+
+		Time::Render();
+		SceneManager::Render();
+		CollisionManager::Render();
+		UIManager::Render();
+
 		GetDevice()->Render();
 	}
 
@@ -148,11 +165,20 @@ namespace NuNu
 		GetDevice()->Present();
 	}
 
+	void Application::SignalFrameCompletion()
+	{
+		GetDevice()->SignalFrameCompletion();
+	}
+
 	void Application::WaitForNextFrameResources()
 	{
 		GetDevice()->WaitForNextFrameResources();
 	}
 
+	void Application::MoveToNextFrame()
+	{
+		GetDevice()->MoveToNextFrame();
+	}
 
 	void Application::EndOfFrame()
 	{
@@ -165,6 +191,7 @@ namespace NuNu
 		UIManager::Release();
 		Resources::Release();
 
+		Fmod::Release();
 		renderer::Release();
 	}
 }

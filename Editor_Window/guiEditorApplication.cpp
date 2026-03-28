@@ -327,7 +327,7 @@ namespace gui
 
 		// check if the mouse,keyboard is on the Sceneview
 		ViewportFocused = ImGui::IsWindowFocused();
-		ViewportFocused = ImGui::IsWindowHovered();
+		ViewportHovered = ImGui::IsWindowHovered();
 
 		// to do : mouse, keyboard event
 		ImguiEditor->BlockEvent(!ViewportHovered);
