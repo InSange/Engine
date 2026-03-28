@@ -66,6 +66,7 @@ namespace NuNu::graphics
 		//imgui
 		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> GetCommandList() { return mCommandList; }
 		CD3DX12_CPU_DESCRIPTOR_HANDLE GetRnderTargetDescriptorHandle(int idx) { return mRenderTragetDesciptorHandle[idx]; }
+		UINT GetFrameIndex() const { return mFrameIndex; }
 
 	private:
 		bool mbUseWarpDevice;

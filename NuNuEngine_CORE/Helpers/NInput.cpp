@@ -59,23 +59,18 @@ namespace NuNu
 
 	void Input::updateKey(Key& key)
 	{
-		if (GetFocus())
-		{
-			if (isKeyDown(key.KeyCode))
-			{
-				updateKeyDown(key);
-			}
-			else
-			{
-				updateKeyUp(key);
-			}
-
-			getMousePositionByWindow();
-		}
-		else
+		if (!GetFocus())
 		{
 			clearKeys();
+			return;
 		}
+
+		if (isKeyDown(key.KeyCode))
+			updateKeyDown(key);
+		else
+			updateKeyUp(key);
+
+		getMousePositionByWindow();
 	}
 
 	bool Input::isKeyDown(eKeyCode code)

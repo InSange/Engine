@@ -11,7 +11,7 @@
 #include "guiEditorApplication.h"
 
 NuNu::Application application;
-//#define WITH_EDITOR 
+#define WITH_EDITOR 
 
 #define MAX_LOADSTRING 100
 
@@ -71,6 +71,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸
 		}
 		else
 		{
+#ifdef WITH_EDITOR
+			// Wait for GPU to finish with the current frame's resources BEFORE
+			// resetting the command allocator or recording any commands.
+			// This must come first in the frame loop.
+			application.WaitForNextFrameResources();
+#endif
+
 			// 메세지가 없을 경우 여기서 게임로직 처리
 			application.Run(); // 매 프레임마다 호출
 
