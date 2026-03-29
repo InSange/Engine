@@ -3,6 +3,7 @@
 #include "Scene/NSceneManager.h"
 #include "Resource/NResources.h"
 #include "Resource/Texture/NTexture.h"
+#include "Resource/Mesh3D/NMesh3D.h"
 #include "High Level Interface/NApplication.h"
 #include "Scene/NSceneManager.h"
 #include "NSpaceScene.h"
@@ -84,6 +85,9 @@ namespace NuNu
 
 			Resources::Load<graphics::Texture>(L"HPBAR", L"..\\Resources\\HPBAR.bmp");
 			Resources::Load<graphics::Texture>(L"PixelMap", L"..\\Resources\\pixelMap.bmp");
+
+			// [TEST] Mesh3D FBX 로드 테스트
+			Resources::Load<Mesh3D>(L"Barbarian", L"../Contents/Characters/Models/Characters/Barbarian.fbx");
 
 			SceneManager::CreateScene<SpaceScene>(L"TitleScene");
 			SceneManager::CreateScene<PlayScene>(L"PlayScene");

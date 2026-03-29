@@ -127,6 +127,7 @@ xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(SolutionDir)External\Library\Assimp\assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)Shader_Source" "$(SolutionDir)x64\Shader_Source" /E /I /Y /R /D
@@ -149,6 +150,7 @@ xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(SolutionDir)External\Library\Assimp\assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)Shader_Source" "$(SolutionDir)x64\Shader_Source" /E /I /Y /R /D
