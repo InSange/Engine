@@ -4,6 +4,7 @@ namespace NuNu::graphics
 {
 	IndexBuffer::IndexBuffer()
 		: mIndexCount(0)
+		, mIndexBufferView({})
 	{
 	}
 
@@ -14,25 +15,33 @@ namespace NuNu::graphics
 	bool IndexBuffer::Create(const std::vector<UINT>& indices)
 	{
 		mIndexCount = (UINT)indices.size();
-#if 0
-		desc.ByteWidth = sizeof(UINT) * CAST_UINT(indices.size());
-		desc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
-		desc.Usage = D3D11_USAGE_DEFAULT;
-		desc.CPUAccessFlags = 0;
 
-		D3D11_SUBRESOURCE_DATA sub = {};
-		sub.pSysMem = indices.data();
+		const UINT bufferSize = mIndexCount * sizeof(UINT);
+		bufferDesc.Width = bufferSize;
 
-		if (!GetDevice<GraphicDevice_DX11>()->CreateBuffer(&desc, &sub, buffer.GetAddressOf()))
-			assert(nullptr && "indices buffer create fail!!");
-#endif
+		GetDevice()->CreateCommittedResource(
+			&heapProps,
+			D3D12_HEAP_FLAG_NONE,
+			&bufferDesc,
+			D3D12_RESOURCE_STATE_GENERIC_READ,
+			nullptr,
+			IID_PPV_ARGS(&buffer));
+
+		UINT8* pData = nullptr;
+		CD3DX12_RANGE readRange(0, 0);
+		buffer->Map(0, &readRange, reinterpret_cast<void**>(&pData));
+		memcpy(pData, indices.data(), bufferSize);
+		buffer->Unmap(0, nullptr);
+
+		mIndexBufferView.BufferLocation = buffer->GetGPUVirtualAddress();
+		mIndexBufferView.Format = DXGI_FORMAT_R32_UINT;
+		mIndexBufferView.SizeInBytes = bufferSize;
+
 		return true;
 	}
 
 	void IndexBuffer::Bind() const
 	{
-#if 0
-		GetDevice<GraphicDevice_DX11>()->BindIndexBuffer(buffer.Get(), DXGI_FORMAT_R32_UINT, 0);
-#endif
+		GetDevice()->GetCommandList()->IASetIndexBuffer(&mIndexBufferView);
 	}
 }

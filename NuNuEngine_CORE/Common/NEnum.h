@@ -31,6 +31,7 @@ namespace NuNu::enums
 	{
 		Texture,
 		Mesh,
+		Mesh3D,
 		Material,
 		Animation,
 		AudioClip,

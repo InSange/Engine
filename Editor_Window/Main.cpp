@@ -98,6 +98,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, // 프로그램 인스턴스 핸
 			application.Present();	// 화면 출력
 
 #ifdef WITH_EDITOR
+			application.SignalFrameCompletion();
 #else
 			application.MoveToNextFrame();
 #endif

@@ -389,6 +389,12 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+# vcpkg (1.6GB — 한글 경로 이슈로 사용 불가, NuGet으로 대체)
+vcpkg/
+
+# ImGui layout (유저별 설정, 코드 아님)
+imgui.ini
+
 # Library Folder
 !External/g
 !External/Library/Fmod/Debug/
