@@ -3,6 +3,7 @@
 #include "Helpers/NInput.h"
 #include "Helpers/NTime.h"
 #include "Component/Transform/NTransform.h"
+#include "Collision/NCollisionManager.h"
 
 namespace NuNu
 {
@@ -69,14 +70,7 @@ namespace NuNu
 		mVelocityY += mGravity * dt;
 		pos.y      += mVelocityY * dt;
 
-		// 바닥 감지 (y <= 0 하드코딩, Phase 2-2에서 AABB로 교체)
-		if (pos.y <= 0.0f)
-		{
-			pos.y      = 0.0f;
-			mVelocityY = 0.0f;
-			mbGrounded = true;
-		}
-
 		tr->SetPosition(pos);
+		CollisionManager::Resolve3D(this);
 	}
 }

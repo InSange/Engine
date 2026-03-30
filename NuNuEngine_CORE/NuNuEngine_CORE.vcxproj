@@ -170,6 +170,7 @@
     <ClInclude Include="High Level Interface\NWindow.h" />
     <ClInclude Include="Component\Camera\NEditorCamera.h" />
     <ClInclude Include="Component\CharacterController\NCharacterController.h" />
+    <ClInclude Include="Component\Collider3D\NCollider3D.h" />
     <ClInclude Include="Component\Camera\NSceneCamera.h" />
     <ClInclude Include="High Level Interface\Renderer\NBaseRenderer.h" />
     <ClInclude Include="Common\NLabelled.h" />
@@ -229,6 +230,7 @@
     <ClCompile Include="High Level Interface\NWindow.cpp" />
     <ClCompile Include="Component\Camera\NEditorCamera.cpp" />
     <ClCompile Include="Component\CharacterController\NCharacterController.cpp" />
+    <ClCompile Include="Component\Collider3D\NCollider3D.cpp" />
     <ClCompile Include="Component\Camera\NSceneCamera.cpp" />
     <ClCompile Include="High Level Interface\Renderer\NBaseRenderer.cpp" />
     <ClCompile Include="Common\NLabelled.cpp" />

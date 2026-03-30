@@ -14,6 +14,7 @@
 #include "Component/MeshRenderer/NMeshRenderer.h"
 #include "Resource/Mesh3D/NMesh3D.h"
 #include "Component/CharacterController/NCharacterController.h"
+#include "Component/Collider3D/NCollider3D.h"
 
 namespace NuNu
 {
@@ -60,6 +61,10 @@ namespace NuNu
 			mr->SetShader3D(Resources::Find<graphics::Shader>(L"Mesh3DShader"));
 			mr->SetTextureSRV(renderer::barbarianTexSRV);
 		}
+
+		GameObject* floor = object::Instantiate<GameObject>(eLayerType::None, Vector3(0, -0.5f, 0));
+		Collider3D* floorCol = floor->AddComponent<Collider3D>();
+		floorCol->mHalfExtents = math::Vector3(50.0f, 0.5f, 50.0f);
 	}
 
 	void EditorScene::Update()

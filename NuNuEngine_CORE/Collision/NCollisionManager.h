@@ -5,6 +5,8 @@
 
 namespace NuNu
 {
+	class CharacterController;
+
 	using namespace enums;
 
 	union CollisionID
@@ -31,6 +33,8 @@ namespace NuNu
 		static void LayerCollision(eLayerType left, eLayerType right);
 		static void ColliderCollision(Collider* left, Collider* right);
 		static bool Intersect(Collider* left, Collider* right);
+
+		static void Resolve3D(CharacterController* cc);
 
 	private:
 		static std::bitset<CAST_UINT(eLayerType::Max)> mCollisionLayerMatrix[CAST_UINT(eLayerType::Max)];

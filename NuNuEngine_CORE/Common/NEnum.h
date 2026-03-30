@@ -15,6 +15,7 @@ namespace NuNu::enums
 		AudioListener,
 		AudioSource,
 		CharacterController,
+		Collider3D,
 		End,
 	};
 	enum class eLayerType
@@ -46,6 +47,7 @@ namespace NuNu::enums
 	{
 		Circle2D,
 		Rect2D,
+		AABB3D,
 		End,
 	};
 

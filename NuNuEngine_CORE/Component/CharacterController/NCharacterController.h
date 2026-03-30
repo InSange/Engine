@@ -4,8 +4,11 @@
 
 namespace NuNu
 {
+	class CollisionManager;
+
 	class CharacterController : public Component
 	{
+		friend class CollisionManager;
 	public:
 		CharacterController();
 		virtual ~CharacterController() = default;
