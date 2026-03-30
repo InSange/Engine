@@ -579,7 +579,46 @@ namespace NuNu::graphics
 
 		WaitForMultipleObjects(numWaitableObjects, waitableObjects, TRUE, INFINITE);
 
+		// GPU sync 완료 후 안전하게 스왑체인 리사이즈 수행
+		if (mbResizePending)
+			ResizeSwapChainNow();
+
 		return frameCtx;
+	}
+
+	void GraphicDevice_DX12::ScheduleResize(UINT width, UINT height)
+	{
+		if (width == 0 || height == 0) return; // 최소화 무시
+		mPendingWidth   = width;
+		mPendingHeight  = height;
+		mbResizePending = true;
+	}
+
+	void GraphicDevice_DX12::ResizeSwapChainNow()
+	{
+		mbResizePending = false;
+
+		// 이전 백버퍼 리소스 해제 (ResizeBuffers 전 필수)
+		mRenderTargets[0].Reset();
+		mRenderTargets[1].Reset();
+
+		HRESULT hr = mSwapChain->ResizeBuffers(
+			2, mPendingWidth, mPendingHeight,
+			DXGI_FORMAT_R8G8B8A8_UNORM,
+			DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT);
+		assert(SUCCEEDED(hr) && "SwapChain::ResizeBuffers failed");
+
+		mFrameIndex = mSwapChain->GetCurrentBackBufferIndex();
+
+		// RTV 재생성
+		CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(mRtvHeap->GetCPUDescriptorHandleForHeapStart());
+		for (int i = 0; i < 2; i++)
+		{
+			mSwapChain->GetBuffer(i, IID_PPV_ARGS(&mRenderTargets[i]));
+			mRenderTragetDesciptorHandle[i] = rtvHandle;
+			mDevice->CreateRenderTargetView(mRenderTargets[i].Get(), nullptr, rtvHandle);
+			rtvHandle.Offset(1, mRtvDescriptorSize);
+		}
 	}
 
 	void GraphicDevice_DX12::MoveToNextFrame()

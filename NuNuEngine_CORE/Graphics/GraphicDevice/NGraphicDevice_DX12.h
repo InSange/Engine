@@ -45,6 +45,7 @@ namespace NuNu::graphics
 		// render ...
 		void WaitForGpu();
 		void SignalFrameCompletion();
+		void ScheduleResize(UINT width, UINT height);
 		FrameContext* WaitForNextFrameResources();
 		void MoveToNextFrame();
 		void ResetCommandList();
@@ -88,7 +89,12 @@ namespace NuNu::graphics
 		UINT GetFrameIndex() const { return mFrameIndex; }
 
 	private:
+		void ResizeSwapChainNow();
+
 		bool mbUseWarpDevice;
+		bool mbResizePending = false;
+		UINT mPendingWidth   = 0;
+		UINT mPendingHeight  = 0;
 
 		Microsoft::WRL::ComPtr<ID3D12Device>			mDevice;
 		Microsoft::WRL::ComPtr<IDXGIFactory4>			mFactory;

@@ -78,6 +78,8 @@ namespace NuNu
 
 	void Application::ResizeGraphicDevice(WindowResizeEvent& e)
 	{
+		if (GetDevice() == nullptr) return;
+		GetDevice()->ScheduleResize(e.GetWidth(), e.GetHeight());
 	}
 
 

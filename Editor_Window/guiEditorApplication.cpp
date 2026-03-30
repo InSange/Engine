@@ -10,6 +10,7 @@
 #include "GameObject/NGameObject.h"
 #include "Component/Transform/NTransform.h"
 #include "Helpers/NInput.h"
+#include "Helpers/NTime.h"
 #include "Event/NMouseEvent.h"
 
 extern NuNu::Application application;
@@ -151,43 +152,60 @@ namespace gui
 
 	void EditorApplication::SetupInitialDockLayout()
 	{
-		static bool first_time = true;
-		if (!first_time) return;
-		first_time = false;
+		// 크기 변경 감지 + debounce: 2프레임 안정 후 재빌드
+		static ImVec2 sPending   = { -1.0f, -1.0f };
+		static ImVec2 sLastBuilt = { -2.0f, -2.0f };
+		static int    sStable    = 0;
+
+		ImVec2 size = ImGui::GetMainViewport()->WorkSize; // 타스크바 제외 작업 영역
+
+		if (fabsf(sPending.x - size.x) >= 1.0f || fabsf(sPending.y - size.y) >= 1.0f)
+		{
+			sPending = size;
+			sStable  = 0;
+			return; // 크기 변화 중 — 안정될 때까지 대기
+		}
+		if (++sStable < 2) return; // 2프레임 안정 대기
+
+		if (fabsf(sLastBuilt.x - size.x) < 1.0f && fabsf(sLastBuilt.y - size.y) < 1.0f)
+			return; // 이미 이 크기로 빌드됨
+		sLastBuilt = size;
 
 		ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
 
 		ImGui::DockBuilderRemoveNode(dockspace_id);
 		ImGui::DockBuilderAddNode(dockspace_id, ImGuiDockNodeFlags_DockSpace);
-		ImGui::DockBuilderSetNodeSize(dockspace_id, ImGui::GetMainViewport()->Size);
+		ImGui::DockBuilderSetNodeSize(dockspace_id, size);
 
-		// === Step 1: 수평 분할 → 좌측(Inspector) + 나머지 (1228 width)
-		ImGuiID dock_main_right = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Left, 1228.0f / 1600.0f, nullptr, &dockspace_id);
-		ImGuiID dock_main_left = dockspace_id; // Inspector (370)
+		// ┌──────────────────────────────┬───────────┐
+		// │  Scene (좌)  │  Game (우)    │ Hierarchy │
+		// │              │               ├───────────┤
+		// │              │               │ Inspector │
+		// ├──────────────┴───────────────┴───────────┤
+		// │        Project / Console (탭)             │
+		// └───────────────────────────────────────────┘
 
-		// === Step 2: main_right를 수직 분할 → 상단(673) + 하단(206)
-		ImGuiID dock_center_top = ImGui::DockBuilderSplitNode(dock_main_right, ImGuiDir_Up, 673.0f / 881.0f, nullptr, &dock_main_right);
-		ImGuiID dock_center_bottom = dock_main_right; // Project/Console 탭
+		// 1. 하단: Project/Console — 전체 너비 25%
+		ImGuiID dock_bottom = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Down, 0.25f, nullptr, &dockspace_id);
 
-		// === Step 3: center_top을 수평 분할 → Hierarchy + 나머지
-		ImGuiID dock_hierarchy = ImGui::DockBuilderSplitNode(dock_center_top, ImGuiDir_Left, 369.0f / 1228.0f, nullptr, &dock_center_top);
-		ImGuiID dock_center_content = dock_center_top; // Scene/Game/Viewport
+		// 2. 우측: Hierarchy + Inspector — 20%
+		ImGuiID dock_right = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.20f, nullptr, &dockspace_id);
 
-		// === Docking Windows
-		ImGui::DockBuilderDockWindow("Inspector", dock_main_left);
-		ImGui::DockBuilderDockWindow("Hierarchy", dock_hierarchy);
+		// 3. 우측 패널 수직 분할: 상단 Hierarchy / 하단 Inspector
+		ImGuiID dock_inspector = ImGui::DockBuilderSplitNode(dock_right, ImGuiDir_Down, 0.55f, nullptr, &dock_right);
 
-		ImGui::DockBuilderDockWindow("Scene", dock_center_content);
-		ImGui::DockBuilderDockWindow("Game", dock_center_content);
-		ImGui::DockBuilderDockWindow("Viewport", dock_center_content);
-		ImGui::DockBuilderDockWindow("InspectorWindow", dock_center_content);
+		// 4. 중앙 뷰 좌우 분할: Scene (좌) / Game (우)
+		ImGuiID dock_game = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.50f, nullptr, &dockspace_id);
 
-		ImGui::DockBuilderDockWindow("Project", dock_center_bottom);
-		ImGui::DockBuilderDockWindow("Console", dock_center_bottom);
+		// 5. 도킹
+		ImGui::DockBuilderDockWindow("Scene",     dockspace_id);
+		ImGui::DockBuilderDockWindow("Game",      dock_game);
+		ImGui::DockBuilderDockWindow("Hierarchy", dock_right);
+		ImGui::DockBuilderDockWindow("Inspector", dock_inspector);
+		ImGui::DockBuilderDockWindow("Project",   dock_bottom);
+		ImGui::DockBuilderDockWindow("Console",   dock_bottom);
 
-		// Finish
 		ImGui::DockBuilderFinish(dockspace_id);
-
 	}
 
 	void EditorApplication::OpenProject()
@@ -345,6 +363,36 @@ namespace gui
 			ImGui::Image((ImTextureID)gameSRV.ptr, ImVec2{ ViewportSize.x, ViewportSize.y },
 				ImVec2{ 0, 0 }, ImVec2{ 1, 1 });
 
+		// HUD overlay: FPS + player position + forward
+		{
+			float dt = NuNu::Time::DeltaTime();
+			float fps = (dt > 0.0f) ? (1.0f / dt) : 0.0f;
+
+			constexpr float x    = 10.0f;
+			constexpr float topY = 24.0f;
+			constexpr float lineH = 18.0f;
+
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4{ 1.0f, 1.0f, 0.0f, 1.0f });
+
+			ImGui::SetCursorPos(ImVec2{ x, topY });
+			ImGui::Text("FPS: %.1f", fps);
+
+			if (NuNu::renderer::mainCamera != nullptr)
+			{
+				NuNu::Transform* tr = NuNu::renderer::mainCamera->GetOwner()->GetComponent<NuNu::Transform>();
+				NuNu::math::Vector3 pos = tr->GetPosition();
+				NuNu::math::Vector3 fwd = tr->Forward();
+
+				ImGui::SetCursorPos(ImVec2{ x, topY + lineH });
+				ImGui::Text("Pos: %.2f, %.2f, %.2f", pos.x, pos.y, pos.z);
+
+				ImGui::SetCursorPos(ImVec2{ x, topY + lineH * 2.0f });
+				ImGui::Text("Fwd: %.2f, %.2f, %.2f", fwd.x, fwd.y, fwd.z);
+			}
+
+			ImGui::PopStyleColor();
+		}
+
 		// Open Scene by drag and drop
 		if (ImGui::BeginDragDropTarget())
 		{
@@ -356,11 +404,12 @@ namespace gui
 			ImGui::EndDragDropTarget();
 		}
 
+		ImGui::End(); // Game end
+		ImGui::PopStyleVar();
+
+		// EditorWindows는 Game 윈도우 밖에서 실행해야 독립 도킹 노드로 처리됨
 		for (auto& iter : EditorWindows)
 			iter.second->Run();
-
-		ImGui::End(); // Scene end
-		ImGui::PopStyleVar();
 
 		ImGui::End(); // dockspace end
 	}

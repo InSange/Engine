@@ -143,6 +143,10 @@ namespace NuNu
 		const float r = cc->mCapsuleRadius;
 		const float h = cc->mCapsuleHeight;
 
+		// 터미널 속도 제한 — 터널링 방지
+		constexpr float kMaxFallSpeed = 30.0f;
+		if (cc->mVelocityY < -kMaxFallSpeed) cc->mVelocityY = -kMaxFallSpeed;
+
 		cc->mbGrounded = false;
 
 		math::Vector3 pMin(pos.x - r, pos.y,     pos.z - r);
@@ -170,20 +174,19 @@ namespace NuNu
 
 				if (oy <= ox && oy <= oz)
 				{
-					float pCenterY = (pMin.y + pMax.y) * 0.5f;
-					float cCenterY = (cAABB.Min.y + cAABB.Max.y) * 0.5f;
-					if (pCenterY >= cCenterY)
+					// velocity 방향으로 floor/ceiling 판단 (center 비교는 터널링 시 오판)
+					if (cc->mVelocityY <= 0.0f)
 					{
-						// 바닥 위
-						pos.y += oy;
-						if (cc->mVelocityY < 0.0f) cc->mVelocityY = 0.0f;
+						// 낙하 또는 정지 → 바닥 위로 스냅
+						pos.y = cAABB.Max.y;
+						cc->mVelocityY = 0.0f;
 						cc->mbGrounded = true;
 					}
 					else
 					{
-						// 천장
-						pos.y -= oy;
-						if (cc->mVelocityY > 0.0f) cc->mVelocityY = 0.0f;
+						// 상승 → 천장에서 튕김
+						pos.y = cAABB.Min.y - h;
+						cc->mVelocityY = 0.0f;
 					}
 				}
 				else if (ox <= oz)

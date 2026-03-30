@@ -51,14 +51,24 @@ namespace NuNu
 		}
 		mLastMousePos = curPos;
 
-		// --- 수평 이동 (WASD) ---
+		// --- 수평 이동 (WASD) — XZ 평면만 사용 (카메라 피치 Y 성분 제거) ---
 		math::Vector3 pos = tr->GetPosition();
 		const float speed = mMoveSpeed * dt;
 
-		if (Input::GetKey(eKeyCode::W)) pos += tr->Forward() * speed;
-		if (Input::GetKey(eKeyCode::S)) pos -= tr->Forward() * speed;
-		if (Input::GetKey(eKeyCode::A)) pos -= tr->Right()   * speed;
-		if (Input::GetKey(eKeyCode::D)) pos += tr->Right()   * speed;
+		auto flatNorm = [](math::Vector3 v) -> math::Vector3
+		{
+			v.y = 0.0f;
+			float len = v.Length();
+			return (len > 0.001f) ? v / len : math::Vector3::Zero;
+		};
+
+		math::Vector3 fwd   = flatNorm(tr->Forward());
+		math::Vector3 right = flatNorm(tr->Right());
+
+		if (Input::GetKey(eKeyCode::W)) pos += fwd   * speed;
+		if (Input::GetKey(eKeyCode::S)) pos -= fwd   * speed;
+		if (Input::GetKey(eKeyCode::A)) pos -= right * speed;
+		if (Input::GetKey(eKeyCode::D)) pos += right * speed;
 
 		// --- 중력 & 점프 ---
 		if (mbGrounded && Input::GetKeyDown(eKeyCode::SpaceBar))
