@@ -11,6 +11,7 @@ namespace NuNu
 		: Component(enums::eComponentType::CharacterController)
 		, mCapsuleHeight(1.8f)
 		, mCapsuleRadius(0.4f)
+		, mEyeHeight(1.7f)
 		, mMoveSpeed(5.0f)
 		, mRotateSpeed(0.2f)
 		, mGravity(-20.0f)

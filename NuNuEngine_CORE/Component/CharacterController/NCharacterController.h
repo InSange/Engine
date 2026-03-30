@@ -19,6 +19,7 @@ namespace NuNu
 		// capsule parameters (Phase 2-2 AABB 충돌 시 활용)
 		float mCapsuleHeight;
 		float mCapsuleRadius;
+		float mEyeHeight;   // 발→눈 오프셋 (카메라 = 발 + mEyeHeight)
 
 		float mMoveSpeed;
 		float mRotateSpeed;

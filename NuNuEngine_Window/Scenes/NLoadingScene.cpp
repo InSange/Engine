@@ -86,8 +86,9 @@ namespace NuNu
 			Resources::Load<graphics::Texture>(L"HPBAR", L"..\\Resources\\HPBAR.bmp");
 			Resources::Load<graphics::Texture>(L"PixelMap", L"..\\Resources\\pixelMap.bmp");
 
-			// [TEST] Mesh3D FBX 로드 테스트
-			Resources::Load<Mesh3D>(L"Barbarian", L"../Contents/Characters/Models/Characters/Barbarian.fbx");
+			Resources::Load<Mesh3D>(L"Barbarian",     L"../Contents/Characters/Models/Characters/Barbarian.fbx");
+			Resources::Load<Mesh3D>(L"FloorWood4x4", L"../Contents/Packs/Models/neutral/floor_wood_4x4.fbx");
+			Resources::Load<Mesh3D>(L"Barrier4x1x1", L"../Contents/Packs/Models/neutral/barrier_4x1x1.fbx");
 
 			SceneManager::CreateScene<SpaceScene>(L"TitleScene");
 			SceneManager::CreateScene<PlayScene>(L"PlayScene");

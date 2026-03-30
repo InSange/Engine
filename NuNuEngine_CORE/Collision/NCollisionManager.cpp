@@ -138,10 +138,11 @@ namespace NuNu
 		if (cc == nullptr) return;
 
 		Transform* tr = cc->GetOwner()->GetComponent<Transform>();
-		math::Vector3 pos = tr->GetPosition();
+		math::Vector3 pos = tr->GetPosition(); // pos.y = 눈(카메라) 높이
 
-		const float r = cc->mCapsuleRadius;
-		const float h = cc->mCapsuleHeight;
+		const float r    = cc->mCapsuleRadius;
+		const float h    = cc->mCapsuleHeight;
+		const float eyeH = cc->mEyeHeight;
 
 		// 터미널 속도 제한 — 터널링 방지
 		constexpr float kMaxFallSpeed = 30.0f;
@@ -149,8 +150,10 @@ namespace NuNu
 
 		cc->mbGrounded = false;
 
-		math::Vector3 pMin(pos.x - r, pos.y,     pos.z - r);
-		math::Vector3 pMax(pos.x + r, pos.y + h, pos.z + r);
+		// 발 위치 = 카메라 y - eyeHeight
+		float feetY = pos.y - eyeH;
+		math::Vector3 pMin(pos.x - r, feetY,     pos.z - r);
+		math::Vector3 pMax(pos.x + r, feetY + h, pos.z + r);
 
 		for (UINT layer = 0; layer < (UINT)eLayerType::Max; layer++)
 		{
@@ -177,15 +180,15 @@ namespace NuNu
 					// velocity 방향으로 floor/ceiling 판단 (center 비교는 터널링 시 오판)
 					if (cc->mVelocityY <= 0.0f)
 					{
-						// 낙하 또는 정지 → 바닥 위로 스냅
-						pos.y = cAABB.Max.y;
+						// 낙하 또는 정지 → 바닥 위로 스냅 (카메라 = 발 + eyeH)
+						pos.y = cAABB.Max.y + eyeH;
 						cc->mVelocityY = 0.0f;
 						cc->mbGrounded = true;
 					}
 					else
 					{
 						// 상승 → 천장에서 튕김
-						pos.y = cAABB.Min.y - h;
+						pos.y = cAABB.Min.y - h + eyeH;
 						cc->mVelocityY = 0.0f;
 					}
 				}
@@ -204,9 +207,10 @@ namespace NuNu
 					else                      pos.z -= oz;
 				}
 
-				// 해소 후 AABB 갱신
-				pMin = math::Vector3(pos.x - r, pos.y,     pos.z - r);
-				pMax = math::Vector3(pos.x + r, pos.y + h, pos.z + r);
+				// 해소 후 발 위치 재계산 후 AABB 갱신
+				feetY = pos.y - eyeH;
+				pMin = math::Vector3(pos.x - r, feetY,     pos.z - r);
+				pMax = math::Vector3(pos.x + r, feetY + h, pos.z + r);
 			}
 		}
 

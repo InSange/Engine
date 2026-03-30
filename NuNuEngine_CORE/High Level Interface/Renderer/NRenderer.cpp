@@ -16,7 +16,8 @@ namespace NuNu::renderer
 	GameObject* selectedObject = nullptr;
 
 	ConstantBuffer* constantBuffers[static_cast<UINT>(eCBType::End)] = {};
-	D3D12_GPU_DESCRIPTOR_HANDLE barbarianTexSRV = {};
+	D3D12_GPU_DESCRIPTOR_HANDLE barbarianTexSRV  = {};
+	D3D12_GPU_DESCRIPTOR_HANDLE platformerTexSRV = {};
 #if 0
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[static_cast<UINT>(eSamplerType::End)] = {};
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[static_cast<UINT>(eRasterizerState::End)] = {};
@@ -285,6 +286,9 @@ namespace NuNu::renderer
 	{
 		barbarianTexSRV = GetDevice()->LoadTextureFromFile(
 			L"../Contents/Characters/Textures/Barbarian/barbarian_texture.png");
+
+		platformerTexSRV = GetDevice()->LoadTextureFromFile(
+			L"../Contents/Packs/Textures/platformer_texture.png");
 	}
 
 	void LoadMaterials()
