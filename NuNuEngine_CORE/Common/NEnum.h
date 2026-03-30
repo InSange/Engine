@@ -16,6 +16,7 @@ namespace NuNu::enums
 		AudioSource,
 		CharacterController,
 		Collider3D,
+		Health,
 		End,
 	};
 	enum class eLayerType
