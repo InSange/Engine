@@ -336,14 +336,14 @@ namespace gui
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 		ImGui::Begin("Game");
 
-		// rendering framebuffer image to the gameview
+		// rendering game view from SceneCamera
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		ViewportSize = Vector2{ viewportPanelSize.x, viewportPanelSize.y };
-#if 0 // DX12 전환 중: RenderTarget GPU 리소스 미구현
-		NuNu::graphics::Texture* texture = FrameBuffer->GetAttachmentTexture(0);
-		ImGui::Image((ImTextureID)texture->GetSRV().Get(), ImVec2{ ViewportSize.x, ViewportSize.y }
-		, ImVec2{ 0, 0 }, ImVec2{ 1, 1 });
-#endif
+
+		D3D12_GPU_DESCRIPTOR_HANDLE gameSRV = NuNu::graphics::GetDevice()->GetGameSRVGpuHandle();
+		if (gameSRV.ptr != 0)
+			ImGui::Image((ImTextureID)gameSRV.ptr, ImVec2{ ViewportSize.x, ViewportSize.y },
+				ImVec2{ 0, 0 }, ImVec2{ 1, 1 });
 
 		// Open Scene by drag and drop
 		if (ImGui::BeginDragDropTarget())

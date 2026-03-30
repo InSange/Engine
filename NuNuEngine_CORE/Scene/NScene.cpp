@@ -5,6 +5,7 @@
 #include "Component/Transform/NTransform.h"
 #include "High Level Interface/Renderer/NRenderer.h"
 #include "Component/SpriteRenderer/NSpriteRenderer.h"
+#include "Graphics/GraphicDevice/NGraphicDevice_DX12.h"
 
 namespace NuNu
 {
@@ -77,7 +78,9 @@ namespace NuNu
 			//renderer::RenderRenderables(cutoutList, viewMatrix, projectionMatrix);
 			//renderer::RenderRenderables(transparentList, viewMatrix, projectionMatrix);
 
+			graphics::GetDevice()->BeginGameRenderTarget();
 			renderer::RenderSceneFromCamera(this, camera);
+			graphics::GetDevice()->EndGameRenderTarget();
 		}
 	}
 

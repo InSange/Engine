@@ -21,7 +21,12 @@ namespace NuNu::graphics
 		, mSceneWidth(0)
 		, mSceneHeight(0)
 		, mSceneDSVCpu{}
-		, mNextSrvSlot(2)
+		, mGameSRVCpu{}
+		, mGameSRVGpu{}
+		, mGameWidth(0)
+		, mGameHeight(0)
+		, mGameDSVCpu{}
+		, mNextSrvSlot(3)
 	{
 		GetDevice() = this;
 		// Initialize the DirectX 12 device here
@@ -399,6 +404,11 @@ namespace NuNu::graphics
 
 	// Scene view off-screen render target (slot 1 in mSrvHeap reserved for this)
 	CreateSceneRenderTarget(
+		application.GetWindow().GetWidth(),
+		application.GetWindow().GetHeight());
+
+	// Game view off-screen render target (slot 2 in mSrvHeap reserved for this)
+	CreateGameRenderTarget(
 		application.GetWindow().GetWidth(),
 		application.GetWindow().GetHeight());
 	}
@@ -801,6 +811,129 @@ namespace NuNu::graphics
 		mCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, nullptr);
 
 		// Restore full-window viewport and scissor
+		BindViewportAndScissor();
+	}
+
+	void GraphicDevice_DX12::CreateGameRenderTarget(UINT width, UINT height)
+	{
+		mGameWidth  = width;
+		mGameHeight = height;
+
+		D3D12_RESOURCE_DESC rtDesc = {};
+		rtDesc.Dimension          = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+		rtDesc.Width              = width;
+		rtDesc.Height             = height;
+		rtDesc.DepthOrArraySize   = 1;
+		rtDesc.MipLevels          = 1;
+		rtDesc.Format             = DXGI_FORMAT_R8G8B8A8_UNORM;
+		rtDesc.SampleDesc.Count   = 1;
+		rtDesc.Flags              = D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
+
+		D3D12_CLEAR_VALUE clearValue      = {};
+		clearValue.Format                 = DXGI_FORMAT_R8G8B8A8_UNORM;
+		clearValue.Color[0] = 0.1f; clearValue.Color[1] = 0.1f;
+		clearValue.Color[2] = 0.1f; clearValue.Color[3] = 1.0f;
+
+		CD3DX12_HEAP_PROPERTIES heapProps(D3D12_HEAP_TYPE_DEFAULT);
+		if (FAILED(mDevice->CreateCommittedResource(
+			&heapProps, D3D12_HEAP_FLAG_NONE, &rtDesc,
+			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
+			&clearValue,
+			IID_PPV_ARGS(&mGameResource))))
+			assert(false && "CreateGameRenderTarget: resource creation failed");
+
+		D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc = {};
+		rtvHeapDesc.NumDescriptors = 1;
+		rtvHeapDesc.Type           = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+		rtvHeapDesc.Flags          = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+		if (FAILED(mDevice->CreateDescriptorHeap(&rtvHeapDesc, IID_PPV_ARGS(&mGameRtvHeap))))
+			assert(false && "CreateGameRenderTarget: RTV heap creation failed");
+
+		mDevice->CreateRenderTargetView(
+			mGameResource.Get(), nullptr,
+			mGameRtvHeap->GetCPUDescriptorHandleForHeapStart());
+
+		// SRV at slot 2 in mSrvHeap
+		UINT srvInc = mDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+		mGameSRVCpu.ptr = mSrvHeap->GetCPUDescriptorHandleForHeapStart().ptr + 2 * srvInc;
+		mGameSRVGpu.ptr = mSrvHeap->GetGPUDescriptorHandleForHeapStart().ptr + 2 * srvInc;
+
+		D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+		srvDesc.Shader4ComponentMapping         = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+		srvDesc.Format                          = DXGI_FORMAT_R8G8B8A8_UNORM;
+		srvDesc.ViewDimension                   = D3D12_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MipLevels             = 1;
+		mDevice->CreateShaderResourceView(mGameResource.Get(), &srvDesc, mGameSRVCpu);
+
+		// Depth buffer
+		D3D12_RESOURCE_DESC depthDesc = {};
+		depthDesc.Dimension          = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+		depthDesc.Width              = width;
+		depthDesc.Height             = height;
+		depthDesc.DepthOrArraySize   = 1;
+		depthDesc.MipLevels          = 1;
+		depthDesc.Format             = DXGI_FORMAT_D32_FLOAT;
+		depthDesc.SampleDesc.Count   = 1;
+		depthDesc.Flags              = D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
+
+		D3D12_CLEAR_VALUE depthClear  = {};
+		depthClear.Format             = DXGI_FORMAT_D32_FLOAT;
+		depthClear.DepthStencil.Depth = 1.0f;
+
+		if (FAILED(mDevice->CreateCommittedResource(
+			&heapProps, D3D12_HEAP_FLAG_NONE, &depthDesc,
+			D3D12_RESOURCE_STATE_DEPTH_WRITE,
+			&depthClear,
+			IID_PPV_ARGS(&mGameDepthResource))))
+			assert(false && "CreateGameRenderTarget: depth resource creation failed");
+
+		D3D12_DESCRIPTOR_HEAP_DESC dsvHeapDesc = {};
+		dsvHeapDesc.NumDescriptors = 1;
+		dsvHeapDesc.Type           = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
+		dsvHeapDesc.Flags          = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+		if (FAILED(mDevice->CreateDescriptorHeap(&dsvHeapDesc, IID_PPV_ARGS(&mGameDsvHeap))))
+			assert(false && "CreateGameRenderTarget: DSV heap creation failed");
+
+		mGameDSVCpu = mGameDsvHeap->GetCPUDescriptorHandleForHeapStart();
+		mDevice->CreateDepthStencilView(mGameDepthResource.Get(), nullptr, mGameDSVCpu);
+	}
+
+	void GraphicDevice_DX12::BeginGameRenderTarget()
+	{
+		CD3DX12_RESOURCE_BARRIER toRT = CD3DX12_RESOURCE_BARRIER::Transition(
+			mGameResource.Get(),
+			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
+			D3D12_RESOURCE_STATE_RENDER_TARGET);
+		mCommandList->ResourceBarrier(1, &toRT);
+
+		D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = mGameRtvHeap->GetCPUDescriptorHandleForHeapStart();
+		mCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, &mGameDSVCpu);
+
+		const float clearColor[] = { 0.1f, 0.1f, 0.1f, 1.0f };
+		mCommandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
+		mCommandList->ClearDepthStencilView(mGameDSVCpu, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
+
+		CD3DX12_VIEWPORT viewport(0.0f, 0.0f, (float)mGameWidth, (float)mGameHeight);
+		CD3DX12_RECT scissor(0, 0, (LONG)mGameWidth, (LONG)mGameHeight);
+		mCommandList->RSSetViewports(1, &viewport);
+		mCommandList->RSSetScissorRects(1, &scissor);
+
+		mCommandList->SetDescriptorHeaps(1, mSrvHeap.GetAddressOf());
+		mCommandList->SetGraphicsRootSignature(mRootSignature3D.Get());
+	}
+
+	void GraphicDevice_DX12::EndGameRenderTarget()
+	{
+		CD3DX12_RESOURCE_BARRIER toSRV = CD3DX12_RESOURCE_BARRIER::Transition(
+			mGameResource.Get(),
+			D3D12_RESOURCE_STATE_RENDER_TARGET,
+			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+		mCommandList->ResourceBarrier(1, &toSRV);
+
+		CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(
+			mRtvHeap->GetCPUDescriptorHandleForHeapStart(), mFrameIndex, mRtvDescriptorSize);
+		mCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, nullptr);
+
 		BindViewportAndScissor();
 	}
 

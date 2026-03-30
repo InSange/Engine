@@ -58,11 +58,17 @@ namespace NuNu::graphics
 		void ExcuteCommandList();
 		void Present();
 
-		// scene view render target
+		// scene view render target (EditorCamera, slot 1)
 		void CreateSceneRenderTarget(UINT width, UINT height);
 		void BeginSceneRenderTarget();
 		void EndSceneRenderTarget();
 		D3D12_GPU_DESCRIPTOR_HANDLE GetSceneSRVGpuHandle() const { return mSceneSRVGpu; }
+
+		// game view render target (SceneCamera, slot 2)
+		void CreateGameRenderTarget(UINT width, UINT height);
+		void BeginGameRenderTarget();
+		void EndGameRenderTarget();
+		D3D12_GPU_DESCRIPTOR_HANDLE GetGameSRVGpuHandle() const { return mGameSRVGpu; }
 
 		// texture loading (main-thread only, blocks until upload complete)
 		D3D12_GPU_DESCRIPTOR_HANDLE LoadTextureFromFile(const std::wstring& path);
@@ -122,6 +128,17 @@ namespace NuNu::graphics
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mSceneDsvHeap;
 		Microsoft::WRL::ComPtr<ID3D12Resource>       mSceneDepthResource;
 		D3D12_CPU_DESCRIPTOR_HANDLE                  mSceneDSVCpu;
+
+		// game view render target (slot 2)
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mGameRtvHeap;
+		Microsoft::WRL::ComPtr<ID3D12Resource>       mGameResource;
+		D3D12_CPU_DESCRIPTOR_HANDLE                  mGameSRVCpu;
+		D3D12_GPU_DESCRIPTOR_HANDLE                  mGameSRVGpu;
+		UINT                                         mGameWidth;
+		UINT                                         mGameHeight;
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mGameDsvHeap;
+		Microsoft::WRL::ComPtr<ID3D12Resource>       mGameDepthResource;
+		D3D12_CPU_DESCRIPTOR_HANDLE                  mGameDSVCpu;
 
 		// 3D rendering
 		Microsoft::WRL::ComPtr<ID3D12RootSignature>              mRootSignature3D;
