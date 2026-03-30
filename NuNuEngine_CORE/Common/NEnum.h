@@ -14,6 +14,7 @@ namespace NuNu::enums
 		Camera,
 		AudioListener,
 		AudioSource,
+		CharacterController,
 		End,
 	};
 	enum class eLayerType

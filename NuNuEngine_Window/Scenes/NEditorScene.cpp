@@ -13,6 +13,7 @@
 #include "Component/Camera/NSceneCamera.h"
 #include "Component/MeshRenderer/NMeshRenderer.h"
 #include "Resource/Mesh3D/NMesh3D.h"
+#include "Component/CharacterController/NCharacterController.h"
 
 namespace NuNu
 {
@@ -33,6 +34,8 @@ namespace NuNu
 
 		SceneCamera* cameraComp = camera->AddComponent<SceneCamera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Perspective);
+
+		camera->AddComponent<CharacterController>();
 
 		renderer::mainCamera = cameraComp;
 

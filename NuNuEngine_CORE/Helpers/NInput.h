@@ -32,6 +32,8 @@ namespace NuNu
 		Left = VK_LEFT, Right = VK_RIGHT, Down = VK_DOWN, Up = VK_UP,
 		LButton = VK_LBUTTON, MButton = VK_MBUTTON, RButton = VK_RBUTTON,
 
+		SpaceBar = VK_SPACE,
+
 		LeftShift = VK_LSHIFT, Leftcontrol = VK_LCONTROL, LeftAlt = VK_LMENU,
 		RightShift = VK_RSHIFT, RightControl = VK_RCONTROL, RightAlt = VK_RMENU,
 
