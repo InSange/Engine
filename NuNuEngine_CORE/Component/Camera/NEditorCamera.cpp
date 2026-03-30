@@ -34,27 +34,35 @@ namespace NuNu
 
 		if (Input::GetKey(eKeyCode::RButton))
 		{
-			math::Vector2 delta = curPos - mLastMousePos;
+			// GetMousePosition()은 마우스가 창 밖(경계 포함)이면 -1을 반환.
+			// 이전/현재 중 하나라도 -1이면 델타가 비정상적으로 커져 텔레포트 발생 → 스킵.
+			const bool curValid  = curPos.x >= 0.0f && curPos.y >= 0.0f;
+			const bool lastValid = mLastMousePos.x >= 0.0f && mLastMousePos.y >= 0.0f;
 
-			mYaw   += delta.x * mRotateSpeed;
-			mPitch += delta.y * mRotateSpeed;
-			if (mPitch >  89.0f) mPitch =  89.0f;
-			if (mPitch < -89.0f) mPitch = -89.0f;
+			if (curValid && lastValid)
+			{
+				math::Vector2 delta = curPos - mLastMousePos;
 
-			Transform* tr = GetOwner()->GetComponent<Transform>();
-			tr->SetRotation(mPitch, mYaw, 0.0f);
+				mYaw   += delta.x * mRotateSpeed;
+				mPitch += delta.y * mRotateSpeed;
+				if (mPitch >  89.0f) mPitch =  89.0f;
+				if (mPitch < -89.0f) mPitch = -89.0f;
 
-			float speed = mMoveSpeed * Time::DeltaTime();
-			math::Vector3 pos = tr->GetPosition();
+				Transform* tr = GetOwner()->GetComponent<Transform>();
+				tr->SetRotation(mPitch, mYaw, 0.0f);
 
-			if (Input::GetKey(eKeyCode::W)) pos += tr->Forward() * speed;
-			if (Input::GetKey(eKeyCode::S)) pos -= tr->Forward() * speed;
-			if (Input::GetKey(eKeyCode::A)) pos -= tr->Right()   * speed;
-			if (Input::GetKey(eKeyCode::D)) pos += tr->Right()   * speed;
-			if (Input::GetKey(eKeyCode::E)) pos += tr->Up()      * speed;
-			if (Input::GetKey(eKeyCode::Q)) pos -= tr->Up()      * speed;
+				float speed = mMoveSpeed * Time::DeltaTime();
+				math::Vector3 pos = tr->GetPosition();
 
-			tr->SetPosition(pos);
+				if (Input::GetKey(eKeyCode::W)) pos += tr->Forward() * speed;
+				if (Input::GetKey(eKeyCode::S)) pos -= tr->Forward() * speed;
+				if (Input::GetKey(eKeyCode::A)) pos -= tr->Right()   * speed;
+				if (Input::GetKey(eKeyCode::D)) pos += tr->Right()   * speed;
+				if (Input::GetKey(eKeyCode::E)) pos += tr->Up()      * speed;
+				if (Input::GetKey(eKeyCode::Q)) pos -= tr->Up()      * speed;
+
+				tr->SetPosition(pos);
+			}
 		}
 
 		mLastMousePos = curPos;

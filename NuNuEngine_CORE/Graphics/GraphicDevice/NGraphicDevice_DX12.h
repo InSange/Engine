@@ -2,6 +2,7 @@
 #include "Graphics/NGraphics.h"
 #include <d3d12.h>
 #include <dxgi1_6.h>
+#include <vector>
 
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -63,6 +64,9 @@ namespace NuNu::graphics
 		void EndSceneRenderTarget();
 		D3D12_GPU_DESCRIPTOR_HANDLE GetSceneSRVGpuHandle() const { return mSceneSRVGpu; }
 
+		// texture loading (main-thread only, blocks until upload complete)
+		D3D12_GPU_DESCRIPTOR_HANDLE LoadTextureFromFile(const std::wstring& path);
+
 		Microsoft::WRL::ComPtr<ID3D12Device> GetID3D12Device() { return mDevice; }
 		Microsoft::WRL::ComPtr<ID3D12CommandQueue> GetCommandQueue() { return mCommandQueue; }
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> GetSrvHeap() { return mSrvHeap; }
@@ -70,6 +74,7 @@ namespace NuNu::graphics
 		Microsoft::WRL::ComPtr<ID3D12Resource> GetRenderTargetResource(int idx) { return mRenderTargets[idx]; }
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> GetRTVHeap() { return mRtvHeap; }
 		Microsoft::WRL::ComPtr<ID3D12RootSignature>  GetRootSignature() { return mRootSignature; }
+		Microsoft::WRL::ComPtr<ID3D12RootSignature>  GetRootSignature3D() { return mRootSignature3D; }
 
 		//imgui
 		Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> GetCommandList() { return mCommandList; }
@@ -112,6 +117,16 @@ namespace NuNu::graphics
 		D3D12_GPU_DESCRIPTOR_HANDLE                  mSceneSRVGpu;
 		UINT                                         mSceneWidth;
 		UINT                                         mSceneHeight;
+
+		// scene depth buffer
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mSceneDsvHeap;
+		Microsoft::WRL::ComPtr<ID3D12Resource>       mSceneDepthResource;
+		D3D12_CPU_DESCRIPTOR_HANDLE                  mSceneDSVCpu;
+
+		// 3D rendering
+		Microsoft::WRL::ComPtr<ID3D12RootSignature>              mRootSignature3D;
+		UINT                                                     mNextSrvSlot;  // 0=ImGui, 1=sceneRT, 2+=textures
+		std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>>     mTextureResources;
 	};
 
 	inline GraphicDevice_DX12*& GetDevice()

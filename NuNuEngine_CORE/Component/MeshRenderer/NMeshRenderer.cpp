@@ -9,6 +9,7 @@ namespace NuNu
 		: BaseRenderer(eComponentType::MeshRenderer)
 		, mMesh3D(nullptr)
 		, mShader3D(nullptr)
+		, mTextureSRVGpu{}
 	{
 	}
 
@@ -30,6 +31,10 @@ namespace NuNu
 			tr->Bind(view, projection);
 
 		mShader3D->Bind();
+
+		if (mTextureSRVGpu.ptr != 0)
+			graphics::GetDevice()->GetCommandList()->SetGraphicsRootDescriptorTable(1, mTextureSRVGpu);
+
 		mMesh3D->Bind();
 
 		graphics::GetDevice()->DrawIndexedInstanced(mMesh3D->GetIndexCount(), 1, 0, 0, 0);

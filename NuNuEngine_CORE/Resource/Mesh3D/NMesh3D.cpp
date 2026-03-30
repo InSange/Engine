@@ -22,6 +22,51 @@ namespace NuNu
 		return S_OK;
 	}
 
+	// 재귀로 scene graph를 순회하며 누적 변환을 버텍스에 베이킹
+	static void processNode(const aiNode* node, const aiMatrix4x4& parentTransform,
+		const aiScene* scene,
+		std::vector<Mesh3D::Vertex3D>& vertices, std::vector<UINT>& indices)
+	{
+		aiMatrix4x4 globalTransform = parentTransform * node->mTransformation;
+		aiMatrix3x3 normalMatrix(globalTransform);
+		normalMatrix.Transpose();
+		normalMatrix.Inverse();
+
+		for (unsigned int m = 0; m < node->mNumMeshes; ++m)
+		{
+			const aiMesh* mesh = scene->mMeshes[node->mMeshes[m]];
+			UINT baseIndex = (UINT)vertices.size();
+
+			for (unsigned int i = 0; i < mesh->mNumVertices; ++i)
+			{
+				aiVector3D worldPos = globalTransform * mesh->mVertices[i];
+				Mesh3D::Vertex3D v = {};
+				v.pos = { worldPos.x, worldPos.y, worldPos.z };
+
+				if (mesh->HasNormals())
+				{
+					aiVector3D worldNormal = normalMatrix * mesh->mNormals[i];
+					worldNormal.Normalize();
+					v.normal = { worldNormal.x, worldNormal.y, worldNormal.z };
+				}
+				if (mesh->mTextureCoords[0])
+					v.uv = { mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y };
+
+				vertices.push_back(v);
+			}
+
+			for (unsigned int i = 0; i < mesh->mNumFaces; ++i)
+			{
+				const aiFace& face = mesh->mFaces[i];
+				for (unsigned int j = 0; j < face.mNumIndices; ++j)
+					indices.push_back(baseIndex + face.mIndices[j]);
+			}
+		}
+
+		for (unsigned int i = 0; i < node->mNumChildren; ++i)
+			processNode(node->mChildren[i], globalTransform, scene, vertices, indices);
+	}
+
 	HRESULT Mesh3D::Load(const std::wstring& path)
 	{
 		int len = WideCharToMultiByte(CP_UTF8, 0, path.c_str(), -1, nullptr, 0, nullptr, nullptr);
@@ -38,29 +83,8 @@ namespace NuNu
 		std::vector<Vertex3D> vertices;
 		std::vector<UINT> indices;
 
-		for (unsigned int m = 0; m < scene->mNumMeshes; ++m)
-		{
-			aiMesh* mesh = scene->mMeshes[m];
-			UINT baseIndex = (UINT)vertices.size();
-
-			for (unsigned int i = 0; i < mesh->mNumVertices; ++i)
-			{
-				Vertex3D v = {};
-				v.pos    = { mesh->mVertices[i].x,  mesh->mVertices[i].y,  mesh->mVertices[i].z };
-				if (mesh->HasNormals())
-					v.normal = { mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z };
-				if (mesh->mTextureCoords[0])
-					v.uv = { mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y };
-				vertices.push_back(v);
-			}
-
-			for (unsigned int i = 0; i < mesh->mNumFaces; ++i)
-			{
-				const aiFace& face = mesh->mFaces[i];
-				for (unsigned int j = 0; j < face.mNumIndices; ++j)
-					indices.push_back(baseIndex + face.mIndices[j]);
-			}
-		}
+		aiMatrix4x4 identity;
+		processNode(scene->mRootNode, identity, scene, vertices, indices);
 
 		if (!createVB(vertices)) return E_FAIL;
 		if (!mIB.Create(indices)) return E_FAIL;

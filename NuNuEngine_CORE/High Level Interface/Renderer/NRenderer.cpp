@@ -16,6 +16,7 @@ namespace NuNu::renderer
 	GameObject* selectedObject = nullptr;
 
 	ConstantBuffer* constantBuffers[static_cast<UINT>(eCBType::End)] = {};
+	D3D12_GPU_DESCRIPTOR_HANDLE barbarianTexSRV = {};
 #if 0
 	Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[static_cast<UINT>(eSamplerType::End)] = {};
 	Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[static_cast<UINT>(eRasterizerState::End)] = {};
@@ -280,6 +281,12 @@ namespace NuNu::renderer
 		Resources::Load<Shader>(L"WireframeShader", L"..\\Shaders_SOURCE\\Wireframe");*/
 	}
 
+	void LoadTextures()
+	{
+		barbarianTexSRV = GetDevice()->LoadTextureFromFile(
+			L"../Contents/Characters/Textures/Barbarian/barbarian_texture.png");
+	}
+
 	void LoadMaterials()
 	{
 		auto triangleMaterial = new Material();
@@ -313,6 +320,7 @@ namespace NuNu::renderer
 	{
 		LoadStates();
 		LoadShaders();
+		LoadTextures();
 		LoadMeshes();
 		LoadMaterials();
 		LoadConstantBuffers();

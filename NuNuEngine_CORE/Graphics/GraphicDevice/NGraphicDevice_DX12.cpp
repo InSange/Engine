@@ -1,5 +1,8 @@
 #include "NGraphicDevice_DX12.h"
 #include "High Level Interface/NApplication.h"
+#include <DirectXTex.h>
+
+#pragma comment(lib, "dxguid.lib")
 
 #include "../../Resource/NResources.h"
 #include "../../Resource/Graphics/Shader/NShader.h"
@@ -17,6 +20,8 @@ namespace NuNu::graphics
 		, mSceneSRVGpu{}
 		, mSceneWidth(0)
 		, mSceneHeight(0)
+		, mSceneDSVCpu{}
+		, mNextSrvSlot(2)
 	{
 		GetDevice() = this;
 		// Initialize the DirectX 12 device here
@@ -250,6 +255,32 @@ namespace NuNu::graphics
 		if (FAILED(mDevice->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&mRootSignature))))
 			assert(NULL && "CreateRootSignature");
 
+		// 3D root signature: param0=48 DWORDs at b0, param1=SRV table at t0, static sampler at s0
+		{
+			CD3DX12_DESCRIPTOR_RANGE srvRange;
+			srvRange.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
+
+			CD3DX12_ROOT_PARAMETER rootParams3D[2];
+			rootParams3D[0].InitAsConstants(48, 0);
+			rootParams3D[1].InitAsDescriptorTable(1, &srvRange, D3D12_SHADER_VISIBILITY_PIXEL);
+
+			CD3DX12_STATIC_SAMPLER_DESC staticSampler(0,
+				D3D12_FILTER_MIN_MAG_MIP_LINEAR,
+				D3D12_TEXTURE_ADDRESS_MODE_WRAP,
+				D3D12_TEXTURE_ADDRESS_MODE_WRAP,
+				D3D12_TEXTURE_ADDRESS_MODE_WRAP);
+
+			CD3DX12_ROOT_SIGNATURE_DESC rootSigDesc3D;
+			rootSigDesc3D.Init(_countof(rootParams3D), rootParams3D, 1, &staticSampler,
+				D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+
+			Microsoft::WRL::ComPtr<ID3DBlob> sig3D;
+			Microsoft::WRL::ComPtr<ID3DBlob> err3D;
+			if (FAILED(D3D12SerializeRootSignature(&rootSigDesc3D, D3D_ROOT_SIGNATURE_VERSION_1, &sig3D, &err3D)))
+				assert(false && "mRootSignature3D serialize failed");
+			if (FAILED(mDevice->CreateRootSignature(0, sig3D->GetBufferPointer(), sig3D->GetBufferSize(), IID_PPV_ARGS(&mRootSignature3D))))
+				assert(false && "mRootSignature3D creation failed");
+		}
 
 		// load shader
 /*		Microsoft::WRL::ComPtr<ID3DBlob> vertexShader;
@@ -695,6 +726,38 @@ namespace NuNu::graphics
 		srvDesc.ViewDimension                     = D3D12_SRV_DIMENSION_TEXTURE2D;
 		srvDesc.Texture2D.MipLevels               = 1;
 		mDevice->CreateShaderResourceView(mSceneResource.Get(), &srvDesc, mSceneSRVCpu);
+
+		// 4. Depth buffer for the scene RT
+		D3D12_RESOURCE_DESC depthDesc = {};
+		depthDesc.Dimension          = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+		depthDesc.Width              = width;
+		depthDesc.Height             = height;
+		depthDesc.DepthOrArraySize   = 1;
+		depthDesc.MipLevels          = 1;
+		depthDesc.Format             = DXGI_FORMAT_D32_FLOAT;
+		depthDesc.SampleDesc.Count   = 1;
+		depthDesc.Flags              = D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
+
+		D3D12_CLEAR_VALUE depthClear  = {};
+		depthClear.Format             = DXGI_FORMAT_D32_FLOAT;
+		depthClear.DepthStencil.Depth = 1.0f;
+
+		if (FAILED(mDevice->CreateCommittedResource(
+			&heapProps, D3D12_HEAP_FLAG_NONE, &depthDesc,
+			D3D12_RESOURCE_STATE_DEPTH_WRITE,
+			&depthClear,
+			IID_PPV_ARGS(&mSceneDepthResource))))
+			assert(false && "CreateSceneRenderTarget: depth resource creation failed");
+
+		D3D12_DESCRIPTOR_HEAP_DESC dsvHeapDesc = {};
+		dsvHeapDesc.NumDescriptors = 1;
+		dsvHeapDesc.Type           = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
+		dsvHeapDesc.Flags          = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+		if (FAILED(mDevice->CreateDescriptorHeap(&dsvHeapDesc, IID_PPV_ARGS(&mSceneDsvHeap))))
+			assert(false && "CreateSceneRenderTarget: DSV heap creation failed");
+
+		mSceneDSVCpu = mSceneDsvHeap->GetCPUDescriptorHandleForHeapStart();
+		mDevice->CreateDepthStencilView(mSceneDepthResource.Get(), nullptr, mSceneDSVCpu);
 	}
 
 	void GraphicDevice_DX12::BeginSceneRenderTarget()
@@ -707,15 +770,20 @@ namespace NuNu::graphics
 		mCommandList->ResourceBarrier(1, &toRT);
 
 		D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = mSceneRtvHeap->GetCPUDescriptorHandleForHeapStart();
-		mCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, nullptr);
+		mCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, &mSceneDSVCpu);
 
 		const float clearColor[] = { 0.1f, 0.1f, 0.1f, 1.0f };
 		mCommandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
+		mCommandList->ClearDepthStencilView(mSceneDSVCpu, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
 
 		CD3DX12_VIEWPORT viewport(0.0f, 0.0f, (float)mSceneWidth, (float)mSceneHeight);
 		CD3DX12_RECT scissor(0, 0, (LONG)mSceneWidth, (LONG)mSceneHeight);
 		mCommandList->RSSetViewports(1, &viewport);
 		mCommandList->RSSetScissorRects(1, &scissor);
+
+		// Set 3D descriptor heap and root signature for scene rendering
+		mCommandList->SetDescriptorHeaps(1, mSrvHeap.GetAddressOf());
+		mCommandList->SetGraphicsRootSignature(mRootSignature3D.Get());
 	}
 
 	void GraphicDevice_DX12::EndSceneRenderTarget()
@@ -734,5 +802,88 @@ namespace NuNu::graphics
 
 		// Restore full-window viewport and scissor
 		BindViewportAndScissor();
+	}
+
+	D3D12_GPU_DESCRIPTOR_HANDLE GraphicDevice_DX12::LoadTextureFromFile(const std::wstring& path)
+	{
+		DirectX::ScratchImage image;
+		if (FAILED(DirectX::LoadFromWICFile(path.c_str(), DirectX::WIC_FLAGS_FORCE_RGB, nullptr, image)))
+		{
+			assert(false && "LoadTextureFromFile: LoadFromWICFile failed");
+			return { 0 };
+		}
+
+		const DirectX::Image* img = image.GetImage(0, 0, 0);
+
+		D3D12_RESOURCE_DESC texDesc = {};
+		texDesc.Dimension          = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+		texDesc.Width              = (UINT)img->width;
+		texDesc.Height             = (UINT)img->height;
+		texDesc.DepthOrArraySize   = 1;
+		texDesc.MipLevels          = 1;
+		texDesc.Format             = img->format;
+		texDesc.SampleDesc.Count   = 1;
+
+		Microsoft::WRL::ComPtr<ID3D12Resource> texResource;
+		CD3DX12_HEAP_PROPERTIES defaultHeap(D3D12_HEAP_TYPE_DEFAULT);
+		if (FAILED(mDevice->CreateCommittedResource(
+			&defaultHeap, D3D12_HEAP_FLAG_NONE, &texDesc,
+			D3D12_RESOURCE_STATE_COPY_DEST, nullptr,
+			IID_PPV_ARGS(&texResource))))
+		{
+			assert(false && "LoadTextureFromFile: texture resource creation failed");
+			return { 0 };
+		}
+
+		UINT64 uploadSize = GetRequiredIntermediateSize(texResource.Get(), 0, 1);
+		Microsoft::WRL::ComPtr<ID3D12Resource> uploadBuffer;
+		CD3DX12_HEAP_PROPERTIES uploadHeap(D3D12_HEAP_TYPE_UPLOAD);
+		CD3DX12_RESOURCE_DESC uploadDesc = CD3DX12_RESOURCE_DESC::Buffer(uploadSize);
+		if (FAILED(mDevice->CreateCommittedResource(
+			&uploadHeap, D3D12_HEAP_FLAG_NONE, &uploadDesc,
+			D3D12_RESOURCE_STATE_GENERIC_READ, nullptr,
+			IID_PPV_ARGS(&uploadBuffer))))
+		{
+			assert(false && "LoadTextureFromFile: upload buffer creation failed");
+			return { 0 };
+		}
+
+		mFrameContext[0].CommandAllocator->Reset();
+		mCommandList->Reset(mFrameContext[0].CommandAllocator.Get(), mPipelineState.Get());
+
+		D3D12_SUBRESOURCE_DATA subresource = {};
+		subresource.pData      = img->pixels;
+		subresource.RowPitch   = (LONG_PTR)img->rowPitch;
+		subresource.SlicePitch = (LONG_PTR)img->slicePitch;
+		UpdateSubresources(mCommandList.Get(), texResource.Get(), uploadBuffer.Get(), 0, 0, 1, &subresource);
+
+		CD3DX12_RESOURCE_BARRIER toSRVBarrier = CD3DX12_RESOURCE_BARRIER::Transition(
+			texResource.Get(),
+			D3D12_RESOURCE_STATE_COPY_DEST,
+			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+		mCommandList->ResourceBarrier(1, &toSRVBarrier);
+
+		mCommandList->Close();
+		ID3D12CommandList* lists[] = { mCommandList.Get() };
+		mCommandQueue->ExecuteCommandLists(1, lists);
+		WaitForGpu();
+
+		UINT srvInc = mDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+		D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle;
+		cpuHandle.ptr = mSrvHeap->GetCPUDescriptorHandleForHeapStart().ptr + mNextSrvSlot * srvInc;
+		D3D12_GPU_DESCRIPTOR_HANDLE gpuHandle;
+		gpuHandle.ptr = mSrvHeap->GetGPUDescriptorHandleForHeapStart().ptr + mNextSrvSlot * srvInc;
+
+		D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+		srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+		srvDesc.Format                  = texDesc.Format;
+		srvDesc.ViewDimension           = D3D12_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MipLevels     = 1;
+		mDevice->CreateShaderResourceView(texResource.Get(), &srvDesc, cpuHandle);
+
+		++mNextSrvSlot;
+		mTextureResources.push_back(std::move(texResource));
+
+		return gpuHandle;
 	}
 }

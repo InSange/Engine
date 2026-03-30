@@ -55,6 +55,7 @@ namespace NuNu
 			MeshRenderer* mr = meshObj->AddComponent<MeshRenderer>();
 			mr->SetMesh3D(Resources::Find<Mesh3D>(L"Barbarian"));
 			mr->SetShader3D(Resources::Find<graphics::Shader>(L"Mesh3DShader"));
+			mr->SetTextureSRV(renderer::barbarianTexSRV);
 		}
 	}
 

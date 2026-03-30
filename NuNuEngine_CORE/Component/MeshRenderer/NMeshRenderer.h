@@ -14,11 +14,13 @@ namespace NuNu
 		void Initialize() override;
 		void Render(const Matrix& view, const Matrix& projection) override;
 
-		void SetMesh3D(Mesh3D* mesh)           { mMesh3D = mesh; }
-		void SetShader3D(graphics::Shader* shader) { mShader3D = shader; }
+		void SetMesh3D(Mesh3D* mesh)                        { mMesh3D = mesh; }
+		void SetShader3D(graphics::Shader* shader)          { mShader3D = shader; }
+		void SetTextureSRV(D3D12_GPU_DESCRIPTOR_HANDLE srv) { mTextureSRVGpu = srv; }
 
 	private:
-		Mesh3D*           mMesh3D;
-		graphics::Shader* mShader3D;
+		Mesh3D*                     mMesh3D;
+		graphics::Shader*           mShader3D;
+		D3D12_GPU_DESCRIPTOR_HANDLE mTextureSRVGpu;
 	};
 }

@@ -13,6 +13,7 @@ namespace NuNu::renderer
 	extern Camera* mainCamera;
 	extern GameObject* selectedObject;
 	extern ConstantBuffer* constantBuffers[static_cast<UINT>(eCBType::End)];
+	extern D3D12_GPU_DESCRIPTOR_HANDLE barbarianTexSRV;
 
 #if 0
 	extern Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerStates[static_cast<UINT>(eSamplerType::End)];
