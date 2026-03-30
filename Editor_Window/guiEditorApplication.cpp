@@ -4,6 +4,7 @@
 #include "guiProjectWindow.h"
 #include "guiSceneWindow.h"
 #include "guiHierarchyWindow.h"
+#include "guiCurseDebugWindow.h"
 
 #include "High Level Interface/NApplication.h"
 #include "High Level Interface/Renderer/NRenderer.h"
@@ -72,6 +73,10 @@ namespace gui
 		//CosoleWindow
 		ConsoleWindow* console = new ConsoleWindow();
 		EditorWindows.insert(std::make_pair(L"ConsoleWindow", console));
+
+		// CurseDebugWindow
+		CurseDebugWindow* curseDebug = new CurseDebugWindow();
+		EditorWindows.insert(std::make_pair(L"CurseDebugWindow", curseDebug));
 
 		return true;
 	}
@@ -198,12 +203,13 @@ namespace gui
 		ImGuiID dock_game = ImGui::DockBuilderSplitNode(dockspace_id, ImGuiDir_Right, 0.50f, nullptr, &dockspace_id);
 
 		// 5. 도킹
-		ImGui::DockBuilderDockWindow("Scene",     dockspace_id);
-		ImGui::DockBuilderDockWindow("Game",      dock_game);
-		ImGui::DockBuilderDockWindow("Hierarchy", dock_right);
-		ImGui::DockBuilderDockWindow("Inspector", dock_inspector);
-		ImGui::DockBuilderDockWindow("Project",   dock_bottom);
-		ImGui::DockBuilderDockWindow("Console",   dock_bottom);
+		ImGui::DockBuilderDockWindow("Scene",          dockspace_id);
+		ImGui::DockBuilderDockWindow("Game",           dock_game);
+		ImGui::DockBuilderDockWindow("Hierarchy",      dock_right);
+		ImGui::DockBuilderDockWindow("Inspector",      dock_inspector);
+		ImGui::DockBuilderDockWindow("Curse Debugger", dock_inspector);
+		ImGui::DockBuilderDockWindow("Project",        dock_bottom);
+		ImGui::DockBuilderDockWindow("Console",        dock_bottom);
 
 		ImGui::DockBuilderFinish(dockspace_id);
 	}

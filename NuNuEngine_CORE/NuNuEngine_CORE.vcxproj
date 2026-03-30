@@ -172,6 +172,7 @@
     <ClInclude Include="Component\CharacterController\NCharacterController.h" />
     <ClInclude Include="Component\Collider3D\NCollider3D.h" />
     <ClInclude Include="Component\Health\NHealth.h" />
+    <ClInclude Include="Component\Curse\NCurseComponent.h" />
     <ClInclude Include="Component\Camera\NSceneCamera.h" />
     <ClInclude Include="High Level Interface\Renderer\NBaseRenderer.h" />
     <ClInclude Include="Common\NLabelled.h" />
@@ -233,6 +234,7 @@
     <ClCompile Include="Component\CharacterController\NCharacterController.cpp" />
     <ClCompile Include="Component\Collider3D\NCollider3D.cpp" />
     <ClCompile Include="Component\Health\NHealth.cpp" />
+    <ClCompile Include="Component\Curse\NCurseComponent.cpp" />
     <ClCompile Include="Component\Camera\NSceneCamera.cpp" />
     <ClCompile Include="High Level Interface\Renderer\NBaseRenderer.cpp" />
     <ClCompile Include="Common\NLabelled.cpp" />

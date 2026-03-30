@@ -4,6 +4,7 @@
 #include "Helpers/NTime.h"
 #include "Component/Transform/NTransform.h"
 #include "Collision/NCollisionManager.h"
+#include "Component/Curse/NCurseComponent.h"
 
 namespace NuNu
 {
@@ -34,6 +35,8 @@ namespace NuNu
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		const float dt = Time::DeltaTime();
 
+		CurseComponent* curse = GetOwner()->GetComponent<CurseComponent>();
+
 		// --- 카메라 회전 ---
 		math::Vector2 curPos = Input::GetMousePosition();
 		const bool curValid  = curPos.x >= 0.0f && curPos.y >= 0.0f;
@@ -43,8 +46,9 @@ namespace NuNu
 		{
 			math::Vector2 delta = curPos - mLastMousePos;
 
+			const float pitchSign = (curse && curse->IsVisionInverted()) ? -1.0f : 1.0f;
 			mYaw   += delta.x * mRotateSpeed;
-			mPitch += delta.y * mRotateSpeed;
+			mPitch += delta.y * mRotateSpeed * pitchSign;
 			if (mPitch >  89.0f) mPitch =  89.0f;
 			if (mPitch < -89.0f) mPitch = -89.0f;
 
@@ -54,7 +58,9 @@ namespace NuNu
 
 		// --- 수평 이동 (WASD) — XZ 평면만 사용 (카메라 피치 Y 성분 제거) ---
 		math::Vector3 pos = tr->GetPosition();
-		const float speed = mMoveSpeed * dt;
+		const float speedMult = (curse) ? curse->GetMoveSpeedMultiplier() : 1.0f;
+		const float speed = mMoveSpeed * speedMult * dt;
+		const float moveSign = (curse && curse->IsControlInverted()) ? -1.0f : 1.0f;
 
 		auto flatNorm = [](math::Vector3 v) -> math::Vector3
 		{
@@ -66,13 +72,14 @@ namespace NuNu
 		math::Vector3 fwd   = flatNorm(tr->Forward());
 		math::Vector3 right = flatNorm(tr->Right());
 
-		if (Input::GetKey(eKeyCode::W)) pos += fwd   * speed;
-		if (Input::GetKey(eKeyCode::S)) pos -= fwd   * speed;
-		if (Input::GetKey(eKeyCode::A)) pos -= right * speed;
-		if (Input::GetKey(eKeyCode::D)) pos += right * speed;
+		if (Input::GetKey(eKeyCode::W)) pos += fwd   * speed * moveSign;
+		if (Input::GetKey(eKeyCode::S)) pos -= fwd   * speed * moveSign;
+		if (Input::GetKey(eKeyCode::A)) pos -= right * speed * moveSign;
+		if (Input::GetKey(eKeyCode::D)) pos += right * speed * moveSign;
 
 		// --- 중력 & 점프 ---
-		if (mbGrounded && Input::GetKeyDown(eKeyCode::SpaceBar))
+		const bool forceJump = (curse && curse->ConsumeForceJump());
+		if (mbGrounded && (Input::GetKeyDown(eKeyCode::SpaceBar) || forceJump))
 		{
 			mVelocityY = mJumpSpeed;
 			mbGrounded = false;

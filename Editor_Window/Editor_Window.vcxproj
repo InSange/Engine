@@ -172,6 +172,7 @@ xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
     <ClInclude Include="guiTransform.h" />
     <ClInclude Include="guiGUILayout.h" />
     <ClInclude Include="guiInspectorWindow.h" />
+    <ClInclude Include="guiCurseDebugWindow.h" />
     <ClInclude Include="guiConsoleWindow.h" />
     <ClInclude Include="guiHierarchyWindow.h" />
     <ClInclude Include="guiProjectWindow.h" />
@@ -207,6 +208,7 @@ xcopy "$(SolutionDir)Resources" "$(SolutionDir)x64\Resources" /E /I /Y /R /D
     <ClCompile Include="guiTransform.cpp" />
     <ClCompile Include="guiGUILayout.cpp" />
     <ClCompile Include="guiInspectorWindow.cpp" />
+    <ClCompile Include="guiCurseDebugWindow.cpp" />
     <ClCompile Include="guiConsoleWindow.cpp" />
     <ClCompile Include="guiHierarchyWindow.cpp" />
     <ClCompile Include="guiProjectWindow.cpp" />
