@@ -22,5 +22,12 @@ namespace NuNu
 
 	private:
 		graphics::RenderTarget* mRenderTarget;
+
+		// FPS navigation state
+		float            mYaw;
+		float            mPitch;
+		math::Vector2    mLastMousePos;
+		float            mMoveSpeed;
+		float            mRotateSpeed;
 	};
 }

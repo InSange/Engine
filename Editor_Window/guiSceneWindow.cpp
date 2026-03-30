@@ -79,6 +79,9 @@ namespace gui
 		Update();
 		OnGUI();
 
+		// FPS navigation: process input before LateUpdate recalculates matrices
+		mEditorCamera->Update();
+
 		// Calculate view, projection, and camera position
 		NuNu::Transform* cameraTr = mEditorCamera->GetOwner()->GetComponent<NuNu::Transform>();
 		cameraTr->LateUpdate();
