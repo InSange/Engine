@@ -33,6 +33,7 @@ namespace NuNu::graphics
 		bool CreateVertexShader(const std::wstring& fileName, ID3DBlob** ppCode);
 		bool CreatePixelShader(const std::wstring& fileName, ID3DBlob** ppCode);
 		bool CreateGraphicsPipelineState(_In_  const D3D12_GRAPHICS_PIPELINE_STATE_DESC* pDesc/*, void** ppPipelineState*/);
+		bool CreatePipelineState(_In_ const D3D12_GRAPHICS_PIPELINE_STATE_DESC* pDesc, ID3D12PipelineState** ppPipelineState);
 
 		// binding command list...
 		void BindVertexBuffer(UINT StartSlot, UINT NumViews, D3D12_VERTEX_BUFFER_VIEW* pViews);
@@ -50,10 +51,17 @@ namespace NuNu::graphics
 		void TranstionResourceBarrier(D3D12_RESOURCE_STATES before, D3D12_RESOURCE_STATES after);
 		void PopulateCommandList();
 		void DrawInstanced(UINT VertexCountPerInstance, UINT InstanceCount, UINT StartVertexLocation, UINT StartInstanceLocation);
+		void DrawIndexedInstanced(UINT IndexCountPerInstance, UINT InstanceCount, UINT StartIndexLocation, INT BaseVertexLocation, UINT StartInstanceLocation);
 		void Render();
 		void CloseCommandList();
 		void ExcuteCommandList();
 		void Present();
+
+		// scene view render target
+		void CreateSceneRenderTarget(UINT width, UINT height);
+		void BeginSceneRenderTarget();
+		void EndSceneRenderTarget();
+		D3D12_GPU_DESCRIPTOR_HANDLE GetSceneSRVGpuHandle() const { return mSceneSRVGpu; }
 
 		Microsoft::WRL::ComPtr<ID3D12Device> GetID3D12Device() { return mDevice; }
 		Microsoft::WRL::ComPtr<ID3D12CommandQueue> GetCommandQueue() { return mCommandQueue; }
@@ -94,8 +102,16 @@ namespace NuNu::graphics
 		UINT64 mFenceLastSignalValue;
 		HANDLE mFenceEvent;
 
-		//imgui 
+		//imgui
 		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mSrvHeap;
+
+		// scene view render target
+		Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> mSceneRtvHeap;
+		Microsoft::WRL::ComPtr<ID3D12Resource>       mSceneResource;
+		D3D12_CPU_DESCRIPTOR_HANDLE                  mSceneSRVCpu;
+		D3D12_GPU_DESCRIPTOR_HANDLE                  mSceneSRVGpu;
+		UINT                                         mSceneWidth;
+		UINT                                         mSceneHeight;
 	};
 
 	inline GraphicDevice_DX12*& GetDevice()

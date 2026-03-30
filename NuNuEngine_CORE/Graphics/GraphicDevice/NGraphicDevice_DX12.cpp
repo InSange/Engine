@@ -13,6 +13,10 @@ namespace NuNu::graphics
 		, mFrameIndex(0)
 		, mRtvDescriptorSize(0)
 		, mFenceLastSignalValue(0)
+		, mSceneSRVCpu{}
+		, mSceneSRVGpu{}
+		, mSceneWidth(0)
+		, mSceneHeight(0)
 	{
 		GetDevice() = this;
 		// Initialize the DirectX 12 device here
@@ -231,8 +235,12 @@ namespace NuNu::graphics
 		///=====================Load Asset===============================//
 
 		// create root signature
+		// root parameter 0: 48 DWORDs (3 x 4x4 matrix) inline constants at b0 (Transform CB)
+		CD3DX12_ROOT_PARAMETER rootParameters[1];
+		rootParameters[0].InitAsConstants(48, 0); // 48 DWORDs, register(b0), space 0
+
 		CD3DX12_ROOT_SIGNATURE_DESC rootSignatureDesc = {};
-		rootSignatureDesc.Init(0, nullptr, 0, nullptr, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+		rootSignatureDesc.Init(_countof(rootParameters), rootParameters, 0, nullptr, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
 		Microsoft::WRL::ComPtr<ID3DBlob> signature;
 		Microsoft::WRL::ComPtr<ID3DBlob> error;
@@ -352,11 +360,16 @@ namespace NuNu::graphics
 				assert(NULL, "Create Fence Event");
 			}
 
-			// Wait for the command list to execute; we are reusing the same command 
-			// list in our main loop but for now, we just want to wait for setup to 
+			// Wait for the command list to execute; we are reusing the same command
+			// list in our main loop but for now, we just want to wait for setup to
 			// complete before continuing.
 			//WaitForGpu();
 		}
+
+	// Scene view off-screen render target (slot 1 in mSrvHeap reserved for this)
+	CreateSceneRenderTarget(
+		application.GetWindow().GetWidth(),
+		application.GetWindow().GetHeight());
 	}
 
 	bool GraphicDevice_DX12::CreateCommittedResource(D3D12_HEAP_PROPERTIES* pHeapProperties,
@@ -433,6 +446,16 @@ namespace NuNu::graphics
 		if (FAILED(mDevice->CreateGraphicsPipelineState(pDesc, IID_PPV_ARGS(&mPipelineState))))
 			assert(NULL, "CreateGraphicsPipelineState");
 
+		return true;
+	}
+
+	bool GraphicDevice_DX12::CreatePipelineState(_In_ const D3D12_GRAPHICS_PIPELINE_STATE_DESC* pDesc, ID3D12PipelineState** ppPipelineState)
+	{
+		if (FAILED(mDevice->CreateGraphicsPipelineState(pDesc, IID_PPV_ARGS(ppPipelineState))))
+		{
+			assert(false && "CreatePipelineState failed");
+			return false;
+		}
 		return true;
 	}
 
@@ -598,6 +621,16 @@ namespace NuNu::graphics
 		//mCommandList->DrawInstanced(4, 1, 0, 0);
 	}
 
+	void GraphicDevice_DX12::DrawIndexedInstanced(UINT IndexCountPerInstance,
+		UINT InstanceCount,
+		UINT StartIndexLocation,
+		INT BaseVertexLocation,
+		UINT StartInstanceLocation)
+	{
+		mCommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		mCommandList->DrawIndexedInstanced(IndexCountPerInstance, InstanceCount, StartIndexLocation, BaseVertexLocation, StartInstanceLocation);
+	}
+
 	void GraphicDevice_DX12::PopulateCommandList()
 	{
 		mCommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -608,5 +641,98 @@ namespace NuNu::graphics
 	void GraphicDevice_DX12::Present()
 	{
 		mSwapChain->Present(1, 0);
+	}
+
+	void GraphicDevice_DX12::CreateSceneRenderTarget(UINT width, UINT height)
+	{
+		mSceneWidth  = width;
+		mSceneHeight = height;
+
+		// 1. Create the texture resource (RT + SRV capable)
+		D3D12_RESOURCE_DESC rtDesc = {};
+		rtDesc.Dimension          = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+		rtDesc.Width              = width;
+		rtDesc.Height             = height;
+		rtDesc.DepthOrArraySize   = 1;
+		rtDesc.MipLevels          = 1;
+		rtDesc.Format             = DXGI_FORMAT_R8G8B8A8_UNORM;
+		rtDesc.SampleDesc.Count   = 1;
+		rtDesc.Flags              = D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
+
+		D3D12_CLEAR_VALUE clearValue         = {};
+		clearValue.Format                    = DXGI_FORMAT_R8G8B8A8_UNORM;
+		clearValue.Color[0] = 0.1f; clearValue.Color[1] = 0.1f;
+		clearValue.Color[2] = 0.1f; clearValue.Color[3] = 1.0f;
+
+		CD3DX12_HEAP_PROPERTIES heapProps(D3D12_HEAP_TYPE_DEFAULT);
+		if (FAILED(mDevice->CreateCommittedResource(
+			&heapProps, D3D12_HEAP_FLAG_NONE, &rtDesc,
+			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
+			&clearValue,
+			IID_PPV_ARGS(&mSceneResource))))
+			assert(false && "CreateSceneRenderTarget: resource creation failed");
+
+		// 2. Create a dedicated 1-slot RTV heap for the scene RT
+		D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc = {};
+		rtvHeapDesc.NumDescriptors = 1;
+		rtvHeapDesc.Type           = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+		rtvHeapDesc.Flags          = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+		if (FAILED(mDevice->CreateDescriptorHeap(&rtvHeapDesc, IID_PPV_ARGS(&mSceneRtvHeap))))
+			assert(false && "CreateSceneRenderTarget: RTV heap creation failed");
+
+		mDevice->CreateRenderTargetView(
+			mSceneResource.Get(), nullptr,
+			mSceneRtvHeap->GetCPUDescriptorHandleForHeapStart());
+
+		// 3. Create SRV at slot 1 in mSrvHeap (slot 0 is reserved for ImGui font atlas)
+		UINT srvInc = mDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+		mSceneSRVCpu.ptr = mSrvHeap->GetCPUDescriptorHandleForHeapStart().ptr + 1 * srvInc;
+		mSceneSRVGpu.ptr = mSrvHeap->GetGPUDescriptorHandleForHeapStart().ptr + 1 * srvInc;
+
+		D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc   = {};
+		srvDesc.Shader4ComponentMapping           = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+		srvDesc.Format                            = DXGI_FORMAT_R8G8B8A8_UNORM;
+		srvDesc.ViewDimension                     = D3D12_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MipLevels               = 1;
+		mDevice->CreateShaderResourceView(mSceneResource.Get(), &srvDesc, mSceneSRVCpu);
+	}
+
+	void GraphicDevice_DX12::BeginSceneRenderTarget()
+	{
+		// Transition: PIXEL_SHADER_RESOURCE → RENDER_TARGET
+		CD3DX12_RESOURCE_BARRIER toRT = CD3DX12_RESOURCE_BARRIER::Transition(
+			mSceneResource.Get(),
+			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE,
+			D3D12_RESOURCE_STATE_RENDER_TARGET);
+		mCommandList->ResourceBarrier(1, &toRT);
+
+		D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = mSceneRtvHeap->GetCPUDescriptorHandleForHeapStart();
+		mCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, nullptr);
+
+		const float clearColor[] = { 0.1f, 0.1f, 0.1f, 1.0f };
+		mCommandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
+
+		CD3DX12_VIEWPORT viewport(0.0f, 0.0f, (float)mSceneWidth, (float)mSceneHeight);
+		CD3DX12_RECT scissor(0, 0, (LONG)mSceneWidth, (LONG)mSceneHeight);
+		mCommandList->RSSetViewports(1, &viewport);
+		mCommandList->RSSetScissorRects(1, &scissor);
+	}
+
+	void GraphicDevice_DX12::EndSceneRenderTarget()
+	{
+		// Transition: RENDER_TARGET → PIXEL_SHADER_RESOURCE
+		CD3DX12_RESOURCE_BARRIER toSRV = CD3DX12_RESOURCE_BARRIER::Transition(
+			mSceneResource.Get(),
+			D3D12_RESOURCE_STATE_RENDER_TARGET,
+			D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE);
+		mCommandList->ResourceBarrier(1, &toSRV);
+
+		// Restore backbuffer as render target (no clear — already cleared this frame)
+		CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(
+			mRtvHeap->GetCPUDescriptorHandleForHeapStart(), mFrameIndex, mRtvDescriptorSize);
+		mCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, nullptr);
+
+		// Restore full-window viewport and scissor
+		BindViewportAndScissor();
 	}
 }

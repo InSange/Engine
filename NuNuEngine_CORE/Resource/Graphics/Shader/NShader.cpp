@@ -33,33 +33,46 @@ namespace NuNu::graphics
         if (!Create(eShaderStage::VS, fileName)) return S_FALSE;
         if (!Create(eShaderStage::PS, fileName)) return S_FALSE;
 
-        // To Do : you have to make pso class file
-        // Define the vertex input layout.
-        D3D12_INPUT_ELEMENT_DESC inputElementDescs[] =
+        bool is3D = (fileName.find(L"Mesh3D") != std::wstring::npos);
+
+        D3D12_INPUT_ELEMENT_DESC inputElementDescs2D[] =
         {
-            { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
-            { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+            { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0,  0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+            { "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
+        };
+        D3D12_INPUT_ELEMENT_DESC inputElementDescs3D[] =
+        {
+            { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+            { "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+            { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,    0, 24, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
         };
 
         auto rootSignature = GetDevice()->GetRootSignature();
 
-        // Describe and create the graphics pipeline state object (PSO).
         D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc = {};
-        psoDesc.InputLayout = { inputElementDescs, _countof(inputElementDescs) };
-        psoDesc.pRootSignature = rootSignature.Get();
-        psoDesc.VS = CD3DX12_SHADER_BYTECODE(mVSBlob.Get());
-        psoDesc.PS = CD3DX12_SHADER_BYTECODE(mPSBlob.Get());
-        psoDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
-        psoDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
-        psoDesc.DepthStencilState.DepthEnable = FALSE;
+        psoDesc.InputLayout     = is3D
+            ? D3D12_INPUT_LAYOUT_DESC{ inputElementDescs3D, _countof(inputElementDescs3D) }
+            : D3D12_INPUT_LAYOUT_DESC{ inputElementDescs2D, _countof(inputElementDescs2D) };
+        psoDesc.pRootSignature  = rootSignature.Get();
+        psoDesc.VS              = CD3DX12_SHADER_BYTECODE(mVSBlob.Get());
+        psoDesc.PS              = CD3DX12_SHADER_BYTECODE(mPSBlob.Get());
+        CD3DX12_RASTERIZER_DESC rastDesc(D3D12_DEFAULT);
+        if (is3D)
+            rastDesc.CullMode = D3D12_CULL_MODE_NONE;
+        psoDesc.RasterizerState = rastDesc;
+        psoDesc.BlendState      = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
+        psoDesc.DepthStencilState.DepthEnable   = FALSE;
         psoDesc.DepthStencilState.StencilEnable = FALSE;
-        psoDesc.SampleMask = UINT_MAX;
-        psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-        psoDesc.NumRenderTargets = 1;
-        psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
-        psoDesc.SampleDesc.Count = 1;
+        psoDesc.SampleMask              = UINT_MAX;
+        psoDesc.PrimitiveTopologyType   = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+        psoDesc.NumRenderTargets        = 1;
+        psoDesc.RTVFormats[0]           = DXGI_FORMAT_R8G8B8A8_UNORM;
+        psoDesc.SampleDesc.Count        = 1;
 
-        GetDevice()->CreateGraphicsPipelineState(&psoDesc);
+        if (is3D)
+            GetDevice()->CreatePipelineState(&psoDesc, mPipelineState.GetAddressOf());
+        else
+            GetDevice()->CreateGraphicsPipelineState(&psoDesc);
 
         return S_OK;
     }
@@ -91,6 +104,9 @@ namespace NuNu::graphics
 
     void graphics::Shader::Bind()
     {
+        if (mPipelineState)
+            GetDevice()->GetCommandList()->SetPipelineState(mPipelineState.Get());
+
 #if 0
         if (bWireframe)
         {

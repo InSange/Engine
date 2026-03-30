@@ -14,6 +14,8 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)Mesh3DPS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)Mesh3DVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)SpriteDefaultPS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)SpriteDefaultVS.hlsl" />
     <FxCompile Include="$(MSBuildThisFileDirectory)TrianglePS.hlsl" />

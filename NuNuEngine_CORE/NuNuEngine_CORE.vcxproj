@@ -204,6 +204,7 @@
     <ClInclude Include="Scene\NScene.h" />
     <ClInclude Include="Scene\NSceneManager.h" />
     <ClInclude Include="Component\Script\NScript.h" />
+    <ClInclude Include="Component\MeshRenderer\NMeshRenderer.h" />
     <ClInclude Include="Component\SpriteRenderer\NSpriteRenderer.h" />
     <ClInclude Include="Resource\Texture\NTexture.h" />
     <ClInclude Include="Component\TileMapRenderer\NTilemapRenderer.h" />
@@ -260,6 +261,7 @@
     <ClCompile Include="Scene\NScene.cpp" />
     <ClCompile Include="Scene\NSceneManager.cpp" />
     <ClCompile Include="Component\Script\NScript.cpp" />
+    <ClCompile Include="Component\MeshRenderer\NMeshRenderer.cpp" />
     <ClCompile Include="Component\SpriteRenderer\NSpriteRenderer.cpp" />
     <ClCompile Include="Resource\Texture\NTexture.cpp" />
     <ClCompile Include="Component\TileMapRenderer\NTilemapRenderer.cpp" />

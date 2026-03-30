@@ -17,6 +17,7 @@ namespace NuNu::graphics
 	private:
 		UINT mSize;
 		eCBType mType;
+		mutable void* mData;
 	};
 }
 

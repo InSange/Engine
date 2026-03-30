@@ -120,8 +120,10 @@ namespace gui
 		NuNu::renderer::RenderRenderables(cutoutList, viewMatrix, projectionMatrix);
 		NuNu::renderer::RenderRenderables(transparentList, viewMatrix, projectionMatrix);*/
 
-		// render the scene from the editor camera
+		// render the scene from the editor camera into the off-screen scene RT
+		NuNu::graphics::GetDevice()->BeginSceneRenderTarget();
 		NuNu::renderer::RenderSceneFromCamera(scene, mEditorCamera);
+		NuNu::graphics::GetDevice()->EndSceneRenderTarget();
 
 		// imgui scene view viewport
 		const auto viewportMinRegion = ImGui::GetWindowContentRegionMin(); // 씬뷰의 최소 좌표
@@ -134,16 +136,12 @@ namespace gui
 		ViewportBounds[rightBottom] = Vector2{ viewportMaxRegion.x + viewportOffset.x, viewportMaxRegion.y + viewportOffset.y };
 
 
-		// get the camera render target view
-		// rendering framebuffer image to the sceneview
-		NuNu::graphics::RenderTarget* frameBuffer = mEditorCamera->GetRenderTarget();
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		NuNu::math::Vector2 ViewportSize = Vector2{ viewportPanelSize.x, viewportPanelSize.y };
-#if 0 // DX12 전환 중: RenderTarget GPU 리소스 미구현
-		NuNu::graphics::Texture* texture = frameBuffer->GetAttachmentTexture(0);
-		ImGui::Image((ImTextureID)texture->GetSRV().Get(), ImVec2{ ViewportSize.x, ViewportSize.y }
-		, ImVec2{ 0, 0 }, ImVec2{ 1, 1 });
-#endif
+		D3D12_GPU_DESCRIPTOR_HANDLE sceneSRV = NuNu::graphics::GetDevice()->GetSceneSRVGpuHandle();
+		ImGui::Image((ImTextureID)sceneSRV.ptr,
+			ImVec2{ ViewportSize.x, ViewportSize.y },
+			ImVec2{ 0, 0 }, ImVec2{ 1, 1 });
 
 		// To do : guizmo
 		NuNu::GameObject* selectedObject = NuNu::renderer::selectedObject;

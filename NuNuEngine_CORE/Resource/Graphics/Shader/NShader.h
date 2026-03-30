@@ -38,6 +38,7 @@ namespace NuNu::graphics
 	private:
 		static bool bWireframe;
 
+		Microsoft::WRL::ComPtr<ID3D12PipelineState> mPipelineState;
 		Microsoft::WRL::ComPtr<ID3DBlob> mVSBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> mHSBlob;
 		Microsoft::WRL::ComPtr<ID3DBlob> mDSBlob;

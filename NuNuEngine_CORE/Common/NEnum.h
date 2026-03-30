@@ -9,6 +9,7 @@ namespace NuNu::enums
 		Rigidbody,
 		Script,
 		SpriteRenderer,
+		MeshRenderer,
 		Animator,
 		Camera,
 		AudioListener,

@@ -11,6 +11,8 @@
 #include "Component/Camera/NCamera.h"
 #include "High Level Interface/Renderer/NRenderer.h"
 #include "Component/Camera/NSceneCamera.h"
+#include "Component/MeshRenderer/NMeshRenderer.h"
+#include "Resource/Mesh3D/NMesh3D.h"
 
 namespace NuNu
 {
@@ -45,6 +47,14 @@ namespace NuNu
 
 			if (renderer::selectedObject == nullptr)
 				renderer::selectedObject = player;
+		}
+
+		// Phase 1-3 테스트: Barbarian FBX 렌더링
+		{
+			GameObject* meshObj = object::Instantiate<GameObject>(eLayerType::None, Vector3(0.0f, 0.0f, 0.0f));
+			MeshRenderer* mr = meshObj->AddComponent<MeshRenderer>();
+			mr->SetMesh3D(Resources::Find<Mesh3D>(L"Barbarian"));
+			mr->SetShader3D(Resources::Find<graphics::Shader>(L"Mesh3DShader"));
 		}
 	}
 

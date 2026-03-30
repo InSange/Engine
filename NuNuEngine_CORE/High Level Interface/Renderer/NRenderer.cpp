@@ -275,6 +275,7 @@ namespace NuNu::renderer
 	void LoadShaders()
 	{
 		Resources::Load<Shader>(L"TriangleShader", L"..\\Shader_Source\\Triangle");
+		Resources::Load<Shader>(L"Mesh3DShader", L"..\\Shader_Source\\Mesh3D");
 /*		Resources::Load<Shader>(L"SpriteDefaultShader", L"..\\Shader_Source\\SpriteDefault");
 		Resources::Load<Shader>(L"WireframeShader", L"..\\Shaders_SOURCE\\Wireframe");*/
 	}
@@ -358,7 +359,13 @@ namespace NuNu::renderer
 				if (baseRenderer == nullptr)
 					continue;
 
-				switch (baseRenderer->GetMaterial()->GetRenderingMode())
+				if (baseRenderer->GetMaterial() == nullptr)
+			{
+				opaqueList.push_back(gameObj);
+				continue;
+			}
+
+			switch (baseRenderer->GetMaterial()->GetRenderingMode())
 				{
 				case graphics::eRenderingMode::Opaque:
 					opaqueList.push_back(gameObj);
