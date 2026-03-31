@@ -375,6 +375,10 @@ namespace gui
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 		ImGui::Begin("Game");
 
+		// Game 뷰가 포커스 상태일 때만 CharacterController 입력 허용
+		NuNu::renderer::isGameViewFocused =
+			ImGui::IsWindowFocused();
+
 		// rendering game view from SceneCamera
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		ViewportSize = Vector2{ viewportPanelSize.x, viewportPanelSize.y };

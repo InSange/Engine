@@ -6,6 +6,7 @@
 #include "Collision/NCollisionManager.h"
 #include "Component/Curse/NCurseComponent.h"
 #include "Component/Curse/NKarmaComponent.h"
+#include "High Level Interface/Renderer/NRenderer.h"
 
 namespace NuNu
 {
@@ -39,7 +40,9 @@ namespace NuNu
 		CurseComponent*  curse = GetOwner()->GetComponent<CurseComponent>();
 		KarmaComponent*  karma = GetOwner()->GetComponent<KarmaComponent>();
 
-		// 스턴 상태이면 이동/조작 전부 스킵
+		// Game 뷰 포커스 아닐 때 + 스턴 상태이면 이동/조작 전부 스킵
+		if (!renderer::isGameViewFocused)
+			return;
 		if (karma && karma->IsStunned())
 			return;
 

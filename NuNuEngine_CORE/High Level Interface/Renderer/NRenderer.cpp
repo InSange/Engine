@@ -14,6 +14,7 @@ namespace NuNu::renderer
 {
 	Camera* mainCamera = nullptr;
 	GameObject* selectedObject = nullptr;
+	bool isGameViewFocused = false;
 
 	ConstantBuffer* constantBuffers[static_cast<UINT>(eCBType::End)] = {};
 	D3D12_GPU_DESCRIPTOR_HANDLE barbarianTexSRV  = {};

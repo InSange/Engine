@@ -12,6 +12,7 @@ namespace NuNu::renderer
 {
 	extern Camera* mainCamera;
 	extern GameObject* selectedObject;
+	extern bool isGameViewFocused; // Game 뷰가 포커스/호버 상태일 때만 true — CharacterController 입력 게이트
 	extern ConstantBuffer* constantBuffers[static_cast<UINT>(eCBType::End)];
 	extern D3D12_GPU_DESCRIPTOR_HANDLE barbarianTexSRV;
 	extern D3D12_GPU_DESCRIPTOR_HANDLE platformerTexSRV;
