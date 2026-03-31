@@ -260,14 +260,15 @@ namespace NuNu::graphics
 		if (FAILED(mDevice->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&mRootSignature))))
 			assert(NULL && "CreateRootSignature");
 
-		// 3D root signature: param0=48 DWORDs at b0, param1=SRV table at t0, static sampler at s0
+		// 3D root signature: param0=48 DWORDs at b0, param1=SRV table at t0, param2=4 DWORDs at b1 (TintColor), static sampler at s0
 		{
 			CD3DX12_DESCRIPTOR_RANGE srvRange;
 			srvRange.Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0);
 
-			CD3DX12_ROOT_PARAMETER rootParams3D[2];
+			CD3DX12_ROOT_PARAMETER rootParams3D[3];
 			rootParams3D[0].InitAsConstants(48, 0);
 			rootParams3D[1].InitAsDescriptorTable(1, &srvRange, D3D12_SHADER_VISIBILITY_PIXEL);
+			rootParams3D[2].InitAsConstants(4, 1, 0, D3D12_SHADER_VISIBILITY_PIXEL); // b1: TintColor (float4)
 
 			CD3DX12_STATIC_SAMPLER_DESC staticSampler(0,
 				D3D12_FILTER_MIN_MAG_MIP_LINEAR,

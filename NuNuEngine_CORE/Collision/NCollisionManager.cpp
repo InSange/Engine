@@ -177,19 +177,40 @@ namespace NuNu
 
 				if (oy <= ox && oy <= oz)
 				{
-					// velocity 방향으로 floor/ceiling 판단 (center 비교는 터널링 시 오판)
 					if (cc->mVelocityY <= 0.0f)
 					{
-						// 낙하 또는 정지 → 바닥 위로 스냅 (카메라 = 발 + eyeH)
+						// 낙하 또는 정지 → 바닥 위로 스냅
 						pos.y = cAABB.Max.y + eyeH;
 						cc->mVelocityY = 0.0f;
 						cc->mbGrounded = true;
 					}
 					else
 					{
-						// 상승 → 천장에서 튕김
-						pos.y = cAABB.Min.y - h + eyeH;
-						cc->mVelocityY = 0.0f;
+						// 상승 중 — collider 중심이 플레이어 위에 있을 때만 천장 snap
+						// 아닌 경우(벽 모서리에서 oy가 우연히 최소가 된 것) → X/Z로 해소
+						float pCenterY = (pMin.y + pMax.y) * 0.5f;
+						float cCenterY = (cAABB.Min.y + cAABB.Max.y) * 0.5f;
+						if (cCenterY > pCenterY)
+						{
+							pos.y = cAABB.Min.y - h + eyeH;
+							cc->mVelocityY = 0.0f;
+						}
+						else
+						{
+							// 옆에서 스치는 벽 → 수평 해소로 전환
+							if (ox <= oz)
+							{
+								float pCX = (pMin.x + pMax.x) * 0.5f;
+								float cCX = (cAABB.Min.x + cAABB.Max.x) * 0.5f;
+								if (pCX >= cCX) pos.x += ox; else pos.x -= ox;
+							}
+							else
+							{
+								float pCZ = (pMin.z + pMax.z) * 0.5f;
+								float cCZ = (cAABB.Min.z + cAABB.Max.z) * 0.5f;
+								if (pCZ >= cCZ) pos.z += oz; else pos.z -= oz;
+							}
+						}
 					}
 				}
 				else if (ox <= oz)

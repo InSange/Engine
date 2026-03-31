@@ -69,6 +69,9 @@ namespace NuNu
 		floorCol->mHalfExtents = math::Vector3(50.0f, 0.5f, 50.0f);
 
 		// KayKit Platformer: 4×4 바닥 타일 격자 (총 16×16 유닛)
+		// row 0      : Safe Area (출발) — 초록 tint
+		// row 1 ~ 2  : Danger Area     — 빨강 tint
+		// row 3      : Safe Area (도착) — 초록 tint
 		{
 			constexpr float tileSize = 4.0f;
 			constexpr int   gridN    = 4;
@@ -76,6 +79,8 @@ namespace NuNu
 
 			for (int row = 0; row < gridN; row++)
 			{
+				const bool isSafe = (row == 0 || row == gridN - 1);
+
 				for (int col = 0; col < gridN; col++)
 				{
 					float tx = start + col * tileSize + tileSize * 0.5f;
@@ -86,6 +91,9 @@ namespace NuNu
 					mr->SetMesh3D(Resources::Find<Mesh3D>(L"FloorWood4x4"));
 					mr->SetShader3D(Resources::Find<graphics::Shader>(L"Mesh3DShader"));
 					mr->SetTextureSRV(renderer::platformerTexSRV);
+
+					if (isSafe) mr->SetColor(0.4f, 1.0f, 0.4f); // Safe  — 초록
+					else        mr->SetColor(1.0f, 0.4f, 0.4f); // Danger — 빨강
 				}
 			}
 		}

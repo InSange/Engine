@@ -10,6 +10,7 @@ namespace NuNu
 		, mMesh3D(nullptr)
 		, mShader3D(nullptr)
 		, mTextureSRVGpu{}
+		, mTintColor{ 1.0f, 1.0f, 1.0f, 1.0f }
 	{
 	}
 
@@ -34,6 +35,8 @@ namespace NuNu
 
 		if (mTextureSRVGpu.ptr != 0)
 			graphics::GetDevice()->GetCommandList()->SetGraphicsRootDescriptorTable(1, mTextureSRVGpu);
+
+		graphics::GetDevice()->GetCommandList()->SetGraphicsRoot32BitConstants(2, 4, mTintColor, 0);
 
 		mMesh3D->Bind();
 
