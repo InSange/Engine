@@ -5,6 +5,7 @@
 #include "guiSceneWindow.h"
 #include "guiHierarchyWindow.h"
 #include "guiCurseDebugWindow.h"
+#include "guiStageDebugWindow.h"
 
 #include "High Level Interface/NApplication.h"
 #include "High Level Interface/Renderer/NRenderer.h"
@@ -77,6 +78,10 @@ namespace gui
 		// CurseDebugWindow
 		CurseDebugWindow* curseDebug = new CurseDebugWindow();
 		EditorWindows.insert(std::make_pair(L"CurseDebugWindow", curseDebug));
+
+		// StageDebugWindow
+		StageDebugWindow* stageDebug = new StageDebugWindow();
+		EditorWindows.insert(std::make_pair(L"StageDebugWindow", stageDebug));
 
 		return true;
 	}
@@ -208,6 +213,7 @@ namespace gui
 		ImGui::DockBuilderDockWindow("Hierarchy",      dock_right);
 		ImGui::DockBuilderDockWindow("Inspector",      dock_inspector);
 		ImGui::DockBuilderDockWindow("Curse Debugger", dock_inspector);
+		ImGui::DockBuilderDockWindow("Stage Debugger", dock_inspector);
 		ImGui::DockBuilderDockWindow("Project",        dock_bottom);
 		ImGui::DockBuilderDockWindow("Console",        dock_bottom);
 

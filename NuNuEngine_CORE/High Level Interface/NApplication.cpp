@@ -4,6 +4,7 @@
 #include "Scene/NSceneManager.h"
 #include "Resource/NResources.h"
 #include "Collision/NCollisionManager.h"
+#include "Stage/NStageManager.h"
 #include "UI/NUIManager.h"
 #include "Fmod/NFmod.h"
 #include "Renderer/NRenderer.h"
@@ -124,6 +125,7 @@ namespace NuNu
 		Time::Tick();
 
 		CollisionManager::Update();
+		StageManager::Update();
 		UIManager::Update();
 		SceneManager::Update();
 	}

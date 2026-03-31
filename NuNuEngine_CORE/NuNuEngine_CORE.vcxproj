@@ -174,6 +174,7 @@
     <ClInclude Include="Component\Health\NHealth.h" />
     <ClInclude Include="Component\Curse\NCurseComponent.h" />
     <ClInclude Include="Component\Curse\NCurseManager.h" />
+    <ClInclude Include="Stage\NStageManager.h" />
     <ClInclude Include="Component\Camera\NSceneCamera.h" />
     <ClInclude Include="High Level Interface\Renderer\NBaseRenderer.h" />
     <ClInclude Include="Common\NLabelled.h" />
@@ -237,6 +238,7 @@
     <ClCompile Include="Component\Health\NHealth.cpp" />
     <ClCompile Include="Component\Curse\NCurseComponent.cpp" />
     <ClCompile Include="Component\Curse\NCurseManager.cpp" />
+    <ClCompile Include="Stage\NStageManager.cpp" />
     <ClCompile Include="Component\Camera\NSceneCamera.cpp" />
     <ClCompile Include="High Level Interface\Renderer\NBaseRenderer.cpp" />
     <ClCompile Include="Common\NLabelled.cpp" />
