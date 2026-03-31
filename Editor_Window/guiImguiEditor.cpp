@@ -40,6 +40,13 @@ namespace gui
 		//io.ConfigFlags |= ImGuiConfigFlags_DpiEnableScaleFonts;     // FIXME-DPI: Experimental. THIS CURRENTLY DOESN'T WORK AS EXPECTED. DON'T USE IN USER APP!
 		//io.ConfigFlags |= ImGuiConfigFlags_DpiEnableScaleViewports; // FIXME-DPI: Experimental.
 
+		// 한글 폰트 로드 (맑은 고딕)
+		io.Fonts->AddFontFromFileTTF(
+			"C:\\Windows\\Fonts\\malgun.ttf",
+			16.0f,
+			nullptr,
+			io.Fonts->GetGlyphRangesKorean());
+
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
 		//ImGui::StyleColorsLight();

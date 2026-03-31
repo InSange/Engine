@@ -30,7 +30,7 @@ namespace NuNu::enums
 		Max = 16,
 	};
 
-	constexpr UINT eLayerTypeMax = static_cast<UINT>(eLayerType::Max);
+	constexpr unsigned int eLayerTypeMax = static_cast<unsigned int>(eLayerType::Max);
 
 	enum class eResourceType
 	{

@@ -2,6 +2,7 @@
 #include "High Level Interface/Renderer/NRenderer.h"
 #include "GameObject/NGameObject.h"
 #include "Component/Curse/NCurseComponent.h"
+#include "Component/Curse/NCurseManager.h"
 
 using namespace NuNu;
 using namespace NuNu::enums;
@@ -50,6 +51,40 @@ namespace gui
 				obj->AddComponent<CurseComponent>();
 			return;
 		}
+
+		// --- CurseManager 테스트 ---
+		ImGui::SeparatorText("CurseManager Test");
+
+		static int sCursesPerPlayer = 2;
+		static int sRequiredCurse   = (int)eCurseType::End; // End = 없음
+		ImGui::SliderInt("Per Player", &sCursesPerPlayer, 1, (int)eCurseType::End);
+
+		const char* requiredLabel = (sRequiredCurse == (int)eCurseType::End)
+			? "없음"
+			: kCurseLabels[sRequiredCurse];
+		if (ImGui::BeginCombo("Required", requiredLabel))
+		{
+			if (ImGui::Selectable("없음", sRequiredCurse == (int)eCurseType::End))
+				sRequiredCurse = (int)eCurseType::End;
+			for (int i = 0; i < (int)eCurseType::End; i++)
+			{
+				if (ImGui::Selectable(kCurseLabels[i], sRequiredCurse == i))
+					sRequiredCurse = i;
+			}
+			ImGui::EndCombo();
+		}
+
+		if (ImGui::Button("Assign (이 오브젝트)"))
+		{
+			CurseManager::ClearAll({ curse });
+			CurseManager::AssignCurses(
+				{ curse },
+				sCursesPerPlayer,
+				(eCurseType)sRequiredCurse);
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Clear All"))
+			CurseManager::ClearAll({ curse });
 
 		ImGui::SeparatorText("Curses");
 
