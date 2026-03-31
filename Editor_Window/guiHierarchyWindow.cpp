@@ -4,6 +4,7 @@
 #include "Scene/NScene.h"
 #include "Layer/NLayer.h"
 #include "GameObject/NGameObject.h"
+#include "Object/NObject.h"
 
 namespace gui
 {
@@ -47,6 +48,23 @@ namespace gui
 		ImGui::Text("Scene: %s", sceneName.c_str());
 		ImGui::Separator();
 
+		// ── 빈 공간 우클릭 → 오브젝트 생성 ────────────────────────────────────
+		if (ImGui::BeginPopupContextWindow("##hierarchy_ctx",
+			ImGuiPopupFlags_MouseButtonRight | ImGuiPopupFlags_NoOpenOverItems))
+		{
+			if (ImGui::BeginMenu("Create"))
+			{
+				if (ImGui::MenuItem("Empty GameObject"))
+				{
+					auto* obj = NuNu::object::Instantiate<NuNu::GameObject>(NuNu::eLayerType::None);
+					obj->SetName(L"GameObject");
+					NuNu::renderer::selectedObject = obj;
+				}
+				ImGui::EndMenu();
+			}
+			ImGui::EndPopup();
+		}
+
 		const auto& layers = scene->GetLayers();
 		int uid = 0;
 
@@ -76,8 +94,41 @@ namespace gui
 
 					if (selected)
 						ImGui::PopStyleColor();
+
+					// 선택된 오브젝트 우클릭 컨텍스트
+					if (selected && ImGui::BeginPopupContextItem())
+					{
+						if (ImGui::MenuItem("Delete"))
+						{
+							NuNu::object::Destroy(obj);
+							NuNu::renderer::selectedObject = nullptr;
+						}
+						if (ImGui::MenuItem("Duplicate"))
+						{
+							auto* dup = NuNu::object::Instantiate<NuNu::GameObject>(obj->GetLayerType());
+							dup->SetName(obj->GetName() + L"_Copy");
+							auto* srcTr = obj->GetComponent<NuNu::Transform>();
+							auto* dstTr = dup->GetComponent<NuNu::Transform>();
+							if (srcTr && dstTr)
+							{
+								dstTr->SetPosition(srcTr->GetPosition());
+								dstTr->SetRotation(srcTr->GetRotation());
+								dstTr->SetScale(srcTr->GetScale());
+							}
+							NuNu::renderer::selectedObject = dup;
+						}
+						ImGui::EndPopup();
+					}
 				}
 			}
+		}
+
+		// Delete 키로 선택 오브젝트 삭제
+		if (NuNu::renderer::selectedObject && ImGui::IsWindowFocused()
+			&& ImGui::IsKeyPressed(ImGuiKey_Delete))
+		{
+			NuNu::object::Destroy(NuNu::renderer::selectedObject);
+			NuNu::renderer::selectedObject = nullptr;
 		}
 	}
 

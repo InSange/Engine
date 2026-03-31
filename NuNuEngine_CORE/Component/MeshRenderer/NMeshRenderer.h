@@ -18,6 +18,7 @@ namespace NuNu
 		void SetShader3D(graphics::Shader* shader)          { mShader3D = shader; }
 		void SetTextureSRV(D3D12_GPU_DESCRIPTOR_HANDLE srv) { mTextureSRVGpu = srv; }
 		void SetColor(float r, float g, float b, float a = 1.0f) { mTintColor[0]=r; mTintColor[1]=g; mTintColor[2]=b; mTintColor[3]=a; }
+		const float* GetColor() const { return mTintColor; }
 
 	private:
 		Mesh3D*                     mMesh3D;
