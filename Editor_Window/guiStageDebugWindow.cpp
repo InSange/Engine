@@ -4,6 +4,7 @@
 #include "Stage/NStageManager.h"
 #include "Component/Health/NHealth.h"
 #include "Component/Curse/NCurseComponent.h"
+#include "Component/Curse/NKarmaComponent.h"
 
 using namespace NuNu;
 using namespace NuNu::enums;
@@ -58,11 +59,13 @@ namespace gui
 			GameObject* obj = renderer::selectedObject;
 			if (obj != nullptr)
 			{
-				// Health / CurseComponent 없으면 자동 추가
+				// Health / CurseComponent / KarmaComponent 없으면 자동 추가
 				if (obj->GetComponent<Health>() == nullptr)
 					obj->AddComponent<Health>();
 				if (obj->GetComponent<CurseComponent>() == nullptr)
 					obj->AddComponent<CurseComponent>();
+				if (obj->GetComponent<KarmaComponent>() == nullptr)
+					obj->AddComponent<KarmaComponent>();
 
 				StageManager::RegisterPlayer(obj);
 			}

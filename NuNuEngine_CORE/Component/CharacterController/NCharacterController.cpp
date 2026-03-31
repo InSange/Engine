@@ -5,6 +5,7 @@
 #include "Component/Transform/NTransform.h"
 #include "Collision/NCollisionManager.h"
 #include "Component/Curse/NCurseComponent.h"
+#include "Component/Curse/NKarmaComponent.h"
 
 namespace NuNu
 {
@@ -35,7 +36,12 @@ namespace NuNu
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		const float dt = Time::DeltaTime();
 
-		CurseComponent* curse = GetOwner()->GetComponent<CurseComponent>();
+		CurseComponent*  curse = GetOwner()->GetComponent<CurseComponent>();
+		KarmaComponent*  karma = GetOwner()->GetComponent<KarmaComponent>();
+
+		// 스턴 상태이면 이동/조작 전부 스킵
+		if (karma && karma->IsStunned())
+			return;
 
 		// --- 카메라 회전 ---
 		math::Vector2 curPos = Input::GetMousePosition();
@@ -58,7 +64,8 @@ namespace NuNu
 
 		// --- 수평 이동 (WASD) — XZ 평면만 사용 (카메라 피치 Y 성분 제거) ---
 		math::Vector3 pos = tr->GetPosition();
-		const float speedMult = (curse) ? curse->GetMoveSpeedMultiplier() : 1.0f;
+		float speedMult = (curse) ? curse->GetMoveSpeedMultiplier() : 1.0f;
+		if (karma && karma->IsSpeedBoosted()) speedMult *= 1.5f;
 		const float speed = mMoveSpeed * speedMult * dt;
 		const float moveSign = (curse && curse->IsControlInverted()) ? -1.0f : 1.0f;
 

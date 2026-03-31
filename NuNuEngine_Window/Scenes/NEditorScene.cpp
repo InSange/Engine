@@ -33,6 +33,7 @@ namespace NuNu
 		// main camera
 		// 카메라 y = 바닥(0) + eyeHeight(1.7) = 1.7 로 스폰
 		GameObject* camera = object::Instantiate<GameObject>(eLayerType::None, Vector3(0.0f, 1.7f, -10.0f));
+		camera->SetName(L"Player");
 
 		SceneCamera* cameraComp = camera->AddComponent<SceneCamera>();
 		cameraComp->SetProjectionType(Camera::eProjectionType::Perspective);
@@ -57,6 +58,7 @@ namespace NuNu
 		// Phase 1-3 테스트: Barbarian FBX 렌더링
 		{
 			GameObject* meshObj = object::Instantiate<GameObject>(eLayerType::None, Vector3(0.0f, 0.0f, 0.0f));
+			meshObj->SetName(L"Barbarian");
 			MeshRenderer* mr = meshObj->AddComponent<MeshRenderer>();
 			mr->SetMesh3D(Resources::Find<Mesh3D>(L"Barbarian"));
 			mr->SetShader3D(Resources::Find<graphics::Shader>(L"Mesh3DShader"));
@@ -65,6 +67,7 @@ namespace NuNu
 
 		// 물리 바닥 (보이지 않는 AABB, 전체 영역 커버)
 		GameObject* floor = object::Instantiate<GameObject>(eLayerType::None, Vector3(0, -0.5f, 0));
+		floor->SetName(L"FloorCollider");
 		Collider3D* floorCol = floor->AddComponent<Collider3D>();
 		floorCol->mHalfExtents = math::Vector3(50.0f, 0.5f, 50.0f);
 
@@ -86,7 +89,10 @@ namespace NuNu
 					float tx = start + col * tileSize + tileSize * 0.5f;
 					float tz = start + row * tileSize + tileSize * 0.5f;
 
+					const wchar_t* tilePrefix = isSafe ? L"Safe_" : L"Danger_";
+					std::wstring tileName = tilePrefix + std::to_wstring(row) + L"_" + std::to_wstring(col);
 					GameObject* tile = object::Instantiate<GameObject>(eLayerType::None, Vector3(tx, 0.0f, tz));
+					tile->SetName(tileName);
 					MeshRenderer* mr = tile->AddComponent<MeshRenderer>();
 					mr->SetMesh3D(Resources::Find<Mesh3D>(L"FloorWood4x4"));
 					mr->SetShader3D(Resources::Find<graphics::Shader>(L"Mesh3DShader"));
@@ -111,7 +117,9 @@ namespace NuNu
 
 				// 북쪽 벽 (z = +edgeDist)
 				{
+					std::wstring wn = L"Wall_N_" + std::to_wstring(i);
 					GameObject* wall = object::Instantiate<GameObject>(eLayerType::None, Vector3(offset, wallY, edgeDist));
+					wall->SetName(wn);
 					MeshRenderer* mr = wall->AddComponent<MeshRenderer>();
 					mr->SetMesh3D(Resources::Find<Mesh3D>(L"Barrier4x1x1"));
 					mr->SetShader3D(Resources::Find<graphics::Shader>(L"Mesh3DShader"));
@@ -121,7 +129,9 @@ namespace NuNu
 				}
 				// 남쪽 벽 (z = -edgeDist)
 				{
+					std::wstring wn = L"Wall_S_" + std::to_wstring(i);
 					GameObject* wall = object::Instantiate<GameObject>(eLayerType::None, Vector3(offset, wallY, -edgeDist));
+					wall->SetName(wn);
 					MeshRenderer* mr = wall->AddComponent<MeshRenderer>();
 					mr->SetMesh3D(Resources::Find<Mesh3D>(L"Barrier4x1x1"));
 					mr->SetShader3D(Resources::Find<graphics::Shader>(L"Mesh3DShader"));

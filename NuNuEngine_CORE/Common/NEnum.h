@@ -18,6 +18,7 @@ namespace NuNu::enums
 		Collider3D,
 		Health,
 		CurseComponent,
+		KarmaComponent,
 		End,
 	};
 	enum class eLayerType
@@ -57,6 +58,27 @@ namespace NuNu::enums
 		ForceJump,      // 5초마다 강제 점프
 		VisionInvert,   // 상하 시야 반전
 		ControlInvert,  // 좌우 이동 반전
+		End,
+	};
+
+	enum class eAbilityType
+	{
+		// Good
+		HealSmall,         // HP +20
+		HealFull,          // HP 완전 회복
+		CurseRemove,       // 내 저주 1개 제거
+		SpeedBoostTemp,    // 5초간 이동속도 +50%
+		CurseImmuneTemp,   // 5초간 저주 위임 수신 방어
+		// Bad
+		AddRandomCurse,    // 내 저주 1개 추가
+		BleedDoT,          // 5초간 초당 5 출혈 데미지
+		PoisonDoT,         // 10초간 초당 3 독 데미지
+		SleepStun,         // 2초간 행동 불능
+		AreaExplosion,     // 주변 폭발 (자신 포함 데미지)
+		// Situational
+		TransferCurseToFriend, // 내 저주 1개를 파트너에게 강제 위임
+		TeleportRandom,    // 맵 내 랜덤 위치로 텔레포트
+		WeaponItem,        // 랜덤 무기 아이템 1개 획득
 		End,
 	};
 

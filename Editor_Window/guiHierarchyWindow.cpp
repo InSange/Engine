@@ -63,12 +63,19 @@ namespace gui
 					if (obj == nullptr) continue;
 
 					std::string name = toStr(obj->GetName());
-					if (name.empty()) name = "GameObject";
+					if (name.empty()) name = "(unnamed)";
 
 					std::string label = name + "##obj" + std::to_string(uid++);
 					bool selected = (NuNu::renderer::selectedObject == obj);
+
+					if (selected)
+						ImGui::PushStyleColor(ImGuiCol_Text, ImVec4{ 0.3f, 0.9f, 1.0f, 1.0f });
+
 					if (ImGui::Selectable(label.c_str(), selected))
 						NuNu::renderer::selectedObject = obj;
+
+					if (selected)
+						ImGui::PopStyleColor();
 				}
 			}
 		}

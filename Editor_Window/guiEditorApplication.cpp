@@ -6,6 +6,10 @@
 #include "guiHierarchyWindow.h"
 #include "guiCurseDebugWindow.h"
 #include "guiStageDebugWindow.h"
+#include "guiKarmaDebugWindow.h"
+#include "Component/Health/NHealth.h"
+#include "Component/Curse/NKarmaComponent.h"
+#include "Component/Curse/NCurseComponent.h"
 
 #include "High Level Interface/NApplication.h"
 #include "High Level Interface/Renderer/NRenderer.h"
@@ -82,6 +86,10 @@ namespace gui
 		// StageDebugWindow
 		StageDebugWindow* stageDebug = new StageDebugWindow();
 		EditorWindows.insert(std::make_pair(L"StageDebugWindow", stageDebug));
+
+		// KarmaDebugWindow
+		KarmaDebugWindow* karmaDebug = new KarmaDebugWindow();
+		EditorWindows.insert(std::make_pair(L"KarmaDebugWindow", karmaDebug));
 
 		return true;
 	}
@@ -214,6 +222,7 @@ namespace gui
 		ImGui::DockBuilderDockWindow("Inspector",      dock_inspector);
 		ImGui::DockBuilderDockWindow("Curse Debugger", dock_inspector);
 		ImGui::DockBuilderDockWindow("Stage Debugger", dock_inspector);
+		ImGui::DockBuilderDockWindow("Karma Debugger", dock_inspector);
 		ImGui::DockBuilderDockWindow("Project",        dock_bottom);
 		ImGui::DockBuilderDockWindow("Console",        dock_bottom);
 
@@ -403,6 +412,97 @@ namespace gui
 			}
 
 			ImGui::PopStyleColor();
+		}
+
+		// HUD overlay: HP + Karma (우측 하단)
+		if (NuNu::renderer::mainCamera != nullptr)
+		{
+			NuNu::GameObject* player = NuNu::renderer::mainCamera->GetOwner();
+			NuNu::Health*         hp    = player->GetComponent<NuNu::Health>();
+			NuNu::KarmaComponent* karma = player->GetComponent<NuNu::KarmaComponent>();
+			NuNu::CurseComponent* curse = player->GetComponent<NuNu::CurseComponent>();
+
+			constexpr float barW  = 200.0f;
+			constexpr float barH  = 16.0f;
+			constexpr float padR  = 12.0f;
+			constexpr float padB  = 12.0f;
+			constexpr float lineH = 22.0f;
+
+			float baseX = ViewportSize.x - barW - padR;
+			float baseY = ViewportSize.y - padB;
+
+			// --- Karma bar (맨 아래) ---
+			if (karma)
+			{
+				baseY -= barH;
+				float ratio = karma->GetKarma() / karma->GetMaxKarma();
+				ImGui::SetCursorPos(ImVec2{ baseX, baseY });
+				ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4{ 0.8f, 0.6f, 0.1f, 1.0f });
+				ImGui::PushStyleColor(ImGuiCol_FrameBg,       ImVec4{ 0.2f, 0.2f, 0.2f, 0.8f });
+				ImGui::ProgressBar(ratio, ImVec2{ barW, barH }, "");
+				ImGui::PopStyleColor(2);
+
+				// Karma 숫자 텍스트
+				baseY -= lineH;
+				ImGui::SetCursorPos(ImVec2{ baseX, baseY });
+				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4{ 1.0f, 0.85f, 0.3f, 1.0f });
+				ImGui::Text("Karma  %.0f / %.0f", karma->GetKarma(), karma->GetMaxKarma());
+				ImGui::PopStyleColor();
+
+				// 상태 아이콘
+				if (karma->IsSpeedBoosted() || karma->IsCurseImmune() || karma->IsStunned())
+				{
+					baseY -= lineH;
+					ImGui::SetCursorPos(ImVec2{ baseX, baseY });
+					ImGui::PushStyleColor(ImGuiCol_Text, ImVec4{ 0.3f, 1.0f, 0.5f, 1.0f });
+					if (karma->IsSpeedBoosted())  ImGui::Text("[SPEED]");
+					if (karma->IsCurseImmune())   { ImGui::SameLine(); ImGui::Text("[IMMUNE]"); }
+					if (karma->IsStunned())        { ImGui::SameLine(); ImGui::TextColored(ImVec4{1,0.3f,0.3f,1}, "[STUN]"); }
+					ImGui::PopStyleColor();
+				}
+			}
+
+			// --- HP bar ---
+			if (hp)
+			{
+				baseY -= barH + 4.0f;
+				float ratio = hp->GetHp() / hp->GetMaxHp();
+				ImVec4 barColor = hp->IsDead()
+					? ImVec4{ 0.5f, 0.0f, 0.0f, 1.0f }
+					: ImVec4{ 0.15f + ratio * 0.6f, ratio * 0.8f, 0.1f, 1.0f };
+
+				ImGui::SetCursorPos(ImVec2{ baseX, baseY });
+				ImGui::PushStyleColor(ImGuiCol_PlotHistogram, barColor);
+				ImGui::PushStyleColor(ImGuiCol_FrameBg,       ImVec4{ 0.2f, 0.2f, 0.2f, 0.8f });
+				ImGui::ProgressBar(ratio, ImVec2{ barW, barH }, "");
+				ImGui::PopStyleColor(2);
+
+				baseY -= lineH;
+				ImGui::SetCursorPos(ImVec2{ baseX, baseY });
+				if (hp->IsDead())
+					ImGui::TextColored(ImVec4{ 1.0f, 0.2f, 0.2f, 1.0f }, "HP  DEAD");
+				else
+					ImGui::TextColored(ImVec4{ 0.8f, 1.0f, 0.6f, 1.0f },
+						"HP  %.0f / %.0f", hp->GetHp(), hp->GetMaxHp());
+			}
+
+			// --- 저주 목록 (HP 위) ---
+			if (curse && !curse->GetCurseList().empty())
+			{
+				static const char* kShortNames[] = {
+					"무거운몸","소형화","거인화","유리몸","불꽃몸",
+					"투명화","자석","강제점프","시야반전","조작반전"
+				};
+				baseY -= lineH * 0.5f;
+				for (int i = (int)curse->GetCurseList().size() - 1; i >= 0; --i)
+				{
+					int idx = (int)curse->GetCurseList()[i];
+					baseY -= lineH;
+					ImGui::SetCursorPos(ImVec2{ baseX, baseY });
+					ImGui::TextColored(ImVec4{ 1.0f, 0.5f, 0.2f, 1.0f },
+						"[저주] %s", (idx < 10) ? kShortNames[idx] : "?");
+				}
+			}
 		}
 
 		// Open Scene by drag and drop
