@@ -23,6 +23,7 @@ namespace NuNu
 		Collider3D();
 		virtual ~Collider3D() = default;
 
+		const char* GetComponentKey() const override { return "Collider3D"; }
 		void Initialize() override;
 
 		AABB3D GetWorldAABB() const;

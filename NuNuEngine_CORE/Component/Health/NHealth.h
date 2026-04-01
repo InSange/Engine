@@ -9,6 +9,7 @@ namespace NuNu
 		Health();
 		virtual ~Health() = default;
 
+		const char* GetComponentKey() const override { return "Health"; }
 		void Initialize() override;
 
 		void TakeDamage(float amount);

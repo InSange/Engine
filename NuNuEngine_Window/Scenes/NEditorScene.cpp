@@ -15,6 +15,7 @@
 #include "Resource/Mesh3D/NMesh3D.h"
 #include "Component/CharacterController/NCharacterController.h"
 #include "Component/Collider3D/NCollider3D.h"
+#include "Scene/NSceneSerializer.h"
 
 namespace NuNu
 {
@@ -28,7 +29,13 @@ namespace NuNu
 
 	void EditorScene::Initialize()
 	{
-		Scene::Initialize();
+		Scene::Initialize(); // ← 이 시점에서 EditorScene이 active scene으로 설정됨
+
+		// 저장된 씬 JSON이 있으면 로드 후 하드코딩 기본값 건너뜀
+		if (SceneSerializer::Load("../Contents/Scenes/EditorScene.json"))
+			return;
+
+		// ── 하드코딩 기본값 (JSON 없을 때 fallback) ──────────────────────────
 
 		// main camera
 		// 카메라 y = 바닥(0) + eyeHeight(1.7) = 1.7 로 스폰
@@ -63,6 +70,7 @@ namespace NuNu
 			mr->SetMesh3D(Resources::Find<Mesh3D>(L"Barbarian"));
 			mr->SetShader3D(Resources::Find<graphics::Shader>(L"Mesh3DShader"));
 			mr->SetTextureSRV(renderer::barbarianTexSRV);
+			mr->SetTextureName("barbarian");
 		}
 
 		// 물리 바닥 (보이지 않는 AABB, 전체 영역 커버)
@@ -97,6 +105,7 @@ namespace NuNu
 					mr->SetMesh3D(Resources::Find<Mesh3D>(L"FloorWood4x4"));
 					mr->SetShader3D(Resources::Find<graphics::Shader>(L"Mesh3DShader"));
 					mr->SetTextureSRV(renderer::platformerTexSRV);
+					mr->SetTextureName("platformer");
 
 					if (isSafe) mr->SetColor(0.4f, 1.0f, 0.4f); // Safe  — 초록
 					else        mr->SetColor(1.0f, 0.4f, 0.4f); // Danger — 빨강
@@ -124,6 +133,7 @@ namespace NuNu
 					mr->SetMesh3D(Resources::Find<Mesh3D>(L"Barrier4x1x1"));
 					mr->SetShader3D(Resources::Find<graphics::Shader>(L"Mesh3DShader"));
 					mr->SetTextureSRV(renderer::platformerTexSRV);
+					mr->SetTextureName("platformer");
 					Collider3D* col = wall->AddComponent<Collider3D>();
 					col->mHalfExtents = math::Vector3(2.0f, 0.5f, 0.5f);
 				}
@@ -136,6 +146,7 @@ namespace NuNu
 					mr->SetMesh3D(Resources::Find<Mesh3D>(L"Barrier4x1x1"));
 					mr->SetShader3D(Resources::Find<graphics::Shader>(L"Mesh3DShader"));
 					mr->SetTextureSRV(renderer::platformerTexSRV);
+					mr->SetTextureName("platformer");
 					Collider3D* col = wall->AddComponent<Collider3D>();
 					col->mHalfExtents = math::Vector3(2.0f, 0.5f, 0.5f);
 				}

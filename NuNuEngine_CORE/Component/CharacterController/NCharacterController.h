@@ -13,6 +13,7 @@ namespace NuNu
 		CharacterController();
 		virtual ~CharacterController() = default;
 
+		const char* GetComponentKey() const override { return "CharacterController"; }
 		void Initialize() override;
 		void Update()     override;
 

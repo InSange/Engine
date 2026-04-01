@@ -10,6 +10,7 @@ namespace NuNu
 		SceneCamera();
 		virtual ~SceneCamera();
 
+		const char* GetComponentKey() const override { return "SceneCamera"; }
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;

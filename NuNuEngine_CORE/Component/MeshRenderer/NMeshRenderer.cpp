@@ -2,6 +2,8 @@
 #include "Component/Transform/NTransform.h"
 #include "GameObject/NGameObject.h"
 #include "Graphics/GraphicDevice/NGraphicDevice_DX12.h"
+#include "Resource/Mesh3D/NMesh3D.h"
+#include "Resource/Graphics/Shader/NShader.h"
 
 namespace NuNu
 {
@@ -11,7 +13,26 @@ namespace NuNu
 		, mShader3D(nullptr)
 		, mTextureSRVGpu{}
 		, mTintColor{ 1.0f, 1.0f, 1.0f, 1.0f }
+		, mTextureName("")
 	{
+	}
+
+	std::string MeshRenderer::GetMesh3DName() const
+	{
+		if (mMesh3D == nullptr) return "";
+		int n = WideCharToMultiByte(CP_UTF8, 0, mMesh3D->GetName().c_str(), -1, nullptr, 0, nullptr, nullptr);
+		std::string s(n - 1, 0);
+		WideCharToMultiByte(CP_UTF8, 0, mMesh3D->GetName().c_str(), -1, s.data(), n, nullptr, nullptr);
+		return s;
+	}
+
+	std::string MeshRenderer::GetShaderName() const
+	{
+		if (mShader3D == nullptr) return "";
+		int n = WideCharToMultiByte(CP_UTF8, 0, mShader3D->GetName().c_str(), -1, nullptr, 0, nullptr, nullptr);
+		std::string s(n - 1, 0);
+		WideCharToMultiByte(CP_UTF8, 0, mShader3D->GetName().c_str(), -1, s.data(), n, nullptr, nullptr);
+		return s;
 	}
 
 	MeshRenderer::~MeshRenderer()

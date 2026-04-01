@@ -11,6 +11,7 @@ namespace NuNu
 		CurseComponent();
 		virtual ~CurseComponent() = default;
 
+		const char* GetComponentKey() const override { return "CurseComponent"; }
 		void Update() override;
 
 		void AddCurse(enums::eCurseType curse);

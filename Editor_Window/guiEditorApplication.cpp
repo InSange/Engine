@@ -13,6 +13,8 @@
 
 #include "High Level Interface/NApplication.h"
 #include "High Level Interface/Renderer/NRenderer.h"
+#include "Scene/NSceneSerializer.h"
+#include "Scene/NSceneManager.h"
 #include "GameObject/NGameObject.h"
 #include "Component/Transform/NTransform.h"
 #include "Helpers/NInput.h"
@@ -334,7 +336,11 @@ namespace gui
 					NewScene();
 
 				if (ImGui::MenuItem("Save Scene", "Ctrl+S"))
-					SaveScene();
+				{
+					NuNu::Scene* scene = NuNu::SceneManager::GetActiveScene();
+					if (scene)
+						NuNu::SceneSerializer::Save(scene, "../Contents/Scenes/EditorScene.json");
+				}
 
 				if (ImGui::MenuItem("Save Scene As...", "Ctrl+Shift+S"))
 					SaveSceneAs();
@@ -581,6 +587,15 @@ namespace gui
 
 		bool control = NuNu::Input::GetKey(NuNu::eKeyCode::Leftcontrol) || NuNu::Input::GetKey(NuNu::eKeyCode::RightControl);
 		bool shift = NuNu::Input::GetKey(NuNu::eKeyCode::LeftShift) || NuNu::Input::GetKey(NuNu::eKeyCode::RightShift);
+
+		// Ctrl+S : Save Scene
+		if (control && e.GetKeyCode() == NuNu::eKeyCode::S)
+		{
+			NuNu::Scene* scene = NuNu::SceneManager::GetActiveScene();
+			if (scene)
+				NuNu::SceneSerializer::Save(scene, "../Contents/Scenes/EditorScene.json");
+			return true;
+		}
 
 		switch (e.GetKeyCode())
 		{

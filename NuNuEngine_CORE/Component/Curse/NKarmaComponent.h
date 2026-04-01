@@ -15,6 +15,7 @@ namespace NuNu
 		KarmaComponent();
 		virtual ~KarmaComponent() = default;
 
+		const char* GetComponentKey() const override { return "KarmaComponent"; }
 		void Update() override;
 
 		// 카르마 수동 적립 (저주 위임 시 즉시 보상 등)

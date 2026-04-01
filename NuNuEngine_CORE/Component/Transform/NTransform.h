@@ -12,6 +12,7 @@ namespace NuNu
 		Transform();
 		virtual ~Transform();
 
+		const char* GetComponentKey() const override { return "Transform"; }
 		void Initialize() override;
 		void Update() override;
 		void LateUpdate() override;

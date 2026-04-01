@@ -56,6 +56,8 @@ namespace NuNu
 			return component;
 		}
 
+		const std::vector<Component*>& GetComponents() const { return mComponents; }
+
 		eState GetState() const { return State; }
 		void SetActive(bool power)
 		{
