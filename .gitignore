@@ -23,6 +23,10 @@ mono_crash.*
 [Rr]eleases/
 x64/
 x86/
+NuNuEngine_Windows/x64/
+NuNuEngine_Windows/x86/
+NuNuEngine_Windows/Debug/
+NuNuEngine_Windows/Release/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
@@ -32,6 +36,8 @@ bld/
 [Oo]ut/
 [Ll]og/
 [Ll]ogs/
+[Re]sources/
+Resources/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -361,3 +367,55 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# VS Code files for those working on multiple tools
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
+
+# Windows Installer files from build outputs
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# JetBrains Rider
+*.sln.iml
+
+# vcpkg (1.6GB — 한글 경로 이슈로 사용 불가, NuGet으로 대체)
+vcpkg/
+
+# ImGui layout (유저별 설정, 코드 아님)
+imgui.ini
+
+# Library Folder
+!External/g
+!External/Library/Fmod/Debug/
+!External/Library/Fmod/Release/
+!External/Library/DirectXTex/Debug/
+!External/Library/DirectXTex/Release/
+!External/Library/FW1FontWrapper/Debug/
+!External/Library/FW1FontWrapper/Release/
+!External/Library/Assimp/Debug/
+!External/Library/Assimp/Release/
+
+#!External/Library/DirectXTex/Debug/
+#!External/Library/DirectXTex/Release/
+#!External/Library/FW1FontWrapper/Debug/
+#!External/Library/FW1FontWrapper/Release/
+#!External/Library/Assimp/Debug/
+#!External/Library/Assimp/Release/
+
+#resource
+/x64￦Shaders_SOURCE￦
+/x64￦Resources￦
+
+# inc
+*.inc

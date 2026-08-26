@@ -1,0 +1,103 @@
+#include "NLoadingScene.h"
+#include "High Level Interface/Renderer/NRenderer.h"
+#include "Scene/NSceneManager.h"
+#include "Resource/NResources.h"
+#include "Resource/Texture/NTexture.h"
+#include "Resource/Mesh3D/NMesh3D.h"
+#include "High Level Interface/NApplication.h"
+#include "Scene/NSceneManager.h"
+#include "NSpaceScene.h"
+#include "NPlayScene.h"
+#include "NEditorScene.h"
+
+extern NuNu::Application application;
+
+namespace NuNu
+{
+	LoadingScene::LoadingScene()
+		: mbLoadCompleted(false)
+		, mMutualExclusion()
+		, mResourcesLoadThread()
+	{
+	}
+
+	LoadingScene::~LoadingScene()
+	{
+		mResourcesLoadThread->join();
+
+		delete mResourcesLoadThread;
+		mResourcesLoadThread = nullptr;
+	}
+
+	void LoadingScene::Initialize()
+	{
+		mResourcesLoadThread = new std::thread(&LoadingScene::resourcesLoad, this, std::ref(mMutualExclusion));
+	}
+
+	void LoadingScene::Update()
+	{
+	}
+
+	void LoadingScene::LateUpdate()
+	{
+	}
+
+	void LoadingScene::Render()
+	{
+		if (mbLoadCompleted)
+		{
+			SceneManager::LoadScene(L"PlayScene");
+		}
+	}
+
+	void LoadingScene::OnEnter()
+	{
+	}
+
+	void LoadingScene::OnExit()
+	{
+	}
+
+	void LoadingScene::resourcesLoad(std::mutex& m)
+	{
+		while (true)
+		{
+			if (application.IsLoaded() == true)
+				break;
+		}
+
+		m.lock();
+		{
+			Resources::Load<graphics::Texture>(L"BG", L"../Resources/BlackHole.jpg");
+			Resources::Load<graphics::Texture>(L"Hell_BG", L"../Resources/Hell.png");
+			Resources::Load<graphics::Texture>(L"Space_BG", L"../Resources/Space.jpg");
+			Resources::Load<graphics::Texture>(L"Logi", L"../Resources/Logi.png");
+			Resources::Load<graphics::Texture>(L"TestIcon", L"../Resources/testIcon.png");
+			Resources::Load<graphics::Texture>(L"tree", L"../Resources/tree.png");
+			Resources::Load<graphics::Texture>(L"PinkCharacter0", L"../Resources/Character/PinkCharacter/00_PinkCharacter.png");
+
+			Resources::Load<graphics::Texture>(L"Player", L"../Resources/Player/player.png");
+			Resources::Load<graphics::Texture>(L"Demon", L"../Resources/Monster/Demon.png");
+			Resources::Load<graphics::Texture>(L"MapleEffect", L"../Resources/Player/MapleEffect.png");
+
+			Resources::Load<graphics::Texture>(L"Overworld", L"../Resources/BackGround/Overworld.png");
+			Resources::Load<graphics::Texture>(L"Dungeon", L"../Resources/BackGround/dungeon_tiles.png");
+
+			Resources::Load<graphics::Texture>(L"HPBAR", L"..\\Resources\\HPBAR.bmp");
+			Resources::Load<graphics::Texture>(L"PixelMap", L"..\\Resources\\pixelMap.bmp");
+
+			Resources::Load<Mesh3D>(L"Barbarian",     L"../Contents/Characters/Models/Characters/Barbarian.fbx");
+			Resources::Load<Mesh3D>(L"FloorWood4x4", L"../Contents/Packs/Models/neutral/floor_wood_4x4.fbx");
+			Resources::Load<Mesh3D>(L"Barrier4x1x1", L"../Contents/Packs/Models/neutral/barrier_4x1x1.fbx");
+
+			SceneManager::CreateScene<SpaceScene>(L"TitleScene");
+			SceneManager::CreateScene<PlayScene>(L"PlayScene");
+			SceneManager::CreateScene<EditorScene>(L"EditorScene");
+		}
+		m.unlock();
+
+		SceneManager::SetActiveScene(L"EditorScene");
+		// complete
+		mbLoadCompleted = true;
+	}
+}

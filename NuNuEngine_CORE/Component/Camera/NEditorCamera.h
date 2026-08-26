@@ -1,0 +1,33 @@
+#pragma once
+#include "NCamera.h"
+#include "Graphics/RenderTarget/NRenderTarget.h"
+
+
+namespace NuNu
+{
+	class EditorCamera : public Camera
+	{
+	public:
+		EditorCamera();
+		virtual ~EditorCamera();
+
+		void Initialize() override;
+		void Update() override;
+		void LateUpdate() override;
+		void Render(const Matrix& view, const Matrix& projection) override;
+		void OnEvent(Event& e);
+
+		void CreateRenderTarget(UINT width, UINT height);
+		graphics::RenderTarget* GetRenderTarget() { return mRenderTarget; }
+
+	private:
+		graphics::RenderTarget* mRenderTarget;
+
+		// FPS navigation state
+		float            mYaw;
+		float            mPitch;
+		math::Vector2    mLastMousePos;
+		float            mMoveSpeed;
+		float            mRotateSpeed;
+	};
+}

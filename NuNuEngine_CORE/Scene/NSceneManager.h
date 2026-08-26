@@ -1,0 +1,50 @@
+﻿#pragma once
+#include "Scene/NScene.h"
+#include "../Event/Queue/NEventQueue.h"
+ 
+namespace NuNu
+{
+	class SceneManager
+	{
+	public:
+		template <typename T>
+		static Scene* CreateScene(const std::wstring& name)
+		{
+			T* scene = new T();
+			mScene.insert(std::make_pair(name, scene));
+
+			scene->SetName(name);
+			scene->Initialize();
+
+			mScene.insert(std::make_pair(name, scene));
+
+			return scene;
+		}
+
+		static void Initialize();
+		static void Update();
+		static void LateUpdate();
+		static void Render();
+		static void EndOfFrame();
+		static void Release();
+
+		static void InitializeEventHandlers();
+		static void GameObjectCreated(GameObject* gameObject, Scene* scene);
+		static void GameObjectDestroyed(GameObject* gameObject, Scene* scene);
+
+		static bool SetActiveScene(const std::wstring& name);
+		static Scene* LoadScene(const std::wstring& name);
+		static Scene* GetActiveScene() { return mActiveScene; }
+		static Scene* GetDontDestroyOnLoad() { return mDontDestroyOnLoad; }
+		static std::vector<GameObject*> GetGameObjects(eLayerType layer);
+		static void PushEvent(Event* e) { mEventQueue.Push(e); }
+
+	private:
+		//static std::vector<Scene*> mScene;
+		static std::map<std::wstring, Scene*> mScene;
+		static Scene* mActiveScene;
+		static Scene* mDontDestroyOnLoad;
+		static EventQueue mEventQueue;
+	};
+}
+

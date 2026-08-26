@@ -1,0 +1,34 @@
+﻿#include "Component/Script/NScript.h"
+#include "Component/Collider/NCollider.h"
+
+namespace NuNu
+{
+    Script::Script()
+        : Component(enums::eComponentType::Script)
+    {
+    }
+    Script::~Script()
+    {
+    }
+    void Script::Initialize()
+    {
+    }
+    void Script::Update()
+    {
+    }
+    void Script::LateUpdate()
+    {
+    }
+    void Script::Render(const Matrix& view, const Matrix& projection)
+    {
+    }
+    void Script::OnCollisionEnter(Collider* other)
+    {
+    }
+    void Script::OnCollisionStay(Collider* other)
+    {
+    }
+    void Script::OnCollisionExit(Collider* other)
+    {
+    }
+}

@@ -1,0 +1,37 @@
+#pragma once
+#include "Component/Component/NComponent.h"
+#include "Common/NMath.h"
+
+namespace NuNu
+{
+	class CollisionManager;
+
+	class CharacterController : public Component
+	{
+		friend class CollisionManager;
+	public:
+		CharacterController();
+		virtual ~CharacterController() = default;
+
+		const char* GetComponentKey() const override { return "CharacterController"; }
+		void Initialize() override;
+		void Update()     override;
+
+		// capsule parameters (Phase 2-2 AABB 충돌 시 활용)
+		float mCapsuleHeight;
+		float mCapsuleRadius;
+		float mEyeHeight;   // 발→눈 오프셋 (카메라 = 발 + mEyeHeight)
+
+		float mMoveSpeed;
+		float mRotateSpeed;
+		float mGravity;
+		float mJumpSpeed;
+
+	private:
+		float           mYaw;
+		float           mPitch;
+		math::Vector2   mLastMousePos;
+		float           mVelocityY;
+		bool            mbGrounded;
+	};
+}

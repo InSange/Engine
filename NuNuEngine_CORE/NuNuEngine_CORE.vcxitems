@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{b6c5dc1d-ba73-4484-b73f-abe6dfad8ae8}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Entity\NComponents.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\NApplicationEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\NEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\NKeyEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\NMouseEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\Queue\NEventQueue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Event\NGameObjectEvent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\NGraphics.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimation.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX11.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NIndexBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NVertexBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NConstantBuffer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\InputLayout\NInputLayout.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\RenderTarget\NRenderTarget.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\NWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NEditorCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NSceneCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NBaseRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NLabelled.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX12.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NUUID.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioListener.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Collider\NBoxCollider2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Camera\NCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Collider\NCircleCollider2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Collider\NCollider.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Collision\NCollisionManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Component\NComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Graphics\Shader\NShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Material\NMaterial.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Mesh\NMesh.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scene\NDontDestroyOnLoad.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Entity\NEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NEnum.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Fmod\NFmod.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GameObject\NGameObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\NApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Helpers\NInput.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Layer\NLayer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common\NMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Object\NObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\NResource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\NResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Rigidbody\NRigidbody.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scene\NScene.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scene\NSceneManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Script\NScript.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\SpriteRenderer\NSpriteRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Resource\Texture\NTexture.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\TileMapRenderer\NTilemapRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Helpers\NTime.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Component\Transform\NTransform.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI\NUIBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI\Button\NUIButton.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI\HUD\NUIHUD.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)UI\NUIManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimation.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Animator\NAnimator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Event\Queue\NEventQueue.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX11.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NIndexBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NVertexBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GpuBuffer\NConstantBuffer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\InputLayout\NInputLayout.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\RenderTarget\NRenderTarget.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\NWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NEditorCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NSceneCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NBaseRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NLabelled.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\GraphicDevice\NGraphicDevice_DX12.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NUUID.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Audio\NAudioClip.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioListener.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Audio\NAudioSource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Collider\NBoxCollider2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Camera\NCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Collider\NCircleCollider2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Collider\NCollider.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Collision\NCollisionManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Component\NComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Graphics\Shader\NShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Material\NMaterial.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Mesh\NMesh.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scene\NDontDestroyOnLoad.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Entity\NEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Fmod\NFmod.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GameObject\NGameObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\NApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Helpers\NInput.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Layer\NLayer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Common\NMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Object\NObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)High Level Interface\Renderer\NRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\NResource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\NResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Rigidbody\NRigidbody.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scene\NScene.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Scene\NSceneManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Script\NScript.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\SpriteRenderer\NSpriteRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Resource\Texture\NTexture.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\TileMapRenderer\NTilemapRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Helpers\NTime.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Component\Transform\NTransform.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI\NUIBase.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI\Button\NUIButton.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI\HUD\NUIHUD.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)UI\NUIManager.cpp" />
+  </ItemGroup>
+</Project>

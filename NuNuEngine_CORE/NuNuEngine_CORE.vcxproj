@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.props" Condition="Exists('..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.props')" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>18.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{4A5B6C7D-8E9F-40A1-B2C3-D4E5F6A7B8C9}</ProjectGuid>
+    <RootNamespace>NuNuEngineSOURCE</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Label="Globals" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Microsoft_Direct3D_D3D12_SkipLibraryCopy>
+    </Microsoft_Direct3D_D3D12_SkipLibraryCopy>
+    <Microsoft_Direct3D_D3D12_SkipDebugLayerCopy>
+    </Microsoft_Direct3D_D3D12_SkipDebugLayerCopy>
+    <Microsoft_Direct3D_D3D12_SkipIncludeDir>
+    </Microsoft_Direct3D_D3D12_SkipIncludeDir>
+  </PropertyGroup>
+  <PropertyGroup Label="Globals" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Microsoft_Direct3D_D3D12_SkipLibraryCopy>
+    </Microsoft_Direct3D_D3D12_SkipLibraryCopy>
+    <Microsoft_Direct3D_D3D12_SkipDebugLayerCopy>
+    </Microsoft_Direct3D_D3D12_SkipDebugLayerCopy>
+    <Microsoft_Direct3D_D3D12_SkipIncludeDir>
+    </Microsoft_Direct3D_D3D12_SkipIncludeDir>
+  </PropertyGroup>
+  <PropertyGroup Label="Globals" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Microsoft_Direct3D_D3D12_SkipLibraryCopy>
+    </Microsoft_Direct3D_D3D12_SkipLibraryCopy>
+    <Microsoft_Direct3D_D3D12_SkipDebugLayerCopy>
+    </Microsoft_Direct3D_D3D12_SkipDebugLayerCopy>
+    <Microsoft_Direct3D_D3D12_SkipIncludeDir>
+    </Microsoft_Direct3D_D3D12_SkipIncludeDir>
+  </PropertyGroup>
+  <PropertyGroup Label="Globals" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Microsoft_Direct3D_D3D12_SkipLibraryCopy>
+    </Microsoft_Direct3D_D3D12_SkipLibraryCopy>
+    <Microsoft_Direct3D_D3D12_SkipDebugLayerCopy>
+    </Microsoft_Direct3D_D3D12_SkipDebugLayerCopy>
+    <Microsoft_Direct3D_D3D12_SkipIncludeDir>
+    </Microsoft_Direct3D_D3D12_SkipIncludeDir>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)External\Include\Fmod\;$(SolutionDir)External\Include\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)External\Include\entt\;$(SolutionDir)External\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)External\Include\Fmod\;$(SolutionDir)External\Include\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)External\Include\entt\;$(SolutionDir)External\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)External\Include\Fmod\;$(SolutionDir)External\Include\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)External\Include\entt\;$(SolutionDir)External\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)External\Include\Fmod\;$(SolutionDir)External\Include\;$(SolutionDir)Vendor\DirectXTex\;$(SolutionDir)Vendor\Auxiliary\;$(SolutionDir)External\Include\entt\;$(SolutionDir)External\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Common\CommonInclude.h" />
+    <ClInclude Include="Entity\NComponents.h" />
+    <ClInclude Include="Event\NApplicationEvent.h" />
+    <ClInclude Include="Event\NEvent.h" />
+    <ClInclude Include="Event\NKeyEvent.h" />
+    <ClInclude Include="Event\NMouseEvent.h" />
+    <ClInclude Include="Event\Queue\NEventQueue.h" />
+    <ClInclude Include="Event\NGameObjectEvent.h" />
+    <ClInclude Include="Graphics\NGraphics.h" />
+    <ClInclude Include="Component\Animator\NAnimation.h" />
+    <ClInclude Include="Component\Animator\NAnimator.h" />
+    <ClInclude Include="Graphics\GraphicDevice\NGraphicDevice_DX11.h" />
+    <ClInclude Include="Graphics\GpuBuffer\NIndexBuffer.h" />
+    <ClInclude Include="Graphics\GpuBuffer\NVertexBuffer.h" />
+    <ClInclude Include="Graphics\GpuBuffer\NConstantBuffer.h" />
+    <ClInclude Include="Graphics\InputLayout\NInputLayout.h" />
+    <ClInclude Include="Graphics\RenderTarget\NRenderTarget.h" />
+    <ClInclude Include="High Level Interface\NWindow.h" />
+    <ClInclude Include="Component\Camera\NEditorCamera.h" />
+    <ClInclude Include="Component\CharacterController\NCharacterController.h" />
+    <ClInclude Include="Component\Collider3D\NCollider3D.h" />
+    <ClInclude Include="Component\Health\NHealth.h" />
+    <ClInclude Include="Component\Curse\NCurseComponent.h" />
+    <ClInclude Include="Component\Curse\NCurseManager.h" />
+    <ClInclude Include="Component\Curse\NKarmaComponent.h" />
+    <ClInclude Include="Stage\NStageManager.h" />
+    <ClInclude Include="Component\Camera\NSceneCamera.h" />
+    <ClInclude Include="High Level Interface\Renderer\NBaseRenderer.h" />
+    <ClInclude Include="Common\NLabelled.h" />
+    <ClInclude Include="Graphics\GraphicDevice\NGraphicDevice_DX12.h" />
+    <ClInclude Include="NUUID.h" />
+    <ClInclude Include="Resource\Audio\NAudioClip.h" />
+    <ClInclude Include="Component\Audio\NAudioListener.h" />
+    <ClInclude Include="Component\Audio\NAudioSource.h" />
+    <ClInclude Include="Component\Collider\NBoxCollider2D.h" />
+    <ClInclude Include="Component\Camera\NCamera.h" />
+    <ClInclude Include="Component\Collider\NCircleCollider2D.h" />
+    <ClInclude Include="Component\Collider\NCollider.h" />
+    <ClInclude Include="Collision\NCollisionManager.h" />
+    <ClInclude Include="Component\Component\NComponent.h" />
+    <ClInclude Include="Resource\Graphics\Shader\NShader.h" />
+    <ClInclude Include="Resource\Material\NMaterial.h" />
+    <ClInclude Include="Resource\Mesh\NMesh.h" />
+    <ClInclude Include="Resource\Mesh3D\NMesh3D.h" />
+    <ClInclude Include="Scene\NDontDestroyOnLoad.h" />
+    <ClInclude Include="Entity\NEntity.h" />
+    <ClInclude Include="Common\NEnum.h" />
+    <ClInclude Include="Fmod\NFmod.h" />
+    <ClInclude Include="GameObject\NGameObject.h" />
+    <ClInclude Include="High Level Interface\NApplication.h" />
+    <ClInclude Include="Helpers\NInput.h" />
+    <ClInclude Include="Layer\NLayer.h" />
+    <ClInclude Include="Common\NMath.h" />
+    <ClInclude Include="Object\NObject.h" />
+    <ClInclude Include="High Level Interface\Renderer\NRenderer.h" />
+    <ClInclude Include="Resource\NResource.h" />
+    <ClInclude Include="Resource\NResources.h" />
+    <ClInclude Include="Component\Rigidbody\NRigidbody.h" />
+    <ClInclude Include="Scene\NScene.h" />
+    <ClInclude Include="Scene\NSceneManager.h" />
+    <ClInclude Include="Scene\NSceneSerializer.h" />
+    <ClInclude Include="Component\Script\NScript.h" />
+    <ClInclude Include="Component\MeshRenderer\NMeshRenderer.h" />
+    <ClInclude Include="Component\SpriteRenderer\NSpriteRenderer.h" />
+    <ClInclude Include="Resource\Texture\NTexture.h" />
+    <ClInclude Include="Component\TileMapRenderer\NTilemapRenderer.h" />
+    <ClInclude Include="Helpers\NTime.h" />
+    <ClInclude Include="Component\Transform\NTransform.h" />
+    <ClInclude Include="UI\NUIBase.h" />
+    <ClInclude Include="UI\Button\NUIButton.h" />
+    <ClInclude Include="UI\HUD\NUIHUD.h" />
+    <ClInclude Include="UI\NUIManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Component\Animator\NAnimation.cpp" />
+    <ClCompile Include="Component\Animator\NAnimator.cpp" />
+    <ClCompile Include="Event\Queue\NEventQueue.cpp" />
+    <ClCompile Include="Graphics\GraphicDevice\NGraphicDevice_DX11.cpp" />
+    <ClCompile Include="Graphics\GpuBuffer\NIndexBuffer.cpp" />
+    <ClCompile Include="Graphics\GpuBuffer\NVertexBuffer.cpp" />
+    <ClCompile Include="Graphics\GpuBuffer\NConstantBuffer.cpp" />
+    <ClCompile Include="Graphics\InputLayout\NInputLayout.cpp" />
+    <ClCompile Include="Graphics\RenderTarget\NRenderTarget.cpp" />
+    <ClCompile Include="High Level Interface\NWindow.cpp" />
+    <ClCompile Include="Component\Camera\NEditorCamera.cpp" />
+    <ClCompile Include="Component\CharacterController\NCharacterController.cpp" />
+    <ClCompile Include="Component\Collider3D\NCollider3D.cpp" />
+    <ClCompile Include="Component\Health\NHealth.cpp" />
+    <ClCompile Include="Component\Curse\NCurseComponent.cpp" />
+    <ClCompile Include="Component\Curse\NCurseManager.cpp" />
+    <ClCompile Include="Component\Curse\NKarmaComponent.cpp" />
+    <ClCompile Include="Stage\NStageManager.cpp" />
+    <ClCompile Include="Component\Camera\NSceneCamera.cpp" />
+    <ClCompile Include="High Level Interface\Renderer\NBaseRenderer.cpp" />
+    <ClCompile Include="Common\NLabelled.cpp" />
+    <ClCompile Include="Graphics\GraphicDevice\NGraphicDevice_DX12.cpp" />
+    <ClCompile Include="NUUID.cpp" />
+    <ClCompile Include="Resource\Audio\NAudioClip.cpp" />
+    <ClCompile Include="Component\Audio\NAudioListener.cpp" />
+    <ClCompile Include="Component\Audio\NAudioSource.cpp" />
+    <ClCompile Include="Component\Collider\NBoxCollider2D.cpp" />
+    <ClCompile Include="Component\Camera\NCamera.cpp" />
+    <ClCompile Include="Component\Collider\NCircleCollider2D.cpp" />
+    <ClCompile Include="Component\Collider\NCollider.cpp" />
+    <ClCompile Include="Collision\NCollisionManager.cpp" />
+    <ClCompile Include="Component\Component\NComponent.cpp" />
+    <ClCompile Include="Resource\Graphics\Shader\NShader.cpp" />
+    <ClCompile Include="Resource\Material\NMaterial.cpp" />
+    <ClCompile Include="Resource\Mesh\NMesh.cpp" />
+    <ClCompile Include="Resource\Mesh3D\NMesh3D.cpp" />
+    <ClCompile Include="Scene\NDontDestroyOnLoad.cpp" />
+    <ClCompile Include="Entity\NEntity.cpp" />
+    <ClCompile Include="Fmod\NFmod.cpp" />
+    <ClCompile Include="GameObject\NGameObject.cpp" />
+    <ClCompile Include="High Level Interface\NApplication.cpp" />
+    <ClCompile Include="Helpers\NInput.cpp" />
+    <ClCompile Include="Layer\NLayer.cpp" />
+    <ClCompile Include="Common\NMath.cpp" />
+    <ClCompile Include="Object\NObject.cpp" />
+    <ClCompile Include="High Level Interface\Renderer\NRenderer.cpp" />
+    <ClCompile Include="Resource\NResource.cpp" />
+    <ClCompile Include="Resource\NResources.cpp" />
+    <ClCompile Include="Component\Rigidbody\NRigidbody.cpp" />
+    <ClCompile Include="Scene\NScene.cpp" />
+    <ClCompile Include="Scene\NSceneManager.cpp" />
+    <ClCompile Include="Scene\NSceneSerializer.cpp" />
+    <ClCompile Include="Component\Script\NScript.cpp" />
+    <ClCompile Include="Component\MeshRenderer\NMeshRenderer.cpp" />
+    <ClCompile Include="Component\SpriteRenderer\NSpriteRenderer.cpp" />
+    <ClCompile Include="Resource\Texture\NTexture.cpp" />
+    <ClCompile Include="Component\TileMapRenderer\NTilemapRenderer.cpp" />
+    <ClCompile Include="Helpers\NTime.cpp" />
+    <ClCompile Include="Component\Transform\NTransform.cpp" />
+    <ClCompile Include="UI\NUIBase.cpp" />
+    <ClCompile Include="UI\Button\NUIButton.cpp" />
+    <ClCompile Include="UI\HUD\NUIHUD.cpp" />
+    <ClCompile Include="UI\NUIManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\directxtex_desktop_win10.2025.10.28.1\build\native\directxtex_desktop_win10.targets" Condition="Exists('..\packages\directxtex_desktop_win10.2025.10.28.1\build\native\directxtex_desktop_win10.targets')" />
+    <Import Project="..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.targets" Condition="Exists('..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>이 프로젝트는 이 컴퓨터에 없는 NuGet 패키지를 참조합니다. 해당 패키지를 다운로드하려면 NuGet 패키지 복원을 사용하십시오. 자세한 내용은 http://go.microsoft.com/fwlink/?LinkID=322105를 참조하십시오. 누락된 파일은 {0}입니다.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\directxtex_desktop_win10.2025.10.28.1\build\native\directxtex_desktop_win10.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\directxtex_desktop_win10.2025.10.28.1\build\native\directxtex_desktop_win10.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Direct3D.D3D12.1.619.1\build\native\Microsoft.Direct3D.D3D12.targets'))" />
+  </Target>
+</Project>

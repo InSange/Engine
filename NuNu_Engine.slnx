@@ -1,0 +1,11 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Editor_Window/Editor_Window.vcxproj" Id="c3624b54-a5e5-401f-9c6a-10d056bedb2a" />
+  <Project Path="NuNuEngine_CORE/NuNuEngine_CORE.vcxproj" Id="4A5B6C7D-8E9F-40A1-B2C3-D4E5F6A7B8C9" />
+  <Project Path="NuNuEngine_Window/NuNuEngine_Window.vcxproj" Id="9ae8d9b8-1b7f-4561-8919-5e955d35732a" />
+  <Project Path="Vendor/DirectXTex/DirectXTex_Desktop_2022.vcxproj" Id="371B9FA9-4C90-4AC6-A123-ACED756D6C77" />
+  <Project Path="Shader_Source/Shader_Source.vcxitems" Id="7104f6a5-1cbc-43f0-88ca-dc8c8ffcf3c1" />
+</Solution>

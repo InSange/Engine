@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{7104f6a5-1cbc-43f0-88ca-dc8c8ffcf3c1}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="$(MSBuildThisFileDirectory)Mesh3DPS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)Mesh3DVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)SpriteDefaultPS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)SpriteDefaultVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)TrianglePS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)TriangleVS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)WireframePS.hlsl" />
+    <FxCompile Include="$(MSBuildThisFileDirectory)WireframeVS.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)ConstantBuffers.hlsli" />
+    <None Include="$(MSBuildThisFileDirectory)Samplers.hlsli" />
+    <None Include="$(MSBuildThisFileDirectory)Textures.hlsli" />
+  </ItemGroup>
+</Project>

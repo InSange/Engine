@@ -1,2 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" />
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{71bdbb09-fc26-4add-a5d0-d361acfe3d27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{b1190ee9-ef7b-4cb8-8edf-13e268298f6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes\Contents">
+      <UniqueIdentifier>{1bb40048-7ce2-474f-88b4-f0263b0ee9c0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Scenes\NLoadScenes.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Contents\NPlayer.h">
+      <Filter>Scenes\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\NHellScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\NPlayScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\NSpaceScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\NPlayerScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="Contents\NDemon.h">
+      <Filter>Scenes\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Contents\NTile.h">
+      <Filter>Scenes\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Contents\NFloor.h">
+      <Filter>Scenes\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\NLoadingScene.h" />
+    <ClInclude Include="Contents\NProjectTile.h" />
+    <ClInclude Include="Scripts\NProjectTileScript.h" />
+    <ClInclude Include="Scenes\NEditorScene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Contents\NPlayer.cpp">
+      <Filter>Scenes\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\NHellScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\NPlayScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\NSpaceScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\NPlayerScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Contents\NDemon.cpp">
+      <Filter>Scenes\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Contents\NTile.cpp">
+      <Filter>Scenes\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Contents\NFloor.cpp">
+      <Filter>Scenes\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\NLoadingScene.cpp" />
+    <ClCompile Include="Contents\NProjectTile.cpp" />
+    <ClCompile Include="Scripts\NProjectTileScript.cpp" />
+    <ClCompile Include="Scenes\NEditorScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

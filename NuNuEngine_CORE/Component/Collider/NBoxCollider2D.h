@@ -1,0 +1,19 @@
+﻿#pragma once
+#include "Component/Collider/NCollider.h"
+
+namespace NuNu
+{
+	class BoxCollider2D : public Collider
+	{
+	public:
+		BoxCollider2D();
+		virtual ~BoxCollider2D();
+
+		void Initialize() override;
+		void Update() override;
+		void LateUpdate() override;
+		void Render(const Matrix& view, const Matrix& projection) override;
+	};
+}
+
+
