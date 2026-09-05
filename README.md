@@ -29,15 +29,17 @@
 
 ## 스크린샷
 
-<!-- TODO
-     1) 에디터 전체 레이아웃 (Hierarchy + Inspector + Scene + Console)
-     2) 씬 뷰에서 FBX 모델에 ImGuizmo 기즈모가 걸린 화면
-     3) Game 뷰 플레이 화면
--->
-
-| 에디터 레이아웃 | 씬 뷰 | 게임 뷰 |
-|---|---|---|
-| _(준비 중)_ | _(준비 중)_ | _(준비 중)_ |
+<table>
+  <tr>
+    <td colspan="3"><img src="docs/screenshots/04_2d_tilemap_editor.png" width="100%"></td>
+    <td colspan="3"><img src="docs/screenshots/00_first_launch.png" width="100%"></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="docs/screenshots/01_editor_layout.png" width="100%"></td>
+    <td colspan="2"><img src="docs/screenshots/02_scene_view.png" width="100%"></td>
+    <td colspan="2"><img src="docs/screenshots/03_game_view.png" width="100%"></td>
+  </tr>
+</table>
 
 ---
 
